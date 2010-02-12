@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Accordion Build" default="release" basedir="..">
+
+	<property file="ant/.accordion-properties" />
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+
+	<!-- Clean project dirs -->
+	<target name="clean">
+		<delete dir="${swc.path}" />
+	</target>
+		
+
+	<!-- Prepare file list for inclusion in compc process ala ledtechdesign.com/2009/01/flex-shell-ant-tasks/ -->
+	<target name="resolve-class-path" depends="clean">
+		<path id="list_1">
+			<fileset dir="${basedir}/src">
+				<include name="com/wezside/components/**" />
+				<exclude name="**/gs/**" />
+				<exclude name="**/Animation/**" />
+			</fileset>
+		</path>
+		<pathconvert property="project_classes_property" pathsep=" " dirsep="." refid="list_1">
+			<map from="${basedir}/src/" to="" />
+			<mapper>
+				<chainedmapper>
+					<globmapper from="*.as" to="*" />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+		<echo>${project_classes_property}</echo>
+	</target>		
+
+	<!-- Inject version -->
+	<target name="inject-version" depends="resolve-class-path">
+		<propertyfile file="ant/.accordion-properties" comment="Update build version">
+			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
+		</propertyfile>
+		<loadfile property="version.contents" srcFile="${component.classfile}">
+			<filterchain>
+				<tokenfilter>
+					<replaceregex pattern="&quot;([0-9])([0-9])([0-9])([0-9])" replace="&quot;${build.int}" flags="gis" />
+					<replaceregex pattern="([0-9]\.[0-9]\.)" replace="${version}" flags="gis" />
+				</tokenfilter>
+			</filterchain>
+		</loadfile>
+		<echo message="${version.contents}" file="${component.classfile}" />
+		<loadfile property="readme.contents" srcFile="${basedir}/README.md">
+			<filterchain>
+				<tokenfilter>
+					<replaceregex pattern="([0-9]\.[0-9])(\.[0-9]+)" replace="${version}${build.int}" flags="gis" />
+				</tokenfilter>
+			</filterchain>
+		</loadfile>
+		<loadfile property="propertyfile.content" srcfile="ant/.accordion-properties" />
+		<property name="eol" value="${line.separator}" />
+		<pathconvert property="sorted" pathsep="${eol}">
+			<sort>
+				<tokens>
+					<string value="${propertyfile.content}" />
+					<stringtokenizer delims="${line.separator}" />
+				</tokens>
+			</sort>
+		</pathconvert>
+		<echo message="${sorted}" file="ant/.accordion-properties" />
+		<property file="ant/.accordion-properties" />
+		<echo message="${readme.contents}" file="${basedir}/README.md" />
+	</target>
+
+	<!-- Build SWC -->
+	<target name="build-swc" depends="inject-version">		
+		<compc output="${swc.output.file}" 
+			   fork="true"
+			   maxmemory="512m">			   	
+			   <include-sources dir="${src.path}" includes="**/components/**"/>	
+		</compc>
+	</target>
+
+	<!-- Copy swc -->
+	<target name="release" depends="build-swc">
+		<copy todir="${swc.base}" verbose="false">
+			<fileset dir="${swc.path}" defaultexcludes="true">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+</project>

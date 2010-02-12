@@ -1,0 +1,13 @@
+#Update build version
+#Wed Feb 10 22:43:43 GMT 2010
+FLEX_HOME=/home/wesley/bin/packages/flexsdk4.0.0.10485
+FLEX_HOME_PC=c\:/flex4sdk_4.0.0.10485
+build.int=0032
+component.classfile=${src.path}/com/wezside/components/accordion/Accordion.as
+lib.path=${basedir}/lib
+src.path=${basedir}/src
+swc.base.pc=F\:/Resources/Flash/Library/Components/Accordion
+swc.base=/home/wesley/Resources/Flash/Components/Accordion
+swc.output.file=${swc.path}/wezside.accordion.${version}${build.int}.swc
+swc.path=${basedir}/swc
+version=0.1.
