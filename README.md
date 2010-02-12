@@ -8,7 +8,7 @@ Latest release
 * Build 0.1.0031
 * Compiled with Flex 4 SDK build 10434 
 
-Current components include
---------------------------
+Component list
+=======
 
 * Accordion
