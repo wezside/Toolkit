@@ -6,7 +6,7 @@
 
 	<!-- Clean project dirs -->
 	<target name="clean">
-		<delete dir="${swc.path}" />
+		<delete dir="${swc.path}/${swc.output.file}" />
 	</target>
 		
 
