@@ -8,14 +8,15 @@ Latest release
 * Build 0.1.0031
 * Compiled with Flex 4 SDK build 10434 
 
-Component list
+Components
 =======
 
 * Accordion
 
-Utility Class list
+Utilities
 =======
 
+* [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/stateManager/StateTest.as "StateManager") 
 * TimelineManager
 
 
@@ -30,6 +31,20 @@ Accordion
 		var acc:Accordion = new Accordion();
 		acc.addItem( itemA );
 		addChild( acc );
+
+StateManager
+------------
+
+		StateManager.addState( "Credentials", true );
+		StateManager.addState( "Register" );
+		StateManager.addState( "List" );
+		StateManager.addState( "Search" );
+		StateManager.addState( "Results" );
+		
+		StateManager.state = "Credentials";				// State == 1
+		StateManager.state = "Register";				// State == 3
+		StateManager.previousState()					// Result is "Credentials"	
+		StateManager.state = "Credentials";				// State == 2
 
 
 TimelineManager
