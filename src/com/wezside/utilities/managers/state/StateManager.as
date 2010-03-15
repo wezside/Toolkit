@@ -107,15 +107,6 @@ package com.wezside.utilities.managers.state
 			}
 		}
 
-
-		private static function stateByKey( key:String ):IState 
-		{
-			for ( var i : int = 0; i < _history.length; ++i ) 
-				if ( IState( _history[i] ).key == key )
-					return IState( _history[i] );
-			return null;
-		}
-
 		
 		public static function get state():String
 		{
@@ -129,10 +120,14 @@ package com.wezside.utilities.managers.state
 		}
 
 		
-		public static function previousState():IState
+		public static function previousState():String
 		{
-			return _state;
+			for ( var i:int = 0; i < _history.length; ++i ) 
+				if (  _history[ i ].key == _state.key )
+					return _history[ i > 0 ? i - 1 : 0 ].key;
+			return "";
 		}
+		
 		
 		public static function get historyKey():String
 		{
@@ -140,45 +135,14 @@ package com.wezside.utilities.managers.state
 		}
 		
 		
-		
-		
-		
-
-		/*
-		public static function setState( value:Number, data:* = null ):Number
+		private static function stateByKey( key:String ):IState 
 		{
-			_state = value ^ _credentialState;
-			if ( _history[ _history.length - 1  ] != value )
-				_history.push( _state );
-			return _state;
+			for ( var i : int = 0; i < _history.length; ++i ) 
+				if ( _history[i].key == key )
+					return _history[i];
+			return null;
 		}
 		
-		public static function setCredentialState( value:Number ):Number
-		{
-			_credentialState = value == 1 ? _credentialState | value : _credentialState & value;
-			_state = _state ^ _credentialState;
-			return _state;
-		}
 		
-		public static function getState():Number
-		{
-			return _state;
-		}
-		
-		public static function getStateFlag( value:Number ):Number
-		{
-			return _state & value;
-		}
-		
-		public static function getStateData( historyIndex:int ):*
-		{
-			return _history[ historyIndex ].data;
-		}
-
-		public static function getPreviousState():Number
-		{
-			 _history.pop();
-			return isNaN( _history[ _history.length - 1 ] ) ? 2 : _history[ _history.length - 1 ];
-		}*/
 	}
 }

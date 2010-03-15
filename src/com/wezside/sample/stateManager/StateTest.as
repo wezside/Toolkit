@@ -3,6 +3,8 @@ package com.wezside.sample.stateManager
 	import com.wezside.utilities.managers.state.StateManager;
 
 	import flash.display.Sprite;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -13,12 +15,15 @@ package com.wezside.sample.stateManager
 		
 		public function StateTest() 
 		{
-			init();
-		}
-		
-		
-		private function init():void
-		{
+
+			var fmt:TextFormat = new TextFormat();
+			fmt.font = "Courier New";
+			
+			var field:TextField = new TextField();
+			field.width = 500;
+			field.height = 400;
+			addChild( field );
+
 			// Add some states with Credentials being a reserved stated	
 			StateManager.addState( "Credentials", true );
 			StateManager.addState( "Register" );
@@ -26,39 +31,26 @@ package com.wezside.sample.stateManager
 			StateManager.addState( "Search" );
 			StateManager.addState( "Results" );
 
-			trace( "Use case  		| Current State Value 	  | History State Key");
-			trace( "--------------------------------------------------------------------");
+			field.text = "Use case  			| Current State Value   | History State Key\n";
+			field.appendText("--------------------------------------------------------------------\n");
 			
 			StateManager.state = "Credentials";			
-			trace( "Log in...  		|  " + StateManager.stateValue + " 	 		  | " + StateManager.historyKey );
+			field.appendText("Log in...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
 			
 			StateManager.state = "Credentials";			
-			trace( "Log out... 		|  " + StateManager.stateValue + " 	 		  | " + StateManager.historyKey );
+			field.appendText("Log out...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
 			
 			StateManager.state = "Credentials";			
-			trace( "Log in...  		|  " + StateManager.stateValue + "  			  | " + StateManager.historyKey );
+			field.appendText("Log in...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
 			
 			StateManager.state = "Register";			
-			trace( StateManager.state + " 		|  " + StateManager.stateValue + " 			  | " + StateManager.historyKey );
+			field.appendText( StateManager.state + "\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
 			
 			StateManager.state = "Credentials";			
-			trace( "Log out... 		|  " + StateManager.stateValue + " 		 	  | " + StateManager.historyKey );
-			
-			StateManager.state = "show-list";			
-			trace( StateManager.state + " 		|  " + StateManager.stateValue + "  			  | " + StateManager.historyKey );
+			field.appendText("Log out...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
+			field.appendText("Previous State...\t|  " + StateManager.previousState() + "\t\t\t| " + StateManager.historyKey + "\n");
 
-			StateManager.state = "Credentials";			
-			trace( "Log in...  		|  " + StateManager.stateValue + "  			  | " + StateManager.historyKey );
-			
-			StateManager.state = "Search";			
-			trace( StateManager.state + " 			|  " + StateManager.stateValue + "		 	  | " + StateManager.historyKey );
-			
-			StateManager.state = "Results";			
-			trace( StateManager.state + " 		|  " + StateManager.stateValue + " 			  | " + StateManager.historyKey );
-			
-			StateManager.state = "Credentials";			
-			trace( "Log out...  		|  " + StateManager.stateValue + " 			  | " + StateManager.historyKey );			
-
+			field.setTextFormat( fmt );
 		}
 	}
 }
