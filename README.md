@@ -42,6 +42,8 @@ StateManager
 		StateManager.addState( "Results" );
 		
 		StateManager.state = "Credentials";				// State == 1
+		StateManager.state = "Credentials";				// State == 0
+		StateManager.state = "Credentials";				// State == 1
 		StateManager.state = "Register";				// State == 3
 		StateManager.previousState()					// Result is "Credentials"	
 		StateManager.state = "Credentials";				// State == 2
