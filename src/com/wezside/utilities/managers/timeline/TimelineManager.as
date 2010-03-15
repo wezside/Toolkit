@@ -1,4 +1,4 @@
-package com.wezside.utilities.timelineManager 
+package com.wezside.utilities.managers.timeline 
 {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;

@@ -17,31 +17,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.accordion 
+package com.wezside.utilities.managers.state 
 {
-	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class AccordionEvent extends Event 
+	public interface IState 
 	{
-		public static const HEADER_CLICK:String = "headerClick";
-		public static const CONTENT_CLICK:String = "contentClick";
-		public static const SHOW_COMPLETE:String = "showComplete";
-		public var data:*;
-		public var selectedItem:uint;
-
-		public function AccordionEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false, selectedItem:uint = 0, data:* = null )
-		{
-			super( type, bubbles, cancelable );
-			this.data = data;
-			this.selectedItem = selectedItem;
-		}
 		
-		override public function clone():Event
-		{
-			return new AccordionEvent( type, bubbles, cancelable, selectedItem, data );
-		}
+		function get key():String;
+		function set key( value:String ):void;
+		function get reserved():Boolean;
+		function set reserved( value:Boolean ):void;
+		function get value():Number;
+		function set value( value:Number ):void;
+		
 	}
 }

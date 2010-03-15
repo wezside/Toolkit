@@ -1,13 +1,12 @@
 package com.wezside.sample.timelineManager 
 {
-	import com.wezside.utilities.timelineManager.TimelineEvent;
-	import com.wezside.utilities.timelineManager.TimelineManager;
+	import com.wezside.utilities.managers.timeline.TimelineEvent;
+	import com.wezside.utilities.managers.timeline.TimelineManager;
 
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
 
 	/**
