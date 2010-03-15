@@ -22,7 +22,6 @@ package com.wezside.utilities.managers.state
 
 	/**
 	 * @author Wesley.Swanepoel
-	 * @version 0.1.001
 	 * 
 	 * <p>
 	 * A useful class to manage application state. The reserved property on an IState instance is used for 
