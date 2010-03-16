@@ -6,7 +6,7 @@
 
 	<!-- Clean project dirs -->
 	<target name="clean">
-		<delete dir="${swc.path}/${swc.output.file}" />
+		<delete dir="${swc.path}" />
 	</target>
 		
 
@@ -41,7 +41,7 @@
 		<loadfile property="readme.contents" srcFile="${basedir}/README.md">
 			<filterchain>
 				<tokenfilter>
-					<replaceregex pattern="([0-9]\.[0-9])(\.[0-9]+)" replace="${version}${build.int}" flags="gis" />
+					<replaceregex pattern="(Utilities \[Build [0-9]\.[0-9])(\.[0-9]+)\]" replace="Utilities [Build ${version}${build.int}]" flags="gis" />
 				</tokenfilter>
 			</filterchain>
 		</loadfile>

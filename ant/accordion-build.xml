@@ -6,9 +6,9 @@
 
 	<!-- Clean project dirs -->
 	<target name="clean">
-		<delete dir="${swc.path}/${swc.output.file}" />
+		<delete dir="${swc.path}" />
 	</target>
-		
+				
 
 	<!-- Prepare file list for inclusion in compc process ala ledtechdesign.com/2009/01/flex-shell-ant-tasks/ -->
 	<target name="resolve-class-path" depends="clean">
@@ -17,6 +17,7 @@
 				<include name="com/wezside/components/**" />
 				<exclude name="**/gs/**" />
 				<exclude name="**/Animation/**" />
+				<exclude name="**/utilities/**" />
 			</fileset>
 		</path>
 		<pathconvert property="project_classes_property" pathsep=" " dirsep="." refid="list_1">
@@ -35,19 +36,10 @@
 		<propertyfile file="ant/.accordion-properties" comment="Update build version">
 			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
 		</propertyfile>
-		<loadfile property="version.contents" srcFile="${component.classfile}">
-			<filterchain>
-				<tokenfilter>
-					<replaceregex pattern="&quot;([0-9])([0-9])([0-9])([0-9])" replace="&quot;${build.int}" flags="gis" />
-					<replaceregex pattern="([0-9]\.[0-9]\.)" replace="${version}" flags="gis" />
-				</tokenfilter>
-			</filterchain>
-		</loadfile>
-		<echo message="${version.contents}" file="${component.classfile}" />
 		<loadfile property="readme.contents" srcFile="${basedir}/README.md">
 			<filterchain>
 				<tokenfilter>
-					<replaceregex pattern="([0-9]\.[0-9])(\.[0-9]+)" replace="${version}${build.int}" flags="gis" />
+					<replaceregex pattern="(&quot;\) \[Build [0-9]\.[0-9])(\.[0-9]+)\]" replace="&quot;\) [Build ${version}${build.int}]" flags="gis" />
 				</tokenfilter>
 			</filterchain>
 		</loadfile>

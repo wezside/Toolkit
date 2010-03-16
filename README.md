@@ -5,15 +5,15 @@ This is a hub for components I've written and re-use quite often. These include 
 
 Latest release
 =======
-* Build 0.1.0004
+
 * Compiled with Flex 4 SDK build 10434 
 
 Components
 =======
 
-* [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion")
+* [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion") [Build 0.1.0031]
 
-Utilities
+Utilities [Build 0.1.0012]
 =======
 
 * [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/stateManager/StateTest.as "StateManager") 
