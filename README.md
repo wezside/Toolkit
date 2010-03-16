@@ -24,6 +24,9 @@ Utilities [Build 0.1.0012]
 Accordion
 ---------
 
+A bare-bones Accordion component. Extend Accordion and AccordionItem to customise this component and add animations when 
+state changes.
+
 		var itemA:IAccordionItem = new AccordionItem();
 		itemA.header = headerDisplayObject;
 		itemA.content = contentDisplayObject; 
@@ -34,6 +37,10 @@ Accordion
 
 StateManager
 ------------
+
+A useful class to manage application state. The reserved property on an IState instance is used for 
+application state that will only affect itself. Reserved states are not mutually exclusive, they are allowed to co-exist 
+with non-reserved and other reserved states. 
 
 		StateManager.addState( "Credentials", true );
 		StateManager.addState( "Register" );
