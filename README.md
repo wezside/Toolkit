@@ -59,6 +59,9 @@ with non-reserved and other reserved states.
 TimelineManager
 ---------------
 
+A simple class to deal with timeline animations. Manage timeline animations playback, removal and 
+end frame behaviour. A play policy exist to allow for playing back multiple animations at once or 
+in sequence starting at a specific animation or simply play a single (default) animation.
 
 		manager.push( id, mc );
 		manager.push( id, mc );
