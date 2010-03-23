@@ -38,5 +38,6 @@ package com.wezside.components.survey.form
 		function get iconPlacement():String;
 		function set iconPlacement( value:String ):void;
 		
+		function purge():void;
 	}
 }
