@@ -39,7 +39,10 @@ package com.wezside.components.survey.form
 		function set iconPlacement( value:String ):void;
 						
 		function get maxRowLabelWidth():int;
-		function set maxRowLabelWidth( value:int ):void;		
+		function set maxRowLabelWidth( value:int ):void;
+				
+		function get rowLabel():String;
+		function set rowLabel( value:String ):void;		
 		
 		function purge():void;
 	}

@@ -158,8 +158,9 @@ package com.wezside.components.survey.form
 			
 			var row:HBox = new HBox();
 			var rowLabel:Label = new Label();
+			rowLabel.text = item.rowLabel;
 			
-			
+			row.children = [ rowLabel ];
 			/*
 		 	var itemA:IAccordionItem = new AccordionItem();
 		    itemA.header = headerDisplayObject;
