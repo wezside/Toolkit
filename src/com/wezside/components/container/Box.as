@@ -29,7 +29,6 @@ package com.wezside.components.container
 	 * 
 	 * FIXME: Problem with stylesheet applied to hbox + vbox - disables selection on textfields  
 	 */
-	[Bindable]
 	public class Box extends Container 
 	{
 		
@@ -291,7 +290,7 @@ package com.wezside.components.container
 		
 		public function set backgroundAlpha( value:Number ):void
 		{
-			_backgroundAlpha = value <= 1 && value >= 0 ? value : 1;
+			_backgroundAlpha = value;
 		}
 
 		
@@ -385,70 +384,55 @@ package com.wezside.components.container
 		{
 			_scrollPolicy = value;
 		}
-
-
 		
 		public function get positionProp():String
 		{
 			return _positionProp;
 		}
 		
-		
 		public function set positionProp( value:String ):void
 		{
 			_positionProp = value;
 		}
 		
-
 		public function get dimensionProp():String
 		{
 			return _dimensionProp;
 		}
 		
-		
 		public function set dimensionProp( value:String ):void
 		{
 			_dimensionProp = value;
 		}
-	
-
-		override public function set x( value:Number ):void
-		{
-			super.x = value;
-		}
-		
-
-		override public function set y( value:Number ):void
-		{
-			super.y = value;
-		}
-
 
 		override public function get width():Number
 		{
 			return _width;
 		}		
 		
-
 		override public function set width( value:Number ):void
 		{
 			_width = value;
-			if ( _width != _contentWidth ) _customWidth = true;
-			update();
+			if ( _width != _contentWidth )
+			{
+				_customWidth = true;
+				update();
+			}
 		}
-
 		
 		override public function get height():Number
 		{
 			return _height;
 		}
 		
-		
 		override public function set height( value:Number ):void
 		{
 			_height = value;
-			if ( _height != _contentHeight ) _customHeight = true;
-			update();
+			if ( _height != _contentHeight )
+			{
+				_customHeight = true;
+				update();
+			}
 		}
 
 

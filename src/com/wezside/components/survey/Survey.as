@@ -1,9 +1,10 @@
 package com.wezside.components.survey 
 {
-	import com.wezside.components.survey.form.FormEvent;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.ISurveyData;
+	import com.wezside.components.survey.form.BrickMatrix;
 	import com.wezside.components.survey.form.Form;
+	import com.wezside.components.survey.form.FormEvent;
 	import com.wezside.components.survey.form.IForm;
 	import com.wezside.components.survey.form.IFormTransition;
 
@@ -67,7 +68,7 @@ package com.wezside.components.survey
 
 		public function set data( value:ISurveyData ):void
 		{
-			_data = value;
+			_data = value.clone();
 		}
 
 		public function set pages( value:int ):void
@@ -108,6 +109,7 @@ package com.wezside.components.survey
 		private function createSingleForm( data:IFormData ):void 
 		{			
 			var form:IForm = new Form();
+			form.layout = new BrickMatrix();
 			form.data = data;
 			form.createChildren();
 			form.addEventListener( FormEvent.CREATION_COMPLETE, formCreated );

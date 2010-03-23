@@ -9,7 +9,6 @@ package com.wezside.components.text
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	[Bindable]
 	public class Label extends Container
 	{
 
@@ -42,44 +41,21 @@ package com.wezside.components.text
 		{
 			setText();
 		}
-		
-		
-		override public function get x():Number
-		{
-			return super.x;
-		}
-		
-		
-		override public function set x( value:Number ):void
-		{
-			super.x = value;
-		}
-		
-		
-		override public function get y():Number
-		{
-			return super.y;
-		}
-		
-		override public function set y( value:Number ):void
-		{
-			super.y = value;
-		}
-		
+
 
 		private function setText():void
 		{
-			if ( _text == null ) return;
-			if ( styleSheet != null ) 
+			if ( !_text ) return;
+			if ( styleSheet ) 
 			{
 				field.styleSheet = styleSheet; 
 				field.htmlText =  "<body><span class='"+styleName+"'>" + _text + "</span></body>";
 			}
 			else
 			{
+				field.antiAliasType = AntiAliasType.ADVANCED;
 				field.text = _text;
 				field.setTextFormat( fmt );
-				field.antiAliasType = AntiAliasType.ADVANCED;
 			}
 		}
 
@@ -102,24 +78,20 @@ package com.wezside.components.text
 			return int( field.textWidth );
 		}
 		
-				
 		override public function set width( value:Number ):void
 		{
 			field.width = int( value );
 		}				
-		
 		
 		override public function get height():Number
 		{
 			return int( field.textHeight );
 		}
 		
-				
 		override public function set height( value:Number ):void
 		{
 			field.height = int( value );
 		}
-
 
 		public function get size():Number
 		{
@@ -137,7 +109,6 @@ package com.wezside.components.text
 		{
 			return field.htmlText;
 		}		
-		
 		
 		public function set text( value:String ):void
 		{

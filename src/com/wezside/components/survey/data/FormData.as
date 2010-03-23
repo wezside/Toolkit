@@ -13,6 +13,7 @@ package com.wezside.components.survey.data
 		private var _submit:String;
 		private var _cta:String;
 		private var _subheading:String;
+		private var _items:Array = [];
 
 		
 		public function get heading():String
@@ -63,6 +64,16 @@ package com.wezside.components.survey.data
 		public function set subheading( value:String ):void
 		{
 			_subheading = value;
+		}
+		
+		public function get items():Array
+		{
+			return _items;
+		}
+		
+		public function set items(value:Array):void
+		{
+			_items = value;
 		}
 	}
 }

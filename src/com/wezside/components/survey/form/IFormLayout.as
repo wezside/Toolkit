@@ -7,7 +7,11 @@ package com.wezside.components.survey.form
 	public interface IFormLayout 
 	{
 		
+		function get rowLayout():String;
+		function set rowLayout( value:String ):void;
+				
 		function arrange():void;
+		function addItem( item:IFormItem ):void;
 		
 	}
 }

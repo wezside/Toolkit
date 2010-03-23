@@ -1,10 +1,14 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.utilities.managers.style.IStyleManager;
-	import com.wezside.components.text.Label;
+	import com.wezside.components.accordion.AccordionItem;
+	import com.wezside.components.accordion.IAccordionItem;
 	import com.wezside.components.container.ContainerEvent;
-	import com.wezside.components.survey.data.IFormData;
+	import com.wezside.components.container.HBox;
 	import com.wezside.components.container.VBox;
+	import com.wezside.components.survey.data.IFormData;
+	import com.wezside.components.text.Label;
+	import com.wezside.utilities.managers.style.IStyleManager;
+
 	import flash.display.Sprite;
 
 	/**
@@ -23,15 +27,23 @@ package com.wezside.components.survey.form
 		private var _data:IFormData;
 		private var _heading:Label;
 		private var _styleManager:IStyleManager;
+		private var _subheading:Label;
+		private var _body:Label;
+		private var _maxRowLabelWidth:int;
 
 		
 		public function Form() 
 		{
+			_maxRowLabelWidth = 150;
 		}
+		
 		
 		public function createChildren():void
 		{
 			container = new VBox();
+			container.borderAlpha = 0;
+			container.backgroundAlphas = [0,0];
+			container.verticalGap = 5;
 			container.addEventListener( ContainerEvent.CREATION_COMPLETE, containerCreated );
 			addChild( container );
 			
@@ -39,13 +51,29 @@ package com.wezside.components.survey.form
 			{
 				_heading = new Label();
 				_heading.text = _data.heading;
-				_heading.styleManager = _styleManager;
 			}
 			
-			container.children = [ _heading ];
+			if ( _data.subheading != "" )
+			{
+				_subheading = new Label();
+				_subheading.text = _data.subheading;
+			}
+			
+			if ( _data.body != "" )
+			{
+				_body = new Label();
+				_body.width = 200;
+				_body.wordWrap = true;
+				_body.text = _data.body;
+			}
+			
+			
+			for ( var i:int = 0; i < _items.length; ++i ) 
+				_layout.addItem( _items[0] );
+				
+			container.children = [ _heading, _subheading, _body, _layout ];
 		}
-
-
+		
 		public function purge():void
 		{
 		}
@@ -113,5 +141,35 @@ package com.wezside.components.survey.form
 		{
 			_styleManager = value;
 		}		
+		
+		
+		public function get maxRowLabelWidth():int
+		{
+			return _maxRowLabelWidth;
+		}
+		
+		public function set maxRowLabelWidth(value:int):void
+		{
+			_maxRowLabelWidth = value;
+		}				
+
+		private function createFormRow( item:IFormItem ):void 
+		{
+			
+			var row:HBox = new HBox();
+			var rowLabel:Label = new Label();
+			
+			
+			/*
+		 	var itemA:IAccordionItem = new AccordionItem();
+		    itemA.header = headerDisplayObject;
+		    itemA.content = contentDisplayObject; 
+		
+		    var acc:Accordion = new Accordion();
+		    acc.addItem( itemA );
+		    addChild( acc );
+		     */
+		}
+
 	}
 }
