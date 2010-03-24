@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Accordion Build" default="release" basedir="..">
+<project name="Component" default="release" basedir="..">
 
-	<property file="ant/.accordion-properties" />
+	<property file="ant/.component-properties" />
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 
 	<!-- Clean project dirs -->
 	<target name="clean">
 		<delete dir="${swc.path}" />
 	</target>
-				
+		
 
-	<!-- Prepare file list for inclusion in compc process -->
+	<!-- Prepare file list for inclusion in compc process ala ledtechdesign.com/2009/01/flex-shell-ant-tasks/ -->
 	<target name="resolve-class-path" depends="clean">
 		<path id="list_1">
 			<fileset dir="${basedir}/src">
-				<include name="com/wezside/components/**" />
+				<include name="**/components/**" />
 				<exclude name="**/test/**" />
 				<exclude name="**/gs/**" />
 				<exclude name="**/Animation/**" />
-				<exclude name="**/utilities/**" />
-				<exclude name="**/test/**" />
+				<exclude name="**/sample/**" />
 			</fileset>
 		</path>
 		<pathconvert property="project_classes_property" pathsep=" " dirsep="." refid="list_1">
@@ -35,17 +34,21 @@
 
 	<!-- Inject version -->
 	<target name="inject-version" depends="resolve-class-path">
-		<propertyfile file="ant/.accordion-properties" comment="Update build version">
+		<propertyfile file="${prop.file}" comment="Update build version">
 			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
 		</propertyfile>
+		
+		<!-- README -->
 		<loadfile property="readme.contents" srcFile="${basedir}/README.md">
 			<filterchain>
 				<tokenfilter>
-					<replaceregex pattern="(&quot;\) \[Build [0-9]\.[0-9])(\.[0-9]+)\]" replace="&quot;\) [Build ${version}${build.int}]" flags="gis" />
+					<replaceregex pattern="(Component \[Build [0-9]\.[0-9])(\.[0-9]+)\]" replace="Component [Build ${version}${build.int}]" flags="gis" />
 				</tokenfilter>
 			</filterchain>
 		</loadfile>
-		<loadfile property="propertyfile.content" srcfile="ant/.accordion-properties" />
+		
+		<!-- Sort properties file -->
+		<loadfile property="propertyfile.content" srcfile="${prop.file}" />
 		<property name="eol" value="${line.separator}" />
 		<pathconvert property="sorted" pathsep="${eol}">
 			<sort>
@@ -55,11 +58,11 @@
 				</tokens>
 			</sort>
 		</pathconvert>
-		<echo message="${sorted}" file="ant/.accordion-properties" />
-		<property file="ant/.accordion-properties" />
+		<echo message="${sorted}" file="${prop.file}" />
+		<property file="${prop.file}" />
 		<echo message="${readme.contents}" file="${basedir}/README.md" />
 	</target>
-	
+
 	<!-- Build SWC -->
 	<target name="build-swc" depends="inject-version">		
 		<compc output="${swc.output.file}" 
@@ -70,7 +73,7 @@
 		       <source-path path-element="${basedir}/src/"/>
 		</compc>
 	</target>
-	
+
 	<!-- Copy swc -->
 	<target name="release" depends="build-swc">
 		<copy todir="${swc.base}" verbose="false">
