@@ -1,13 +1,13 @@
 #Update build version
-#Wed Mar 24 15:08:40 GMT 2010
+#Wed Mar 24 15:10:41 GMT 2010
 FLEX_HOME=c\:/flex4sdk_4.0.0.10485
 FLEX_HOME_LINUX=/home/wesley/bin/packages/flexsdk4.0.0.10485
-build.int=0012
+build.int=0002
 lib.path=${basedir}/lib
-prop.file=${basedir}/ant/.component-properties
+prop.file=${basedir}/ant/.container-properties
 src.path=${basedir}/src
 swc.base.linux=/home/wesley/Resources/Flash/Components/
 swc.base=F\:/Resources/Flash/Library/Components/
-swc.output.file=${swc.path}/wezside.components.${version}${build.int}.swc
+swc.output.file=${swc.path}/wezside.containers.${version}${build.int}.swc
 swc.path=${basedir}/swc/components/
 version=0.1.

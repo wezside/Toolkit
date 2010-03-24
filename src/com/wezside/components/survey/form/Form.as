@@ -1,8 +1,8 @@
 package com.wezside.components.survey.form 
 {
 	import com.wezside.components.container.ContainerEvent;
-	import com.wezside.components.container.HBox;
 	import com.wezside.components.container.VBox;
+	import com.wezside.components.survey.data.FormItemData;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.IFormItemData;
 	import com.wezside.components.text.Label;
@@ -145,6 +145,7 @@ package com.wezside.components.survey.form
 		
 		private function createInputField( iFormItemData:IFormItemData ):IFormItem 
 		{
+			var data:IFormItemData = new FormItemData();
 			return null;
 		}
 
