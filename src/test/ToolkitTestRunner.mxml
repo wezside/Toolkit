@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application	xmlns:mx="http://www.adobe.com/2006/mxml" 
+<s:Application	xmlns:fx="http://ns.adobe.com/mxml/2009"
+        		xmlns:s="library://ns.adobe.com/flex/spark"
+        		xmlns:mx="library://ns.adobe.com/flex/halo"
 			    xmlns:flexUnitUIRunner="http://www.adobe.com/2009/flexUnitUIRunner" 
 				creationComplete="onCreationComplete()">
 
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import test.TestSuite;
 			import org.flexunit.listeners.UIListener;
@@ -17,7 +19,7 @@
 				core.run( TestSuite );
 			}
 		]]>
-	</mx:Script>
+	</fx:Script>
   
 	<flexUnitUIRunner:TestRunnerBase id="uiListener" width="100%" height="100%"/>
-</mx:Application>
+</s:Application>
