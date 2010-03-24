@@ -1,7 +1,7 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.utilities.managers.style.IStyleManager;
 	import com.wezside.components.survey.data.IFormData;
+
 	import flash.events.Event;
 
 	/**
@@ -16,15 +16,9 @@ package com.wezside.components.survey.form
 		
 		function get state():String;
 		function set state( value:String ):void;
-		
-		function get items():Array;
-		function set items( value:Array ):void;
 				
 		function get layout():IFormLayout;
 		function set layout( value:IFormLayout ):void;
-				
-		function get styleManager():IStyleManager;
-		function set styleManager( value:IStyleManager ):void;
 		
 		function purge():void;
 		function createChildren():void;

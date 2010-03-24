@@ -1,5 +1,8 @@
 package com.wezside.components.survey.form 
 {
+	import com.wezside.components.container.HBox;
+	import com.wezside.components.text.Label;
+
 	import flash.display.Sprite;
 
 	/**
@@ -9,8 +12,8 @@ package com.wezside.components.survey.form
 	{
 		
 		
-		private static const VERTICAL:String = "verticalLayout";
-		private static const HORIZONTAL:String = "horizontalLayout";
+		public static const VERTICAL:String = "verticalLayout";
+		public static const HORIZONTAL:String = "horizontalLayout";
 
 
 		private var _rowLayout:String;
@@ -39,5 +42,15 @@ package com.wezside.components.survey.form
 		{
 			_rowLayout = value;
 		}
+		
+		private function createFormRow( item:IFormItem ):void 
+		{
+			
+			var row:HBox = new HBox();
+			var rowLabel:Label = new Label();
+			rowLabel.text = item.rowLabel;
+			
+			row.children = [ rowLabel ];
+		}		
 	}
 }

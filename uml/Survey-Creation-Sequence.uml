@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_R_GecDcsEd-Vte2EshM4xA">
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_Tm0DIDcsEd-Vte2EshM4xA" name="Survey Creation LIfecycle"/>
+</uml:Package>

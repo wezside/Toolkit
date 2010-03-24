@@ -19,10 +19,13 @@ package com.wezside.components.survey
 		
 		
 		public static const STATE_CREATION_COMPLETE:String = "stateSurveyCreationComplete";
-		
+		public static const STATE_SHOW_FORM:String = "stateShowForm";
+
 		
 		private var _data:ISurveyData;
 		private var _state:String;
+		private var _selectedFormIndex:int;
+		private var _currentForm:IForm;
 
 		
 		public function Survey() 
@@ -38,13 +41,23 @@ package com.wezside.components.survey
 		public function hide():void
 		{
 			visible = false;
-		}		
-
+		}							
+	
 		public function purge():void
 		{
 			while ( this.numChildren > 0 )
 				removeChildAt( this.numChildren - 1 );
 		}		
+
+		public function get selectedFormIndex():int
+		{
+			return _selectedFormIndex;
+		}
+		
+		public function set selectedFormIndex( value:int ):void
+		{
+			_selectedFormIndex = value;
+		}
 
 		public function get data():ISurveyData
 		{
@@ -81,30 +94,56 @@ package com.wezside.components.survey
 
 		public function set transition( value:IFormTransition ):void
 		{
-		}	
+		}		
+					
+		public function get currentForm():IForm
+		{
+			return _currentForm;
+		}
+		
+		public function set currentForm(value:IForm):void
+		{
+			_currentForm = value;
+		}
 		
 		public function get state():String
 		{
 			return _state;
 		}
 		
-		public function set state(value:String):void
+		public function set state( value:String ):void
 		{
 			_state = value;			
 			switch( _state )
 			{
+				
+				case STATE_SHOW_FORM: 
+					showForm();
+					break;
+					
 				case STATE_CREATION_COMPLETE: 
 					dispatchEvent( new SurveyEvent( SurveyEvent.CREATION_COMPLETE ));					
 					break;
 				default:
-			}			
+			}
 		}		
 
 		public function create():void 
 		{
 			if ( _data.forms.length > 0 )
-				createSingleForm( _data.forms[0]);
+				createSingleForm( _data.forms[0] );
 		}
+		
+		
+		protected function showForm():void
+		{
+			
+		}
+				
+		protected function hideForm():void
+		{
+				
+		}		
 
 		private function createSingleForm( data:IFormData ):void 
 		{			
@@ -118,6 +157,7 @@ package com.wezside.components.survey
 
 		private function formCreated( event:FormEvent ):void 
 		{
+			event.currentTarget.removeEventListener( FormEvent.CREATION_COMPLETE, formCreated );
 			_data.forms.shift();
 			_data.forms.length > 0 ? createSingleForm( _data.forms[0] ) : allFormsCreated();			
 		}

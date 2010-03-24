@@ -1,6 +1,7 @@
 package com.wezside.components.survey 
 {
 	import com.wezside.components.survey.data.ISurveyData;
+	import com.wezside.components.survey.form.IForm;
 	import com.wezside.components.survey.form.IFormTransition;
 
 	import flash.events.Event;
@@ -17,6 +18,9 @@ package com.wezside.components.survey
 		function get data():ISurveyData;
 		function set data( value:ISurveyData ):void;
 		
+		function get selectedFormIndex():int;
+		function set selectedFormIndex( value:int ):void;
+		
 		function get pages():int;
 		function set pages( value:int ):void;
 		
@@ -28,6 +32,9 @@ package com.wezside.components.survey
 		
 		function get visible():Boolean;
 		function set visible( value:Boolean ):void;
+		
+		function get currentForm():IForm;
+		function set currentForm( value:IForm ):void;
 		
 		function show():void;
 		function hide():void;

@@ -41,6 +41,9 @@ package com.wezside.components.survey.form
 		function get maxRowLabelWidth():int;
 		function set maxRowLabelWidth( value:int ):void;
 				
+		function get rowID():String;
+		function set rowID( value:String ):void;		
+				
 		function get rowLabel():String;
 		function set rowLabel( value:String ):void;		
 		

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_lGNPADcoEd-Vte2EshM4xA" name="Data-Structures-Class-Diagram">
+  <elementImport xmi:id="_lG9c8DcoEd-Vte2EshM4xA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_lG9c8TcoEd-Vte2EshM4xA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_lG9c8jcoEd-Vte2EshM4xA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_lG9c8zcoEd-Vte2EshM4xA">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_l1v1kDcoEd-Vte2EshM4xA" name="SurveyData" clientDependency="_n9C5RDcoEd-Vte2EshM4xA">
+    <ownedAttribute xmi:id="_GMjk0DcpEd-Vte2EshM4xA" name="forms" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_n85vUDcoEd-Vte2EshM4xA" name="ISurveyData"/>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_n9C5RDcoEd-Vte2EshM4xA" supplier="_n85vUDcoEd-Vte2EshM4xA" client="_l1v1kDcoEd-Vte2EshM4xA"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_qLgU4DcoEd-Vte2EshM4xA" name="FormData" clientDependency="_7sXjkDcoEd-Vte2EshM4xA">
+    <ownedAttribute xmi:id="_qe58kDcpEd-Vte2EshM4xA" name="heading" aggregation="composite"/>
+    <ownedAttribute xmi:id="_rs_gUDcpEd-Vte2EshM4xA" name="subheading" aggregation="composite"/>
+    <ownedAttribute xmi:id="_tK3MgDcpEd-Vte2EshM4xA" name="body" aggregation="composite"/>
+    <ownedAttribute xmi:id="_vUZr4DcpEd-Vte2EshM4xA" name="submit" aggregation="composite"/>
+    <ownedAttribute xmi:id="_xoX5oDcpEd-Vte2EshM4xA" name="cta" aggregation="composite"/>
+    <ownedAttribute xmi:id="_zxKyIDcpEd-Vte2EshM4xA" name="items" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tG9ZYDcoEd-Vte2EshM4xA" name="" memberEnd="_tG9ZYTcoEd-Vte2EshM4xA _tG9ZZDcoEd-Vte2EshM4xA">
+    <ownedEnd xmi:id="_tG9ZYTcoEd-Vte2EshM4xA" name="src" type="_qLgU4DcoEd-Vte2EshM4xA" association="_tG9ZYDcoEd-Vte2EshM4xA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tG9ZYzcoEd-Vte2EshM4xA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tG9ZYjcoEd-Vte2EshM4xA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_tG9ZZDcoEd-Vte2EshM4xA" name="dst" type="_l1v1kDcoEd-Vte2EshM4xA" aggregation="composite" association="_tG9ZYDcoEd-Vte2EshM4xA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tG9ZZjcoEd-Vte2EshM4xA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tG9ZZTcoEd-Vte2EshM4xA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_7sNykDcoEd-Vte2EshM4xA" name="IFormData"/>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_7sXjkDcoEd-Vte2EshM4xA" supplier="_7sNykDcoEd-Vte2EshM4xA" client="_qLgU4DcoEd-Vte2EshM4xA"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_OFJcQDcqEd-Vte2EshM4xA" name="FormItemData" clientDependency="_XEn4sDcqEd-Vte2EshM4xA">
+    <ownedAttribute xmi:id="_QjixUDcqEd-Vte2EshM4xA" name="id" aggregation="composite"/>
+    <ownedAttribute xmi:id="_RBWHoDcqEd-Vte2EshM4xA" name="label" aggregation="composite"/>
+    <ownedAttribute xmi:id="_3OW_0DcrEd-Vte2EshM4xA" name="type" aggregation="composite"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_OFSmRTcqEd-Vte2EshM4xA" memberEnd="_OFSmRjcqEd-Vte2EshM4xA _OFSmSTcqEd-Vte2EshM4xA">
+    <ownedEnd xmi:id="_OFSmRjcqEd-Vte2EshM4xA" name="src" type="_qLgU4DcoEd-Vte2EshM4xA" aggregation="composite" association="_OFSmRTcqEd-Vte2EshM4xA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OFSmSDcqEd-Vte2EshM4xA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OFSmRzcqEd-Vte2EshM4xA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_OFSmSTcqEd-Vte2EshM4xA" name="dst" type="_OFJcQDcqEd-Vte2EshM4xA" association="_OFSmRTcqEd-Vte2EshM4xA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OFSmSzcqEd-Vte2EshM4xA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OFSmSjcqEd-Vte2EshM4xA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_XEU9wDcqEd-Vte2EshM4xA" name="IFormItemData"/>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_XEn4sDcqEd-Vte2EshM4xA" supplier="_XEU9wDcqEd-Vte2EshM4xA" client="_OFJcQDcqEd-Vte2EshM4xA"/>
+</uml:Package>
