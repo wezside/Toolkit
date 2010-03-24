@@ -18,5 +18,6 @@ package com.wezside.components.survey.data
 		function set cta( value:String ):void;				
 		function get items():Array;
 		function set items( value:Array ):void;				
+	
 	}
 }
