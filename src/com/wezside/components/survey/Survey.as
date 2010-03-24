@@ -152,7 +152,7 @@ package com.wezside.components.survey
 			form.createChildren();
 			form.addEventListener( FormEvent.CREATION_COMPLETE, formCreated );
 			addChild( DisplayObject( form ));
-		}		
+		}
 
 		private function formCreated( event:FormEvent ):void 
 		{
