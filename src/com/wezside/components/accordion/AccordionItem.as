@@ -59,7 +59,9 @@ package com.wezside.components.accordion
 			_selected = value;
 			if ( _selected )
 			{
+				_mask.height = _content.height;
 				_content.visible = true;
+				
 			}
 			else
 			{
@@ -88,7 +90,6 @@ package com.wezside.components.accordion
 		{
 			_content = value;
 			_content.y = header.y + header.height;
-			_content.alpha = 0;
 			_content.visible = false;
 			
 			_mask = new Sprite();
@@ -97,6 +98,7 @@ package com.wezside.components.accordion
 			_mask.graphics.endFill();
 			_mask.height = 0;
 			_content.mask = _mask;			
+			
 			addChildAt( _content, 0 );			
 			addChildAt( _mask, 1 );			
 		}
