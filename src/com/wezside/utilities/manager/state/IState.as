@@ -17,26 +17,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.style 
+package com.wezside.utilities.manager.state 
 {
-	import flash.text.StyleSheet;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IStyleManager 
+	public interface IState 
 	{
 		
-		function parseCSSByteArray( clazz:Class ):void;
+		function get key():String;
+		function set key( value:String ):void;
+		function get reserved():Boolean;
+		function set reserved( value:Boolean ):void;
+		function get value():Number;
+		function set value( value:Number ):void;
 		
-		function getAssetByName( linkageClassName:String ):*; 
-		
-		function getStyleSheet( styleName:String ):StyleSheet;		
-
-		function getLibraryItems( styleName:String ):Object;
-		
-		function getPropertyStyles( styleName:String ):Array;
-		
-		function get css():String;
 	}
 }

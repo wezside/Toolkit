@@ -19,7 +19,7 @@
  */
 package com.wezside.components.container 
 {
-	import com.wezside.utilities.managers.style.IStyleManager;
+	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtils;
 
 	import flash.display.DisplayObject;

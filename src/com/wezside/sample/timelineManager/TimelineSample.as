@@ -1,7 +1,7 @@
 package com.wezside.sample.timelineManager 
 {
-	import com.wezside.utilities.managers.timeline.TimelineEvent;
-	import com.wezside.utilities.managers.timeline.TimelineManager;
+	import com.wezside.utilities.manager.timeline.TimelineEvent;
+	import com.wezside.utilities.manager.timeline.TimelineManager;
 
 	import flash.display.Loader;
 	import flash.display.MovieClip;

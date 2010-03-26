@@ -17,21 +17,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.state 
+package com.wezside.utilities.manager.timeline 
 {
+	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IState 
+	public class TimelineEvent extends Event 
 	{
 		
-		function get key():String;
-		function set key( value:String ):void;
-		function get reserved():Boolean;
-		function set reserved( value:Boolean ):void;
-		function get value():Number;
-		function set value( value:Number ):void;
+		public static const COMPLETE:String = "timelineAnimationComplete";
+		public static const SEQUENTIAL_COMPLETE:String = "timelineSequentialAnimationComplete";
+
+		public var id:String;
+		public var index:int;
 		
+		public function TimelineEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, id:String = "", index:int = -1 )
+		{
+			super( type, bubbles, cancelable );
+			this.id = id;
+			this.index = index;
+		}
+				
+		override public function clone():Event
+		{
+			return new TimelineEvent( type, bubbles, cancelable, id, index );
+		}		
 	}
 }

@@ -42,18 +42,19 @@ A useful class to manage application state. The reserved property on an IState i
 application state that will only affect itself. Reserved states are not mutually exclusive, they are allowed to co-exist 
 with non-reserved and other reserved states. 
 
-		StateManager.addState( "Credentials", true );
-		StateManager.addState( "Register" );
-		StateManager.addState( "List" );
-		StateManager.addState( "Search" );
-		StateManager.addState( "Results" );
+		var sm:StateManager = new StateManager();
+		sm.addState( "Credentials", true );
+		sm.addState( "Register" );
+		sm.addState( "List" );
+		sm.addState( "Search" );
+		sm.addState( "Results" );
 		
-		StateManager.state = "Credentials";				// State == 1
-		StateManager.state = "Credentials";				// State == 0
-		StateManager.state = "Credentials";				// State == 1
-		StateManager.state = "Register";				// State == 3
-		StateManager.previousState()					// Result is "Credentials"	
-		StateManager.state = "Credentials";				// State == 2
+		sm.state = "Credentials";				// State == 1
+		sm.state = "Credentials";				// State == 0
+		sm.state = "Credentials";				// State == 1
+		sm.state = "Register";				// State == 3
+		sm.previousState()					// Result is "Credentials"	
+		sm.state = "Credentials";				// State == 2
 
 
 TimelineManager
@@ -63,6 +64,7 @@ A simple class to deal with timeline animations. Manage timeline animations play
 end frame behaviour. A play policy exist to allow for playing back multiple animations at once or 
 in sequence starting at a specific animation or simply play a single (default) animation.
 
+		var manager:TimelineManager = new TimelineManager();
 		manager.push( id, mc );
 		manager.push( id, mc );
 		manager.push( id, mc );

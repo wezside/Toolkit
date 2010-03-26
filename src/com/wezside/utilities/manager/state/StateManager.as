@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.state 
+package com.wezside.utilities.manager.state 
 {
 
 	/**
@@ -47,15 +47,15 @@ package com.wezside.utilities.managers.state
 	{
 		
 		
-		private static var _state:IState;
-		private static var _policy:String = "";
-		private static var _baseTwo:Number = 1;
-		private static var _historyKey:String = "";
-		private static var _history:Vector.<IState> = new Vector.<IState>( );
-		private static const HISTORY_REPEATS_ITSELF:String = "repeatHistory";
-
+		private var _state:IState;
+		private var _policy:String = "";
+		private var _baseTwo:Number = 1;
+		private var _historyKey:String = "";
+		private var _history:Vector.<IState> = new Vector.<IState>( );
+		private const HISTORY_REPEATS_ITSELF:String = "repeatHistory";
+				
 		
-		public static function addState( key:String, reserved:Boolean = false ):void
+		public function addState( key:String, reserved:Boolean = false ):void
 		{
 			// Create new state
 			var state:State = new State( key, reserved );
@@ -79,7 +79,7 @@ package com.wezside.utilities.managers.state
 		}
 		
 		
-		public static function set state( key:String ):void
+		public function set state( key:String ):void
 		{
 			var state:IState = stateByKey( key );
 
@@ -107,19 +107,19 @@ package com.wezside.utilities.managers.state
 		}
 
 		
-		public static function get state():String
+		public function get state():String
 		{
 			return _state.key;
 		}
 
 		
-		public static function get stateValue():Number
+		public function get stateValue():Number
 		{
 			return _state.value;
 		}
 
 		
-		public static function previousState():String
+		public function previousState():String
 		{
 			for ( var i:int = 0; i < _history.length; ++i ) 
 				if (  _history[ i ].key == _state.key )
@@ -128,13 +128,13 @@ package com.wezside.utilities.managers.state
 		}
 		
 		
-		public static function get historyKey():String
+		public function get historyKey():String
 		{
 			return _historyKey;
 		}
 		
 		
-		private static function stateByKey( key:String ):IState 
+		private function stateByKey( key:String ):IState 
 		{
 			for ( var i : int = 0; i < _history.length; ++i ) 
 				if ( _history[i].key == key )

@@ -1,6 +1,6 @@
 package com.wezside.sample.stateManager
 {
-	import com.wezside.utilities.managers.state.StateManager;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Sprite;
 	import flash.text.TextField;
@@ -25,30 +25,32 @@ package com.wezside.sample.stateManager
 			addChild( field );
 
 			// Add some states with Credentials being a reserved stated	
-			StateManager.addState( "Credentials", true );
-			StateManager.addState( "Register" );
-			StateManager.addState( "show-list" );
-			StateManager.addState( "Search" );
-			StateManager.addState( "Results" );
+			
+			var sm:StateManager = new StateManager();			
+			sm.addState( "Credentials", true );
+			sm.addState( "Register" );
+			sm.addState( "show-list" );
+			sm.addState( "Search" );
+			sm.addState( "Results" );
 
 			field.text = "Use case  			| Current State Value   | History State Key\n";
 			field.appendText("--------------------------------------------------------------------\n");
 			
-			StateManager.state = "Credentials";			
-			field.appendText("Log in...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
+			sm.state = "Credentials";			
+			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
 			
-			StateManager.state = "Credentials";			
-			field.appendText("Log out...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
+			sm.state = "Credentials";			
+			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
 			
-			StateManager.state = "Credentials";			
-			field.appendText("Log in...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
+			sm.state = "Credentials";			
+			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
 			
-			StateManager.state = "Register";			
-			field.appendText( StateManager.state + "\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
+			sm.state = "Register";			
+			field.appendText( sm.state + "\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
 			
-			StateManager.state = "Credentials";			
-			field.appendText("Log out...\t\t\t|  " + StateManager.stateValue + "\t\t\t\t\t| " + StateManager.historyKey + "\n");
-			field.appendText("Previous State...\t|  " + StateManager.previousState() + "\t\t\t| " + StateManager.historyKey + "\n");
+			sm.state = "Credentials";			
+			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
+			field.appendText("Previous State...\t|  " + sm.previousState() + "\t\t\t| " + sm.historyKey + "\n");
 
 			field.setTextFormat( fmt );
 		}

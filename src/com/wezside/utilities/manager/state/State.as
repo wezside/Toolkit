@@ -17,32 +17,62 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.timeline 
+package com.wezside.utilities.manager.state 
 {
-	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class TimelineEvent extends Event 
+	public class State implements IState 
 	{
-		
-		public static const COMPLETE:String = "timelineAnimationComplete";
-		public static const SEQUENTIAL_COMPLETE:String = "timelineSequentialAnimationComplete";
+		private var _key:String;
+		private var _reserved:Boolean;
+		private var _value:Number;
 
-		public var id:String;
-		public var index:int;
 		
-		public function TimelineEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, id:String = "", index:int = -1 )
+		public function State( key:String, reserved:Boolean = false ) 
 		{
-			super( type, bubbles, cancelable );
-			this.id = id;
-			this.index = index;
+			_key = key;
+			_reserved = reserved;	
 		}
-				
-		override public function clone():Event
+		
+		public function clone():IState
 		{
-			return new TimelineEvent( type, bubbles, cancelable, id, index );
-		}		
+			var state:IState = new State( _key, _reserved );
+			state.value = _value;
+			return state;
+		}
+
+		public function get key():String
+		{
+			return _key;
+		}
+		
+		public function get reserved():Boolean
+		{
+			return _reserved;
+		}
+		
+		public function get value():Number
+		{
+			return _value;
+		}
+		
+		public function set key( value:String ):void
+		{
+			_key = value;
+		}
+		
+		public function set reserved( value:Boolean ):void
+		{
+			_reserved = value;
+		}
+
+		public function set value( value:Number ):void
+		{
+			_value = value;
+		}
+		
+		
 	}
 }

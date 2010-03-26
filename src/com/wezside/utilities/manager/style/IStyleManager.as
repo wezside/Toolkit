@@ -17,62 +17,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.state 
+package com.wezside.utilities.manager.style 
 {
+	import flash.text.StyleSheet;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class State implements IState 
+	public interface IStyleManager 
 	{
-		private var _key:String;
-		private var _reserved:Boolean;
-		private var _value:Number;
+		
+		function parseCSSByteArray( clazz:Class ):void;
+		
+		function getAssetByName( linkageClassName:String ):*; 
+		
+		function getStyleSheet( styleName:String ):StyleSheet;		
 
+		function getLibraryItems( styleName:String ):Object;
 		
-		public function State( key:String, reserved:Boolean = false ) 
-		{
-			_key = key;
-			_reserved = reserved;	
-		}
+		function getPropertyStyles( styleName:String ):Array;
 		
-		public function clone():IState
-		{
-			var state:IState = new State( _key, _reserved );
-			state.value = _value;
-			return state;
-		}
-
-		public function get key():String
-		{
-			return _key;
-		}
-		
-		public function get reserved():Boolean
-		{
-			return _reserved;
-		}
-		
-		public function get value():Number
-		{
-			return _value;
-		}
-		
-		public function set key( value:String ):void
-		{
-			_key = value;
-		}
-		
-		public function set reserved( value:Boolean ):void
-		{
-			_reserved = value;
-		}
-
-		public function set value( value:Number ):void
-		{
-			_value = value;
-		}
-		
-		
+		function get css():String;
 	}
 }

@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.timeline 
+package com.wezside.utilities.manager.timeline 
 {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -73,7 +73,7 @@ package com.wezside.utilities.managers.timeline
 		public static const INTERRUPT_POLICY_SEQUENCE_COMPLETE:int = 9;
 
 		
-		public function TimelineManager(target:IEventDispatcher = null)
+		public function TimelineManager( target:IEventDispatcher = null )
 		{
 			super( target );
 			_total = 0;

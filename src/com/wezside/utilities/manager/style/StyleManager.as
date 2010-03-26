@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.managers.style 
+package com.wezside.utilities.manager.style 
 {
 	import flash.display.Loader;
 	import flash.display.Sprite;
