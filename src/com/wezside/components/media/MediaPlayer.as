@@ -2,8 +2,6 @@ package com.wezside.components.media
 {
 	import gs.TweenLite;
 
-	import mx.core.UIComponent;
-
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
@@ -258,7 +256,8 @@ package com.wezside.components.media
 				else
 				{
 					item.x = ( i - 1 ) * ( _thumbWidth + 12 );
-					item.y = mediaContainer.height + 10;
+					item.y = bg.height + 10;
+				
 				}
 			}
 		}
@@ -291,7 +290,7 @@ package com.wezside.components.media
 			var child:DisplayObject = mediaContainer.getChildAt( 0 );
 			if ( child is Youtube ) Youtube( child ).kill( );
 			mediaContainer.removeChildAt( 0 );
-			load( _original[0].url, width - 10, height - 40, true );	
+			load( _original[0].url, bg.width - 10, bg.height - 40, true );	
 			_currentIndex = _selectedIndex;
 		}
 
