@@ -7,7 +7,7 @@ package com.wezside.utilities.imaging
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class ImageUtils 
+	public class ImageResize 
 	{
 
 		
