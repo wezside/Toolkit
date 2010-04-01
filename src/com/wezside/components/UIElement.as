@@ -1,24 +1,6 @@
-/**
- * Copyright (c) 2010 Wesley Swanepoel
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-package com.wezside.components.container 
+package com.wezside.components 
 {
+	import com.wezside.components.container.Box;
 	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtils;
 
@@ -28,13 +10,13 @@ package com.wezside.components.container
 	import flash.text.StyleSheet;
 
 	/**
-	 * @author Wesley.Swanepoel 
+	 * @author Wesley.Swanepoel
 	 */
 
 	[DefaultProperty("children")]
-	[Event( name="init", type="com.modulo.event.ModuleEvent" )]
-	[Event( name="creationComplete", type="com.modulo.event.ModuleEvent" )]
-	public class Container extends Sprite implements IContainer
+	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
+	public class UIElement extends Sprite implements IUIElement
 	{
 
 		protected var _children:Array;
@@ -44,7 +26,7 @@ package com.wezside.components.container
 		private var _styleManager:IStyleManager;		
 
 		
-		public function Container() 
+		public function UIElement() 
 		{
 			_children = [];
 		}		
@@ -84,7 +66,7 @@ package com.wezside.components.container
 		private function nextFrame( event:Event ):void
 		{
 			removeEventListener( Event.ENTER_FRAME, nextFrame );
-			dispatchEvent( new ContainerEvent( ContainerEvent.CREATION_COMPLETE, false ));
+			dispatchEvent( new UIElementEvent( UIElementEvent.CREATION_COMPLETE, false ));
 		}		
 
 		
@@ -162,6 +144,7 @@ package com.wezside.components.container
 				}		
 			}
 			update( );
+			
 		}
 
 		

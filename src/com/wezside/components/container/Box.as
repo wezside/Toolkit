@@ -20,6 +20,8 @@
 package com.wezside.components.container 
 {
 
+	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.UIElement;
 	import flash.display.DisplayObject;
 	import flash.display.GradientType;
 	import flash.display.Sprite;
@@ -48,7 +50,7 @@ package com.wezside.components.container
 	 * 
 	 * FIXME: Problem with stylesheet applied to hbox + vbox - disables selection on textfields  
 	 */
-	public class Box extends Container 
+	public class Box extends UIElement 
 	{
 		
 		
@@ -132,7 +134,7 @@ package com.wezside.components.container
 			_ds = new DropShadowFilter( 4, 45, 0, 0.5 );
 			_gf = new GlowFilter( 0xefefef );			
 
-			addEventListener( ContainerEvent.CREATION_COMPLETE, arrange );
+			addEventListener( UIElementEvent.CREATION_COMPLETE, arrange );
 		}
 		
 		

@@ -1,6 +1,6 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.components.container.ContainerEvent;
+	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.container.VBox;
 	import com.wezside.components.survey.data.FormItemData;
 	import com.wezside.components.survey.data.IFormData;
@@ -42,7 +42,7 @@ package com.wezside.components.survey.form
 			container.borderAlpha = 0;
 			container.backgroundAlphas = [0,0];
 			container.verticalGap = 5;
-			container.addEventListener( ContainerEvent.CREATION_COMPLETE, containerCreated );
+			container.addEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );
 			addChild( container );
 			
 			if ( _data.heading != "" )
@@ -125,11 +125,11 @@ package com.wezside.components.survey.form
 			_data = value;
 		}
 		
-		private function containerCreated( event:ContainerEvent ):void 
+		private function containerCreated( event:UIElementEvent ):void 
 		{
 			_layout.arrange();			
 			container.update();
-			container.removeEventListener( ContainerEvent.CREATION_COMPLETE, containerCreated );
+			container.removeEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );
 			state = STATE_CREATION_COMPLETE;
 		}
 		

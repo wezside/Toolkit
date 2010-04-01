@@ -19,7 +19,7 @@
  */
 package com.wezside.components.text 
 {
-	import com.wezside.components.container.Container;
+	import com.wezside.components.UIElement;
 
 	import flash.text.AntiAliasType;
 	import flash.text.TextField;
@@ -28,7 +28,7 @@ package com.wezside.components.text
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Label extends Container
+	public class Label extends UIElement
 	{
 
 

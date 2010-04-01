@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application	xmlns:fx="http://ns.adobe.com/mxml/2009"
-        		xmlns:s="library://ns.adobe.com/flex/spark"
-        		xmlns:mx="library://ns.adobe.com/flex/halo"
+<mx:Application	xmlns:mx="http://www.adobe.com/2006/mxml"
 			    layout="absolute"
 			    backgroundColor="0xffffff"
 			    backgroundGradientColors="[0xefefef, 0xefefef]"
 			    creationComplete="init();">
 
 
-	<fx:Script>
+	<mx:Script>
 		<![CDATA[
 			import com.wezside.sample.accordion.AccordionAnimationItem;
 			import com.wezside.sample.accordion.AccordionAnimation;
@@ -132,6 +130,6 @@
 				bgHit.width = labelUp.textWidth + 20;					
 			}
 		]]>
-	</fx:Script>
+	</mx:Script>
 	
-</s:Application>
+</mx:Application>
