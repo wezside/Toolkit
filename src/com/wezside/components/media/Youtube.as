@@ -100,7 +100,7 @@ package com.wezside.components.media
 			else
 				barWidth = _videoWidth - (( playButton.x * 2 ) + playButton.width * 2 + controlPadding * 2);
 			bar = new Sprite();
-			bar.graphics.beginFill( 0xe0eaa1 );
+			bar.graphics.beginFill( 0xcccccc );
 			bar.graphics.drawRoundRect(0, 0, barWidth, 6, 3 );
 			bar.graphics.endFill();
 			bar.x = playButton.x + playButton.width + controlPadding;
@@ -256,7 +256,7 @@ package com.wezside.components.media
 		    }
 		}			
 		
-		public function kill():void
+		public function purge():void
 		{
 			if ( loader && loader.content )
 			{		

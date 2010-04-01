@@ -15,8 +15,7 @@ package com.wezside.sample.media
 		
 		public function MediaSample() 
 		{
-		
-			
+					
 			var item1:Media = new Media();
 			item1.url = "http://www.youtube.com/watch?v=MWe07krS8_E";
 			 
@@ -32,10 +31,8 @@ package com.wezside.sample.media
 			mediaItems.push( item3 );
 		
 			player = new MediaPlayer();
-			player.graphics.beginFill(0xcccccc);
-			player.graphics.drawRoundRect(0, 0, 340, 300, 10 );
-			player.graphics.endFill();
-			
+			player.bgWidth = 350;			
+			player.bgHeight = 200;			
 			player.dataprovider = mediaItems;
 			addChild(player);
 		}

@@ -12,6 +12,7 @@ Components [Build 0.1.0000]
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion") [Build 0.1.0032]
+* [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlauer") [Build 0.1.001]
 
 Utilities [Build 0.1.0015]
 =======
@@ -35,6 +36,31 @@ state changes.
 		acc.addItem( itemA );
 		addChild( acc );
 
+Media Player
+------------
+
+A simple media player that loads three Youtube videos or an image. 
+
+		var item1:Media = new Media();
+		item1.url = "http://www.youtube.com/watch?v=MWe07krS8_E";
+		 
+		var item2:Media = new Media();
+		item2.url = "http://www.youtube.com/watch?v=uXyUtJYIdQA"; 
+		 
+		var item3:Media = new Media();
+		item3.url = "http://www.youtube.com/watch?v=MWe07krS8_E"; 
+				
+		var mediaItems:Array = [];
+		mediaItems.push( item1 );
+		mediaItems.push( item2 );
+		mediaItems.push( item3 );
+	
+		player = new MediaPlayer();
+		player.bgWidth = 350;			
+		player.bgHeight = 200;			
+		player.dataprovider = mediaItems;
+		addChild(player); 
+		
 StateManager
 ------------
 

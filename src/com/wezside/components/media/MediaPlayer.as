@@ -30,7 +30,7 @@ package com.wezside.components.media
 		private static const GIF:String = ".gif";
 		private static const FLV:String = ".flv";
 		private static const VIDEO_YOUTUBE:String = "YOUTUBE";
-		private static const DEBUG:Boolean = false;
+
 
 		private var _columns:int = 3;
 		private var _rows:int = 2;
@@ -47,6 +47,8 @@ package com.wezside.components.media
 		private var imgHero:Boolean;
 		private var imgHeight:int;
 		private var imgWidth:int;
+		private var _bgWidth:int = 350;
+		private var _bgHeight:int = 200;
 
 		public function get columns():int
 		{
@@ -88,12 +90,30 @@ package com.wezside.components.media
 			_thumbHeight = value;
 		}
 
-		public function kill():void
+		public function get bgWidth():int
 		{
-			for each (var item:Youtube in mediaContainer )
-			{
-				item.kill( );
-			}
+			return _bgWidth;
+		}
+		
+		public function set bgWidth( value:int ):void
+		{
+			_bgWidth = value;
+		}
+		
+		public function get bgHeight():int
+		{
+			return _bgHeight;
+		}
+		
+		public function set bgHeight( value:int ):void
+		{
+			_bgHeight = value;
+		}
+
+		public function purge():void
+		{
+			for each ( var item:Youtube in mediaContainer )
+				item.purge();
 		}
 
 		public function set dataprovider( value:Array ):void
@@ -101,8 +121,8 @@ package com.wezside.components.media
 			if ( value.length > 0 )
 			{
 				bg = new Sprite( );
-				bg.graphics.beginFill( 0xc3d543 );
-				bg.graphics.drawRoundRect( 0, 0, width, height, 10 );
+				bg.graphics.beginFill( 0x666666 );
+				bg.graphics.drawRoundRect( 0, 0, bgWidth, bgHeight, 10 );
 				bg.graphics.endFill( );
 				addChild( bg );
 									
@@ -288,12 +308,11 @@ package com.wezside.components.media
 			_original = _original.concat( _dataprovider );
 			_original = _original.slice( _selectedIndex, _selectedIndex + 1 );
 			var child:DisplayObject = mediaContainer.getChildAt( 0 );
-			if ( child is Youtube ) Youtube( child ).kill( );
+			if ( child is Youtube ) Youtube( child ).purge( );
 			mediaContainer.removeChildAt( 0 );
 			load( _original[0].url, bg.width - 10, bg.height - 40, true );	
 			_currentIndex = _selectedIndex;
 		}
-
 
 		
 		private function loadComplete():void 
