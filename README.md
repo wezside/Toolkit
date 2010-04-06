@@ -49,22 +49,22 @@ transitions where it is required to have the next items visible on screen before
 		gallery = new Gallery( items, 
 							   COLUMNS, 
 							   ROWS,
-							   0, 		// xOffset
-							   0, 		// yOffset
-							   2, 		// Horizontal Gap
-							   2, 		// Vertical Gap
-							   "left", 	// Horizontal Align
-							   "custom",// Click through target
-							   1,   	// Reflection Height In Rows
-							   0.3, 	// Reflection Alpha
-							   Gallery.RESIZE_HEIGHT, // Resize Policy 
-							   80, 		// Resize Value
-							   Gallery.DISTRIBUTE_H, // Distribute Policy
-							   false, 	// Show Arrangement
-							   550,  	// Stage width
-							   500,  	// Stage height
-							   true, 	// Disable CTA for all thumbnails
-							   false );	// Debug
+							   0, 						// xOffset
+							   0, 						// yOffset
+							   2, 						// Horizontal Gap
+							   2, 						// Vertical Gap
+							   "left", 					// Horizontal Align
+							   "custom",				// Click through target
+							   1,   					// Reflection Height In Rows
+							   0.3, 					// Reflection Alpha
+							   Gallery.RESIZE_HEIGHT,	// Resize Policy 
+							   80, 						// Resize Value
+							   Gallery.DISTRIBUTE_H, 	// Distribute Policy
+							   false, 					// Show Arrangement
+							   550,  					// Stage width
+							   500,  					// Stage height
+							   true, 					// Disable CTA for all thumbnails
+							   false );					// Debug
 		gallery.x = 50;
 		gallery.y = 30;
 		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
