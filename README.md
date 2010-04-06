@@ -44,7 +44,7 @@ A framework for building advanced Gallery components. Supports grid layouts and 
 The creation policy for this component is to construct and purge a gallery per page. This allows for only loading the images required on screen. This impacts
 transitions where it is required to have the next items visible on screen before the current gallery items have been removed. 
 
-[Example](http://www.sony.com/football/#/footballhd/ "Gallery Example")
+[Example](http://www.sony.com/football/#/cfcfootballhd/ "Gallery Example")
 
 		gallery = new Gallery( items, 
 							   COLUMNS, 
