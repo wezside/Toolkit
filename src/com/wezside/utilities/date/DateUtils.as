@@ -85,6 +85,7 @@ package com.wezside.utilities.date
 		 */
 		public function testLiveDate( date:Date ):Boolean
 		{
+			if ( !serverTime ) serverTime = new Date();
 			return compare( serverTime, date ) == -1 ? false : true; 
 		}
 		

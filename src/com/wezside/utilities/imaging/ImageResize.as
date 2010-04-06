@@ -16,12 +16,13 @@ package com.wezside.utilities.imaging
 		private var originalWidth:Number;
 		private var originalHeight:Number;
 		private var ratio:Number;
-		private var dislpayObject:DisplayObject;
+		
+		public static const DISTRIBUTE_TO_WIDTH:String = "DISTRIBUTE_TO_WIDTH";
+		public static const DISTRIBUTE_TO_HEIGHT:String = "DISTRIBUTE_TO_HEIGHT";
 
 		
 		public function resizeToHeight( dislpayObject:DisplayObject, h:int ):DisplayObject
 		{
-			this.dislpayObject = dislpayObject;
 			originalWidth = dislpayObject.width;
 			originalHeight = dislpayObject.height;
 
@@ -50,19 +51,26 @@ package com.wezside.utilities.imaging
 			return dislpayObject;
 		}
 
-		public function resizeToWidth( bitmap:Bitmap, h:int ):Bitmap
+		public function resizeToWidth( displayObject:DisplayObject, w:int ):DisplayObject
 		{
-			var bmp:Bitmap = bitmap;
-			return bmp;
+			return displayObject;
 		}
 
-		public function reflection():void
+		public function distribute( displayObject:DisplayObject, value:Number, policy:String = DISTRIBUTE_TO_WIDTH ):DisplayObject
 		{
+			if ( policy == DISTRIBUTE_TO_WIDTH ) position( displayObject, "x", value );
+			if ( policy == DISTRIBUTE_TO_HEIGHT ) position( displayObject, "y", value );
+			return displayObject;
 		}
 
 		public function toString():String 
 		{
 			return getQualifiedClassName( this );
+		}
+
+		private function position( displayObject:DisplayObject, prop:String, value:Number ):void
+		{
+			displayObject[prop] = ( prop == "x" ? value - displayObject.width : value - displayObject.height ) * 0.5;
 		}
 	}
 }

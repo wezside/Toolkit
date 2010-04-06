@@ -12,7 +12,8 @@ Components [Build 0.1.0000]
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion") [Build 0.1.0032]
-* [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlauer") [Build 0.1.001]
+* [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic "Gallery") [Build 0.1.001]
+* [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer") [Build 0.1.001]
 
 Utilities [Build 0.1.0018]
 =======
@@ -35,6 +36,39 @@ state changes.
 		var acc:Accordion = new Accordion();
 		acc.addItem( itemA );
 		addChild( acc );
+		
+Gallery
+-------
+
+A framework for building advanced Gallery components. Supports grid layouts and custom transitions, image. Useful just as is or with extended functionality. 
+The creation policy for this component is to construct and purge a gallery per page. This allows for only loading the images required on screen. This impacts
+transitions where it is required to have the next items visible on screen before the current gallery items have been removed. 
+
+[Example](http://www.sony.com/football/#/footballhd/ "Gallery Example")
+
+		gallery = new Gallery( items, 
+							   COLUMNS, 
+							   ROWS,
+							   0, 		// xOffset
+							   0, 		// yOffset
+							   2, 		// Horizontal Gap
+							   2, 		// Vertical Gap
+							   "left", 	// Horizontal Align
+							   "custom",// Click through target
+							   1,   	// Reflection Height In Rows
+							   0.3, 	// Reflection Alpha
+							   Gallery.RESIZE_HEIGHT, // Resize Policy 
+							   80, 		// Resize Value
+							   Gallery.DISTRIBUTE_H, // Distribute Policy
+							   false, 	// Show Arrangement
+							   550,  	// Stage width
+							   500,  	// Stage height
+							   true, 	// Disable CTA for all thumbnails
+							   false );	// Debug
+		gallery.x = 50;
+		gallery.y = 30;
+		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
+		addChildAt( gallery, 0 );
 
 Media Player
 ------------
