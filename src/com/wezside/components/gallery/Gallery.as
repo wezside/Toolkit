@@ -154,23 +154,21 @@ package com.wezside.components.gallery
 			visible = showArrangement;
 			totalpages = Math.ceil( items.length / ( columns * rows )); 
 			
-			Tracer.output( _debug, " Gallery() totalpages: " + totalpages, toString() );
+			Tracer.output( _debug, " Total pages " + totalpages, toString() );
 			
-			var totalItems:Number = (( columns * rows * totalpages - 1 ) - ( items.length - 1 ));
-			Tracer.output( _debug, " Gallery() totalItems: " + totalItems, toString() );
-			
+			var remainingItems:Number = (( columns * rows * totalpages ) - ( items.length ));		
 			if ( items.length < ( columns * rows * totalpages ))
-				for ( var i:int = 0; i < totalItems ; i++ )
+				for ( var i:int = 0; i < remainingItems ; i++ )
 					items.push( { id: "blank_" + i, url: "", livedate: new Date() });
-			
+						
 			total = items.length;			
 			original = original.concat( items );
 			
+			Tracer.output( _debug, " Total gallery items " + total, toString() );
 			if ( items.length == 0 )
 				throw new Error( "Error: No items in dataprovider." );
 			
 			dateUtils = new DateUtil();
-			addEventListener( Event.ADDED_TO_STAGE, create );
 		}
 		
 				

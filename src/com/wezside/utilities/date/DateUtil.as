@@ -53,7 +53,7 @@ package com.wezside.utilities.date
 			var result:Array = dateStr.match( reg );
 
 			var date:Date = new Date( Number(result[0]), 
-									  (Number(result[1])-1), 
+									 (Number(result[1])-1), 
 									  Number(result[2]), 
 									  Number(result[3]),
 									  Number(result[4]), 

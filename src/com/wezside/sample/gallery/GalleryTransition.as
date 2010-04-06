@@ -60,7 +60,7 @@ package com.wezside.sample.gallery
 				currentPageIndex--;
 				transition.direction = "right";
 				gallery.outro( transition );
-			}
+			}			
 			
 			if ( event.currentTarget.name == "pageRight" && currentPageIndex < totalPageCount )
 			{

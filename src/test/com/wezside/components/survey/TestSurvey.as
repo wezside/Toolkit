@@ -1,6 +1,5 @@
 package test.com.wezside.components.survey 
 {
-	import com.wezside.components.survey.form.BrickMatrix;
 	import flexunit.framework.Assert;
 
 	import com.wezside.components.survey.ISurvey;

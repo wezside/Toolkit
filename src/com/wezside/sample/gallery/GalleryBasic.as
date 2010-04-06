@@ -130,6 +130,7 @@ package com.wezside.sample.gallery
 			gallery.x = 50;
 			gallery.y = 30;
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
+			gallery.create();
 			addChildAt( gallery, 0 );
 			
 			createPreloader();
