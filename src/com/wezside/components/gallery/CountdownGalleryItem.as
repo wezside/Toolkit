@@ -24,6 +24,7 @@
 package com.wezside.components.gallery 
 {
 	import com.wezside.utilities.date.DateUtil;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -45,9 +46,12 @@ package com.wezside.components.gallery
 		private var bmpdata:BitmapData;
 		private var fmt:TextFormat;
 		private var bitmap:Bitmap;
+		private var dateUtils:DateUtil;
+		
 		private var _type:String;
 		private var _debug:Boolean;
-		private var dateUtils:DateUtil;
+		private var _selected:Boolean;
+		private var _sm:StateManager;
 
 		
 		public function CountdownGalleryItem( type:String, debug:Boolean )
@@ -55,6 +59,11 @@ package com.wezside.components.gallery
 			super();
 			this.type = type;
 			_debug = debug;
+			_selected = false;
+			_sm = new StateManager();
+			_sm.addState( Gallery.STATE_ROLLOVER );
+			_sm.addState( Gallery.STATE_ROLLOUT );
+			_sm.addState( Gallery.STATE_SELECTED, true );			
 			dateUtils = new DateUtil();
 		}
 
@@ -98,21 +107,33 @@ package com.wezside.components.gallery
 			removeEventListener( Event.ENTER_FRAME, enterFrame );
 		}				
 		
-		public function rollOver( object:Object = null ):void
+		public function rollOver():void
 		{
 		}
 		
-		public function rollOut( object:Object = null ):void
+		public function rollOut():void
 		{
 		}		
-			
-		public function get enable():Boolean
+		
+		public function get state():String
 		{
-			return true;
+			return _sm.state;
 		}
 		
-		public function set enable( value:Boolean ):void
+		public function set state( value:String ):void
 		{
+			_sm.state = value;
+			switch ( _sm.historyKey )
+			{
+				case Gallery.STATE_ROLLOUT:	
+				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: rollOut(); break;
+									
+				case Gallery.STATE_ROLLOVER:
+				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: rollOver(); break;
+				
+				case Gallery.STATE_SELECTED: _selected = !_selected; break;					
+				default: break;
+			}
 		}	
 		
 		public function get type():String
@@ -148,6 +169,15 @@ package com.wezside.components.gallery
 		{
 			if ( str.length == 1 ) str = "0" + str;
 			return str;
+		}
+		
+		public function get selected():Boolean
+		{
+			return false;
+		}
+		
+		public function set selected(value:Boolean):void
+		{
 		}		
 	}
 }

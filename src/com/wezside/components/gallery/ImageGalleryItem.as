@@ -23,6 +23,7 @@
  */
 package com.wezside.components.gallery 
 {
+	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.Bitmap;
@@ -39,12 +40,13 @@ package com.wezside.components.gallery
 	public class ImageGalleryItem extends Sprite implements IGalleryItem
 	{
 
-		protected var _enable:Boolean;
 		protected var livedate:Date;
 		protected var loader:Loader;
 
 		private var _type:String;
 		private var _debug:Boolean;
+		private var _sm:StateManager;
+		private var _selected:Boolean;
 
 		
 		public function ImageGalleryItem( type:String, debug:Boolean )
@@ -52,6 +54,11 @@ package com.wezside.components.gallery
 			super( );			
 			_type = type;
 			_debug = debug;
+			_selected = false;
+			_sm = new StateManager();
+			_sm.addState( Gallery.STATE_ROLLOVER );
+			_sm.addState( Gallery.STATE_ROLLOUT );
+			_sm.addState( Gallery.STATE_SELECTED, true );	
 		}		
 		
 		
@@ -77,26 +84,48 @@ package com.wezside.components.gallery
 		{
 		}
 		
-		public function rollOver( object:Object = null ):void
+		public function rollOver():void
 		{
-			if ( _enable ) alpha = 1;
+			alpha = 1;
 		}		
 		
-		public function rollOut( object:Object = null ):void
+		public function rollOut():void
 		{
 			alpha = 0.5;
 		}		
 		
-		public function get enable():Boolean
+		public function get state():String
 		{
-			return _enable;
+			return _sm.state;
 		}
 		
-		public function set enable( value:Boolean ):void
+		public function set state( value:String ):void
 		{
-			_enable = value;
-			_enable ? alpha = 1 : alpha = 0.5;
-		}		
+			_sm.state = value;
+
+			switch ( _sm.historyKey )
+			{
+				case Gallery.STATE_ROLLOUT:	trace("Normal rollout " + _sm.historyKey ); rollOut(); break;
+				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: trace("SELECTED rollout" ); break;
+									
+				case Gallery.STATE_ROLLOVER: rollOver(); break;
+				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: break;
+				
+				case Gallery.STATE_SELECTED: selected = !_selected; break;					
+				default: break;
+			}
+		}	
+		
+		public function get selected():Boolean
+		{
+			return _selected;
+		}
+		
+		public function set selected( value:Boolean ):void
+		{
+			_selected = value;
+			alpha = 0.1;	
+		}
 		
 		public function get type():String
 		{
@@ -110,6 +139,7 @@ package com.wezside.components.gallery
 		
 		public function purge():void
 		{
+			_sm.purge();
 			removeChildAt( 0 );
 			livedate = null;
 		}						

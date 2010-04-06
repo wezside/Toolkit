@@ -33,9 +33,9 @@ package com.wezside.components.gallery
 		
 		function load( url:String, livedate:Date ):void;
 		
-		function rollOver( object:Object = null ):void;
+		function rollOver():void;
 		
-		function rollOut( object:Object = null ):void;
+		function rollOut():void;
 		
 		function play():void;
 		
@@ -51,9 +51,13 @@ package com.wezside.components.gallery
 		
 		function get type():String;
 		
-		function set enable( value:Boolean ):void;
+		function set selected( value:Boolean ):void;
 		
-		function get enable():Boolean;
+		function get selected():Boolean;
+		
+		function set state( value:String ):void;
+		
+		function get state():String;
 		
 		function get width():Number;
 		

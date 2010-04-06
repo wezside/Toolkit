@@ -23,6 +23,8 @@
  */
 package com.wezside.components.gallery 
 {
+	import com.wezside.utilities.manager.state.StateManager;
+
 	import flash.display.Sprite;
 
 	/**
@@ -34,15 +36,22 @@ package com.wezside.components.gallery
 		
 		private var _type:String;
 		private var _debug:Boolean;
+		private var _sm:StateManager;
+		private var _selected:Boolean;
 
-		
+
 		public function FLVGalleryItem( type:String, debug:Boolean )
 		{
 			_type = type;
 			_debug = debug;
+			_selected = false;
+			_sm = new StateManager();
+			_sm.addState( Gallery.STATE_ROLLOVER );
+			_sm.addState( Gallery.STATE_ROLLOUT );
+			_sm.addState( Gallery.STATE_SELECTED, true );			
 		}
 		
-		public function load(url:String, livedate:Date):void
+		public function load( url:String, livedate:Date ):void
 		{
 		}		
 		
@@ -54,17 +63,34 @@ package com.wezside.components.gallery
 		{
 		}		
 		
-		public function rollOver(object:Object = null):void
+		public function rollOver():void
 		{
 		}
 		
-		public function rollOut(object:Object = null):void
+		public function rollOut():void
 		{
 		}	
 		
-		public function set enable(value:Boolean):void
+		public function get state():String
 		{
+			return _sm.state;
 		}
+		
+		public function set state( value:String ):void
+		{
+			_sm.state = value;
+			switch ( _sm.historyKey )
+			{
+				case Gallery.STATE_ROLLOUT:	
+				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: rollOut(); break;
+									
+				case Gallery.STATE_ROLLOVER:
+				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: rollOver(); break;
+				
+				case Gallery.STATE_SELECTED: _selected = !_selected; break;					
+				default: break;
+			}
+		}	
 		
 		public function get type():String
 		{
@@ -80,9 +106,14 @@ package com.wezside.components.gallery
 		{
 		}
 		
-		public function get enable():Boolean
+		public function get selected():Boolean
 		{
-			return true;
+			return _selected;
+		}
+		
+		public function set selected( value:Boolean ):void
+		{
+			_selected = value;
 		}
 	}
 }

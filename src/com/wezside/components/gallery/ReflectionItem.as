@@ -24,6 +24,7 @@
 package com.wezside.components.gallery 
 {
 	import com.wezside.utilities.imaging.Reflection;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -44,11 +45,12 @@ package com.wezside.components.gallery
 		private var originHeight:Number;
 		
 		private var _type:String;
-		private var _enable:Boolean;
-		private var _reflectionAlpha:Number;
 		private var _debug:Boolean;
+		private var _selected:Boolean;
+		private var _sm:StateManager;
+		private var _reflectionAlpha:Number;
 
-		
+
 		public function ReflectionItem( type:String, bmp:Bitmap, ratios:Array, reflectionHeight:Number, debug:Boolean  )
 		{
 			_type = type;
@@ -61,6 +63,12 @@ package com.wezside.components.gallery
 			_reflectionAlpha = 0;
 			originWidth = bmp.width;
 			originHeight = bmp.height;
+			
+			_selected = false;
+			_sm = new StateManager();
+			_sm.addState( Gallery.STATE_ROLLOVER );
+			_sm.addState( Gallery.STATE_ROLLOUT );
+			_sm.addState( Gallery.STATE_SELECTED, true );			
 			
 			reflection = new Reflection( bmp, ratios, reflectionHeight );
 			addChild( reflection );			
@@ -80,12 +88,14 @@ package com.wezside.components.gallery
 		{
 		}
 		
-		public function rollOver( object:Object = null ):void
+		public function rollOver():void
 		{
+			alpha = 1;
 		}
 		
-		public function rollOut( object:Object = null ):void
+		public function rollOut():void
 		{
+			alpha = 0.5;
 		}
 		
 		public function play():void
@@ -110,16 +120,27 @@ package com.wezside.components.gallery
 			_type = value;
 		}
 		
-		public function get enable():Boolean
+		public function get state():String
 		{
-			return _enable;
+			return _sm.state;
 		}
 		
-		public function set enable(value:Boolean):void
+		public function set state( value:String ):void
 		{
-			_enable = value;
-			_enable && reflectionAlpha != 0 ? alpha = 1 : alpha = _reflectionAlpha;
-		}
+			_sm.state = value;
+			switch ( _sm.historyKey )
+			{
+				case Gallery.STATE_ROLLOUT:	
+				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: rollOut(); break;
+									
+				case Gallery.STATE_ROLLOVER:
+				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: rollOver(); break;
+				
+				case Gallery.STATE_SELECTED: _selected = !_selected; break;					
+				default: break;
+			}
+		}	
+		
 		
 		public function get reflectionAlpha():Number
 		{
@@ -131,7 +152,13 @@ package com.wezside.components.gallery
 			_reflectionAlpha = value;
 		}
 		
+		public function get selected():Boolean
+		{
+			return false;
+		}
 		
-		
+		public function set selected(value:Boolean):void
+		{
+		}
 	}
 }

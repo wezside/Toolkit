@@ -13,8 +13,10 @@ package test.com.wezside.components.gallery
 	 */
 	public class TestGallery 
 	{
+
 		private var items:Array;
 		private var gallery:Gallery;
+
 
 		[Before]
 		public function setUp():void

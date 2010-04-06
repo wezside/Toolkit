@@ -86,7 +86,8 @@ package com.wezside.utilities.manager.state
 			// If the state is reserved for specific use then XOR else OR
 			if ( state.reserved ) 
 			{
-				_historyKey = _state.key != state.key ? _state.key + "+" + state.key : state.key;
+				 
+				_historyKey = _state.key != state.key ? _state.key + state.key : state.key;
 				_state.key = state.key;
 				_state.value ^= state.value;
 			}
@@ -98,11 +99,10 @@ package com.wezside.utilities.manager.state
 					if ( !IState( _history[i] ).reserved )
 						nonReserved &= ~IState( _history[i] ).value;
 
-				_historyKey = state.key;
+				_historyKey = _state.key != state.key ? state.key + _historyKey : state.key;
 				_state.key = state.key;
 				_state.value = state.value;
-				_state.value = state.value ^ nonReserved;
-				
+				_state.value = state.value ^ nonReserved;				
 			}
 		}
 
@@ -111,13 +111,11 @@ package com.wezside.utilities.manager.state
 		{
 			return _state.key;
 		}
-
 		
 		public function get stateValue():Number
 		{
 			return _state.value;
 		}
-
 		
 		public function previousState():String
 		{
@@ -126,11 +124,16 @@ package com.wezside.utilities.manager.state
 					return _history[ i > 0 ? i - 1 : 0 ].key;
 			return "";
 		}
-		
-		
+				
 		public function get historyKey():String
 		{
 			return _historyKey;
+		}
+		
+		public function purge():void
+		{
+			_history = null;
+			_state = null;
 		}
 		
 		

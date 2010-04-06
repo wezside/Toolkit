@@ -56,11 +56,11 @@ package com.wezside.components.gallery
 		}
 		
 		
-		public function rollOver( object:Object = null ):void
+		public function rollOver():void
 		{
 		}
 		
-		public function rollOut( object:Object = null ):void
+		public function rollOut():void
 		{
 		}
 		
@@ -71,10 +71,15 @@ package com.wezside.components.gallery
 		public function stop():void
 		{
 		}
-
-		public function set enable( value:Boolean ):void
+		
+		public function get state():String
 		{
+			return "";
 		}
+		
+		public function set state( value:String ):void
+		{
+		}	
 		
 		public function get type():String
 		{
@@ -94,6 +99,15 @@ package com.wezside.components.gallery
 		public function get enable():Boolean
 		{
 			return true;
+		}
+		
+		public function get selected():Boolean
+		{
+			return false;
+		}
+		
+		public function set selected(value:Boolean):void
+		{
 		}
 	}
 }

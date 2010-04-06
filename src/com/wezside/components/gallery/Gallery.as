@@ -97,7 +97,11 @@ package com.wezside.components.gallery
 		public static const BLANK:String = "";
 		public static const OVERLAY:String = "overlay";
 		public static const LIGHTBOX:String = "lightbox";
-		public static const VERSION:String = "0.2.0020";
+		public static const VERSION:String = "0.2.0020";		
+
+		public static const STATE_ROLLOVER:String = "stateRollover";
+		public static const STATE_ROLLOUT:String = "stateRollout";
+		public static const STATE_SELECTED:String = "stateSelected";		
 
 		
 		
@@ -441,6 +445,7 @@ package com.wezside.components.gallery
 				}					
 			}
 			
+			Tracer.output( _debug, " Gallery.arrange()", toString() );
 			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
 		}
 
@@ -453,6 +458,7 @@ package com.wezside.components.gallery
 		
 		protected function itemClick( event:MouseEvent ):void
 		{
+			IGalleryItem( event.currentTarget ).state = STATE_SELECTED;
 			switch ( target )
 			{
 				case BLANK   : navigateToURL( new URLRequest( "" ), "_blank");	break;
@@ -479,25 +485,18 @@ package com.wezside.components.gallery
 					// Rolled over item
 					if ( item.name == event.currentTarget.name && event.currentTarget.name.indexOf( "reflection_" ) == -1 )
 					{
-//						item.rollOver();
-						item.enable = true;
+						item.state = STATE_ROLLOVER;
 						if ( reflectionHeightInRows > 0 )
 						{
 							reflection = getChildByName( "reflection_" + item.name.toString() ) as IGalleryItem;
-							reflection.enable = true;
+							reflection.state = STATE_ROLLOVER;
 						}
-//						reflection.rollOver();
 						dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_ROLLOVER, false, false, i ));
-//						Tweener.addTween( item, {_tintBrightness: 0.0, time: 0.5, transition: "linear" } );
-//						Tweener.addTween( reflection, {alpha: reflectionAlpha+0.3, time: 0.5, transition: "linear" } );						
 					}
 
 					if ( item.name != event.currentTarget.name && item.name != ( "reflection_" + item.name ))
 					{
-						item.enable = false;
-//						reflection.rollOver();
-//						Tweener.addTween(  item, { _saturation: 0, time: 1, transition: "linear" });
-//						Tweener.addTween(  reflection, { _saturation: 0, time: 1, transition: "linear" });								
+						item.state = STATE_ROLLOUT;
 					}
 				}
 			}
@@ -513,29 +512,13 @@ package com.wezside.components.gallery
 			{
 				item = getChildByName( i.toString() ) as IGalleryItem;	
 				reflection = getChildByName( "reflection_" + i.toString() ) as IGalleryItem;
-				item.rollOut();
+				item.state = STATE_ROLLOUT;
 				
 				if  ( reflectionHeightInRows > 0 )
 				{
 					reflection = getChildByName( "reflection_" + item.name.toString() ) as IGalleryItem;
-					reflection.enable = false;
+					reflection.state = STATE_ROLLOUT;
 				}
-			/*
-				if ( item.name != event.currentTarget.name )
-				{
-					item.rollOut();
-//					reflection.rollOut();		
-								
-//					Tweener.addTween( item, {_saturation: 1, time: 1, transition: "linear" });
-//					Tweener.addTween( reflection, { alpha: reflectionAlpha, _saturation: 1, time: 0.5, transition: "linear" });
-				}
-				else if ( item.name == event.currentTarget.name && event.currentTarget.name.indexOf( "reflection_" ) == -1 )
-				{
-					item.rollOut();
-//					Tweener.addTween( item, {_tintBrightness: -0.3, time: 0.5, transition: "linear" } );
-					if ( item.name.indexOf( "reflection_" ) == -1 )
-						item.stop();
-				}*/
 			}			
 		}
 
