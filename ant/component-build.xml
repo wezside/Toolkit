@@ -42,7 +42,7 @@
 		<loadfile property="readme.contents" srcFile="${basedir}/README.md">
 			<filterchain>
 				<tokenfilter>
-					<replaceregex pattern="(Component \[Build [0-9]\.[0-9])(\.[0-9]+)\]" replace="Component [Build ${version}${build.int}]" flags="gis" />
+					<replaceregex pattern="(Components \[Build [0-9]\.[0-9])(\.[0-9]+)\]" replace="Component [Build ${version}${build.int}]" flags="gis" />
 				</tokenfilter>
 			</filterchain>
 		</loadfile>

@@ -6,9 +6,9 @@ This is a hub for components I've written and re-use quite often. These include 
 Latest release
 =======
 
-* Compiled with Flex 4 SDK build 10434 
+* Compiled with Flex 4 SDK build 14159 
 
-Components [Build 0.1.0000]
+Component [Build 0.1.0014]
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion") [Build 0.1.0032]
