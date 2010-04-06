@@ -25,7 +25,7 @@ package com.wezside.sample.gallery
 {
 	import com.wezside.components.gallery.Gallery;
 	import com.wezside.components.gallery.GalleryEvent;
-	import com.wezside.utilities.date.DateUtils;
+	import com.wezside.utilities.date.DateUtil;
 	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.Sprite;
@@ -84,9 +84,12 @@ package com.wezside.sample.gallery
 		// Preloader instance
 		protected var preloader:Preloader;
 
+		private var dateUtils:DateUtil;
+		
 		
 		public function GalleryBasic():void
 		{
+			dateUtils = new DateUtil();
 			addEventListener( Event.ADDED_TO_STAGE, stageInit );
 		}
 		
@@ -109,7 +112,7 @@ package com.wezside.sample.gallery
 			for each ( var item:XML in xml.section.( @id == id ).gallery.item )
 					original.push({ id: item.@id,	
 							   		url: item.@url,
-							   		livedate: DateUtils.getInstance().convertDate( item.@livedate || "2001-01-01 00:00:00" ) });
+							   		livedate: dateUtils.convertDate( item.@livedate || "2001-01-01 00:00:00" ) });
 			createGallery();
 		}
 		

@@ -23,8 +23,8 @@
  */
 package com.wezside.components.gallery 
 {
-	import com.wezside.utilities.date.DateUtils;
-	import com.wezside.utilities.file.FileUtils;
+	import com.wezside.utilities.date.DateUtil;
+	import com.wezside.utilities.file.FileUtil;
 	import com.wezside.utilities.imaging.ImageResize;
 	import com.wezside.utilities.logging.Tracer;
 
@@ -54,7 +54,7 @@ package com.wezside.components.gallery
 		private var currentRow:int;
 		private var totalpages:Number;
 		private var total:uint;
-		private var dateUtils:DateUtils;
+		private var dateUtils:DateUtil;
 		private var largestItemWidth:Number = 0;
 		private var largestItemHeight:Number = 0;
 		
@@ -169,7 +169,7 @@ package com.wezside.components.gallery
 			if ( items.length == 0 )
 				throw new Error( "Error: No items in dataprovider." );
 			
-			dateUtils = DateUtils.getInstance();
+			dateUtils = new DateUtil();
 			addEventListener( Event.ADDED_TO_STAGE, create );
 		}
 		
@@ -282,7 +282,7 @@ package com.wezside.components.gallery
 			if( items.length != 0 )
 			{
 				var date:Date = original[ int( total - items.length ) ].livedate;
-				switch ( FileUtils.getFileExtension( items[0].url ))
+				switch ( FileUtil.getFileExtension( items[0].url ))
 				{
 					case "jpg":				
 					case "png":				

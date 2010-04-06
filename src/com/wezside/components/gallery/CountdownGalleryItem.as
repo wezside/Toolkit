@@ -23,7 +23,7 @@
  */
 package com.wezside.components.gallery 
 {
-	import com.wezside.utilities.date.DateUtils;
+	import com.wezside.utilities.date.DateUtil;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -47,6 +47,7 @@ package com.wezside.components.gallery
 		private var bitmap:Bitmap;
 		private var _type:String;
 		private var _debug:Boolean;
+		private var dateUtils:DateUtil;
 
 		
 		public function CountdownGalleryItem( type:String, debug:Boolean )
@@ -54,6 +55,7 @@ package com.wezside.components.gallery
 			super();
 			this.type = type;
 			_debug = debug;
+			dateUtils = new DateUtil();
 		}
 
 
@@ -131,11 +133,12 @@ package com.wezside.components.gallery
 			field = null;
 			bitmap = null;
 			bmpdata = null;
+			dateUtils = null;
 		}		
 		
 		private function enterFrame( event:Event ):void
 		{
-			var data:Array = DateUtils.getInstance().getCountDown( livedate );			
+			var data:Array = dateUtils.getCountDown( livedate );			
 			field.text = doubleDigit( data[3] ) + ":" + doubleDigit( data[2] ) + ":" + doubleDigit( data[1] ) + ":" + doubleDigit( data[0] );
 			field.setTextFormat( fmt );
 		}

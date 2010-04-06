@@ -2,7 +2,7 @@ package com.wezside.components
 {
 	import com.wezside.components.container.Box;
 	import com.wezside.utilities.manager.style.IStyleManager;
-	import com.wezside.utilities.string.StringUtils;
+	import com.wezside.utilities.string.StringUtil;
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -150,7 +150,7 @@ package com.wezside.components
 		
 		private function setProperties( child:DisplayObject, props:Array ):void
 		{
-			var strUtil:StringUtils = new StringUtils();
+			var strUtil:StringUtil = new StringUtil();
 			_styleSheet = styleManager.getStyleSheet( _styleName );
 									
 			for ( var k:int = 0; k < props.length; ++k ) 

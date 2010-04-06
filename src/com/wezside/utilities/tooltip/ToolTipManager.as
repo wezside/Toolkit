@@ -8,6 +8,9 @@ package com.wezside.utilities.tooltip
 
 	/**
 	 * @author Wesley.Swanepoel
+	 * 
+	 * TODO: Remove dependancy on Tweenlite.
+	 * TODO: Should be more like timeline manager, pushing tooltips in, thus an interface to play and control tooltips with.
 	 */
 	public class ToolTipManager extends EventDispatcher
 	{
