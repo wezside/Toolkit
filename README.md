@@ -12,7 +12,7 @@ Components [Build 0.1.0000]
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion") [Build 0.1.0032]
-* [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic "Gallery") [Build 0.1.001]
+* [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic.as "Gallery") [Build 0.1.001]
 * [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer") [Build 0.1.001]
 
 Utilities [Build 0.1.0018]
@@ -40,7 +40,7 @@ state changes.
 Gallery
 -------
 
-A framework for building advanced Gallery components. Supports grid layouts and custom transitions, image. Useful just as is or with extended functionality. 
+A framework for building advanced Gallery components. Supports grid layouts and custom transitions. Useful just as is or with extended functionality. 
 The creation policy for this component is to construct and purge a gallery per page. This allows for only loading the images required on screen. This impacts
 transitions where it is required to have the next items visible on screen before the current gallery items have been removed. 
 
