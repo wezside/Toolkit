@@ -21,6 +21,9 @@ package com.wezside.utilities.manager.style
 {
 	import flash.display.Loader;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
 	import flash.text.StyleSheet;
 	import flash.utils.ByteArray;
 
@@ -67,6 +70,15 @@ package com.wezside.utilities.manager.style
 			_sheet.parseCSS( _css );
 		}
 		
+			
+		public function parseLibrary( library:* ):void
+		{
+			var context:LoaderContext = new LoaderContext();
+			context.applicationDomain = ApplicationDomain.currentDomain;
+			loader.loadBytes( library, context );
+			addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );			
+		}
+
 		
 		public function getAssetByName( linkageClassName:String ):*
 		{
@@ -105,5 +117,15 @@ package com.wezside.utilities.manager.style
 		{
 			return _css;
 		}		
+		
+
+		private function libraryEnterFrameCheck(event:Event):void 
+		{
+			if ( loader.content )
+			{
+				removeEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
+				dispatchEvent( new Event( Event.COMPLETE ));
+			}
+		}				
 	}
 }

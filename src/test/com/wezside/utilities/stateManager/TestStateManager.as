@@ -30,8 +30,7 @@ package test.com.wezside.utilities.stateManager
 		{
 			sm.purge();
 			sm = null;
-		}
-		
+		}		
 				
 		[Test] 
 		public function testStateManagerHistory():void
@@ -40,12 +39,13 @@ package test.com.wezside.utilities.stateManager
 			assertEquals( sm.state, STATE_ROLLOVER ); 
 			
 			sm.state = STATE_SELECTED;
-			assertEquals( sm.historyKey, STATE_ROLLOVER + STATE_SELECTED ); 
-			
-			sm.state = STATE_SELECTED;
-			assertEquals( sm.historyKey, STATE_ROLLOVER ); 
-			
+			assertEquals( STATE_ROLLOVER + STATE_SELECTED, sm.historyKey ); 
 
+			trace( sm.historyKey );			
+			sm.state = STATE_SELECTED;
+			
+			trace( sm.historyKey );
+			assertEquals( sm.historyKey, STATE_ROLLOVER );
 		}
 	}
 }

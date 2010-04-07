@@ -48,9 +48,10 @@ package com.wezside.utilities.manager.state
 		
 		
 		private var _state:IState;
-		private var _policy:String = "";
+		private var _policy:String = "repeatHistory";
 		private var _baseTwo:Number = 1;
 		private var _historyKey:String = "";
+		private var _states:Vector.<IState> = new Vector.<IState>( );
 		private var _history:Vector.<IState> = new Vector.<IState>( );
 		private const HISTORY_REPEATS_ITSELF:String = "repeatHistory";
 				
@@ -68,45 +69,57 @@ package com.wezside.utilities.manager.state
 				_state.value = reserved ? 0 : state.value;
 			}
 						
-			// Check history policy to determine if duplicate entries should be allowed on last added state
-			if ( _policy == HISTORY_REPEATS_ITSELF )
-			{
-				if ( _history[ _history.length - 1  ] != state.value )
-					_history.push( state ); 
-			}
-			else
-				_history.push( state );
+			_states.push( state );
+
 		}
 		
 		
 		public function set state( key:String ):void
 		{
 			var state:IState = stateByKey( key );
-
+						
+			// Check history policy to determine if duplicate entries should be allowed on last added state
+			if ( _policy != HISTORY_REPEATS_ITSELF )
+			{
+				var lastIndex:int = _history.length - 1;
+				if ( lastIndex >= 0 && _history[ lastIndex ] != state.value )
+					_history.push( state );
+			} 
+			else
+				_history.push( state );
+			
 			// If the state is reserved for specific use then XOR else OR
 			if ( state.reserved ) 
 			{
-				 
-				_historyKey = _state.key != state.key ? _state.key + state.key : state.key;
+//				trace( "_state.key: " + _state.key );
+//				_historyKey = _state.key != state.key ? _state.key + state.key : _state.key;
+//				c = _state.key;
 				_state.key = state.key;
 				_state.value ^= state.value;
+				updateHistoryKey();				
 			}
 			else 
-			{				
+			{
 				// Clear all non reserved bits
 				var nonReserved:Number = _state.value;
 				for ( var i : int = 0; i < _history.length; ++i ) 
 					if ( !IState( _history[i] ).reserved )
 						nonReserved &= ~IState( _history[i] ).value;
 
-				_historyKey = _state.key != state.key ? state.key + _historyKey : state.key;
 				_state.key = state.key;
 				_state.value = state.value;
-				_state.value = state.value ^ nonReserved;				
+				_state.value = state.value ^ nonReserved;
+				
+				updateHistoryKey();				
 			}
 		}
 
-		
+		private function updateHistoryKey():void 
+		{
+			for ( var k:int = 0; k < _history.length; ++k ) 
+				_historyKey += _history[k].key;
+		}
+
 		public function get state():String
 		{
 			return _state.key;
@@ -135,16 +148,15 @@ package com.wezside.utilities.manager.state
 			_history = null;
 			_state = null;
 		}
-		
+	
 		
 		private function stateByKey( key:String ):IState 
 		{
-			for ( var i : int = 0; i < _history.length; ++i ) 
-				if ( _history[i].key == key )
-					return _history[i];
+			for ( var i : int = 0; i < _states.length; ++i ) 
+				if ( _states[i].key == key )
+					return _states[i];
 			return null;
 		}
-		
 		
 	}
 }
