@@ -41,11 +41,8 @@ package test.com.wezside.utilities.stateManager
 			sm.state = STATE_SELECTED;
 			assertEquals( STATE_ROLLOVER + STATE_SELECTED, sm.historyKey ); 
 
-			trace( sm.historyKey );			
 			sm.state = STATE_SELECTED;
-			
-			trace( sm.historyKey );
-			assertEquals( sm.historyKey, STATE_ROLLOVER );
+			assertEquals( STATE_ROLLOVER, sm.historyKey );
 		}
 	}
 }

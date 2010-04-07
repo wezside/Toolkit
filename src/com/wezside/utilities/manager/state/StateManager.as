@@ -24,7 +24,7 @@ package com.wezside.utilities.manager.state
 	 * @author Wesley.Swanepoel
 	 * 
 	 * <p>
-	 * A useful class to manage application state. The reserved property on an IState instance is used for 
+	 * A useful class to manage application or component state. The reserved property on an IState instance is used for 
 	 * application state which should only affect itself. 
 	 * </p>
 	 * 
@@ -67,10 +67,9 @@ package com.wezside.utilities.manager.state
 			{
 				_state = new State( state.key, state.reserved );
 				_state.value = reserved ? 0 : state.value;
-			}
-						
+				_history.push( _state );
+			}						
 			_states.push( state );
-
 		}
 		
 		
@@ -79,24 +78,36 @@ package com.wezside.utilities.manager.state
 			var state:IState = stateByKey( key );
 						
 			// Check history policy to determine if duplicate entries should be allowed on last added state
-			if ( _policy != HISTORY_REPEATS_ITSELF )
+			/*
+			if ( _policy == HISTORY_REPEATS_ITSELF )
 			{
 				var lastIndex:int = _history.length - 1;
 				if ( lastIndex >= 0 && _history[ lastIndex ] != state.value )
 					_history.push( state );
 			} 
 			else
+			 * 
+			_history.push( state );
+			 */
+			var lastIndex:int = _history.length - 1;
+//				trace( " _history[ _history.length - 1 ].key: " +  _history[ _history.length - 1 ].key );
+//				trace( "state.key: " + state.key);
+			if (  _history[ lastIndex ].key != state.key )
+			{
 				_history.push( state );
+			}			 
 			
 			// If the state is reserved for specific use then XOR else OR
 			if ( state.reserved ) 
 			{
+
 //				trace( "_state.key: " + _state.key );
 //				_historyKey = _state.key != state.key ? _state.key + state.key : _state.key;
 //				c = _state.key;
+				setHistoryKey();
+
 				_state.key = state.key;
 				_state.value ^= state.value;
-				updateHistoryKey();				
 			}
 			else 
 			{
@@ -110,12 +121,26 @@ package com.wezside.utilities.manager.state
 				_state.value = state.value;
 				_state.value = state.value ^ nonReserved;
 				
-				updateHistoryKey();				
+				setHistoryKey();
+			}
+			trace( _historyKey  );				
+		}
+
+		private function removeHistoryKey( key:String ):void 
+		{
+			for (var i : int = 0; i < _history.length; i++) 
+			{
+				if ( _history[i].key == key )
+				{
+					_history.splice( i, 1 );
+					break;
+				}	
 			}
 		}
 
-		private function updateHistoryKey():void 
+		private function setHistoryKey():void 
 		{
+			_historyKey = "";
 			for ( var k:int = 0; k < _history.length; ++k ) 
 				_historyKey += _history[k].key;
 		}
