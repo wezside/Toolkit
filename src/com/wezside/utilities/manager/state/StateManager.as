@@ -48,12 +48,10 @@ package com.wezside.utilities.manager.state
 		
 		
 		private var _state:IState;
-		private var _policy:String = "repeatHistory";
 		private var _baseTwo:Number = 1;
-		private var _historyKey:String = "";
-		private var _states:Vector.<IState> = new Vector.<IState>( );
-		private var _history:Vector.<IState> = new Vector.<IState>( );
-		private const HISTORY_REPEATS_ITSELF:String = "repeatHistory";
+
+		private var _states:Vector.<IState> = new Vector.<IState>();
+		private var _history:Vector.<IState> = new Vector.<IState>();
 				
 		
 		public function addState( key:String, reserved:Boolean = false ):void
@@ -76,36 +74,13 @@ package com.wezside.utilities.manager.state
 		public function set state( key:String ):void
 		{
 			var state:IState = stateByKey( key );
-						
-			// Check history policy to determine if duplicate entries should be allowed on last added state
-			/*
-			if ( _policy == HISTORY_REPEATS_ITSELF )
-			{
-				var lastIndex:int = _history.length - 1;
-				if ( lastIndex >= 0 && _history[ lastIndex ] != state.value )
-					_history.push( state );
-			} 
-			else
-			 * 
-			_history.push( state );
-			 */
 			var lastIndex:int = _history.length - 1;
-//				trace( " _history[ _history.length - 1 ].key: " +  _history[ _history.length - 1 ].key );
-//				trace( "state.key: " + state.key);
-			if (  _history[ lastIndex ].key != state.key )
-			{
+			if ( _history[ lastIndex ].key != state.key )
 				_history.push( state );
-			}			 
 			
 			// If the state is reserved for specific use then XOR else OR
 			if ( state.reserved ) 
 			{
-
-//				trace( "_state.key: " + _state.key );
-//				_historyKey = _state.key != state.key ? _state.key + state.key : _state.key;
-//				c = _state.key;
-				setHistoryKey();
-
 				_state.key = state.key;
 				_state.value ^= state.value;
 			}
@@ -119,30 +94,8 @@ package com.wezside.utilities.manager.state
 
 				_state.key = state.key;
 				_state.value = state.value;
-				_state.value = state.value ^ nonReserved;
-				
-				setHistoryKey();
+				_state.value = state.value ^ nonReserved;				
 			}
-			trace( _historyKey  );				
-		}
-
-		private function removeHistoryKey( key:String ):void 
-		{
-			for (var i : int = 0; i < _history.length; i++) 
-			{
-				if ( _history[i].key == key )
-				{
-					_history.splice( i, 1 );
-					break;
-				}	
-			}
-		}
-
-		private function setHistoryKey():void 
-		{
-			_historyKey = "";
-			for ( var k:int = 0; k < _history.length; ++k ) 
-				_historyKey += _history[k].key;
 		}
 
 		public function get state():String
@@ -155,6 +108,27 @@ package com.wezside.utilities.manager.state
 			return _state.value;
 		}
 		
+		public function get stateKey():String
+		{
+			var str:String = "";
+			trace("_state.value: " + _state.value);
+			for ( var i:int = 0; i < _states.length; ++i ) 
+			{
+				if (( _state.value & _states[i].value ) == _states[i].value )
+				{
+					trace("output " + (_states[i].value & _state.value));
+					str += _states[i].key;
+				}
+			}
+			
+			return str;
+		}
+		
+		public function get history():Vector.<IState>
+		{
+			return _history;
+		}
+		
 		public function previousState():String
 		{
 			for ( var i:int = 0; i < _history.length; ++i ) 
@@ -162,12 +136,7 @@ package com.wezside.utilities.manager.state
 					return _history[ i > 0 ? i - 1 : 0 ].key;
 			return "";
 		}
-				
-		public function get historyKey():String
-		{
-			return _historyKey;
-		}
-		
+
 		public function purge():void
 		{
 			_history = null;

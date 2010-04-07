@@ -103,9 +103,9 @@ package com.wezside.components.gallery
 		{
 			_sm.state = value;
 
-			switch ( _sm.historyKey )
+			switch ( _sm.stateKey )
 			{
-				case Gallery.STATE_ROLLOUT:	trace("Normal rollout " + _sm.historyKey ); rollOut(); break;
+				case Gallery.STATE_ROLLOUT:	trace("Normal rollout " + _sm.stateKey ); rollOut(); break;
 				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: trace("SELECTED rollout" ); break;
 									
 				case Gallery.STATE_ROLLOVER: rollOver(); break;

@@ -36,13 +36,13 @@ package test.com.wezside.utilities.stateManager
 		public function testStateManagerHistory():void
 		{
 			sm.state = STATE_ROLLOVER;
-			assertEquals( sm.state, STATE_ROLLOVER ); 
+			assertEquals( STATE_ROLLOVER, sm.stateKey );
 			
 			sm.state = STATE_SELECTED;
-			assertEquals( STATE_ROLLOVER + STATE_SELECTED, sm.historyKey ); 
+			assertEquals( STATE_ROLLOVER + STATE_SELECTED, sm.stateKey ); 
 
 			sm.state = STATE_SELECTED;
-			assertEquals( STATE_ROLLOVER, sm.historyKey );
+			assertEquals( STATE_ROLLOVER, sm.stateKey );
 		}
 	}
 }

@@ -37,20 +37,20 @@ package com.wezside.sample.stateManager
 			field.appendText("--------------------------------------------------------------------\n");
 			
 			sm.state = "Credentials";			
-			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
+			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
 			sm.state = "Credentials";			
-			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
+			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
 			sm.state = "Credentials";			
-			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
+			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
 			sm.state = "Register";			
-			field.appendText( sm.state + "\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
+			field.appendText( sm.state + "\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
 			sm.state = "Credentials";			
-			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.historyKey + "\n");
-			field.appendText("Previous State...\t|  " + sm.previousState() + "\t\t\t| " + sm.historyKey + "\n");
+			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
+			field.appendText("Previous State...\t|  " + sm.previousState() + "\t\t\t| " + sm.stateKey + "\n");
 
 			field.setTextFormat( fmt );
 		}

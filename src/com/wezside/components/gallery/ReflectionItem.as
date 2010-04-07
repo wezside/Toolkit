@@ -128,7 +128,7 @@ package com.wezside.components.gallery
 		public function set state( value:String ):void
 		{
 			_sm.state = value;
-			switch ( _sm.historyKey )
+			switch ( _sm.stateKey )
 			{
 				case Gallery.STATE_ROLLOUT:	
 				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: rollOut(); break;
