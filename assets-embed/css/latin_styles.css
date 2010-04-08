@@ -1,0 +1,48 @@
+.title {
+	fontFamily: ArialEmbed;
+	fontWeight: normal;
+	antiAliasType: advanced;
+	embedFonts: true;
+	fontSize: 12;
+	color: #666666;
+	autoSize: left;
+}
+
+.body {
+	fontFamily: ArialEmbed;
+	fontWeight: normal;
+	antiAliasType: advanced;
+	embedFonts: true;
+	fontSize: 18;
+	color: #EFEFEF;
+	autoSize: left;
+	wordWrap: true;
+}
+
+.box
+{	
+	paddingLeft: 10;
+	paddingRight: 10;
+	paddingTop: 10;
+	paddingBottom: 10;	
+}
+
+.button
+{
+	upState: UpState;	
+	overState: OverState;	
+}
+
+.inputField
+{
+	upSkin: InputFieldUpSkin;
+	fontFamily: ArialEmbed;
+	fontWeight: normal;
+	antiAliasType: advanced;
+	embedFonts: true;
+	fontSize: 18;
+	color: #EFEFEF;
+	autoSize: left;
+	wordWrap: true;	
+
+}

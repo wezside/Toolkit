@@ -33,6 +33,7 @@ package com.wezside.components
 		
 		public static const INIT:String = "initUIElement";
 		public static const CREATION_COMPLETE:String = "uiCreationComplete";			
+		public static const STYLEMANAGER_READY:String = "uiStyleManagerReady";			
 		
 		
 		public function UIElementEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false )

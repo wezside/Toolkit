@@ -57,7 +57,8 @@ package com.wezside.utilities.manager.style
 										  "width",
 										  "height",
 										  "x",
-										  "y"];
+										  "y",
+										  "color"];
 		
 		private var _sheet:StyleSheet;		
 

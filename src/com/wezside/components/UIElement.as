@@ -23,7 +23,6 @@
  */
 package com.wezside.components 
 {
-	import com.wezside.components.container.Box;
 	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -39,11 +38,11 @@ package com.wezside.components
 	[DefaultProperty("children")]
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
 	public class UIElement extends Sprite implements IUIElement
 	{
 
-		protected var _children:Array;
-		
+		protected var _children:Array;		
 		private var _styleName:String;
 		private var _styleSheet:StyleSheet;
 		private var _styleManager:IStyleManager;		
@@ -102,7 +101,7 @@ package com.wezside.components
 		public function set styleManager( value:IStyleManager ):void
 		{
 			_styleManager = value;
-			setStyle();
+			dispatchEvent( new UIElementEvent( UIElementEvent.STYLEMANAGER_READY ));
 		}
 		
 
@@ -132,42 +131,34 @@ package com.wezside.components
 		
 		public function purge():void
 		{
+			_children = null;
+			_styleManager = null;
+			_styleName = null;
+			_styleSheet = null;
 		}		
 		
 		
 		/**
-		 * TODO: Need to do a lookup to StyleManager class and do the following within StyleManager:
-		 *  		  
-		 *  o Parse StyleSheet and create 3 CSS types from single selector
-		 *  	 1. Pure text local StyleSheet instance for styleName block  
-		 *  	 2. Collate all Symbols in Selector CSS to local list
-		 *  	 3. Collate all custom props as object list and apply the values to corresponding props - 
-		 *  	 	may require mapings from CSS names to class props
-		 *  	  
-		 *  o Create local StyleSheet object with selector in CSS file 
-		 *  o Look-up linkage identifiers in CSS and get instance from styles SWF and store them locally
-		 *  
-		 *  Usage:
-		 *  StyleManager.getStyleSheet( stlyeName ):StyleSheet;
-		 *  StyleManager.getLibraryItems( stlyeName ):Array;
-		 *  StyleManager.getPropertyStyles( stlyeName ):Array;
 		 *  
 		 */				
-		protected function setStyle():void
+		public function setStyle():void
 		{
 			if ( _styleName != null )
 			{
 				for ( var i:int = 0; i < this.numChildren; ++i ) 
 				{
 					var child:DisplayObject = this.getChildAt(i);
-					if ( child.parent is Box )
+					if ( child.parent is IUIElement )
 						setProperties( child.parent, styleManager.getPropertyStyles( _styleName ));
 					else
 						setProperties( child, styleManager.getPropertyStyles( _styleName ));
 				}		
+				
+				if ( this.numChildren == 0 )
+					setProperties( this, styleManager.getPropertyStyles( _styleName ));
+				
 			}
-			update( );
-			
+			update( );			
 		}
 
 		
