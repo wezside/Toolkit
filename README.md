@@ -15,7 +15,7 @@ Component [Build 0.1.0014]
 * [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic.as "Gallery") [Build 0.1.001]
 * [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer") [Build 0.1.001]
 
-Utilities [Build 0.1.0019]
+Utilities [Build 0.1.0020]
 =======
 
 * [DateUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/date/DateUtil.as "DateUtil") 

@@ -21,9 +21,10 @@ package test.com.wezside.utilities.stateManager
 		{
 			sm = new StateManager();
 			sm.addState( STATE_ROLLOVER );			
-			sm.addState( STATE_ROLLOUT );			
 			sm.addState( STATE_SELECTED, true );			
+			sm.addState( STATE_ROLLOUT );			
 		}
+		
 				
 		[After]
 		public function tearDown():void
@@ -31,18 +32,54 @@ package test.com.wezside.utilities.stateManager
 			sm.purge();
 			sm = null;
 		}		
+		
 				
 		[Test] 
-		public function testStateManagerHistory():void
+		public function testStateManagerNonReservedValue():void
+		{
+			sm.state = STATE_ROLLOVER;
+			assertEquals( 1, sm.stateValue );
+			
+			sm.state = STATE_ROLLOUT;
+			assertEquals( 4, sm.stateValue );	
+			
+			sm.state = STATE_ROLLOVER;
+			assertEquals( 1, sm.stateValue );
+		}
+		
+		
+		[Test]
+		public function testStateManagerReservedValue():void
+		{			
+			sm.state = STATE_SELECTED;
+			assertEquals( 2, sm.stateValue );		
+				
+			sm.state = STATE_SELECTED;
+			assertEquals( 0, sm.stateValue );
+			
+			sm.state = STATE_ROLLOUT;
+			assertEquals( 4, sm.stateValue );
+			
+			sm.state = STATE_SELECTED;
+			assertEquals( 6, sm.stateValue );
+		}
+		
+				
+		[Test]
+		public function testStateManagerKey():void
 		{
 			sm.state = STATE_ROLLOVER;
 			assertEquals( STATE_ROLLOVER, sm.stateKey );
-			
+
 			sm.state = STATE_SELECTED;
 			assertEquals( STATE_ROLLOVER + STATE_SELECTED, sm.stateKey ); 
 
 			sm.state = STATE_SELECTED;
 			assertEquals( STATE_ROLLOVER, sm.stateKey );
+
+			sm.state = STATE_ROLLOUT;
+			assertEquals( STATE_ROLLOUT, sm.stateKey );
+
 		}
 	}
 }

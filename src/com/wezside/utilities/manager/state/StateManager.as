@@ -47,7 +47,7 @@ package com.wezside.utilities.manager.state
 	{
 		
 		
-		private var _state:IState;
+		private var _state:IState = new State( "" );
 		private var _baseTwo:Number = 1;
 
 		private var _states:Vector.<IState> = new Vector.<IState>();
@@ -56,17 +56,8 @@ package com.wezside.utilities.manager.state
 		
 		public function addState( key:String, reserved:Boolean = false ):void
 		{
-			// Create new state
 			var state:State = new State( key, reserved );
-			state.value = _baseTwo << _history.length;
-
-			// Set initial state						
-			if ( _history.length == 0 )
-			{
-				_state = new State( state.key, state.reserved );
-				_state.value = reserved ? 0 : state.value;
-				_history.push( _state );
-			}						
+			state.value = _baseTwo << _states.length;
 			_states.push( state );
 		}
 		
@@ -75,7 +66,7 @@ package com.wezside.utilities.manager.state
 		{
 			var state:IState = stateByKey( key );
 			var lastIndex:int = _history.length - 1;
-			if ( _history[ lastIndex ].key != state.key )
+			if ( lastIndex > 0 && _history[ lastIndex > 0 ? lastIndex : 0 ].key != state.key )
 				_history.push( state );
 			
 			// If the state is reserved for specific use then XOR else OR
@@ -87,14 +78,14 @@ package com.wezside.utilities.manager.state
 			else 
 			{
 				// Clear all non reserved bits
-				var nonReserved:Number = _state.value;
-				for ( var i : int = 0; i < _history.length; ++i ) 
-					if ( !IState( _history[i] ).reserved )
-						nonReserved &= ~IState( _history[i] ).value;
+				var nonReserved:Number = isNaN( _state.value ) ? state.value : _state.value;
+				for ( var i : int = 0; i < _states.length; ++i ) 
+					if ( !IState( _states[i] ).reserved )
+						nonReserved &= ~IState( _states[i] ).value;
 
 				_state.key = state.key;
 				_state.value = state.value;
-				_state.value = state.value ^ nonReserved;				
+				_state.value = state.value ^ nonReserved;			
 			}
 		}
 
@@ -111,15 +102,9 @@ package com.wezside.utilities.manager.state
 		public function get stateKey():String
 		{
 			var str:String = "";
-			trace("_state.value: " + _state.value);
 			for ( var i:int = 0; i < _states.length; ++i ) 
-			{
 				if (( _state.value & _states[i].value ) == _states[i].value )
-				{
-					trace("output " + (_states[i].value & _state.value));
 					str += _states[i].key;
-				}
-			}
 			
 			return str;
 		}
