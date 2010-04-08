@@ -125,8 +125,8 @@ with non-reserved and other reserved states.
 		sm.state = "Credentials";				// State == 1
 		sm.state = "Credentials";				// State == 0
 		sm.state = "Credentials";				// State == 1
-		sm.state = "Register";				// State == 3
-		sm.previousState()					// Result is "Credentials"	
+		sm.state = "Register";					// State == 3
+		sm.previousState().key					// Result is "Credentials"	
 		sm.state = "Credentials";				// State == 2
 
 
