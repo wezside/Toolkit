@@ -8,7 +8,7 @@ Latest release
 
 * Compiled with Flex 4 SDK build 14159 
 
-Component [Build 0.1.0014]
+Component [Build 0.1.0018]
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion") [Build 0.1.0032]
