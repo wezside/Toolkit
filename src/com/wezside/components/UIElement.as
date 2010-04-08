@@ -138,9 +138,6 @@ package com.wezside.components
 		}		
 		
 		
-		/**
-		 *  
-		 */				
 		public function setStyle():void
 		{
 			if ( _styleName != null )
@@ -154,9 +151,7 @@ package com.wezside.components
 						setProperties( child, styleManager.getPropertyStyles( _styleName ));
 				}		
 				
-				if ( this.numChildren == 0 )
-					setProperties( this, styleManager.getPropertyStyles( _styleName ));
-				
+				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
 			}
 			update( );			
 		}

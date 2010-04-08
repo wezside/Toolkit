@@ -32,7 +32,7 @@ package test.com.wezside.components
 		{			
 			mockUIElement.styleName = "title";
 			mockUIElement.styleManager = styles;
-			assertEquals( "", "" );
+			assertEquals( "", mockUIElement.antiAliasType );
 			
 			mockUIElement.setStyle();			
 			assertEquals( "advanced", mockUIElement.antiAliasType );
