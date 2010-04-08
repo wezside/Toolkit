@@ -47,12 +47,12 @@ package com.wezside.utilities.manager.state
 	{
 		
 		
-		private var _state:IState = new State( "" );
 		private var _baseTwo:Number = 1;
+		private var _state:IState = new State( "" );
 
 		private var _states:Vector.<IState> = new Vector.<IState>();
-		private var _history:Vector.<IState> = new Vector.<IState>();
-				
+		private var _history:Vector.<IState> = new Vector.<IState>( );
+
 		
 		public function addState( key:String, reserved:Boolean = false ):void
 		{
@@ -60,14 +60,11 @@ package com.wezside.utilities.manager.state
 			state.value = _baseTwo << _states.length;
 			_states.push( state );
 		}
-		
-		
+				
 		public function set state( key:String ):void
 		{
 			var state:IState = stateByKey( key );
-			var lastIndex:int = _history.length - 1;
-			if ( lastIndex > 0 && _history[ lastIndex > 0 ? lastIndex : 0 ].key != state.key )
-				_history.push( state );
+			_history.push( state );			
 			
 			// If the state is reserved for specific use then XOR else OR
 			if ( state.reserved ) 
@@ -99,35 +96,45 @@ package com.wezside.utilities.manager.state
 			return _state.value;
 		}
 		
+		/**
+		 * Contains the concatenated keys of all states which bits are true, i.e. 1 and not 0.
+		 * Non-reserved states are mutually exclusive whereas reserved states is allowed to 
+		 * co-exist with both reserved and non-reserved states. This String key will reflect this logic.
+		 */
 		public function get stateKey():String
 		{
 			var str:String = "";
 			for ( var i:int = 0; i < _states.length; ++i ) 
 				if (( _state.value & _states[i].value ) == _states[i].value )
-					str += _states[i].key;
-			
+					str += _states[i].key;			
 			return str;
 		}
 		
+		/**
+		 * Returns a list of past states including the current state.
+		 */
 		public function get history():Vector.<IState>
 		{
 			return _history;
 		}
-		
-		public function previousState():String
+				
+		/**
+		 * Returns the state before the current state, i.e. the last state in the history list.
+		 */
+		public function previousState():IState
 		{
-			for ( var i:int = 0; i < _history.length; ++i ) 
-				if (  _history[ i ].key == _state.key )
-					return _history[ i > 0 ? i - 1 : 0 ].key;
-			return "";
+			if ( _history.length > 0 )
+				return _history[ _history.length > 1 ? _history.length - 2 : 0 ];
+			else
+				return null; 
 		}
 
 		public function purge():void
 		{
-			_history = null;
 			_state = null;
-		}
-	
+			_states = null;
+			_history = null;
+		}	
 		
 		private function stateByKey( key:String ):IState 
 		{
@@ -135,7 +142,6 @@ package com.wezside.utilities.manager.state
 				if ( _states[i].key == key )
 					return _states[i];
 			return null;
-		}
-		
+		}		
 	}
 }

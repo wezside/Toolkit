@@ -1,5 +1,6 @@
 package test.com.wezside.utilities.stateManager 
 {
+	import org.flexunit.asserts.assertNull;
 	import org.flexunit.asserts.assertEquals;
 	import com.wezside.utilities.manager.state.StateManager;
 
@@ -80,6 +81,19 @@ package test.com.wezside.utilities.stateManager
 			sm.state = STATE_ROLLOUT;
 			assertEquals( STATE_ROLLOUT, sm.stateKey );
 
+		}
+				
+		[Test]
+		public function testStateManagerPrevious():void
+		{
+		
+			assertNull( sm.previousState() );
+			sm.state = STATE_ROLLOVER;
+			assertEquals( STATE_ROLLOVER, sm.previousState().key );
+			
+			sm.state = STATE_ROLLOUT;
+			sm.state = STATE_ROLLOVER;			
+			assertEquals( STATE_ROLLOUT, sm.previousState().key );
 		}
 	}
 }
