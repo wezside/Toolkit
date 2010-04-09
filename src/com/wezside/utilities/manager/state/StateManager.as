@@ -63,26 +63,29 @@ package com.wezside.utilities.manager.state
 				
 		public function set state( key:String ):void
 		{
-			var state:IState = stateByKey( key );
-			_history.push( state );			
-			
-			// If the state is reserved for specific use then XOR else OR
-			if ( state.reserved ) 
+			var state:IState = stateByKey( key );			
+			if ( state )
 			{
-				_state.key = state.key;
-				_state.value ^= state.value;
-			}
-			else 
-			{
-				// Clear all non reserved bits
-				var nonReserved:Number = isNaN( _state.value ) ? state.value : _state.value;
-				for ( var i : int = 0; i < _states.length; ++i ) 
-					if ( !IState( _states[i] ).reserved )
-						nonReserved &= ~IState( _states[i] ).value;
-
-				_state.key = state.key;
-				_state.value = state.value;
-				_state.value = state.value ^ nonReserved;			
+				_history.push( state );			
+							
+				// If the state is reserved for specific use then XOR else OR
+				if ( state.reserved ) 
+				{
+					_state.key = state.key;
+					_state.value ^= state.value;
+				}
+				else 
+				{
+					// Clear all non reserved bits
+					var nonReserved:Number = isNaN( _state.value ) ? state.value : _state.value;
+					for ( var i : int = 0; i < _states.length; ++i ) 
+						if ( !IState( _states[i] ).reserved )
+							nonReserved &= ~IState( _states[i] ).value;
+	
+					_state.key = state.key;
+					_state.value = state.value;
+					_state.value = state.value ^ nonReserved;			
+				}
 			}
 		}
 
