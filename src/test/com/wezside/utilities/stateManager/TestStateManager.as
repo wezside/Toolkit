@@ -95,5 +95,12 @@ package test.com.wezside.utilities.stateManager
 			sm.state = STATE_ROLLOVER;			
 			assertEquals( STATE_ROLLOUT, sm.previousState().key );
 		}
+				
+		[Test]
+		public function testStateManagerStateKeys():void
+		{
+			sm.state = STATE_ROLLOVER;
+			assertEquals( 1, sm.stateKeys.length );
+		}
 	}
 }

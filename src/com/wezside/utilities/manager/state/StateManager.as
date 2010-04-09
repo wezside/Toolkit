@@ -110,6 +110,15 @@ package com.wezside.utilities.manager.state
 			return str;
 		}
 		
+		public function get stateKeys():Array
+		{
+			var arr:Array = [];
+			for ( var i:int = 0; i < _states.length; ++i ) 
+				if (( _state.value & _states[i].value ) == _states[i].value )
+					arr.push( _states[i].key );			
+			return arr;		
+		}
+		
 		/**
 		 * Returns a list of past states including the current state.
 		 */

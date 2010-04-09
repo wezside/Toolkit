@@ -42,6 +42,8 @@ package com.wezside.components
 		 function set styleName( value:String ):void
 		 function get styleSheet():StyleSheet
 		 function set styleSheet( value:StyleSheet ):void
+		 function get skin():IUIElementSkin
+		 function set skin( value:IUIElementSkin ):void
 		 function purge():void;
 	
 	}

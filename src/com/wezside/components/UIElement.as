@@ -23,6 +23,7 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -42,15 +43,27 @@ package com.wezside.components
 	public class UIElement extends Sprite implements IUIElement
 	{
 
-		protected var _children:Array;		
 		private var _styleName:String;
+		private var _skin:IUIElementSkin;
 		private var _styleSheet:StyleSheet;
 		private var _styleManager:IStyleManager;		
+		private var _stateManager:StateManager;
+		
+		protected var _children:Array;		
 
 		
 		public function UIElement() 
 		{
 			_children = [];
+			_skin = new UIElementSkin();
+			_stateManager = new StateManager();
+			_stateManager.addState( UIElementSkin.STATE_VISUAL_SELECTED, true );
+			_stateManager.addState( UIElementSkin.STATE_VISUAL_INVALID, true );
+			_stateManager.addState( UIElementSkin.STATE_VISUAL_UP );
+			_stateManager.addState( UIElementSkin.STATE_VISUAL_OVER );
+			_stateManager.addState( UIElementSkin.STATE_VISUAL_DOWN );
+			_stateManager.addState( UIElementSkin.STATE_VISUAL_DISABLED );
+			_stateManager.state = UIElementSkin.STATE_VISUAL_UP;
 		}		
 		
 		public function update():void
@@ -74,7 +87,6 @@ package com.wezside.components
 				updateDisplayList();
 			}
 		}
-		
 
 		protected function updateDisplayList():void
 		{
@@ -84,51 +96,53 @@ package com.wezside.components
 			addEventListener( Event.ENTER_FRAME, nextFrame );
 		}
 		
-		
 		private function nextFrame( event:Event ):void
 		{
 			removeEventListener( Event.ENTER_FRAME, nextFrame );
 			dispatchEvent( new UIElementEvent( UIElementEvent.CREATION_COMPLETE, false ));
 		}		
-
 		
 		public function get styleManager():IStyleManager
 		{
 			return _styleManager;
 		}
-		
-		
+				
 		public function set styleManager( value:IStyleManager ):void
 		{
 			_styleManager = value;
 			dispatchEvent( new UIElementEvent( UIElementEvent.STYLEMANAGER_READY ));
 		}
 		
-
 		public function get styleName():String
 		{
 			return _styleName;
 		}
 
-
 		public function set styleName( value:String ):void
 		{
 			_styleName = value;
 		}
-
 		
 		public function get styleSheet():StyleSheet
 		{
 			return _styleSheet;
 		}
-
 		
 		public function set styleSheet( value:StyleSheet ):void
 		{
 			_styleSheet = value;
 		}		
 		
-		
+		public function get skin():IUIElementSkin
+		{
+			return _skin;
+		}
+				
+		public function set skin( value:IUIElementSkin ):void
+		{
+			_skin = value;
+		}		
+				
 		public function purge():void
 		{
 			_children = null;
@@ -137,23 +151,30 @@ package com.wezside.components
 			_styleSheet = null;
 		}		
 		
+		public function get state():String
+		{
+			return _stateManager.stateKey;
+		}		
+		
+		public function set state( value:String ):void
+		{
+			_stateManager.state = value;
+			_skin.setSkin( _stateManager.stateKeys );
+		}
 		
 		public function setStyle():void
 		{
-			if ( _styleName != null )
+			if ( _styleName )
 			{
 				for ( var i:int = 0; i < this.numChildren; ++i ) 
 				{
 					var child:DisplayObject = this.getChildAt(i);
-					if ( child.parent is IUIElement )
-						setProperties( child.parent, styleManager.getPropertyStyles( _styleName ));
-					else
-						setProperties( child, styleManager.getPropertyStyles( _styleName ));
-				}		
-				
+					setProperties( child, styleManager.getPropertyStyles( _styleName ));
+				}				
 				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
 			}
-			update( );			
+			update( );
+			addChild( DisplayObject( _skin ));
 		}
 
 		
@@ -161,9 +182,10 @@ package com.wezside.components
 		{
 			var strUtil:StringUtil = new StringUtil();
 			_styleSheet = styleManager.getStyleSheet( _styleName );
-									
+			
 			for ( var k:int = 0; k < props.length; ++k ) 
 			{
+				// Set all non skin properties
 				if ( child.hasOwnProperty( props[k].prop ))
 				{
 					var value:* = String( props[k].value );
@@ -175,9 +197,12 @@ package com.wezside.components
 						
 					if ( !isNaN( props[k].value ))
 						value = Number( props[k].value );
-						
-					child[props[k].prop] = value;
+
+					child[ props[k].prop ] = value;
 				}
+				
+				if ( _skin.hasOwnProperty( props[k].prop ))
+					_skin[ props[k].prop ] = styleManager.getAssetByName( String( props[k].value ));
 			}
 			strUtil = null;
 		}

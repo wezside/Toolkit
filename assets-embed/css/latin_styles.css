@@ -6,6 +6,10 @@
 	fontSize: 12;
 	color: #666666;
 	autoSize: left;
+	up: InputFieldUpSkin;
+	over: InputFieldOverSkin;
+	down: InputFieldDownSkin;
+	selected: InputFieldSelectedSkin;
 }
 
 .body {

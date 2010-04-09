@@ -19,6 +19,8 @@
  */
 package com.wezside.utilities.manager.style 
 {
+	import flash.system.SecurityDomain;
+	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -58,7 +60,13 @@ package com.wezside.utilities.manager.style
 										  "height",
 										  "x",
 										  "y",
-										  "color"];
+										  "color",
+										  "disabled",
+										  "selected",
+										  "up",
+										  "over",
+										  "down",
+										  "invalid"];
 		
 		private var _sheet:StyleSheet;		
 
@@ -70,28 +78,27 @@ package com.wezside.utilities.manager.style
 			_sheet = new StyleSheet();
 			_sheet.parseCSS( _css );
 		}
-		
 			
-		public function parseLibrary( library:* ):void
+		public function parseLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ):void
 		{
 			var context:LoaderContext = new LoaderContext();
-			context.applicationDomain = ApplicationDomain.currentDomain;
+			context.applicationDomain = appDomain;
+			context.securityDomain = securityDomain ? securityDomain : null;
 			loader.loadBytes( library, context );
 			addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );			
 		}
-
 		
-		public function getAssetByName( linkageClassName:String ):*
+		public function getAssetByName( linkageClassName:String ):DisplayObject
 		{
-			if ( loader != null )
+			if ( loader )
 			{
 				var SymbolClass:Class = loader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
-				return new SymbolClass()();
+				return new SymbolClass() as DisplayObject;
 			}
-			return;
+			throw new Error( "Unable to find library asset " + linkageClassName );
+			return null;
 		}	
-		
-		
+				
 		public function getStyleSheet( styleName:String ):StyleSheet
 		{
 			return _sheet;
@@ -111,14 +118,12 @@ package com.wezside.utilities.manager.style
 					props.push({ prop: [propStyles[i]], value: cssObj[ propStyles[i] ]});
 			
 			return props;	
-		}
-		
+		}		
 
 		public function get css():String
 		{
 			return _css;
-		}		
-		
+		}				
 
 		private function libraryEnterFrameCheck(event:Event):void 
 		{

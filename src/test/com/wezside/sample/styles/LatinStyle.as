@@ -1,5 +1,6 @@
 package test.com.wezside.sample.styles 
 {
+	import flash.system.ApplicationDomain;
 	import com.wezside.utilities.manager.style.StyleManager;
 
 	import flash.text.Font;
@@ -63,7 +64,7 @@ package test.com.wezside.sample.styles
 			super();
 			Font.registerFont( LatinStyle.ArialEmbed );			
 			parseCSSByteArray( LatinStyle.LatinCSS );			
-			parseLibrary( new Library() );
+			parseLibrary( new Library(), ApplicationDomain.currentDomain );
 		}
 	}
 }

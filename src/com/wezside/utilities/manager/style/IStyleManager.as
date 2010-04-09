@@ -19,6 +19,7 @@
  */
 package com.wezside.utilities.manager.style 
 {
+	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.text.StyleSheet;
 
@@ -30,7 +31,7 @@ package com.wezside.utilities.manager.style
 		
 		function parseCSSByteArray( clazz:Class ):void;
 		
-		function getAssetByName( linkageClassName:String ):*; 
+		function getAssetByName( linkageClassName:String ):DisplayObject;
 		
 		function getStyleSheet( styleName:String ):StyleSheet;		
 
