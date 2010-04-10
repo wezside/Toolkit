@@ -152,7 +152,8 @@ A component architecure for pure Actionscript components to allow for easy integ
 Support for visual states and a runtime style SWF similar to Flex Runtime CSS is the key to a UIElement. It also supports the use of this component with MXML syntax.  
 [Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
 
-[MockUIElementExample](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
+[MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
+[StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle  "LatinStyle")
 
 *Pure AS*
 	mockUIElement = new MockUIElement();
