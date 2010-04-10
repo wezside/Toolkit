@@ -158,6 +158,8 @@ Support for visual states and a runtime style SWF similar to Flex Runtime CSS is
 
 *Pure AS*
 	mockUIElement = new MockUIElement();
+	mockUIElement.styleName = "title";
+	mockUIElement.styleManager = styleManager;
 	
 *MXML*
 	<custom:MockUIElement id="myCustomComponent" styleManager="{styleManager}" styleName="title" />		
