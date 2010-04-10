@@ -154,7 +154,7 @@ Support for visual states and a runtime style SWF similar to Flex Runtime CSS is
 
 [MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
 
-[StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle  "LatinStyle")
+[StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
 *Pure AS*
 	mockUIElement = new MockUIElement();
