@@ -25,11 +25,11 @@ Utilities [Build 0.1.0023]
 * [ImageResize](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/imaging/ImageResize.as "ImageResize") 
 * [Reflection](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/imaging/Reflection.as "Reflection") 
 * [SharedObjUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/sharedobj/SharedObjUtil.as "SharedObjUtil") 
-* [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/stateManager/StateTest.as "StateManager") 
+* [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/stateManager/StateTest.as "StateManager") 
 * [StringUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/string/StringUtil.as "StringUtil") 
-* [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/styleManager/StyleManager.as "StyleManager") 
+* [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager") 
 * [SwitchUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/switchutil/SwitchUtil.as "SwitchUtil") 
-* [TimelineManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/timelineManager/TimelineSample.as "TimelineManager")
+* [TimelineManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/timelineManager/TimelineSample.as "TimelineManager")
 * [Tracer](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/logging/Tracer.as "Tracer")
 * [TrackingUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/tracking/TrackingUtil.as "TrackingUtil")
 * [Validator](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/validator/Validator.as "Validator")
@@ -144,3 +144,18 @@ in sequence starting at a specific animation or simply play a single (default) a
 		manager.push( id, mc );
 		manager.playPolicy = TimelineManager.PLAY_POLICY_SEQUENTIAL; 
 		manager.play();
+		
+UIElement
+---------
+
+A component architecure for pure Actionscript components to allow for easy integration with the [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
+Support for visual states and a runtime style SWF similar to Flex Runtime CSS is the key to a UIElement. It also supports the use of this component with MXML syntax. 
+
+[MockUIElementExample](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
+
+*Pure AS*
+	mockUIElement = new MockUIElement();
+	
+*MXML*
+	<custom:MockUIElement id="myCustomComponent" styleManager="{styleManager}" styleName="title" />		
+
