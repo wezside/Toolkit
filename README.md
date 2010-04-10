@@ -149,7 +149,8 @@ UIElement
 ---------
 
 A component architecure for pure Actionscript components to allow for easy integration with the [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
-Support for visual states and a runtime style SWF similar to Flex Runtime CSS is the key to a UIElement. It also supports the use of this component with MXML syntax. 
+Support for visual states and a runtime style SWF similar to Flex Runtime CSS is the key to a UIElement. It also supports the use of this component with MXML syntax.  
+[Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
 
 [MockUIElementExample](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
 
