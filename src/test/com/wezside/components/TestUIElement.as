@@ -4,7 +4,7 @@ package test.com.wezside.components
 
 	import test.com.wezside.sample.styles.LatinStyle;
 
-	import com.wezside.components.UIElementSkin;
+	import com.wezside.components.UIElementState;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
@@ -40,9 +40,9 @@ package test.com.wezside.components
 		[Test]
 		public function testUIElementStates():void
 		{
-			mockUIElement.state = UIElementSkin.STATE_VISUAL_UP;
-			mockUIElement.state = UIElementSkin.STATE_VISUAL_SELECTED;
-			assertEquals( mockUIElement.state, UIElementSkin.STATE_VISUAL_SELECTED+UIElementSkin.STATE_VISUAL_UP );
+			mockUIElement.state = UIElementState.STATE_VISUAL_UP;
+			mockUIElement.state = UIElementState.STATE_VISUAL_SELECTED;
+			assertEquals( mockUIElement.state, UIElementState.STATE_VISUAL_SELECTED+UIElementState.STATE_VISUAL_UP );
 		}
 
 		[Test(async)] 

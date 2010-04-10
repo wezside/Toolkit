@@ -57,13 +57,13 @@ package com.wezside.components
 			_children = [];
 			_skin = new UIElementSkin();
 			_stateManager = new StateManager();
-			_stateManager.addState( UIElementSkin.STATE_VISUAL_SELECTED, true );
-			_stateManager.addState( UIElementSkin.STATE_VISUAL_INVALID, true );
-			_stateManager.addState( UIElementSkin.STATE_VISUAL_UP );
-			_stateManager.addState( UIElementSkin.STATE_VISUAL_OVER );
-			_stateManager.addState( UIElementSkin.STATE_VISUAL_DOWN );
-			_stateManager.addState( UIElementSkin.STATE_VISUAL_DISABLED );
-			_stateManager.state = UIElementSkin.STATE_VISUAL_UP;
+			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
+			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
+			_stateManager.addState( UIElementState.STATE_VISUAL_UP );
+			_stateManager.addState( UIElementState.STATE_VISUAL_OVER );
+			_stateManager.addState( UIElementState.STATE_VISUAL_DOWN );
+			_stateManager.addState( UIElementState.STATE_VISUAL_DISABLED );
+			_stateManager.state = UIElementState.STATE_VISUAL_UP;
 		}		
 		
 		public function update():void

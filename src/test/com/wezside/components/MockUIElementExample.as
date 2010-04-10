@@ -2,7 +2,7 @@ package test.com.wezside.components
 {
 	import test.com.wezside.sample.styles.LatinStyle;
 
-	import com.wezside.components.UIElementSkin;
+	import com.wezside.components.UIElementState;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -40,25 +40,25 @@ package test.com.wezside.components
 			mockUIElement.styleManager = styles;
 			mockUIElement.setStyle();
 			addChild( mockUIElement );
-			mockUIElement.state = UIElementSkin.STATE_VISUAL_UP;					
+			mockUIElement.state = UIElementState.STATE_VISUAL_UP;					
 			
 			mockUIElement.buttonMode = true;
-			mockUIElement.addEventListener( MouseEvent.ROLL_OVER, function():void { mockUIElement.state = UIElementSkin.STATE_VISUAL_OVER; });
-			mockUIElement.addEventListener( MouseEvent.ROLL_OUT, function():void { mockUIElement.state = UIElementSkin.STATE_VISUAL_UP; });
+			mockUIElement.addEventListener( MouseEvent.ROLL_OVER, function():void { mockUIElement.state = UIElementState.STATE_VISUAL_OVER; });
+			mockUIElement.addEventListener( MouseEvent.ROLL_OUT, function():void { mockUIElement.state = UIElementState.STATE_VISUAL_UP; });
 			mockUIElement.addEventListener( MouseEvent.MOUSE_DOWN, down );
-			mockUIElement.addEventListener( MouseEvent.MOUSE_UP, function():void { mockUIElement.state = UIElementSkin.STATE_VISUAL_UP; timer.reset(); } );
+			mockUIElement.addEventListener( MouseEvent.MOUSE_UP, function():void { mockUIElement.state = UIElementState.STATE_VISUAL_UP; timer.reset(); } );
 		}
 
 		private function click(event:MouseEvent):void 
 		{
-			mockUIElement.state = UIElementSkin.STATE_VISUAL_SELECTED;
+			mockUIElement.state = UIElementState.STATE_VISUAL_SELECTED;
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
-			mockUIElement.state = UIElementSkin.STATE_VISUAL_DOWN;
+			mockUIElement.state = UIElementState.STATE_VISUAL_DOWN;
 			timer = new Timer( 1500, 1);
-			timer.addEventListener( TimerEvent.TIMER_COMPLETE, function():void { mockUIElement.state = UIElementSkin.STATE_VISUAL_SELECTED;	});
+			timer.addEventListener( TimerEvent.TIMER_COMPLETE, function():void { mockUIElement.state = UIElementState.STATE_VISUAL_SELECTED;	});
 			timer.start();
 		}
 

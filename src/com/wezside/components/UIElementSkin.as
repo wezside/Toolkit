@@ -19,13 +19,6 @@ package com.wezside.components
 		private var _invalidSkin:DisplayObject;
 		private var _disabledSkin:DisplayObject;
 
-		// Visual States
-		public static const STATE_VISUAL_UP:String = "stateVisualUp";
-		public static const STATE_VISUAL_OVER:String = "stateVisualOver";
-		public static const STATE_VISUAL_DOWN:String = "stateVisualDown";
-		public static const STATE_VISUAL_SELECTED:String = "stateVisualSelected";
-		public static const STATE_VISUAL_INVALID:String = "stateVisualInvalid";
-		public static const STATE_VISUAL_DISABLED:String = "stateVisualDisabled";		
 
 
 		public function setSkin( visibleStates:Array ):void
@@ -35,12 +28,12 @@ package com.wezside.components
 			{ 
 				switch ( visibleStates[i] )
 				{
-					case STATE_VISUAL_UP: if ( _upSkin ) show( _upSkin ); break; 
-					case STATE_VISUAL_OVER: if ( _overSkin ) show( _overSkin ); break; 
-					case STATE_VISUAL_DOWN: if ( _downSkin ) show( _downSkin ); break; 
-					case STATE_VISUAL_SELECTED: if ( _selectedSkin ) show( _selectedSkin );	break;												 
-					case STATE_VISUAL_INVALID: if ( _selectedSkin ) show( _invalidSkin ); break;											    
-					case STATE_VISUAL_DISABLED: if ( _disabledSkin ) show( _disabledSkin ); break; 
+					case UIElementState.STATE_VISUAL_UP: if ( _upSkin ) show( _upSkin ); break; 
+					case UIElementState.STATE_VISUAL_OVER: if ( _overSkin ) show( _overSkin ); break; 
+					case UIElementState.STATE_VISUAL_DOWN: if ( _downSkin ) show( _downSkin ); break; 
+					case UIElementState.STATE_VISUAL_SELECTED: if ( _selectedSkin ) show( _selectedSkin );	break;												 
+					case UIElementState.STATE_VISUAL_INVALID: if ( _selectedSkin ) show( _invalidSkin ); break;											    
+					case UIElementState.STATE_VISUAL_DISABLED: if ( _disabledSkin ) show( _disabledSkin ); break; 
 				}				
 			}			
 		}
