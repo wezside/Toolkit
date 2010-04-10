@@ -7,23 +7,23 @@ package com.wezside.components
 	 */
 	public interface IUIElementSkin 
 	{
-		function get up():DisplayObject;
-		function set up( value:DisplayObject ):void;
+		function get upSkin():DisplayObject;
+		function set upSkin( value:DisplayObject ):void;
 		
-		function get over():DisplayObject;
-		function set over( value:DisplayObject ):void;
+		function get overSkin():DisplayObject;
+		function set overSkin( value:DisplayObject ):void;
 		
-		function get down():DisplayObject;
-		function set down( value:DisplayObject ):void;
+		function get downSkin():DisplayObject;
+		function set downSkin( value:DisplayObject ):void;
 		
-		function get selected():DisplayObject;
-		function set selected( value:DisplayObject ):void;
+		function get selectedSkin():DisplayObject;
+		function set selectedSkin( value:DisplayObject ):void;
 		
-		function get invalid():DisplayObject;
-		function set invalid( value:DisplayObject ):void;
+		function get invalidSkin():DisplayObject;
+		function set invalidSkin( value:DisplayObject ):void;
 		
-		function get disabled():DisplayObject;
-		function set disabled( value:DisplayObject ):void;
+		function get disabledSkin():DisplayObject;
+		function set disabledSkin( value:DisplayObject ):void;
 		
 		function setSkin( visibleStates:Array ):void;
 		function hasOwnProperty( V:* = undefined ):Boolean;

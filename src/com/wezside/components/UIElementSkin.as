@@ -12,12 +12,12 @@ package com.wezside.components
 	public class UIElementSkin extends Sprite implements IUIElementSkin 
 	{
 		
-		private var _up:DisplayObject;
-		private var _over:DisplayObject;
-		private var _down:DisplayObject;
-		private var _selected:DisplayObject;
-		private var _invalid:DisplayObject;
-		private var _disabled:DisplayObject;
+		private var _upSkin:DisplayObject;
+		private var _overSkin:DisplayObject;
+		private var _downSkin:DisplayObject;
+		private var _selectedSkin:DisplayObject;
+		private var _invalidSkin:DisplayObject;
+		private var _disabledSkin:DisplayObject;
 
 		// Visual States
 		public static const STATE_VISUAL_UP:String = "stateVisualUp";
@@ -35,12 +35,12 @@ package com.wezside.components
 			{ 
 				switch ( visibleStates[i] )
 				{
-					case STATE_VISUAL_UP: if ( _up ) show( _up ); break; 
-					case STATE_VISUAL_OVER: if ( _over ) show( _over ); break; 
-					case STATE_VISUAL_DOWN: if ( _down ) show( _down ); break; 
-					case STATE_VISUAL_SELECTED: if ( _selected ) show( _selected );	break;												 
-					case STATE_VISUAL_INVALID: if ( _selected ) show( _invalid ); break;											    
-					case STATE_VISUAL_DISABLED: if ( _disabled ) show( _disabled ); break; 
+					case STATE_VISUAL_UP: if ( _upSkin ) show( _upSkin ); break; 
+					case STATE_VISUAL_OVER: if ( _overSkin ) show( _overSkin ); break; 
+					case STATE_VISUAL_DOWN: if ( _downSkin ) show( _downSkin ); break; 
+					case STATE_VISUAL_SELECTED: if ( _selectedSkin ) show( _selectedSkin );	break;												 
+					case STATE_VISUAL_INVALID: if ( _selectedSkin ) show( _invalidSkin ); break;											    
+					case STATE_VISUAL_DISABLED: if ( _disabledSkin ) show( _disabledSkin ); break; 
 				}				
 			}			
 		}
@@ -57,12 +57,12 @@ package com.wezside.components
 
 		public function reset():void
 		{
-			 if ( _up ) hide( _up );
-			 if ( _over ) hide( _over );
-			 if ( _down ) hide( _down );
-			 if ( _selected ) hide( _selected );
-			 if ( _invalid ) hide( _invalid );
-			 if ( _disabled ) hide( _disabled );			
+			 if ( _upSkin ) hide( _upSkin );
+			 if ( _overSkin ) hide( _overSkin );
+			 if ( _downSkin ) hide( _downSkin );
+			 if ( _selectedSkin ) hide( _selectedSkin );
+			 if ( _invalidSkin ) hide( _invalidSkin );
+			 if ( _disabledSkin ) hide( _disabledSkin );			
 		}
 
 		public function hasOwnProperty( V:* = undefined ):Boolean
@@ -70,76 +70,76 @@ package com.wezside.components
 			return super.hasOwnProperty( V );
 		}
 		
-		public function get up():DisplayObject
+		public function get upSkin():DisplayObject
 		{
-			return _up;
+			return _upSkin;
 		}
 		
-		public function get over():DisplayObject
+		public function get overSkin():DisplayObject
 		{
-			return _over;
+			return _overSkin;
 		}
 		
-		public function get down():DisplayObject
+		public function get downSkin():DisplayObject
 		{
-			return _down;
+			return _downSkin;
 		}
 		
-		public function get selected():DisplayObject
+		public function get selectedSkin():DisplayObject
 		{
-			return _selected;
+			return _selectedSkin;
 		}
 		
-		public function get invalid():DisplayObject
+		public function get invalidSkin():DisplayObject
 		{
-			return _invalid;
+			return _invalidSkin;
 		}
 		
-		public function get disabled():DisplayObject
+		public function get disabledSkin():DisplayObject
 		{
-			return _disabled;
+			return _disabledSkin;
 		}
 		
-		public function set up(value:DisplayObject):void
+		public function set upSkin( value:DisplayObject ):void
 		{
-			_up = value;
-			_up.visible = false;
-			addChild( _up );
+			_upSkin = value;
+			_upSkin.visible = false;
+			addChild( _upSkin );
 		}
 		
-		public function set over(value:DisplayObject):void
+		public function set overSkin( value:DisplayObject ):void
 		{
-			_over = value;
-			_over.visible = false;
-			addChild( _over );
+			_overSkin = value;
+			_overSkin.visible = false;
+			addChild( _overSkin );
 		}
 		
-		public function set down(value:DisplayObject):void
+		public function set downSkin( value:DisplayObject ):void
 		{
-			_down = value;
-			_down.visible = false;
-			addChild( _down );
+			_downSkin = value;
+			_downSkin.visible = false;
+			addChild( _downSkin );
 		}
 		
-		public function set selected(value:DisplayObject):void
+		public function set selectedSkin( value:DisplayObject ):void
 		{
-			_selected = value;
-			_selected.visible = false;
-			addChild( _selected );
+			_selectedSkin = value;
+			_selectedSkin.visible = false;
+			addChild( _selectedSkin );
 		}
 		
-		public function set invalid(value:DisplayObject):void
+		public function set invalidSkin( value:DisplayObject ):void
 		{
-			_invalid = value;
-			_invalid.visible = false;
-			addChild( _invalid );
+			_invalidSkin = value;
+			_invalidSkin.visible = false;
+			addChild( _invalidSkin );
 		}
 		
-		public function set disabled(value:DisplayObject):void
+		public function set disabledSkin( value:DisplayObject ):void
 		{
-			_disabled = value;
-			_disabled.visible = false;
-			addChild( _disabled );
+			_disabledSkin = value;
+			_disabledSkin.visible = false;
+			addChild( _disabledSkin );
 		}
 		
 		override public function toString():String 

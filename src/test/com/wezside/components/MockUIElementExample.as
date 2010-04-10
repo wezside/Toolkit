@@ -1,16 +1,13 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.text.Label;
 	import test.com.wezside.sample.styles.LatinStyle;
 
 	import com.wezside.components.UIElementSkin;
 
-	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
-	import flash.text.TextField;
 	import flash.utils.Timer;
 
 	/**

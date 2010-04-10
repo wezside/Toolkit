@@ -61,12 +61,12 @@ package com.wezside.utilities.manager.style
 										  "x",
 										  "y",
 										  "color",
-										  "disabled",
-										  "selected",
-										  "up",
-										  "over",
-										  "down",
-										  "invalid"];
+										  "disabledSkin",
+										  "selectedSkin",
+										  "upSkin",
+										  "overSkin",
+										  "downSkin",
+										  "invalidSkin"];
 		
 		private var _sheet:StyleSheet;		
 

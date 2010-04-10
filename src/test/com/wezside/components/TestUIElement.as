@@ -59,7 +59,7 @@ package test.com.wezside.components
 			
 			mockUIElement.setStyle();			
 			assertEquals( "advanced", mockUIElement.antiAliasType );
-			assertNotNull( mockUIElement.skin.up );						
+			assertNotNull( mockUIElement.skin.upSkin );						
 		}
 		
 		private function timeout( object:Object ):void

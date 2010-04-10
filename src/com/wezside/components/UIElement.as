@@ -173,8 +173,8 @@ package com.wezside.components
 				}				
 				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
 			}
-			update( );
 			addChild( DisplayObject( _skin ));
+			update( );
 		}
 
 		
