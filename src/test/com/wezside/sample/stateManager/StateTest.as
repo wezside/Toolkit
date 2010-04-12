@@ -1,4 +1,4 @@
-package com.wezside.sample.stateManager
+package test.com.wezside.sample.stateManager
 {
 	import com.wezside.utilities.manager.state.StateManager;
 

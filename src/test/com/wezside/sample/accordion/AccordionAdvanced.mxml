@@ -8,8 +8,8 @@
 
 	<mx:Script>
 		<![CDATA[
-			import com.wezside.sample.accordion.AccordionAnimationItem;
-			import com.wezside.sample.accordion.AccordionAnimation;
+			import test.com.wezside.sample.accordion.AccordionAnimationItem;
+			import test.com.wezside.sample.accordion.AccordionAnimation;
 			import com.wezside.components.accordion.AccordionEvent;
 			import mx.core.UIComponent;
 		

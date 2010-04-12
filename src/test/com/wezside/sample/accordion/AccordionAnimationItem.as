@@ -1,4 +1,4 @@
-package com.wezside.sample.accordion 
+package test.com.wezside.sample.accordion 
 {
 	import gs.TweenLite;
 	import gs.TweenMax;

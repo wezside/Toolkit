@@ -21,7 +21,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
  */
-package com.wezside.sample.gallery 
+package test.com.wezside.sample.gallery 
 {
 	import gs.TweenMax;
 	import gs.easing.Cubic;

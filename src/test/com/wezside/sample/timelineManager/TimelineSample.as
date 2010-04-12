@@ -1,4 +1,4 @@
-package com.wezside.sample.timelineManager 
+package test.com.wezside.sample.timelineManager 
 {
 	import com.wezside.utilities.manager.timeline.TimelineEvent;
 	import com.wezside.utilities.manager.timeline.TimelineManager;

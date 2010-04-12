@@ -1,4 +1,4 @@
-package com.wezside.sample.accordion 
+package test.com.wezside.sample.accordion 
 {
 	import com.wezside.components.accordion.AccordionItem;
 	import com.wezside.components.accordion.IAccordionItem;
