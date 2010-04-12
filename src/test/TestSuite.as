@@ -5,6 +5,7 @@ package test
 	import test.com.wezside.components.survey.TestSurvey;
 	import test.com.wezside.utilities.date.TestDateUtil;
 	import test.com.wezside.utilities.stateManager.TestStateManager;
+	import test.com.wezside.utilities.string.TestURLUtil;
 
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]
@@ -15,6 +16,7 @@ package test
 		public var testDateUtil:TestDateUtil;
 		public var testGallery:TestGallery;
 		public var testStateManager:TestStateManager;
+		public var testURLUtil:TestURLUtil;
 
 	}
 }
