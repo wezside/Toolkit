@@ -23,8 +23,6 @@
  */
 package com.wezside.components 
 {
-	import test.com.wezside.components.MockUIElement;
-
 	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtil;
@@ -166,11 +164,12 @@ package com.wezside.components
 		
 		public function setStyle():void
 		{
+			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
 			for ( var i:int = 0; i < this.numChildren; ++i ) 
 			{
 				var child:* = this.getChildAt( i );
 				if ( child is UIElement )
-					setProperties( child, styleManager.getPropertyStyles( IUIElement( child ).styleName ));
+					setProperties( child, styleManager.getPropertyStyles( IUIElement( child ).styleName ? IUIElement( child ).styleName : _styleName ));
 				else
 					setProperties( child, styleManager.getPropertyStyles( _styleName ));					
 			}
@@ -178,7 +177,6 @@ package com.wezside.components
 			if ( _styleName )
 				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
 
-			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
 			addChild( DisplayObject( _skin ));
 			update( );
 		}
@@ -191,8 +189,6 @@ package com.wezside.components
 		private function setProperties( child:DisplayObject, props:Array ):void
 		{
 			var strUtil:StringUtil = new StringUtil();
-			_styleSheet = styleManager.getStyleSheet( _styleName );
-			
 			for ( var k:int = 0; k < props.length; ++k ) 
 			{
 				// Set all non skin properties
