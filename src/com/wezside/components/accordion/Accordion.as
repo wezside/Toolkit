@@ -69,6 +69,7 @@ package com.wezside.components.accordion
 				item.y = ypos;
 				ypos += item.height + _verticalGap;
 			}
+			dispatchEvent( new AccordionEvent( AccordionEvent.ARRANGE_COMPLETE ));
 		}
 
 		public function reset( ignoreIndex:int = -1 ):void

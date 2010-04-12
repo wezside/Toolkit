@@ -29,6 +29,8 @@ package com.wezside.components.accordion
 		public static const HEADER_CLICK:String = "headerClick";
 		public static const CONTENT_CLICK:String = "contentClick";
 		public static const SHOW_COMPLETE:String = "showComplete";
+		public static const ARRANGE_COMPLETE:String = "arrangeComplete";
+		
 		public var data:*;
 		public var selectedItem:uint;
 
