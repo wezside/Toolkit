@@ -168,7 +168,7 @@ package com.wezside.components
 			for ( var i:int = 0; i < this.numChildren; ++i ) 
 			{
 				var child:* = this.getChildAt( i );
-				if ( child is UIElement )
+				if ( child is UIElementFP9 )
 					setProperties( child, styleManager.getPropertyStyles( IUIElement( child ).styleName ? IUIElement( child ).styleName : _styleName ));
 				else
 					setProperties( child, styleManager.getPropertyStyles( _styleName ));					
