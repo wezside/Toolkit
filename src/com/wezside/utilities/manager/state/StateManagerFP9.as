@@ -43,15 +43,15 @@ package com.wezside.utilities.manager.state
 	 * Further Reading on Bitwise operators:		 
 	 * http://www.moock.org/asdg/technotes/bitwise/  
 	 */
-	public class StateManager 
+	public class StateManagerFP9 
 	{
-		
+
 		
 		private var _baseTwo:Number = 1;
 		private var _state:IState = new State( "" );
 
-		private var _states:Vector.<IState> = new Vector.<IState>();
-		private var _history:Vector.<IState> = new Vector.<IState>();
+		private var _states:Array = [];
+		private var _history:Array = [];
 
 		
 		public function addState( key:String, reserved:Boolean = false ):void
@@ -125,7 +125,7 @@ package com.wezside.utilities.manager.state
 		/**
 		 * Returns a list of past states including the current state.
 		 */
-		public function get history():Vector.<IState>
+		public function get history():Array
 		{
 			return _history;
 		}

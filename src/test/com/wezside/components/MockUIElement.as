@@ -1,11 +1,11 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.UIElement;
+	import com.wezside.components.UIElementFP9;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MockUIElement extends UIElement 
+	public class MockUIElement extends UIElementFP9 
 	{
 		private var _antiAliasType:String = "";
 
