@@ -23,6 +23,8 @@
  */
 package com.wezside.components 
 {
+	import test.com.wezside.components.MockUIElement;
+
 	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtil;
@@ -164,19 +166,27 @@ package com.wezside.components
 		
 		public function setStyle():void
 		{
-			if ( _styleName )
+			for ( var i:int = 0; i < this.numChildren; ++i ) 
 			{
-				for ( var i:int = 0; i < this.numChildren; ++i ) 
-				{
-					var child:DisplayObject = this.getChildAt(i);
-					setProperties( child, styleManager.getPropertyStyles( _styleName ));
-				}				
-				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
+				var child:* = this.getChildAt( i );
+				if ( child is UIElement )
+					setProperties( child, styleManager.getPropertyStyles( IUIElement( child ).styleName ));
+				else
+					setProperties( child, styleManager.getPropertyStyles( _styleName ));					
 			}
+						
+			if ( _styleName )
+				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
+
+			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
 			addChild( DisplayObject( _skin ));
 			update( );
 		}
-
+		
+		public function hasOwnProperty( V:* = undefined ):Boolean
+		{
+			return super.hasOwnProperty( V );
+		}
 		
 		private function setProperties( child:DisplayObject, props:Array ):void
 		{
@@ -206,5 +216,6 @@ package com.wezside.components
 			}
 			strUtil = null;
 		}
+
 	}
 }

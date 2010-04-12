@@ -15,7 +15,7 @@
 .body {
 	fontFamily: ArialEmbed;
 	fontWeight: normal;
-	antiAliasType: advanced;
+	antiAliasType: normal;
 	embedFonts: true;
 	fontSize: 18;
 	color: #EFEFEF;

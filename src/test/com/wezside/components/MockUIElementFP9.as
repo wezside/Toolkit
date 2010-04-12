@@ -1,19 +1,19 @@
 package test.com.wezside.components 
 {
 	import com.wezside.components.IUIElement;
-	import com.wezside.components.UIElement;
+	import com.wezside.components.UIElementFP9;
 
 	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MockUIElement extends UIElement
+	public class MockUIElementFP9 extends UIElementFP9 
 	{
 		private var _antiAliasType:String = "";
 		private var _child:IUIElement;
 
-		public function MockUIElement()
+		public function MockUIElementFP9()
 		{
 			super( );
 		}

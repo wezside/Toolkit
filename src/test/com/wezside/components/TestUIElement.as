@@ -1,9 +1,11 @@
 package test.com.wezside.components 
 {
+	import org.flexunit.asserts.assertNull;
 	import flexunit.framework.Assert;
 
 	import test.com.wezside.sample.styles.LatinStyle;
 
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
 
 	import org.flexunit.asserts.assertEquals;
@@ -46,11 +48,29 @@ package test.com.wezside.components
 		}
 
 		[Test(async)] 
+		public function testStyleManagerWithChildren():void
+		{			
+			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleWithChildren, 5000, null, timeout ), false, 0, true );
+		}
+		
+		[Test(async)] 
 		public function testStyleManagerNoChildren():void
 		{			
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleReady, 5000, null, timeout ), false, 0, true );
 		}
 		
+		private function styleWithChildren( event:Event, object:Object ):void
+		{	
+			mockUIElement.styleManager = styles;
+			assertNull( mockUIElement.child );
+			mockUIElement.createChildren();
+			assertNotNull( mockUIElement.child );
+			assertNull( IUIElement( mockUIElement.child ).styleName );
+			IUIElement( mockUIElement.child ).styleName = "body";			
+			mockUIElement.setStyle();
+			assertEquals( "normal", MockUIElement( mockUIElement.child ).antiAliasType );
+		}		
+				
 		private function styleReady( event:Event, object:Object ):void
 		{			
 			mockUIElement.styleName = "title";
