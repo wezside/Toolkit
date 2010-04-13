@@ -1,9 +1,9 @@
 package com.wezside.utilities.business.rpc
 {
+	import com.wezside.utilities.business.IResponder;
 	import com.wezside.utilities.business.ResponderEvent;
 	import com.wezside.utilities.logging.Tracer;
 
-	import mx.rpc.IResponder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.soap.LoadEvent;

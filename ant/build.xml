@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Wezside Build All" default="build-all" basedir="..">
+
+
+	<target name="build-all">
+		
+		<subant genericantfile="${basedir}/ant/component-build.xml" buildpath="."  />
+		<subant genericantfile="${basedir}/ant/utility-build.xml" buildpath="." />
+		<subant genericantfile="${basedir}/../Modulo/ant/build.xml" buildpath="${basedir}/../Modulo/" />
+		
+	</target>
+	
+</project>

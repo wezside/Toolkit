@@ -6,7 +6,23 @@
 
 	<!-- Clean project dirs -->
 	<target name="clean">
-		<delete dir="${swc.path}" />
+		<delete>
+			<fileset dir="${swc.base}">
+			    <include name="wezside.utilities.*"/>
+			</fileset>
+			<fileset dir="${swc.path}">
+			    <include name="wezside.utilities.*"/>
+			</fileset>
+			<fileset dir="${basedir}/../Modulo/lib">
+			    <include name="wezside.utilities.*"/>
+			    <exclude name="ActionSource.swc"/>
+			    <exclude name="FlexUnit1Lib.swc"/>
+			    <exclude name="FlexUnit4.swc"/>
+			    <exclude name="FlexUnit4UIListener.swc"/>
+			    <exclude name="hamcrest-1.0.2.swc"/>
+			    <exclude name="SWFAddress.swc"/>
+			</fileset>
+		</delete>
 	</target>
 		
 
@@ -82,5 +98,10 @@
 				<include name="**/*" />
 			</fileset>
 		</copy>
+		<copy todir="${basedir}/../Modulo/lib/" verbose="false">
+			<fileset dir="${swc.path}" defaultexcludes="true">
+				<include name="wezside.utilities.*" />
+			</fileset>
+		</copy>		
 	</target>
 </project>
