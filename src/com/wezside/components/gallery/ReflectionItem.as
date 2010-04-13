@@ -24,7 +24,6 @@
 package com.wezside.components.gallery 
 {
 	import com.wezside.utilities.imaging.Reflection;
-	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -33,7 +32,7 @@ package com.wezside.components.gallery
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class ReflectionItem extends Sprite implements IGalleryItem 
+	public class ReflectionItem extends AbstractGalleryItem 
 	{
 
 
@@ -44,17 +43,12 @@ package com.wezside.components.gallery
 		private var originWidth:Number;
 		private var originHeight:Number;
 		
-		private var _type:String;
-		private var _debug:Boolean;
-		private var _selected:Boolean;
-		private var _sm:StateManager;
 		private var _reflectionAlpha:Number;
 
 
 		public function ReflectionItem( type:String, bmp:Bitmap, ratios:Array, reflectionHeight:Number, debug:Boolean  )
 		{
-			_type = type;
-			_debug = debug;
+			super( type, debug );
 			
 			this.bmp = bmp;
 			this.ratios = ratios;
@@ -63,18 +57,11 @@ package com.wezside.components.gallery
 			_reflectionAlpha = 0;
 			originWidth = bmp.width;
 			originHeight = bmp.height;
-			
-			_selected = false;
-			_sm = new StateManager();
-			_sm.addState( Gallery.STATE_ROLLOVER );
-			_sm.addState( Gallery.STATE_ROLLOUT );
-			_sm.addState( Gallery.STATE_SELECTED, true );			
-			
 			reflection = new Reflection( bmp, ratios, reflectionHeight );
 			addChild( reflection );			
 		}
 		
-		public function update( dob:IGalleryItem ):void
+		override public function update( dob:IGalleryItem ):void
 		{
 			var bmp:BitmapData = new BitmapData( originWidth, originHeight, true, 0x000000FF );
 			bmp.draw( dob as Sprite );			
@@ -84,64 +71,14 @@ package com.wezside.components.gallery
 			bmp = null;
 		}
 		
-		public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date ):void
 		{
 		}
 		
-		public function rollOver():void
+		override public function set state( value:String ):void
 		{
-			alpha = 1;
-		}
-		
-		public function rollOut():void
-		{
-			alpha = 0.5;
-		}
-		
-		public function play():void
-		{
-		}
-		
-		public function stop():void
-		{
-		}
-		
-		public function purge():void
-		{
-		}
-		
-		public function get type():String
-		{
-			return _type;
-		}
-		
-		public function set type( value:String ):void
-		{
-			_type = value;
-		}
-		
-		public function get state():String
-		{
-			return _sm.state;
-		}
-		
-		public function set state( value:String ):void
-		{
-			_sm.state = value;
-			switch ( _sm.stateKey )
-			{
-				case Gallery.STATE_ROLLOUT:	
-				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: rollOut(); break;
-									
-				case Gallery.STATE_ROLLOVER:
-				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: rollOver(); break;
-				
-				case Gallery.STATE_SELECTED: _selected = !_selected; break;					
-				default: break;
-			}
-		}	
-		
-		
+		}			
+			
 		public function get reflectionAlpha():Number
 		{
 			return _reflectionAlpha;
@@ -152,13 +89,5 @@ package com.wezside.components.gallery
 			_reflectionAlpha = value;
 		}
 		
-		public function get selected():Boolean
-		{
-			return false;
-		}
-		
-		public function set selected(value:Boolean):void
-		{
-		}
 	}
 }

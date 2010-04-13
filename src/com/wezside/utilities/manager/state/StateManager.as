@@ -87,6 +87,11 @@ package com.wezside.utilities.manager.state
 					_state.value = state.value ^ nonReserved;			
 				}
 			}
+			else
+			{
+				_state.key = "";
+				_state.value = 0;
+			}
 		}
 
 		public function get state():String

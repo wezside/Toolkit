@@ -71,13 +71,14 @@ package com.wezside.components.gallery
 		private var distributePolicy:String;
 		private var target:String;
 		private var horizontalAlign:String;
-		private var thumbEnabled:Boolean;
 		private var showArrangement:Boolean;
 		
 		// Getters and setters 
 		private var _debug:Boolean;
 		private var _stageWidth:Number;
 		private var _stageHeight:Number;
+		private var _selectedIndex:int;
+		private var _thumbEnabled:Boolean;
 		private var _galleryItemClassList:Dictionary;
 
 		public static const ITEM_SWF:String = "itemSWF";
@@ -141,12 +142,12 @@ package com.wezside.components.gallery
 			this.distributePolicy = distributePolicy;
 			this.reflectionHeightInRows = reflectionHeightInRows;
 			this.reflectionAlpha = reflectionAlpha;
-			this.thumbEnabled = thumbEnabled;
 			this.showArrangement = showArrangement;
 			
 			_debug = debug;
 			_stageWidth = stageWidth;
 			_stageHeight = stageHeight;
+			_thumbEnabled = thumbEnabled;
 			_galleryItemClassList = new Dictionary();
 			_galleryItemClassList[ ITEM_VIDEO ] = FLVGalleryItem;
 			_galleryItemClassList[ ITEM_BLANK ] = BlankGalleryItem;
@@ -155,6 +156,7 @@ package com.wezside.components.gallery
 			
 			startX = xOffset;
 			currentRow = 0;
+
 			visible = showArrangement;
 			totalpages = Math.ceil( items.length / ( columns * rows )); 
 			
@@ -221,6 +223,17 @@ package com.wezside.components.gallery
 			}
 		}
 			
+		public function get selectedIndex():int
+		{
+			return _selectedIndex;
+		}
+		
+		public function set selectedIndex( value:int ):void
+		{
+			_selectedIndex = value;
+			var item:IGalleryItem = getChildByName( _selectedIndex.toString() ) as IGalleryItem;
+			if ( item )	item.state = STATE_SELECTED;
+		}
 
 		public function get stageWidth():Number
 		{
@@ -273,6 +286,46 @@ package com.wezside.components.gallery
 			_debug = value;
 		}
 
+		public function get thumbEnabled():Boolean
+		{
+			return _thumbEnabled;
+		}
+		
+		/**
+		 * TODO: Only need to do this for interactive items, thus not for Blank, CountDown etc.
+		 */
+		public function set thumbEnabled( value:Boolean ):void
+		{
+			_thumbEnabled = value;
+			var item:Sprite;			
+			if ( !_thumbEnabled )
+			{
+			
+				var i:int;
+				for ( i = 0; i < total; ++i )
+				{
+					item = getChildByName( i.toString() ) as Sprite;
+					item.buttonMode = false;
+					item.useHandCursor = false;
+					item.removeEventListener( MouseEvent.ROLL_OUT, itemRollOut );		
+					item.removeEventListener( MouseEvent.ROLL_OVER, itemRollOver );	
+					item.removeEventListener( MouseEvent.ROLL_OVER, itemRollOver );	
+				}
+			}
+			else
+			{
+				var k:int;			
+				for ( k = 0; k < total; ++k )
+				{
+					item = getChildByName( i.toString() ) as Sprite;
+					item.buttonMode = true;
+					item.useHandCursor = true;
+					item.addEventListener( MouseEvent.ROLL_OUT, itemRollOut );		
+					item.addEventListener( MouseEvent.ROLL_OVER, itemRollOver );	
+					item.addEventListener( MouseEvent.ROLL_OVER, itemRollOver );	
+				}				
+			}
+		}
 
 		/**
 		 * A method to determine which type of video wall item to create. The date retrieved is 
@@ -281,7 +334,7 @@ package com.wezside.components.gallery
 		 */
 		public function create( event:Event = null ):void
 		{
-			if( items.length != 0 )
+			if ( items.length != 0 )
 			{
 				var date:Date = original[ int( total - items.length ) ].livedate;
 				switch ( FileUtil.getFileExtension( items[0].url ))
@@ -296,7 +349,6 @@ package com.wezside.components.gallery
 				}
 			}
 		}		
-		
 		
 		private function createItem( type:String ):void
 		{		
@@ -344,7 +396,7 @@ package com.wezside.components.gallery
 			// Set default item properties
 			var index:int = total - items.length;
 			var item:Sprite = event.currentTarget as Sprite;
-			if ( thumbEnabled )
+			if ( _thumbEnabled )
 			{
 				item.buttonMode = true;
 				item.useHandCursor = true;
@@ -458,6 +510,14 @@ package com.wezside.components.gallery
 		
 		protected function itemClick( event:MouseEvent ):void
 		{
+			
+			var i:int;			
+			for ( i = 0; i < total; ++i )
+			{
+				if ( event.currentTarget.name != i.toString() )
+					IGalleryItem( getChildByName( i.toString() )).reset();
+			}
+
 			IGalleryItem( event.currentTarget ).state = STATE_SELECTED;
 			switch ( target )
 			{

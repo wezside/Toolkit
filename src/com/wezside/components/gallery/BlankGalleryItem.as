@@ -25,27 +25,22 @@ package com.wezside.components.gallery
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.Sprite;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class BlankGalleryItem extends Sprite implements IGalleryItem 
+	public class BlankGalleryItem extends AbstractGalleryItem
 	{
 
-		
-		private var _type:String;
-		private var _debug:Boolean;
 
 		
 		public function BlankGalleryItem( type:String, debug:Boolean ) 
 		{
-			_type = type;
-			_debug = debug;
+			super( type, debug );
 		}
 		
 		
-		public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date ):void
 		{
 			var bmpdata:BitmapData = new BitmapData( 760, 510, false, 0x333333 );
 			var bitmap:Bitmap = new Bitmap( bmpdata );
@@ -55,59 +50,8 @@ package com.wezside.components.gallery
 			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));	
 		}
 		
-		
-		public function rollOver():void
+		override public function set state( value:String ):void
 		{
-		}
-		
-		public function rollOut():void
-		{
-		}
-		
-		public function play():void
-		{
-		}
-		
-		public function stop():void
-		{
-		}
-		
-		public function get state():String
-		{
-			return "";
-		}
-		
-		public function set state( value:String ):void
-		{
-		}	
-		
-		public function get type():String
-		{
-			return _type;
-		}
-		
-		public function set type( value:String ):void
-		{
-			_type = value;
-		}
-
-		public function purge():void
-		{
-			removeChildAt( 0 );
-		}
-
-		public function get enable():Boolean
-		{
-			return true;
-		}
-		
-		public function get selected():Boolean
-		{
-			return false;
-		}
-		
-		public function set selected(value:Boolean):void
-		{
-		}
+		}		
 	}
 }

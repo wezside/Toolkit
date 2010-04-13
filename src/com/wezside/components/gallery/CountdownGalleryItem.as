@@ -24,11 +24,9 @@
 package com.wezside.components.gallery 
 {
 	import com.wezside.utilities.date.DateUtil;
-	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -37,38 +35,23 @@ package com.wezside.components.gallery
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class CountdownGalleryItem extends Sprite implements IGalleryItem 
+	public class CountdownGalleryItem extends AbstractGalleryItem
 	{
 
-		
-		private var livedate:Date;
 		private var field:TextField;
 		private var bmpdata:BitmapData;
 		private var fmt:TextFormat;
 		private var bitmap:Bitmap;
 		private var dateUtils:DateUtil;
-		
-		private var _type:String;
-		private var _debug:Boolean;
-		private var _selected:Boolean;
-		private var _sm:StateManager;
 
 		
 		public function CountdownGalleryItem( type:String, debug:Boolean )
 		{
-			super();
-			this.type = type;
-			_debug = debug;
-			_selected = false;
-			_sm = new StateManager();
-			_sm.addState( Gallery.STATE_ROLLOVER );
-			_sm.addState( Gallery.STATE_ROLLOUT );
-			_sm.addState( Gallery.STATE_SELECTED, true );			
+			super( type, debug );
 			dateUtils = new DateUtil();
 		}
 
-
-		public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date ):void
 		{
 			this.livedate = livedate;
 			
@@ -93,91 +76,21 @@ package com.wezside.components.gallery
 			field.y = height * 0.5 - field.textHeight * 0.5;;
 			
 			mouseEnabled = false;
-			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));
-							
+			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));							
 			addEventListener( Event.ENTER_FRAME, enterFrame );
 		}		
-
-		public function play():void
-		{
-		}
-
-		public function stop():void
-		{
-			removeEventListener( Event.ENTER_FRAME, enterFrame );
-		}				
-		
-		public function rollOver():void
-		{
-		}
-		
-		public function rollOut():void
-		{
-		}		
-		
-		public function get state():String
-		{
-			return _sm.state;
-		}
-		
-		public function set state( value:String ):void
-		{
-			_sm.state = value;
-			switch ( _sm.stateKey )
-			{
-				case Gallery.STATE_ROLLOUT:	
-				case Gallery.STATE_ROLLOUT + Gallery.STATE_SELECTED: rollOut(); break;
-									
-				case Gallery.STATE_ROLLOVER:
-				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: rollOver(); break;
 				
-				case Gallery.STATE_SELECTED: _selected = !_selected; break;					
-				default: break;
-			}
-		}	
-		
-		public function get type():String
-		{
-			return _type;
-		}
-		
-		public function set type( value:String ):void
-		{
-			_type = value;
-		}	
-		
-		public function purge():void
-		{
-			removeEventListener( Event.ENTER_FRAME, enterFrame );			
-			removeChildAt( 0 );
-			removeChildAt( 1 );
-			field = null;
-			bitmap = null;
-			bmpdata = null;
-			dateUtils = null;
-		}		
-		
 		private function enterFrame( event:Event ):void
 		{
 			var data:Array = dateUtils.getCountDown( livedate );			
 			field.text = doubleDigit( data[3] ) + ":" + doubleDigit( data[2] ) + ":" + doubleDigit( data[1] ) + ":" + doubleDigit( data[0] );
 			field.setTextFormat( fmt );
 		}
-		
-		
+				
 		private function doubleDigit( str:String ):String
 		{
 			if ( str.length == 1 ) str = "0" + str;
 			return str;
 		}
-		
-		public function get selected():Boolean
-		{
-			return false;
-		}
-		
-		public function set selected(value:Boolean):void
-		{
-		}		
 	}
 }

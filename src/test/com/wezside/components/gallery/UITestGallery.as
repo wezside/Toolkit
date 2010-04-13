@@ -1,5 +1,6 @@
 package test.com.wezside.components.gallery 
 {
+	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.Gallery;
 
 	import flash.display.Sprite;
@@ -21,13 +22,18 @@ package test.com.wezside.components.gallery
 			for ( var i : int = 0; i < 8; ++i) 
 				items.push( { id: i, url: "bin-release/images/00"+(i+1)+".jpg", livedate: new Date() });
 					   
-			gallery = new Gallery( items, 4, 4, 0, 0, 2, 2, "left", "custom", 0, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, false );
+			gallery = new Gallery( items, 4, 4, 0, 0, 2, 2, "left", "custom", 1, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, false );
+			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, arrangeComplete );
 			gallery.x = 30;
 			gallery.y = 30;			
-			addChild( gallery );
-						
+			addChild( gallery );						
 			gallery.create();
-			gallery.visible = true;	
+		}
+
+		private function arrangeComplete(event:GalleryEvent):void 
+		{
+			gallery.visible = true;			
+			gallery.selectedIndex = 2;
 		}
 	}
 }

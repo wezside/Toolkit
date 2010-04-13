@@ -23,51 +23,25 @@
  */
 package com.wezside.components.gallery 
 {
-	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IGalleryItem
+	public class MovieClipGalleryItem extends AbstractGalleryItem
 	{
+
+	
+		public function MovieClipGalleryItem( type:String, debug:Boolean ) 
+		{
+			super( type, debug );
+		}
 		
-		function load( url:String, livedate:Date ):void;
 		
-		function rollOver():void;
+		override public function load( url:String, livedate:Date ):void
+		{						
+			mouseEnabled = false;
+			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));	
+		}
 		
-		function rollOut():void;
-		
-		function play():void;
-		
-		function stop():void;
-		
-		function purge():void;
-		
-		function set name( value:String ):void;
-		
-		function get name():String;
-		
-		function set type( value:String ):void;
-		
-		function get type():String;
-		
-		function set selected( value:Boolean ):void;
-		
-		function get selected():Boolean;
-		
-		function set state( value:String ):void;
-		
-		function get state():String;
-		
-		function get width():Number;
-		
-		function get height():Number;
-		
-		function reset():void;		
-		function update( dob:IGalleryItem ):void;		
-		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
-		function dispatchEvent( event:Event ):Boolean;
-		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
-		function hasEventListener( type:String ):Boolean;			
 	}
 }
