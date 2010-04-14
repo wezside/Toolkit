@@ -42,6 +42,12 @@ package com.wezside.utilities.tooltip
 		function get y():Number;
 		function set y( value:Number ):void;
 		
+		function get scaleX():Number;
+		function set scaleX( value:Number ):void;
+		
+		function get scaleY():Number;
+		function set scaleY( value:Number ):void;
+		
 		function get visible():Boolean;
 		function set visible( value:Boolean ):void;
 		

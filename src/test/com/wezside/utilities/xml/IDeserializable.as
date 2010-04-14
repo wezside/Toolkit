@@ -1,4 +1,4 @@
-package com.wezside.components.media.data 
+package test.com.wezside.utilities.xml 
 {
 
 	/**

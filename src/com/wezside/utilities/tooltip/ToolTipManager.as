@@ -23,8 +23,6 @@
  */
 package com.wezside.utilities.tooltip 
 {
-	import gs.TweenLite;
-
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -108,14 +106,20 @@ package com.wezside.utilities.tooltip
 		public function hideTooltip( event:TimerEvent = null ):void 
 		{
 			if ( tooltip.currentState == STATE_ANCHOR_LEFT )
-				TweenLite.to( tooltip, 0.5, { autoAlpha: 0, scaleX: 0, scaleY: 0, 
-										      x: tooltip.x - 3, 
-											  y: tooltip.y + 45 });			
+			{
+				tooltip.visible = false;
+				tooltip.scaleX = tooltip.scaleY = 0;
+				tooltip.y = tooltip.x - 3;
+				tooltip.y = tooltip.y - 45;
+			}
 											  
 			if ( tooltip.currentState == STATE_ANCHOR_RIGHT )
-				TweenLite.to( tooltip, 0.5, { autoAlpha: 0, scaleX: 0, scaleY: 0, 
-										      x: tooltip.x + 233, 
-											  y: tooltip.y + 40 });			
+			{
+				tooltip.visible = false;
+				tooltip.scaleX = tooltip.scaleY = 0;
+				tooltip.x = tooltip.x - 233;
+				tooltip.y = tooltip.x - 40;				
+			}					
 		}		
 				
 		public function resetHide():void

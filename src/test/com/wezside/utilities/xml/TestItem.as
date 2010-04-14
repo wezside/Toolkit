@@ -1,12 +1,10 @@
-package com.wezside.components.media.data 
+package test.com.wezside.utilities.xml 
 {
-	import com.wezside.utilities.iterator.IDeserializable;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	[Bindable]
-	public class Item implements IDeserializable
+	public class TestItem implements IDeserializable
 	{
 		
 		public var id:String;

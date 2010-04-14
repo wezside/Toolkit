@@ -1,7 +1,5 @@
 package com.wezside.components.media 
 {
-	import gs.TweenLite;
-
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
@@ -201,7 +199,8 @@ package com.wezside.components.media
 			bitmapContainer.buttonMode = true;
 			mediaContainer.addChildAt( bitmapContainer, imgHero ? 0 : index );
 			
-			TweenLite.to( bitmapContainer, 0.5, { autoAlpha: 1 } );			
+			bitmapContainer.alpha = 0.5;			
+			bitmapContainer.visible = true;			
 			_original.shift( );
 			_original.length > 0 ? load( _original[0].url, _thumbWidth, thumbHeight ) : loadComplete();			
 		}
@@ -250,7 +249,8 @@ package com.wezside.components.media
 		private function videoLoaded( event:YoutubeEvent ):void
 		{
 			event.target.removeEventListener( YoutubeEvent.VIDEO_CUED, videoLoaded );
-			TweenLite.to( event.target, 0.5, { autoAlpha: 1 } );			
+			event.target.alpha = 1;			
+			event.target.visible = true;			
 			_original.shift( );
 			_original.length > 0 ? load( _original[0].url, _thumbWidth, thumbHeight ) : loadComplete( );
 		}		
@@ -291,7 +291,9 @@ package com.wezside.components.media
 			
 			if ( mediaContainer.getChildIndex( event.currentTarget as DisplayObject ) != 0 )
 			{
-				TweenLite.to( child, 0.5, { autoAlpha: 0, onComplete: switchHero, onCompleteParams: [ _selectedIndex ] } );
+				child.alpha = 0;
+				child.visible = false;
+				switchHero( _selectedIndex );
 			}
 			else
 			{
@@ -318,7 +320,8 @@ package com.wezside.components.media
 		private function loadComplete():void 
 		{
 			arrange( );
-			TweenLite.to( this, 0.5, { autoAlpha: 1, delay: 0.5 } );			
+			this.alpha = 1;
+			this.visible = true;
 			dispatchEvent( new MediaEvent( MediaEvent.LOAD_COMPLETE ) );
 		}
 
