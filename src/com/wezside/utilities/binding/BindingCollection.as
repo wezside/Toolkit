@@ -1,5 +1,6 @@
 package com.wezside.utilities.binding 
 {
+	import com.wezside.utilities.iterator.IDeserializable;
 	import com.wezside.utilities.iterator.ICollection;
 	import com.wezside.utilities.iterator.IIterator;
 
@@ -23,6 +24,12 @@ package com.wezside.utilities.binding
 		public function addElement( value:BindingMap ):void 
 		{
 			_collection.push( value );	
+		}
+		
+		public function find(value:String):Object
+		{
+			// TODO: Auto-generated method stub
+			return null;
 		}
 	}
 }

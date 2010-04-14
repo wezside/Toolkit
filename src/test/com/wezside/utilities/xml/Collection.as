@@ -1,5 +1,8 @@
 package test.com.wezside.utilities.xml 
 {
+	import com.wezside.utilities.iterator.ICollection;
+	import com.wezside.utilities.iterator.IDeserializable;
+	import com.wezside.utilities.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -16,7 +19,7 @@ package test.com.wezside.utilities.xml
 			_collection = [];	
 		}	
 
-		public function iterator():IIterator
+		public function iterator( type:String = null ):IIterator
 		{
 			return new TestItemIterator( _collection );					
 		}
@@ -26,7 +29,7 @@ package test.com.wezside.utilities.xml
 			_collection.push( value );
 		}
 		
-		public function find( value:String ):IDeserializable
+		public function find( value:String ):Object
 		{
 			var iterator:IIterator = iterator();
 			iterator.reset();

@@ -51,7 +51,7 @@ package test.com.wezside.utilities.xml
 		{
 			var xml:XML = XML( event.target.data );
 			mapper.deserialize( xml );
-
+			
 			assertNotNull( mapper.data );
 			assertNotNull( TestData( mapper.data ).module );
 			assertNotNull( TestData( mapper.data ).module("ExampleModule") );

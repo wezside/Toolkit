@@ -1,5 +1,6 @@
 package test.com.wezside.utilities.xml 
 {
+	import com.wezside.utilities.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel

@@ -34,9 +34,7 @@ package com.wezside.utilities.xml
 		{
 			// Create Top Level instance
 			var root:IXMLDataItem = _collection.iterator().next() as IXMLDataItem;
-			trace( root.clazz );
-			_data = new root.clazz() as IDeserializable;
-			trace( _data );
+			_data = IDeserializable( new root.clazz() );
 			build( xml.children()[0], _data );
 		}
 
@@ -49,7 +47,8 @@ package com.wezside.utilities.xml
 		{
 		
 			// Check if the class is mapped
-			var item:IXMLDataItem = _collection.find( xml.name() );
+			var item:IXMLDataItem = IXMLDataItem( _collection.find( xml.name() ));
+
 			if ( item )
 			{
 				var clazz:Object = new item.clazz();

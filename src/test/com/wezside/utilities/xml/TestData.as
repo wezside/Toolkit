@@ -1,5 +1,7 @@
 package test.com.wezside.utilities.xml 
 {
+	import com.wezside.utilities.iterator.ICollection;
+	import com.wezside.utilities.iterator.IDeserializable;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -34,7 +36,7 @@ package test.com.wezside.utilities.xml
 			return TestModule( modules.find( id ));
 		}			
 					
-		public function prefixe( id:String ):TestPrefix
+		public function prefix( id:String ):TestPrefix
 		{
 			return TestPrefix( prefixes.find( id ));
 		}			

@@ -27,7 +27,7 @@ package com.wezside.utilities.xml
 			_collection.push( value );	
 		}
 
-		public function find( value:String ):IXMLDataItem 
+		public function find( value:String ):Object 
 		{
 			var iterator:IIterator = iterator();
 			iterator.reset();

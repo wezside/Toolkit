@@ -1,5 +1,7 @@
 package test.com.wezside.utilities.xml 
 {
+	import com.wezside.utilities.iterator.ICollection;
+	import com.wezside.utilities.iterator.IDeserializable;
 
 	/**
 	 * @author Wesley.Swanepoel
