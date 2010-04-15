@@ -1,10 +1,10 @@
-package com.wezside.utilities.iterator 
+package com.wezside.utilities.binding 
 {
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IIterator 
+	public interface IBindingIterator 
 	{
 		
 		function reset():void;

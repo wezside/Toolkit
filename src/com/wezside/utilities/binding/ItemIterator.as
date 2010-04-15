@@ -1,18 +1,17 @@
-package test.com.wezside.utilities.xml 
+package com.wezside.utilities.binding 
 {
-	import com.wezside.utilities.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class TestItemIterator implements IIterator 
+	public class ItemIterator implements IBindingIterator 
 	{
 		
 		private var _index:uint = 0;
 		private var _collection:Array;
 		
 		
-		public function TestItemIterator( collection:Array ) 
+		public function ItemIterator( collection:Array ) 
 		{
 			_collection = collection;
 		}		

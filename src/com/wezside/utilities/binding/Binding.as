@@ -1,7 +1,5 @@
 package com.wezside.utilities.binding 
 {
-	import com.wezside.utilities.iterator.IIterator;
-
 	import flash.events.EventDispatcher;
 	import flash.utils.getQualifiedClassName;
 
@@ -32,7 +30,7 @@ package com.wezside.utilities.binding
 		
 		public function unBindAll():void
 		{
-			var iterator:IIterator = collection.iterator();
+			var iterator:IBindingIterator = collection.iterator();
 			while ( iterator.hasNext() )
 				BindingMap( iterator.next() ).purge();
 		}

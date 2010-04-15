@@ -1,6 +1,5 @@
 package test
 {
-	import test.com.wezside.utilities.xml.TestXMLDataMapper;
 	import test.com.wezside.components.TestUIElement;
 	import test.com.wezside.components.gallery.TestGallery;
 	import test.com.wezside.components.survey.TestSurvey;
@@ -12,13 +11,12 @@ package test
 	[RunWith("org.flexunit.runners.Suite")]
 	public class TestSuite
 	{
-//		public var testUIElement:TestUIElement;
-//		public var testSurvey:TestSurvey;
-//		public var testDateUtil:TestDateUtil;
-//		public var testGallery:TestGallery;
-//		public var testStateManager:TestStateManager;
-//		public var testURLUtil:TestURLUtil;
-		public var testXMLDataMapper:TestXMLDataMapper;
+		public var testUIElement:TestUIElement;
+		public var testSurvey:TestSurvey;
+		public var testDateUtil:TestDateUtil;
+		public var testGallery:TestGallery;
+		public var testStateManager:TestStateManager;
+		public var testURLUtil:TestURLUtil;
 
 	}
 }

@@ -1,13 +1,10 @@
 package com.wezside.utilities.binding 
 {
-	import com.wezside.utilities.iterator.IDeserializable;
-	import com.wezside.utilities.iterator.ICollection;
-	import com.wezside.utilities.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class BindingCollection implements ICollection 
+	public class BindingCollection implements IBindableCollection 
 	{
 		private var _collection:Array;
 
@@ -16,7 +13,7 @@ package com.wezside.utilities.binding
 			_collection = [];	
 		}
 		
-		public function iterator( type:String = null ):IIterator
+		public function iterator():IBindingIterator
 		{
 			return new BindingIterator( _collection );
 		}

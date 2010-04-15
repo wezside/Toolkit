@@ -1,11 +1,10 @@
 package com.wezside.utilities.binding 
 {
-	import com.wezside.utilities.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class BindingIterator implements IIterator 
+	public class BindingIterator implements IBindingIterator 
 	{
 		
 

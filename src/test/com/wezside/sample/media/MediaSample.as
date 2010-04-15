@@ -1,7 +1,6 @@
 package test.com.wezside.sample.media 
 {
 	import com.wezside.components.media.MediaPlayer;
-	import com.wezside.components.media.data.Media;
 
 	import flash.display.Sprite;
 

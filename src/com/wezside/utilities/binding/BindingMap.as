@@ -56,7 +56,8 @@ package com.wezside.utilities.binding
 		
 		public function listen():void
 		{
-			IEventDispatcher( _src ).addEventListener( BindingEvent.PROPERTY_CHANGE, update );
+			if ( _src is IEventDispatcher )
+				IEventDispatcher( _src ).addEventListener( BindingEvent.PROPERTY_CHANGE, update );
 		}
 		
 		public function purge():void
