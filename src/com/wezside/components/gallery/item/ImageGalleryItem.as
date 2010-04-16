@@ -45,7 +45,7 @@ package com.wezside.components.gallery.item
 			super( type, debug );			
 		}				
 		
-		override public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date, linkageID:String = "" ):void
 		{
 			Tracer.output( debug, " ("+url+", " + livedate + ")", toString() );
 			this.livedate = livedate;

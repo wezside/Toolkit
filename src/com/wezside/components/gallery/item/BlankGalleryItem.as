@@ -42,7 +42,7 @@ package com.wezside.components.gallery.item
 		}
 		
 		
-		override public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date, linkageID:String = "" ):void
 		{
 			var bmpdata:BitmapData = new BitmapData( 760, 510, false, 0x333333 );
 			var bitmap:Bitmap = new Bitmap( bmpdata );

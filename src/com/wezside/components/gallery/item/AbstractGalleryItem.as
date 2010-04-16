@@ -47,7 +47,7 @@ package com.wezside.components.gallery.item
 			state = Gallery.STATE_ROLLOUT;
 		}		
 		
-		public function load( url:String, livedate:Date ):void
+		public function load( url:String, livedate:Date, linkage:String = "" ):void
 		{
 		}
 

@@ -349,7 +349,7 @@ package com.wezside.components.gallery
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );
 			item.addEventListener( GalleryEvent.ITEM_LOAD_COMPLETE, itemLoaded );
-			item.load( items[0].url, items[0].livedate );
+			item.load( items[0].url, items[0].livedate, items[0].linkageID );
 		}
 
 		

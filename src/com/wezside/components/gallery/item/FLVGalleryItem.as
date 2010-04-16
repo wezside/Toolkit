@@ -36,7 +36,7 @@ package com.wezside.components.gallery.item
 			super( type, debug );
 		}
 		
-		override public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date, linkageID:String = "" ):void
 		{
 		}		
 

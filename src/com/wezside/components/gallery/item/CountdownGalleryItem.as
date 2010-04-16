@@ -52,7 +52,7 @@ package com.wezside.components.gallery.item
 			dateUtils = new DateUtil();
 		}
 
-		override public function load( url:String, livedate:Date ):void
+		override public function load( url:String, livedate:Date, linkageID:String = "" ):void
 		{
 			this.livedate = livedate;
 			
