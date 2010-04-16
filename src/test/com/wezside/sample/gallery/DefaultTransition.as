@@ -28,9 +28,9 @@ package test.com.wezside.sample.gallery
 
 	import com.wezside.components.gallery.Gallery;
 	import com.wezside.components.gallery.GalleryEvent;
-	import com.wezside.components.gallery.IGalleryItem;
-	import com.wezside.components.gallery.IGalleryTransition;
-	import com.wezside.components.gallery.ReflectionItem;
+	import com.wezside.components.gallery.item.IGalleryItem;
+	import com.wezside.components.gallery.item.ReflectionItem;
+	import com.wezside.components.gallery.transition.IGalleryTransition;
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;

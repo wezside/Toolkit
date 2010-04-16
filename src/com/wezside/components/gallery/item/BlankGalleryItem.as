@@ -21,37 +21,39 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
  */
-package com.wezside.components.gallery 
+package com.wezside.components.gallery.item 
 {
-	import flash.events.Event;
+	import com.wezside.components.gallery.GalleryEvent;
+
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IGalleryTransition 
+	public class BlankGalleryItem extends AbstractGalleryItem
 	{
-		
-		function get galleryInstance():Gallery;
-		
-		function set galleryInstance( value:Gallery ):void;
-		
-		function get stageWidth():Number;
-		
-		function set stageWidth( value:Number ):void;
-		
-		function get stageHeight():Number;
-		
-		function set stageHeight( value:Number ):void;
-		
-		function intro():void;
-		
-		function outro():void;
-						
-		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 
-		function dispatchEvent( event:Event ):Boolean;
 
-		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
-
-		function hasEventListener( type:String ):Boolean;	
+		
+		public function BlankGalleryItem( type:String, debug:Boolean ) 
+		{
+			super( type, debug );
+		}
+		
+		
+		override public function load( url:String, livedate:Date ):void
+		{
+			var bmpdata:BitmapData = new BitmapData( 760, 510, false, 0x333333 );
+			var bitmap:Bitmap = new Bitmap( bmpdata );
+			addChildAt( bitmap, 0 );
+			
+			mouseEnabled = false;
+			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));	
+		}
+		
+		override public function set state( value:String ):void
+		{
+		}		
 	}
 }

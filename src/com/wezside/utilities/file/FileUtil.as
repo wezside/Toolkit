@@ -45,6 +45,7 @@ package com.wezside.utilities.file
 		 */
 		public static function getFileExtension( url:String ):String
 		{
+			if ( !url ) return "";
 			var reg:RegExp = new RegExp( "[\.][\\w]+", "gi" );
 			var result:Array = url.match( reg );
 			return String( result[0] ).substr( 1 ); 

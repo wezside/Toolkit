@@ -21,27 +21,40 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
  */
-package com.wezside.components.gallery 
+package com.wezside.components.gallery.transition 
 {
+	import com.wezside.components.gallery.Gallery;
+
+	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MovieClipGalleryItem extends AbstractGalleryItem
+	public interface IGalleryTransition 
 	{
+		
+		function get galleryInstance():Gallery;
+		
+		function set galleryInstance( value:Gallery ):void;
+		
+		function get stageWidth():Number;
+		
+		function set stageWidth( value:Number ):void;
+		
+		function get stageHeight():Number;
+		
+		function set stageHeight( value:Number ):void;
+		
+		function intro():void;
+		
+		function outro():void;
+						
+		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 
-	
-		public function MovieClipGalleryItem( type:String, debug:Boolean ) 
-		{
-			super( type, debug );
-		}
-		
-		
-		override public function load( url:String, livedate:Date ):void
-		{						
-			mouseEnabled = false;
-			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));	
-		}
-		
+		function dispatchEvent( event:Event ):Boolean;
+
+		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
+
+		function hasEventListener( type:String ):Boolean;	
 	}
 }

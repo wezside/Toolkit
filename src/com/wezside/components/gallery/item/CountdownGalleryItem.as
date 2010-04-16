@@ -21,8 +21,9 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
  */
-package com.wezside.components.gallery 
+package com.wezside.components.gallery.item 
 {
+	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.utilities.date.DateUtil;
 
 	import flash.display.Bitmap;

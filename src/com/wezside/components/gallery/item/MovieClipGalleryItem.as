@@ -21,37 +21,28 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
  */
-package com.wezside.components.gallery 
+package com.wezside.components.gallery.item 
 {
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
+	import com.wezside.components.gallery.GalleryEvent;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class BlankGalleryItem extends AbstractGalleryItem
+	public class MovieClipGalleryItem extends AbstractGalleryItem
 	{
 
-
-		
-		public function BlankGalleryItem( type:String, debug:Boolean ) 
+	
+		public function MovieClipGalleryItem( type:String, debug:Boolean ) 
 		{
 			super( type, debug );
 		}
 		
 		
 		override public function load( url:String, livedate:Date ):void
-		{
-			var bmpdata:BitmapData = new BitmapData( 760, 510, false, 0x333333 );
-			var bitmap:Bitmap = new Bitmap( bmpdata );
-			addChildAt( bitmap, 0 );
-			
+		{						
 			mouseEnabled = false;
 			dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_LOAD_COMPLETE, false, false, this ));	
 		}
 		
-		override public function set state( value:String ):void
-		{
-		}		
 	}
 }

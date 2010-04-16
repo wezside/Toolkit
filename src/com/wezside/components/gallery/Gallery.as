@@ -23,6 +23,17 @@
  */
 package com.wezside.components.gallery 
 {
+	import com.wezside.components.gallery.item.MovieClipGalleryItem;
+	import com.wezside.components.gallery.collection.ICollection;
+	import com.wezside.components.gallery.collection.ClassCollection;
+	import com.wezside.components.gallery.item.BlankGalleryItem;
+	import com.wezside.components.gallery.item.CountdownGalleryItem;
+	import com.wezside.components.gallery.item.FLVGalleryItem;
+	import com.wezside.components.gallery.item.GalleryItemClass;
+	import com.wezside.components.gallery.item.IGalleryItem;
+	import com.wezside.components.gallery.item.ImageGalleryItem;
+	import com.wezside.components.gallery.item.ReflectionItem;
+	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.utilities.date.DateUtil;
 	import com.wezside.utilities.file.FileUtil;
 	import com.wezside.utilities.imaging.ImageResize;
@@ -79,7 +90,8 @@ package com.wezside.components.gallery
 		private var _stageHeight:Number;
 		private var _selectedIndex:int;
 		private var _thumbEnabled:Boolean;
-		private var _galleryItemClassList:Dictionary;
+		private var _classCollection:ClassCollection;
+
 
 		public static const ITEM_SWF:String = "itemSWF";
 		public static const ITEM_BLANK:String = "itemBlank";
@@ -148,11 +160,13 @@ package com.wezside.components.gallery
 			_stageWidth = stageWidth;
 			_stageHeight = stageHeight;
 			_thumbEnabled = thumbEnabled;
-			_galleryItemClassList = new Dictionary();
-			_galleryItemClassList[ ITEM_VIDEO ] = FLVGalleryItem;
-			_galleryItemClassList[ ITEM_BLANK ] = BlankGalleryItem;
-			_galleryItemClassList[ ITEM_IMAGE ] = ImageGalleryItem;
-			_galleryItemClassList[ ITEM_COUNTDOWN ] = CountdownGalleryItem;
+			
+			_classCollection = new ClassCollection();
+			_classCollection.push( new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
+			_classCollection.push( new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
+			_classCollection.push( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
+			_classCollection.push( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
+			_classCollection.push( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
 			
 			startX = xOffset;
 			currentRow = 0;
@@ -190,11 +204,10 @@ package com.wezside.components.gallery
 			}
 		}
 
-		
-		public function start( trans:IGalleryTransition = null ):void
+		public function addCustomItem( id:String, clazz:Class, fileAssociation:Array ):void
 		{
+			_classCollection.push( new GalleryItemClass( fileAssociation, id, clazz ));
 		}
-		
 
 		public function intro( trans:IGalleryTransition = null ):void
 		{
@@ -256,24 +269,11 @@ package com.wezside.components.gallery
 		public function set stageHeight( value:Number ):void
 		{
 			_stageHeight = value;
-		}
-		
+		}		
 		
 		public function getRowHeight( row:uint ):Number
 		{
 			return ( row * verticalgap ) * largestItemHeight * 0.5;
-		}
-
-
-		public function get galleryItemClassList():Dictionary
-		{
-			return _galleryItemClassList;
-		}
-		
-		
-		public function set galleryItemClassList( value:Dictionary ):void
-		{
-			_galleryItemClassList = value;
 		}
 		
 		public function get debug():Boolean
@@ -337,27 +337,19 @@ package com.wezside.components.gallery
 			if ( items.length != 0 )
 			{
 				var date:Date = original[ int( total - items.length ) ].livedate;
-				switch ( FileUtil.getFileExtension( items[0].url ))
-				{
-					case "jpg":				
-					case "png":				
-					case "gif": dateUtils.testLiveDate( date ) ? createItem( ITEM_IMAGE ) : createItem( ITEM_COUNTDOWN ); break;						
-					case "flv":
-					case "mov":
-					case "f4v": dateUtils.testLiveDate( date ) ? createItem( ITEM_VIDEO ) : createItem( ITEM_COUNTDOWN ); break;
-					default: createItem( ITEM_BLANK ); break;
-				}
+				var extension:String = FileUtil.getFileExtension( items[0].url );
+				dateUtils.testLiveDate( date ) ? createItem( extension ) : createItem( "countdown" );
 			}
 		}		
 		
-		private function createItem( type:String ):void
+		private function createItem( fileExtension:String = "" ):void
 		{		
-			var ItemClass:Class = galleryItemClassList[ type ] as Class;
-			var item:IGalleryItem = new  ItemClass( type, _debug ) as IGalleryItem;
+			var ItemClass:Class = _classCollection.find( fileExtension ).clazz as Class;
+			var item:IGalleryItem = new  ItemClass( fileExtension, _debug ) as IGalleryItem;
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );
 			item.addEventListener( GalleryEvent.ITEM_LOAD_COMPLETE, itemLoaded );
-			item.load( items[0].url, items[0].livedate );						
+			item.load( items[0].url, items[0].livedate );
 		}
 
 		
@@ -455,8 +447,6 @@ package com.wezside.components.gallery
 		/**
 		 * Lay the items out in the specified columns and rows including the reflections with their alpha 
 		 * settings. 
-		 * 
-		 * TODO: Move distribute into arrange - should be part of the alignment logic
 		 */
 		private function arrange():void
 		{

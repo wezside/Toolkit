@@ -1,5 +1,6 @@
-package com.wezside.components.gallery 
+package com.wezside.components.gallery.item 
 {
+	import com.wezside.components.gallery.Gallery;
 	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Loader;
