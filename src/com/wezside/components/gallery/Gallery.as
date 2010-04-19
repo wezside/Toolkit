@@ -74,11 +74,9 @@ package com.wezside.components.gallery
 		// Constructor values
 		private var horizontalGap:int;
 		private var verticalgap:int;
-		private var xOffset:Number;
-		private var yOffset:Number;
 		private var resizePolicy:String;
 		private var resizeValue:Number;
-		private var startX:int;
+
 		private var reflectionAlpha:Number;
 		private var distributePolicy:String;
 		private var target:String;
@@ -122,8 +120,6 @@ package com.wezside.components.gallery
 		public function Gallery( dataprovider:Array, 
 								 columns:int = 4, 
 								 rows:int = 3, 
-								 xOffset:int = 0, 
-								 yOffset:int = 0, 
 								 horizontalGap:int = 0, 
 								 verticalgap:int = 0,
 								 horizontalAlign:String = "left",
@@ -144,8 +140,6 @@ package com.wezside.components.gallery
 			items = items.concat( dataprovider );	
 			this.rows = rows;
 			this.columns = columns;			
-			this.xOffset = xOffset;
-			this.yOffset = yOffset;
 			this.target = target;			
 			this.horizontalAlign = horizontalAlign;
 			this.horizontalGap = horizontalGap;
@@ -170,10 +164,8 @@ package com.wezside.components.gallery
 			_classCollection.push( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
 			_classCollection.push( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
 			_classCollection.push( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
-			
-			startX = xOffset;
-			currentRow = 0;
 
+			currentRow = 0;
 			visible = showArrangement;
 			totalpages = Math.ceil( items.length / ( columns * rows )); 
 			
