@@ -54,5 +54,10 @@ package com.wezside.data.iterator
 		{
 			return _collection.length;
 		}
+		
+		public function index():int
+		{
+			return _index;
+		}
 	}
 }

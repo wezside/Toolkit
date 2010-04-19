@@ -19,5 +19,10 @@ package com.wezside.data.iterator
 		{
 			return false;
 		}
+		
+		public function index():int
+		{
+			return 0;
+		}
 	}
 }

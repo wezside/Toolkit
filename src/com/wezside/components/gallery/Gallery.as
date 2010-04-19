@@ -23,6 +23,9 @@
  */
 package com.wezside.components.gallery 
 {
+	import com.wezside.data.iterator.IIterator;
+	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.UIElement;
 	import com.wezside.components.gallery.collection.ClassCollection;
 	import com.wezside.components.gallery.item.BlankGalleryItem;
 	import com.wezside.components.gallery.item.CountdownGalleryItem;
@@ -32,6 +35,7 @@ package com.wezside.components.gallery
 	import com.wezside.components.gallery.item.ImageGalleryItem;
 	import com.wezside.components.gallery.item.MovieClipGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
+	import com.wezside.components.gallery.layout.GridReflectionLayout;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.utilities.date.DateUtil;
 	import com.wezside.utilities.file.FileUtil;
@@ -52,7 +56,7 @@ package com.wezside.components.gallery
 	 * @author Wesley.Swanepoel
 	 * @version 0.2.0020
 	 */
-	public class Gallery extends Sprite 
+	public class Gallery extends UIElement 
 	{
 
 		
@@ -75,12 +79,12 @@ package com.wezside.components.gallery
 		private var resizePolicy:String;
 		private var resizeValue:Number;
 		private var startX:int;
-		private var reflectionHeightInRows:int;
 		private var reflectionAlpha:Number;
 		private var distributePolicy:String;
 		private var target:String;
 		private var horizontalAlign:String;
 		private var showArrangement:Boolean;
+		private var reflectionHeightInRows:int;
 		
 		// Getters and setters 
 		private var _debug:Boolean;
@@ -114,7 +118,6 @@ package com.wezside.components.gallery
 		public static const STATE_ROLLOUT:String = "stateRollout";
 		public static const STATE_SELECTED:String = "stateSelected";		
 
-		
 		
 		public function Gallery( dataprovider:Array, 
 								 columns:int = 4, 
@@ -159,6 +162,8 @@ package com.wezside.components.gallery
 			_stageHeight = stageHeight;
 			_thumbEnabled = thumbEnabled;
 			
+			layout = new GridReflectionLayout( this );
+			
 			_classCollection = new ClassCollection();
 			_classCollection.push( new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
 			_classCollection.push( new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
@@ -188,10 +193,10 @@ package com.wezside.components.gallery
 			
 			dateUtils = new DateUtil();
 		}
-		
-				
-		public function purge():void
+						
+		override public function purge():void
 		{
+			super.purge();
 			for each ( var item:IGalleryItem in this )
 			{
 				item.purge();
@@ -338,7 +343,18 @@ package com.wezside.components.gallery
 				var extension:String = FileUtil.getFileExtension( items[0].url );
 				dateUtils.testLiveDate( date ) ? createItem( extension ) : createItem( "countdown" );
 			}
-		}		
+		}
+
+		override public function arrange( event:UIElementEvent = null ):void
+		{
+			super.arrange();
+		}
+		
+		override protected function arrangeComplete( event:UIElementEvent ):void 
+		{
+			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
+		}
+				
 		
 		private function createItem( fileExtension:String = "" ):void
 		{		
@@ -407,16 +423,25 @@ package com.wezside.components.gallery
 			// Used for distribution layout - to determine the width or height to distribute to
 			largestItemWidth = item.width > largestItemWidth ? item.width : largestItemWidth;
 			largestItemHeight = item.height > largestItemHeight ? item.height : largestItemHeight;
+						
+			// Distribute item			
+			item = resize( item, distributePolicy, distributePolicy == DISTRIBUTE_H ? largestItemWidth : largestItemHeight ) as Sprite;
 									
 			// Create Reflection
 			if ( reflectionHeightInRows > 0 )
 			{
 				var ratioA:int = rows - reflectionHeightInRows == currentRow ? 0 : 255;
 				var ref:ReflectionItem = new ReflectionItem( ITEM_REFLECTION,  new Bitmap( bmp ), [ ratioA, 255 ], bmp.height, _debug );			
-				ref.name = "reflection_" + index;
+				ref.name = "reflection_" + index;				
+				ref.alpha = (( rows - currentRow ) <= reflectionHeightInRows ) ? reflectionAlpha : 0;
+				
+				// Resize reflection
 				ref = resize( ref, resizePolicy, resizeValue ) as ReflectionItem;
+				
+				// Distribute reflection
 				ref = resize( ref, distributePolicy, largestItemWidth ) as ReflectionItem;
 			}
+			
 			// Determine updates required for reflections
 			switch ( IGalleryItem( item ).type )
 			{
@@ -442,54 +467,6 @@ package com.wezside.components.gallery
 		}
 
 		
-		/**
-		 * Lay the items out in the specified columns and rows including the reflections with their alpha 
-		 * settings. 
-		 */
-		private function arrange():void
-		{
-			var i:int;
-			var item:Sprite;		
-			var reflection:ReflectionItem;
-			currentRow = 0;			
-			
-			for ( i = 0; i < total; ++i )
-			{
-				item = getChildByName( i.toString() ) as Sprite;				
-				
-				// Distribute to width/height/or from center
-				item = resize( item, distributePolicy, distributePolicy == DISTRIBUTE_H ? largestItemWidth : largestItemHeight ) as Sprite;
-				item.x += xOffset; 
-				item.y += yOffset; 				
-				
-				if ( reflectionHeightInRows > 0 )
-				{
-					reflection = getChildByName( "reflection_" + i.toString() ) as ReflectionItem;
-					reflection.alpha = (( rows - currentRow ) <= reflectionHeightInRows ) ? reflectionAlpha : 0;
-					reflection.reflectionAlpha = reflection.alpha;					
-					reflection = resize( reflection, distributePolicy, distributePolicy == DISTRIBUTE_H ? largestItemWidth : largestItemHeight ) as ReflectionItem;
-					reflection.x += xOffset;								
-					var posY:int = ( rows - currentRow ) * ( item.height + verticalgap ) * 2 - item.height;
-					reflection.y += posY + yOffset - verticalgap;
-				}
-							
-				if (( i + 1 ) % columns == 0 )
-				{
-					currentRow++;
-					yOffset += largestItemHeight + verticalgap;
-					xOffset = startX;
-				}
-				else
-				{
-					xOffset += largestItemWidth + horizontalGap;
-				}					
-			}
-			
-			Tracer.output( _debug, " Gallery.arrange()", toString() );
-			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
-		}
-
-		
 		protected function transitionComplete(event:GalleryEvent):void
 		{
 			dispatchEvent( event );
@@ -499,14 +476,16 @@ package com.wezside.components.gallery
 		protected function itemClick( event:MouseEvent ):void
 		{
 			
-			var i:int;			
-			for ( i = 0; i < total; ++i )
+			var iterator:IIterator = iterator( UIElement.ITERATOR_CHILDREN );			
+			while( iterator.hasNext())
 			{
-				if ( event.currentTarget.name != i.toString() )
-					IGalleryItem( getChildByName( i.toString() )).reset();
+				var item:IGalleryItem = iterator.next() as IGalleryItem;
+				if ( event.currentTarget.name != item.name.toString() )
+					item.reset();
 			}
 
 			IGalleryItem( event.currentTarget ).state = STATE_SELECTED;
+			
 			switch ( target )
 			{
 				case BLANK   : navigateToURL( new URLRequest( "" ), "_blank");	break;
@@ -519,51 +498,51 @@ package com.wezside.components.gallery
 		
 		protected function itemRollOver( event:MouseEvent ):void
 		{
-			var i:int;
 			var item:IGalleryItem;
 			var reflection:IGalleryItem;
-			
+			var iterator:IIterator = iterator( UIElement.ITERATOR_CHILDREN );
+		
 			if ( event.currentTarget.name.indexOf( "reflection_" ) == -1 )
 			{			
-				for ( i = 0; i < total; ++i )
+				while( iterator.hasNext())
 				{
-					item = getChildByName( i.toString() ) as IGalleryItem;
-					reflection = getChildByName( "reflection_" + i.toString() ) as IGalleryItem;
-					
-					// Rolled over item
-					if ( item.name == event.currentTarget.name && event.currentTarget.name.indexOf( "reflection_" ) == -1 )
+					item = iterator.next() as IGalleryItem;
+					if ( item.name == event.currentTarget.name  )
 					{
 						item.state = STATE_ROLLOVER;
 						if ( reflectionHeightInRows > 0 )
 						{
+							reflection = iterator.next() as IGalleryItem;
 							reflection = getChildByName( "reflection_" + item.name.toString() ) as IGalleryItem;
 							reflection.state = STATE_ROLLOVER;
 						}
-						dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_ROLLOVER, false, false, i ));
+						dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_ROLLOVER, false, false, iterator.index() ));
 					}
 
-					if ( item.name != event.currentTarget.name && item.name != ( "reflection_" + item.name ))
+					if ( item.name != event.currentTarget.name )
 					{
 						item.state = STATE_ROLLOUT;
 					}
 				}
 			}
+			iterator = null;
 		}
 		
 
 		protected function itemRollOut( event:MouseEvent ):void
 		{
-			var i:int;
 			var item:IGalleryItem;		
 			var reflection:IGalleryItem;	
-			for ( i = 0; i < total; ++i )
+			var iterator:IIterator = iterator( UIElement.ITERATOR_CHILDREN );
+			
+			while( iterator.hasNext())
 			{
-				item = getChildByName( i.toString() ) as IGalleryItem;	
-				reflection = getChildByName( "reflection_" + i.toString() ) as IGalleryItem;
+				item = iterator.next() as IGalleryItem;	
 				item.state = STATE_ROLLOUT;
 				
 				if  ( reflectionHeightInRows > 0 )
 				{
+					reflection = iterator.next() as IGalleryItem;
 					reflection = getChildByName( "reflection_" + item.name.toString() ) as IGalleryItem;
 					reflection.state = STATE_ROLLOUT;
 				}
@@ -573,6 +552,13 @@ package com.wezside.components.gallery
 		
 		private function complete():void
 		{
+			GridReflectionLayout( layout ).horizontalGap = horizontalGap;
+			GridReflectionLayout( layout ).verticalGap = verticalgap;
+			GridReflectionLayout( layout ).largestItemWidth = largestItemWidth;
+			GridReflectionLayout( layout ).largestItemHeight = largestItemHeight;
+			GridReflectionLayout( layout ).rows = rows;
+			GridReflectionLayout( layout ).columns = columns;
+			GridReflectionLayout( layout ).reflectionHeightInRows = reflectionHeightInRows;
 			dispatchEvent( new GalleryEvent( GalleryEvent.LOAD_COMPLETE ));
 			arrange();
 			Tracer.output( _debug, " Gallery.complete()", toString() );

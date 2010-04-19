@@ -43,6 +43,11 @@ package com.wezside.data.iterator
 			for ( var i:int = 0; i < child.numChildren; ++i )
 				arr.push( child.getChildAt( i )); 
 			return arr;
+		}
+		
+		public function index():int
+		{
+			return _index;
 		}		
 	}
 }

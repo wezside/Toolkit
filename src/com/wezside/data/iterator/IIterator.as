@@ -29,6 +29,7 @@ package com.wezside.data.iterator
 		function reset():void;
 		function next():Object;
 		function hasNext():Boolean;
+		function index():int;
 		
 	}
 }

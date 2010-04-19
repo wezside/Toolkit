@@ -13,6 +13,8 @@ package com.wezside.components.layout
 	{
 		
 		protected var decorated:IUIDecorator;
+		private var _horizontalGap:int;
+		private var _verticalGap:int;
 
 		
 		public function Layout( decorated:IUIDecorator ) 
@@ -46,20 +48,22 @@ package com.wezside.components.layout
 		
 		public function get horizontalGap():int
 		{
-			return 0;
+			return _horizontalGap;
 		}
 		
 		public function get verticalGap():int
 		{
-			return 0;
+			return _verticalGap;
 		}
 		
 		public function set horizontalGap(value:int):void
 		{
+			_horizontalGap = value;			
 		}
-		
+
 		public function set verticalGap(value:int):void
 		{
+			_verticalGap = value;
 		}
 	}
 }

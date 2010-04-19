@@ -21,7 +21,7 @@ package test.com.wezside.components.gallery
 					   
 			items.push( { id: i, url: "assets-embed/swf/library.swf", livedate: new Date(), linkageID: "GreenItem" });
 			
-			gallery = new Gallery( items, 4, 4, 0, 0, 2, 2, "left", "custom", 0, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, false );
+			gallery = new Gallery( items, 4, 3, 0, 0, 2, 2, "left", "custom", 2, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, false );
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, arrangeComplete );
 			gallery.x = 30;
 			gallery.y = 30;			

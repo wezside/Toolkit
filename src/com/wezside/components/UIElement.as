@@ -179,8 +179,9 @@ package com.wezside.components
 		public function set layout( value:ILayout ):void
 		{
 			_layout = value;
+			_layout.addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
 		}		
-				
+
 		public function purge():void
 		{
 			_children = null;
@@ -276,5 +277,9 @@ package com.wezside.components
 			strUtil = null;
 		}
 
+		protected function arrangeComplete( event:UIElementEvent ):void 
+		{
+			dispatchEvent( event );
+		}
 	}
 }

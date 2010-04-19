@@ -67,8 +67,7 @@ package test.com.wezside.components
 		}
 		
 		private function arrangeTimer( layout:ILayout ):void
-		{
-			
+		{			
 			var arrangeTimer:Timer = new Timer( 1000, 1 );
 			arrangeTimer.addEventListener( TimerEvent.TIMER_COMPLETE, function():void { 
 				
