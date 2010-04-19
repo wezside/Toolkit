@@ -36,7 +36,6 @@ package test.com.wezside.components.gallery
 			gallery = null;
 			items = null;
 		}
-
 		
 		[Test(async)] 
 		public function testGalleryCreate():void

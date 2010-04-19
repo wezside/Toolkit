@@ -143,7 +143,7 @@ package test.com.wezside.sample.gallery
 			preloader.x = 230;
 			preloader.y = 110;
 			preloader.start();
-			addChild( preloader );			
+			addChild( preloader );
 		}
 
 		

@@ -98,7 +98,7 @@ package com.wezside.components.gallery.item
 				case Gallery.STATE_SELECTED: selected = !_selected; break;					
 				default: _sm.state = ""; break;
 			}
-		}	
+		}
 		
 		public function get type():String
 		{

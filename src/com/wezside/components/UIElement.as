@@ -23,8 +23,10 @@
  */
 package com.wezside.components 
 {
-	import com.wezside.data.iterator.ChildIterator;
+	import com.wezside.components.layout.ILayout;
+	import com.wezside.components.layout.Layout;
 	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.NullIterator;
 	import com.wezside.utilities.manager.state.StateManager;
@@ -44,8 +46,10 @@ package com.wezside.components
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
-	public class UIElement extends Sprite implements IUIElement
+	public class UIElement extends Sprite implements IUIElement, IUIDecorator
 	{
+		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";
+		public static const ITERATOR_CHILDREN:String = "ITERATOR_CHILDREN";
 
 		private var _styleName:String;
 		private var _skin:IUIElementSkin;
@@ -56,11 +60,13 @@ package com.wezside.components
 		private var _currentStyleName:String;
 		
 		protected var _children:Array;		
+		private var _layout:ILayout;
 
 		
 		public function UIElement() 
 		{
 			_children = [];
+			_layout = new Layout( this );
 			_skin = new UIElementSkin();
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
@@ -74,8 +80,14 @@ package com.wezside.components
 		
 		public function update():void
 		{
+			arrange();
 		}		
-				
+		
+		public function arrange( event:UIElementEvent = null ):void
+		{
+			_layout.arrange();
+		}
+
 		public function get children():Array
 		{
 			return _children;	
@@ -159,6 +171,16 @@ package com.wezside.components
 			_inheritCSS = value;			
 		}		
 				
+		public function get layout():ILayout
+		{
+			return _layout;
+		}
+		
+		public function set layout( value:ILayout ):void
+		{
+			_layout = value;
+		}		
+				
 		public function purge():void
 		{
 			_children = null;
@@ -180,7 +202,7 @@ package com.wezside.components
 		
 		public function setStyle():void
 		{
-			var iter:IIterator = iterator( "children" );
+			var iter:IIterator = iterator( ITERATOR_CHILDREN );
 			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
 			
 			// If this has a styleName then apply the styles
@@ -208,8 +230,8 @@ package com.wezside.components
 		{
 			switch ( type )
 			{
-				case "props": return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
-				case "children": return new ChildIterator( this );  
+				case ITERATOR_PROPS: return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
+				case ITERATOR_CHILDREN: return new ChildIterator( this );  
 			}
 			return new NullIterator();
 		}		
@@ -223,7 +245,7 @@ package com.wezside.components
 		{
 			_currentStyleName = currentStyleName;
 			
-			var iter:IIterator = iterator( "props" );
+			var iter:IIterator = iterator( ITERATOR_PROPS );
 			var strUtil:StringUtil = new StringUtil( );
 			
 			while ( iter.hasNext() )

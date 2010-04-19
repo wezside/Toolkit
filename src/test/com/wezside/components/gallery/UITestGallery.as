@@ -25,7 +25,7 @@ package test.com.wezside.components.gallery
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, arrangeComplete );
 			gallery.x = 30;
 			gallery.y = 30;			
-			addChild( gallery );						
+			addChild( gallery );
 			gallery.create();
 		}
 

@@ -23,7 +23,6 @@
  */
 package com.wezside.components 
 {
-	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.manager.style.IStyleManager;
 
 	import flash.text.StyleSheet;
@@ -47,8 +46,6 @@ package com.wezside.components
 		 function get inheritCSS():Boolean;
 		 function set inheritCSS( value:Boolean ):void;
 			 
-		 function update():void;
-		 function iterator( type:String = null ):IIterator;
 		 function hasOwnProperty( V:* = undefined ):Boolean;
 		 function purge():void;
 	

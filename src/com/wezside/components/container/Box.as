@@ -145,8 +145,8 @@ package com.wezside.components.container
 		 * 
 		 * The local update() method also invokes this method. Update is invoked from the super Container class
 		 * once a stylesheet as been applied. 
-		 */
-		protected function arrange( event:Event = null ):void
+		
+		public function arrange( event:Event = null ):void
 		{
 			var offset:int = 0;
 			var maxWidth:int = 0;
@@ -183,7 +183,7 @@ package com.wezside.components.container
 			draw( _backgroundColors, _backgroundAlphas );
 		}
 
-
+ */
 		// FIXME: Need to have a border on rounded corners
 		protected function draw( colors:Array, alphas:Array ):void
 		{	
