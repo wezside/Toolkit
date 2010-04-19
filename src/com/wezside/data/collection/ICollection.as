@@ -17,10 +17,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.gallery.collection 
+package com.wezside.data.collection 
 {
-	import com.wezside.components.gallery.item.IGalleryItemClass;
-	import com.wezside.components.gallery.iterator.IIterator;
+	import com.wezside.data.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -28,6 +27,6 @@ package com.wezside.components.gallery.collection
 	public interface ICollection 
 	{
 		function iterator():IIterator;
-		function find( value:String = "" ):IGalleryItemClass;
+		function find( value:String = "" ):Object;
 	}
 }

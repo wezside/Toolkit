@@ -17,10 +17,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.data.collection 
+package com.wezside.data.collection 
 {
-	import com.wezside.utilities.data.iterator.ArrayIterator;
-	import com.wezside.utilities.data.iterator.IIterator;
+	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel

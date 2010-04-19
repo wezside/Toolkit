@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.data.iterator 
+package com.wezside.data.iterator 
 {
 
 	/**
@@ -50,5 +50,9 @@ package com.wezside.utilities.data.iterator
 			return _index < _collection.length;
 		}
 	
+		public function length():uint
+		{
+			return _collection.length;
+		}
 	}
 }

@@ -58,8 +58,19 @@ package com.wezside.components
 			 if ( _disabledSkin ) hide( _disabledSkin );			
 		}
 
-		public function hasOwnProperty( V:* = undefined ):Boolean
+		public function hasSkinProperty( V:* = undefined ):Boolean
 		{
+			if ( V == "upSkin" ) return true;
+			if ( V == "overSkin" ) return true;
+			if ( V == "downSkin" ) return true;
+			if ( V == "selectedSkin" ) return true;
+			if ( V == "invalidSkin" ) return true;
+			if ( V == "disabledSkin" ) return true;
+			return false;
+		}
+
+		public function hasOwnProperty( V:* = undefined ):Boolean
+		{			
 			return super.hasOwnProperty( V );
 		}
 		

@@ -20,8 +20,9 @@
 package com.wezside.components.gallery.collection 
 {
 	import com.wezside.components.gallery.item.IGalleryItemClass;
-	import com.wezside.components.gallery.iterator.ArrayIterator;
-	import com.wezside.components.gallery.iterator.IIterator;
+	import com.wezside.data.collection.ICollection;
+	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -48,12 +49,12 @@ package com.wezside.components.gallery.collection
 			_collection.push( value );
 		}
 		
-		public function find( value:String = "" ):IGalleryItemClass
+		public function find( value:String = "" ):Object
 		{
 			classIterator.reset();			
 			while( classIterator.hasNext())
 			{
-				var item:IGalleryItemClass = classIterator.next();
+				var item:IGalleryItemClass = classIterator.next() as IGalleryItemClass;
 				if ( value == "" && item.fileExtension.length == 0 ) return item; 
 				for ( var i:int = 0; i < item.fileExtension.length; ++i ) 
 					if ( value == item.fileExtension[i] )

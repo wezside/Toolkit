@@ -67,6 +67,8 @@ package test.com.wezside.components
 			mockUIElement.createChildren();
 			assertNotNull( mockUIElement.child );
 			assertNull( IUIElement( mockUIElement.child ).styleName );
+			
+			mockUIElement.child.inheritCSS = true;
 			mockUIElement.setStyle();
 			assertEquals( "advanced", MockUIElement( mockUIElement.child ).antiAliasType  );
 			

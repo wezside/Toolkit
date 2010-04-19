@@ -23,6 +23,10 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.data.iterator.ChildIterator;
+	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.iterator.IIterator;
+	import com.wezside.data.iterator.NullIterator;
 	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.manager.style.IStyleManager;
 	import com.wezside.utilities.string.StringUtil;
@@ -48,6 +52,8 @@ package com.wezside.components
 		private var _styleSheet:StyleSheet;
 		private var _styleManager:IStyleManager;		
 		private var _stateManager:StateManager;
+		private var _inheritCSS:Boolean;
+		private var _currentStyleName:String;
 		
 		protected var _children:Array;		
 
@@ -141,6 +147,16 @@ package com.wezside.components
 		public function set skin( value:IUIElementSkin ):void
 		{
 			_skin = value;
+		}				
+		
+		public function get inheritCSS():Boolean
+		{
+			return _inheritCSS;
+		}
+		
+		public function set inheritCSS( value:Boolean ):void
+		{
+			_inheritCSS = value;			
 		}		
 				
 		public function purge():void
@@ -164,52 +180,77 @@ package com.wezside.components
 		
 		public function setStyle():void
 		{
+			var iter:IIterator = iterator( "children" );
 			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
-			for ( var i:int = 0; i < this.numChildren; ++i ) 
-			{
-				var child:* = this.getChildAt( i );
-				if ( child is UIElement )
-					setProperties( child, styleManager.getPropertyStyles( IUIElement( child ).styleName ? IUIElement( child ).styleName : _styleName ));
-				else
-					setProperties( child, styleManager.getPropertyStyles( _styleName ));					
-			}
-						
+			
+			// If this has a styleName then apply the styles
 			if ( _styleName )
-				setProperties( this, styleManager.getPropertyStyles( _styleName ));				
+				setProperties( this, _styleName );					
+			
+			// Test for children
+			while ( iter.hasNext() )
+			{
+				var child:* = iter.next();
+				if ( child is IUIElement )
+				{
+					// Determine if the stylename should be inherited from parent if none was set 
+					setProperties( child, IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null );
+				}
+			}		
 
+			iter = null;
 			addChild( DisplayObject( _skin ));
 			update( );
 		}
 		
+		
+		public function iterator( type:String = null ):IIterator
+		{
+			switch ( type )
+			{
+				case "props": return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
+				case "children": return new ChildIterator( this );  
+			}
+			return new NullIterator();
+		}		
+
 		public function hasOwnProperty( V:* = undefined ):Boolean
 		{
 			return super.hasOwnProperty( V );
 		}
 		
-		private function setProperties( child:DisplayObject, props:Array ):void
+		private function setProperties( child:DisplayObject, currentStyleName:String = "" ):void
 		{
-			var strUtil:StringUtil = new StringUtil();
-			for ( var k:int = 0; k < props.length; ++k ) 
-			{
+			_currentStyleName = currentStyleName;
+			
+			var iter:IIterator = iterator( "props" );
+			var strUtil:StringUtil = new StringUtil( );
+			
+			while ( iter.hasNext() )
+			{				
+				var property:Object = iter.next();
+				
 				// Set all non skin properties
-				if ( child.hasOwnProperty( props[k].prop ))
+				if ( child.hasOwnProperty( property.prop ))
 				{
-					var value:* = String( props[k].value );
-					if ( props[k].value == "false" || props[k].value == "true" )
-						value = strUtil.stringToBoolean( props[k].value );
+					var value:* = String( property.value );
+					if ( property.value == "false" || property.value == "true" )
+						value = strUtil.stringToBoolean( property.value );
 					
-					if ( String( props[k].value ).indexOf( "#" ) != -1 )
-						value = "0x" + String( props[k].value ).substring( 1 );
+					if ( String( property.value ).indexOf( "#" ) != -1 )
+						value = "0x" + String( property.value ).substring( 1 );
 						
-					if ( !isNaN( props[k].value ))
-						value = Number( props[k].value );
+					if ( !isNaN(property.value ))
+						value = Number( property.value );
 
-					child[ props[k].prop ] = value;
+					child[property.prop ] = value;
 				}
 				
-				if ( _skin.hasOwnProperty( props[k].prop ))
-					_skin[ props[k].prop ] = styleManager.getAssetByName( String( props[k].value ));
+				if ( _skin.hasSkinProperty( property.prop ))
+					_skin[ property.prop ] = styleManager.getAssetByName( String( property.value ));
 			}
+			
+			iter = null;
 			strUtil = null;
 		}
 

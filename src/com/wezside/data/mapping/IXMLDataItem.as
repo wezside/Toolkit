@@ -17,19 +17,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.gallery.iterator 
+package com.wezside.data.mapping 
 {
-	import com.wezside.components.gallery.item.IGalleryItemClass;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IIterator 
+	public interface IXMLDataItem 
 	{
 		
-		function reset():void;
-		function next():IGalleryItemClass;
-		function hasNext():Boolean;
+		function get clazz():Class;
+		function set clazz( value:Class ):void;
 		
+		function get nodeName():String;
+		function set nodeName( value:String ):void;
+		
+		function get parentCollectionProperty():String;
+		function set parentCollectionProperty( value:String ):void;
 	}
+	
+	
+	
 }

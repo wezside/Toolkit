@@ -1,0 +1,23 @@
+package com.wezside.data.iterator 
+{
+
+	/**
+	 * @author Wesley.Swanepoel
+	 */
+	public class NullIterator implements IIterator 
+	{
+		public function reset():void
+		{
+		}
+		
+		public function next():Object
+		{
+			return null;
+		}
+		
+		public function hasNext():Boolean
+		{
+			return false;
+		}
+	}
+}

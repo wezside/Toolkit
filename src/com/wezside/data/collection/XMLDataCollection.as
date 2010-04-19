@@ -17,18 +17,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.data.iterator 
+package com.wezside.data.collection 
 {
+	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.iterator.IIterator;
+	import com.wezside.data.mapping.IXMLDataItem;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IIterator 
+	public class XMLDataCollection implements ICollection 
 	{
 		
-		function reset():void;
-		function next():Object;
-		function hasNext():Boolean;
+		private var _collection:Array;
+
+		public function XMLDataCollection() 
+		{
+			_collection = [];	
+		}
 		
+		public function iterator():IIterator
+		{
+			return new ArrayIterator( _collection );
+		}
+
+		public function addElement( value:IXMLDataItem ):void 
+		{
+			_collection.push( value );	
+		}
+
+		public function find( value:String = "" ):Object 
+		{
+			var iterator:IIterator = iterator();
+			iterator.reset();
+			while ( iterator.hasNext() )	
+			{
+				var item:IXMLDataItem = IXMLDataItem( iterator.next() );
+				if ( item.nodeName == value )
+					return item;
+			}
+			return null;
+		}
+		
+		public function get length():int
+		{
+			return _collection.length;			
+		}
 	}
 }

@@ -10,6 +10,8 @@
 	overSkin: InputFieldOverSkin;
 	downSkin: InputFieldDownSkin;
 	selectedSkin: InputFieldSelectedSkin;
+	x: 20;
+	y: 20;
 }
 
 .body {

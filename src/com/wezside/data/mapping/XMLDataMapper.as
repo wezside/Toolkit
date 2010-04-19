@@ -17,14 +17,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.data.mapping 
+package com.wezside.data.mapping 
 {
-	import com.wezside.utilities.data.collection.Collection;
-	import com.wezside.utilities.data.collection.ICollection;
-	import com.wezside.utilities.data.collection.XMLDataCollection;
-	import com.wezside.utilities.data.collection.XMLListCollection;
-	import com.wezside.utilities.data.iterator.IIterator;
-	import com.wezside.utilities.data.iterator.XMLListIterator;
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
+	import com.wezside.data.collection.XMLDataCollection;
+	import com.wezside.data.collection.XMLListCollection;
+	import com.wezside.data.iterator.IIterator;
+	import com.wezside.data.iterator.XMLListIterator;
 	import com.wezside.utilities.logging.Tracer;
 
 	import flash.utils.getQualifiedClassName;

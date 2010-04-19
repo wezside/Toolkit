@@ -45,7 +45,7 @@ package com.wezside.utilities.business.rpc
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
 
-		private static const DEBUG:Boolean = false;
+		private static const DEBUG:Boolean = true;
 
 		
 		public function HTTPService() 
@@ -165,7 +165,7 @@ package com.wezside.utilities.business.rpc
 		
 		private function fault( event:IOErrorEvent ):void
 		{
-			Tracer.output( DEBUG, " HTTPService.FaultEvent(event)", toString() );
+			Tracer.output( DEBUG, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
 				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, event.text ));

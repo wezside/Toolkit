@@ -23,8 +23,6 @@
  */
 package com.wezside.components.gallery 
 {
-	import com.wezside.components.gallery.item.MovieClipGalleryItem;
-	import com.wezside.components.gallery.collection.ICollection;
 	import com.wezside.components.gallery.collection.ClassCollection;
 	import com.wezside.components.gallery.item.BlankGalleryItem;
 	import com.wezside.components.gallery.item.CountdownGalleryItem;
@@ -32,6 +30,7 @@ package com.wezside.components.gallery
 	import com.wezside.components.gallery.item.GalleryItemClass;
 	import com.wezside.components.gallery.item.IGalleryItem;
 	import com.wezside.components.gallery.item.ImageGalleryItem;
+	import com.wezside.components.gallery.item.MovieClipGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.utilities.date.DateUtil;
@@ -47,7 +46,6 @@ package com.wezside.components.gallery
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
-	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 
 	/**

@@ -17,25 +17,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.data.mapping 
+package com.wezside.data.collection 
 {
+	import com.wezside.data.iterator.IIterator;
+	import com.wezside.data.iterator.XMLListIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IXMLDataItem 
+	public class XMLListCollection implements ICollection 
 	{
 		
-		function get clazz():Class;
-		function set clazz( value:Class ):void;
+		private var _collection:XMLList;
+
+		public function XMLListCollection() 
+		{
+			_collection = new XMLList();	
+		}
 		
-		function get nodeName():String;
-		function set nodeName( value:String ):void;
+		public function get collection():XMLList
+		{
+			return _collection;
+		}
 		
-		function get parentCollectionProperty():String;
-		function set parentCollectionProperty( value:String ):void;
+		public function set collection( value:XMLList ):void
+		{
+			_collection = value;
+		}		
+		
+		public function iterator():IIterator
+		{
+			return new XMLListIterator( _collection );
+		}
+
+		public function addElement( value:XML ):void 
+		{
+			_collection.appendChild( value );	
+		}
+
+		public function find( value:String = "" ):Object 
+		{
+			var iterator:IIterator = iterator();
+			iterator.reset();
+						
+			// Returns the first item
+			if ( value == "" ) return iterator.next();			
+			
+			while ( iterator.hasNext() )	
+			{
+				var item:XML = XML( iterator.next() );
+				if ( item.nodeName == value )
+					return item;
+			}
+			return null;
+		}
+		
+		public function get length():int
+		{
+			return _collection.length();			
+		}
 	}
-	
-	
-	
 }

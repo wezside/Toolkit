@@ -23,6 +23,7 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.manager.style.IStyleManager;
 
 	import flash.text.StyleSheet;
@@ -33,18 +34,21 @@ package com.wezside.components
 	public interface IUIElement 
 	{
 		
-		 function update():void
-		 function get children():Array
-		 function set children( value:Array ):void
-		 function get styleManager():IStyleManager
-		 function set styleManager( value:IStyleManager ):void
-		 function get styleName():String
-		 function set styleName( value:String ):void
-		 function get styleSheet():StyleSheet
-		 function set styleSheet( value:StyleSheet ):void
-		 function get skin():IUIElementSkin
-		 function set skin( value:IUIElementSkin ):void
-		 
+		 function get children():Array;
+		 function set children( value:Array ):void;
+		 function get styleManager():IStyleManager;
+		 function set styleManager( value:IStyleManager ):void;
+		 function get styleName():String;
+		 function set styleName( value:String ):void;
+		 function get styleSheet():StyleSheet;
+		 function set styleSheet( value:StyleSheet ):void;
+		 function get skin():IUIElementSkin;
+		 function set skin( value:IUIElementSkin ):void;
+		 function get inheritCSS():Boolean;
+		 function set inheritCSS( value:Boolean ):void;
+			 
+		 function update():void;
+		 function iterator( type:String = null ):IIterator;
 		 function hasOwnProperty( V:* = undefined ):Boolean;
 		 function purge():void;
 	
