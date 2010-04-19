@@ -126,7 +126,7 @@ package test.com.wezside.sample.gallery
 		{
 			items = [];
 			items = populateGallery( currentPageIndex );			
-			gallery = new Gallery( items, COLUMNS, ROWS, 0, 0, 2, 2, "left", "custom", 1, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, false );
+			gallery = new Gallery( items, COLUMNS, ROWS, 2, 2, "left", "custom", 1, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, false );
 			gallery.x = 50;
 			gallery.y = 30;
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );

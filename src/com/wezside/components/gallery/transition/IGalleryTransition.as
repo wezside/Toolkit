@@ -23,26 +23,19 @@
  */
 package com.wezside.components.gallery.transition 
 {
-	import com.wezside.components.gallery.Gallery;
+	import com.wezside.components.IUIDecorator;
 
 	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IGalleryTransition 
+	public interface IGalleryTransition extends IUIDecorator
 	{
 		
-		function get galleryInstance():Gallery;
-		
-		function set galleryInstance( value:Gallery ):void;
-		
 		function get stageWidth():Number;
-		
 		function set stageWidth( value:Number ):void;
-		
 		function get stageHeight():Number;
-		
 		function set stageHeight( value:Number ):void;
 		
 		function intro():void;

@@ -1,5 +1,6 @@
 package test.com.wezside.components.gallery 
 {
+	import test.com.wezside.sample.gallery.DefaultTransition;
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.Gallery;
 
@@ -25,14 +26,15 @@ package test.com.wezside.components.gallery
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, arrangeComplete );
 			gallery.x = 30;
 			gallery.y = 30;			
-			addChild( gallery );
 			gallery.create();
+			gallery.transition = new DefaultTransition( gallery );
+			addChild( gallery );
 		}
 
 		private function arrangeComplete(event:GalleryEvent):void 
 		{
-			gallery.visible = true;			
 			gallery.selectedIndex = 2;
+			gallery.show();
 		}
 	}
 }

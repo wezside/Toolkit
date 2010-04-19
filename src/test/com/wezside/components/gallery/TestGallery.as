@@ -24,7 +24,8 @@ package test.com.wezside.components.gallery
 			items = [{ id: "0",	
 					   url: "",
 					   livedate: new Date() }];
-			gallery = new Gallery( items, 4, 2, 0, 0, 2, 2, "left", "custom", 0, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, true );
+					   
+			gallery = new Gallery( items, 4, 2, 2, 2, "left", "custom", 0, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, true );
 			gallery.x = 50;
 			gallery.y = 30;			
 		}

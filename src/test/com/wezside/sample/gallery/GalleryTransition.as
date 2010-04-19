@@ -41,11 +41,9 @@ package test.com.wezside.sample.gallery
 		override protected function galleryArrangeComplete( event:GalleryEvent ):void
 		{
 			super.galleryArrangeComplete( event );			
-			transition = new DefaultTransition( COLUMNS, ROWS );
-			transition.galleryInstance = gallery;
+			transition = new DefaultTransition( gallery );
 			transition.stageWidth = stage.stageWidth;
 			transition.stageHeight = stage.stageHeight;			
-			gallery.intro( transition );
 		}
 
 		

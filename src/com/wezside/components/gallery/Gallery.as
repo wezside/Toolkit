@@ -115,6 +115,7 @@ package com.wezside.components.gallery
 		public static const STATE_ROLLOVER:String = "stateRollover";
 		public static const STATE_ROLLOUT:String = "stateRollout";
 		public static const STATE_SELECTED:String = "stateSelected";		
+		private var _transition:IGalleryTransition;
 
 		
 		public function Gallery( dataprovider:Array, 
@@ -204,12 +205,13 @@ package com.wezside.components.gallery
 			_classCollection.push( new GalleryItemClass( fileAssociation, id, clazz ));
 		}
 
-		public function intro( trans:IGalleryTransition = null ):void
+		public function show():void
 		{
-			if ( trans )
+			visible = true;			
+			if ( _transition )
 			{
-				trans.addEventListener( GalleryEvent.INTRO_COMPLETE, transitionComplete );
-				trans.intro();
+				_transition.addEventListener( GalleryEvent.INTRO_COMPLETE, transitionComplete );
+				_transition.intro();
 			}
 			else
 			{
@@ -218,12 +220,12 @@ package com.wezside.components.gallery
 		}
 
 		
-		public function outro( trans:IGalleryTransition = null ):void
+		public function hide():void
 		{
-			if ( trans )
+			if ( _transition )
 			{
-				trans.addEventListener( GalleryEvent.OUTRO_COMPLETE, transitionComplete );
-				trans.outro();
+				_transition.addEventListener( GalleryEvent.OUTRO_COMPLETE, transitionComplete );
+				_transition.outro();
 			}
 			else
 			{
@@ -231,6 +233,18 @@ package com.wezside.components.gallery
 			}
 		}
 			
+		public function get transition():IGalleryTransition
+		{
+			return _transition;
+		}
+		
+		public function set transition( value:IGalleryTransition ):void
+		{
+			_transition = value;
+			_transition.stageWidth = _stageWidth;
+			_transition.stageHeight = _stageHeight;
+		}
+
 		public function get selectedIndex():int
 		{
 			return _selectedIndex;
@@ -454,7 +468,7 @@ package com.wezside.components.gallery
 		}
 
 		
-		protected function transitionComplete(event:GalleryEvent):void
+		protected function transitionComplete( event:GalleryEvent ):void
 		{
 			dispatchEvent( event );
 		}

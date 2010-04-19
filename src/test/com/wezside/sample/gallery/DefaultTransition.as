@@ -23,96 +23,53 @@
  */
 package test.com.wezside.sample.gallery 
 {
+	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
+	import com.wezside.components.UIElement;
+	import com.wezside.data.iterator.IIterator;
 	import gs.TweenMax;
 	import gs.easing.Cubic;
 
-	import com.wezside.components.gallery.Gallery;
+	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.item.IGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
+	import com.wezside.components.gallery.transition.Transition;
 
 	import flash.display.DisplayObject;
-	import flash.display.Sprite;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class DefaultTransition extends Sprite implements IGalleryTransition 
+	public class DefaultTransition extends Transition implements IGalleryTransition 
 	{
 
 
-		private var transitionEventType:String;
-		private var _stageWidth:Number;
-		private var _stageHeight:Number;
-		private var _galleryInstance:Gallery;
-		private var _direction:String = "left";
-		
-		private var columns:int;
-		private var rows:int;
-		private var total:int;
+		private var _rows:int;
+		private var _columns:int;
+		private var _reflectionHeightInRows:int;
+		private var _direction:String;
+		private var _type:String;
 
 		
-		public function DefaultTransition( columns:int, rows:int ) 
+		public function DefaultTransition( decorated:IUIDecorator ) 
 		{
-			this.columns = columns;
-			this.rows = rows;
-			this.total = columns * rows;
+			super( decorated );
 		}
-
-		public function intro():void
+		
+		override public function intro():void
 		{
-			transition( "intro", _direction );
+			_type = "intro";
+			arrange();
+		}
+		
+		override public function outro():void
+		{
+			_type = "outro";
 		}		
-		
-		
-		public function outro():void
-		{
-			transition( "outro", _direction );
-		}		
-		
-		
-		public function get direction():String
-		{
-			return _direction;
-		}
-		
-		
-		public function set direction( value:String ):void
-		{
-			_direction = value;
-		}
-		
-		
-		public function get stageWidth():Number
-		{
-			return _stageWidth;
-		}
-		
-		public function set stageWidth( value:Number ):void
-		{
-			_stageWidth = value;
-		}
-		
-		public function get stageHeight():Number
-		{
-			return _stageHeight;
-		}
-		
-		public function set stageHeight( value:Number ):void
-		{
-			_stageHeight = value;
-		}
-		
-		public function get galleryInstance():Gallery
-		{
-			return _galleryInstance;
-		}
-		
-		public function set galleryInstance( value:Gallery ):void
-		{
-			_galleryInstance = value;
-		}
 		
 		/**
 		 * <p>
@@ -127,7 +84,7 @@ package test.com.wezside.sample.gallery
 		 * @param type Type of transition. Similar calculations are required for this transition so one method is used.  
 		 * @param direction Indicates the direction of the animation
 		 */
-		private function transition( type:String = "intro", direction:String = "left" ):void
+		override public function arrange( event:UIElementEvent = null ):void
 		{
 			
 			var i:int;
@@ -141,61 +98,64 @@ package test.com.wezside.sample.gallery
 			for ( var k : int = 0; k < columns; k++ ) 
 			{
 				
-				var arr:Array = getColumn( k );
+				var collection:ICollection = getColumn( k );
+				var iterator:ArrayIterator = collection.iterator() as ArrayIterator;
 				
-				for ( i = 0; i < arr.length; ++i )
+				while ( iterator.hasNext() )
 				{
-					item = arr[i].item as DisplayObject;
-					reflection = arr[i].reflection as DisplayObject;	
-
-					if ( direction == "left" ) delay = ( arr.length - i ) * 0.05 + k * 0.2;
-					if ( direction == "right" ) delay = ( arr.length - i ) * 0.05 + ( columns - k ) * 0.2;
+					item = iterator.next() as DisplayObject;
 					
-					if ( item && item.name.indexOf( "reflection_" ) == -1 )
+					if ( _reflectionHeightInRows > 0 )
+						reflection = iterator.next() as DisplayObject;	
+
+					if ( _direction == "left" ) delay = ( iterator.length() - i ) * 0.05 + k * 0.2;
+					if ( _direction == "right" ) delay = ( iterator.length() - i ) * 0.05 + ( columns - k ) * 0.2;
+					
+					if ( item  )
 					{
-						if ( type == "intro" )
+						if ( _type == "intro" )
 						{
 							endPos = item.x;
-							item.x = _stageWidth + 100;
+							item.x = stageWidth + 100;
 							item.visible = true;
-							transitionEventType = GalleryEvent.INTRO_COMPLETE;
+							transEvent = new GalleryEvent( GalleryEvent.INTRO_COMPLETE );
 						} 
-						else if ( type == "outro" )
+						else if ( _type == "outro" )
 						{
-							if ( direction == "left" ) endPos = -item.width - _stageWidth - 100;
-							if ( direction == "right" ) endPos = _stageWidth;
-							transitionEventType = GalleryEvent.OUTRO_COMPLETE;
+							if ( direction == "left" ) endPos = -item.width - stageWidth - 100;
+							if ( direction == "right" ) endPos = stageWidth;
+							transEvent = new GalleryEvent( GalleryEvent.OUTRO_COMPLETE );
 						}
 						
 						var lastItem:Boolean = false;
 						if ( direction == "left" ) lastItem =  k + 1 == columns;
 						if ( direction == "right" ) lastItem =  k == 0;
 						
-						if ( lastItem && i + 1 == arr.length )
+						if ( lastItem && i + 1 == iterator.length() )
 							TweenMax.to( item, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut, onComplete: transitionComplete });
 						else
 							TweenMax.to( item, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut });
 					}
 						
-					if ( reflection != null && reflection.name.indexOf( "reflection_" ) != -1 )
+					if ( reflection  )
 					{
-						if ( type == "intro" )
+						if ( _type == "intro" )
 						{
 							if ( direction == "left" )
 							{
 								endPos = reflection.x;
-								reflection.x = _stageWidth + 100;
+								reflection.x = stageWidth + 100;
 							}
 							if ( direction == "right" )
 							{
-								endPos = _stageWidth + 100; 
+								endPos = stageWidth + 100; 
 							}
 						}
 						
-						if ( type == "outro" )
+						if ( _type == "outro" )
 						{
-							if ( direction == "left" ) endPos = -item.width - _stageWidth - 100;
-							if ( direction == "right" ) endPos = _stageWidth + 100;
+							if ( direction == "left" ) endPos = -item.width - stageWidth - 100;
+							if ( direction == "right" ) endPos = stageWidth + 100;
 						}
 						
 						TweenMax.to( reflection, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut });
@@ -204,32 +164,65 @@ package test.com.wezside.sample.gallery
 			}			
 		}
 		
-		
-		private function transitionComplete():void
+		public function get columns():int
 		{
-			dispatchEvent( new GalleryEvent( transitionEventType ));
-		}		
+			return _columns;
+		}
 		
+		public function set columns( value:int ):void
+		{
+			_columns = value;
+		}
+		
+		public function get rows():int
+		{
+			return _rows;
+		}
+		
+		public function set rows( value:int ):void
+		{
+			_rows = value;
+		}
+		
+		public function get direction():String
+		{
+			return _direction;
+		}
+		
+		public function set direction( value:String ):void
+		{
+			_direction = value;
+		}
+		
+		public function get reflectionHeightInRows():int
+		{
+			return _reflectionHeightInRows;
+		}
+		
+		public function set reflectionHeightInRows( value:int ):void
+		{
+			_reflectionHeightInRows = value;
+		}
 				
-		private function getColumn( index:int ):Array
+		private function getColumn( index:int ):ICollection
 		{
-			var i:int;
-			var itemIndex:int = 0;
+			
 			var item:IGalleryItem;
 			var reflection:ReflectionItem;
-			var arr:Array = [];
-			
-			for ( i = 0; i < total; ++i )
+			var collection:Collection = new Collection();
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+						
+			while ( iterator.hasNext())
 			{
-				item = _galleryInstance.getChildByName( i.toString() ) as IGalleryItem;
-				reflection = _galleryInstance.getChildByName( "reflection_" + i.toString()) as ReflectionItem;
+				item = iterator.next() as IGalleryItem;				
+				if ( _reflectionHeightInRows > 0 )
+					reflection = iterator.next() as ReflectionItem;
 				
-				if (( ( columns - index ) + itemIndex ) % columns == 0 )
-					arr.push( { item: item, reflection: reflection });
-
-				if ( item.name.indexOf("reflection_") == -1 ) itemIndex++;
+				if (( ( columns - index ) + iterator.index() ) % columns == 0 )
+					collection.push( { item: item, reflection: reflection });
 			}
-			return arr;
+			return collection;
 		}
+
 	}
 }
