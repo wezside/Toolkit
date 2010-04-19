@@ -336,11 +336,6 @@ package com.wezside.components.gallery
 				dateUtils.testLiveDate( date ) ? createItem( extension ) : createItem( "countdown" );
 			}
 		}
-
-		override public function arrange( event:UIElementEvent = null ):void
-		{
-			super.arrange();
-		}
 		
 		override protected function arrangeComplete( event:UIElementEvent ):void 
 		{
