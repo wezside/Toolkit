@@ -30,6 +30,7 @@
 	<target name="resolve-class-path" depends="clean">
 		<path id="list_1">
 			<fileset dir="${basedir}/src">
+				<include name="**/data/**" />
 				<include name="**/components/**" />
 				<exclude name="**/test/**" />
 				<exclude name="**/gs/**" />

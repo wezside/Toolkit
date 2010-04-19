@@ -243,7 +243,7 @@ package com.wezside.components
 					if ( !isNaN(property.value ))
 						value = Number( property.value );
 
-					child[property.prop ] = value;
+					child[ property.prop ] = value;
 				}
 				
 				if ( _skin.hasSkinProperty( property.prop ))
