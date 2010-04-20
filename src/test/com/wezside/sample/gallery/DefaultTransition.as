@@ -188,11 +188,6 @@ package test.com.wezside.sample.gallery
 				if ( reflectionHeightInRows > 0 )
 					reflection = iterator.next() as IGalleryItem;
 				
-				trace((( columns - index )));
-				trace((( columns - index ) + iterator.index() ));
-				
-				
-				
 				if (( ( columns - index ) + iterator.index() - 1 ) % columns == 0 )
 				{
 //					trace( item.name );
