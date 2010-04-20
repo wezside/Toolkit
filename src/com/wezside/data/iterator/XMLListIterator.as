@@ -26,7 +26,7 @@ package com.wezside.data.iterator
 	public class XMLListIterator implements IIterator 
 	{
 		
-		private var _index:uint = 0;
+		private var _index:int = 0;
 		private var _collection:XMLList;
 		
 		
@@ -50,7 +50,7 @@ package com.wezside.data.iterator
 			return _index < _collection.length();
 		}
 		
-		public function get index():uint
+		public function index():int
 		{
 			return _index;
 		}

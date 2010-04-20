@@ -332,7 +332,7 @@ package com.wezside.components.button
 		/**
 		 * TODO: Add LEFT, CENTRE and RIGHT align for button label  
 		 */
-		protected function arrange( event:UIElementEvent = null ):void
+		override public function arrange( event:UIElementEvent = null ):void
 		{
 			if ( _iconUp != null )
 			{
