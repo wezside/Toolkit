@@ -19,13 +19,12 @@
  */
 package com.wezside.components.container 
 {
-
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.UIElementEvent;
+
 	import flash.display.DisplayObject;
 	import flash.display.GradientType;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.filters.DropShadowFilter;
 	import flash.filters.GlowFilter;
 	import flash.geom.Matrix;
@@ -145,8 +144,8 @@ package com.wezside.components.container
 		 * 
 		 * The local update() method also invokes this method. Update is invoked from the super Container class
 		 * once a stylesheet as been applied. 
-		
-		public function arrange( event:Event = null ):void
+		 */
+		override public function arrange( event:UIElementEvent = null ):void
 		{
 			var offset:int = 0;
 			var maxWidth:int = 0;
@@ -154,7 +153,7 @@ package com.wezside.components.container
 			
 			if ( _positionProp != null )
 			{
-				for each ( var child:DisplayObject in _children )
+				for each ( var child:DisplayObject in children )
 				{
 					child.x = _paddingLeft;
 					child.y = _paddingTop;				
@@ -183,7 +182,7 @@ package com.wezside.components.container
 			draw( _backgroundColors, _backgroundAlphas );
 		}
 
- */
+
 		// FIXME: Need to have a border on rounded corners
 		protected function draw( colors:Array, alphas:Array ):void
 		{	

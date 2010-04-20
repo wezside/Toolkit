@@ -58,10 +58,8 @@ package com.wezside.components
 		private var _stateManager:StateManager;
 		private var _inheritCSS:Boolean;
 		private var _currentStyleName:String;
-		
-		protected var _children:Array;		
 		private var _layout:ILayout;
-
+		private var _children:Array;		
 		
 		public function UIElement() 
 		{
