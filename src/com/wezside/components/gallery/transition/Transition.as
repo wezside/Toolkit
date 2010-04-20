@@ -39,7 +39,10 @@ package com.wezside.components.gallery.transition
 	{
 		
 		private var _stageWidth:Number;
-		private var _stageHeight:Number;
+		private var _stageHeight:Number;		
+		private var _columns:Number;
+		private var _rows:Number;
+		private var _reflectionHeightInRows:int;
 		
 		protected var decorated:IUIDecorator;
 		protected var transEvent:GalleryEvent;
@@ -76,8 +79,7 @@ package com.wezside.components.gallery.transition
 		public function arrange( event:UIElementEvent = null ):void
 		{
 		}
-		
-		
+				
 		protected function transitionComplete():void
 		{
 			dispatchEvent( transEvent );
@@ -107,6 +109,36 @@ package com.wezside.components.gallery.transition
 		
 		public function outro():void
 		{
+		}
+		
+		public function get rows():Number
+		{
+			return _rows;
+		}
+		
+		public function get columns():Number
+		{
+			return _columns;
+		}
+		
+		public function set rows(value:Number):void
+		{
+			_rows = value;
+		}
+		
+		public function set columns(value:Number):void
+		{
+			_columns = value;
+		}
+		
+		public function get reflectionHeightInRows():int
+		{
+			return _reflectionHeightInRows;
+		}
+		
+		public function set reflectionHeightInRows(value:int):void
+		{
+			_reflectionHeightInRows = value;
 		}
 	}
 }

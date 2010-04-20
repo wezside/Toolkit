@@ -33,21 +33,22 @@ package com.wezside.components.gallery.transition
 	public interface IGalleryTransition extends IUIDecorator
 	{
 		
+		function get rows():Number;
+		function set rows( value:Number ):void;
+		function get columns():Number;
+		function set columns( value:Number ):void;
 		function get stageWidth():Number;
 		function set stageWidth( value:Number ):void;
 		function get stageHeight():Number;
 		function set stageHeight( value:Number ):void;
+		function get reflectionHeightInRows():int;
+		function set reflectionHeightInRows( value:int ):void;
 		
-		function intro():void;
-		
-		function outro():void;
-						
+		function intro():void;		
+		function outro():void;						
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
-
 		function dispatchEvent( event:Event ):Boolean;
-
 		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
-
 		function hasEventListener( type:String ):Boolean;	
 	}
 }

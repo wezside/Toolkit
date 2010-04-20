@@ -241,6 +241,9 @@ package com.wezside.components.gallery
 		public function set transition( value:IGalleryTransition ):void
 		{
 			_transition = value;
+			_transition.rows = rows;
+			_transition.reflectionHeightInRows = reflectionHeightInRows;
+			_transition.columns = columns;
 			_transition.stageWidth = _stageWidth;
 			_transition.stageHeight = _stageHeight;
 		}

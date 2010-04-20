@@ -23,21 +23,21 @@
  */
 package test.com.wezside.sample.gallery 
 {
-	import com.wezside.data.iterator.ArrayIterator;
-	import com.wezside.data.collection.Collection;
-	import com.wezside.data.collection.ICollection;
-	import com.wezside.components.UIElement;
-	import com.wezside.data.iterator.IIterator;
 	import gs.TweenMax;
 	import gs.easing.Cubic;
 
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.item.IGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.components.gallery.transition.Transition;
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
+	import com.wezside.data.iterator.ArrayIterator;
+	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
 
@@ -47,10 +47,6 @@ package test.com.wezside.sample.gallery
 	public class DefaultTransition extends Transition implements IGalleryTransition 
 	{
 
-
-		private var _rows:int;
-		private var _columns:int;
-		private var _reflectionHeightInRows:int;
 		private var _direction:String;
 		private var _type:String;
 
@@ -63,6 +59,7 @@ package test.com.wezside.sample.gallery
 		override public function intro():void
 		{
 			_type = "intro";
+			_direction = "left";
 			arrange();
 		}
 		
@@ -90,26 +87,29 @@ package test.com.wezside.sample.gallery
 			var i:int;
 			var endPos:int;
 			var delay:Number = 0;
+			
+			var itemIterator:Object;
 			var item:DisplayObject;
 			var reflection:DisplayObject;
 
 			TweenMax.resumeAll();
 			
-			for ( var k : int = 0; k < columns; k++ ) 
+			for ( var k:int = 0; k < columns; k++ ) 
 			{
-				
 				var collection:ICollection = getColumn( k );
 				var iterator:ArrayIterator = collection.iterator() as ArrayIterator;
 				
 				while ( iterator.hasNext() )
 				{
-					item = iterator.next() as DisplayObject;
+					itemIterator = iterator.next();					
+					item = itemIterator.item;
 					
-					if ( _reflectionHeightInRows > 0 )
-						reflection = iterator.next() as DisplayObject;	
+					if ( reflectionHeightInRows > 0 )
+						reflection = itemIterator.reflection as DisplayObject;	
 
-					if ( _direction == "left" ) delay = ( iterator.length() - i ) * 0.05 + k * 0.2;
-					if ( _direction == "right" ) delay = ( iterator.length() - i ) * 0.05 + ( columns - k ) * 0.2;
+					// Set the delay based on the direction 
+					if ( _direction == "left" ) delay = ( iterator.length() - iterator.index() ) * 0.05 + k * 0.2;
+					if ( _direction == "right" ) delay = ( iterator.length() - iterator.index() ) * 0.05 + ( columns - k ) * 0.2;
 					
 					if ( item  )
 					{
@@ -131,7 +131,7 @@ package test.com.wezside.sample.gallery
 						if ( direction == "left" ) lastItem =  k + 1 == columns;
 						if ( direction == "right" ) lastItem =  k == 0;
 						
-						if ( lastItem && i + 1 == iterator.length() )
+						if ( lastItem && iterator.index() + 1 == iterator.length() )
 							TweenMax.to( item, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut, onComplete: transitionComplete });
 						else
 							TweenMax.to( item, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut });
@@ -156,32 +156,11 @@ package test.com.wezside.sample.gallery
 						{
 							if ( direction == "left" ) endPos = -item.width - stageWidth - 100;
 							if ( direction == "right" ) endPos = stageWidth + 100;
-						}
-						
+						}						
 						TweenMax.to( reflection, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut });
 					}
 				}
 			}			
-		}
-		
-		public function get columns():int
-		{
-			return _columns;
-		}
-		
-		public function set columns( value:int ):void
-		{
-			_columns = value;
-		}
-		
-		public function get rows():int
-		{
-			return _rows;
-		}
-		
-		public function set rows( value:int ):void
-		{
-			_rows = value;
 		}
 		
 		public function get direction():String
@@ -193,33 +172,32 @@ package test.com.wezside.sample.gallery
 		{
 			_direction = value;
 		}
-		
-		public function get reflectionHeightInRows():int
-		{
-			return _reflectionHeightInRows;
-		}
-		
-		public function set reflectionHeightInRows( value:int ):void
-		{
-			_reflectionHeightInRows = value;
-		}
 				
 		private function getColumn( index:int ):ICollection
 		{
 			
 			var item:IGalleryItem;
-			var reflection:ReflectionItem;
+			var reflection:IGalleryItem;
 			var collection:Collection = new Collection();
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 						
 			while ( iterator.hasNext())
 			{
-				item = iterator.next() as IGalleryItem;				
-				if ( _reflectionHeightInRows > 0 )
-					reflection = iterator.next() as ReflectionItem;
+				item = iterator.next() as IGalleryItem;
+			
+				if ( reflectionHeightInRows > 0 )
+					reflection = iterator.next() as IGalleryItem;
 				
-				if (( ( columns - index ) + iterator.index() ) % columns == 0 )
-					collection.push( { item: item, reflection: reflection });
+				trace((( columns - index )));
+				trace((( columns - index ) + iterator.index() ));
+				
+				
+				
+				if (( ( columns - index ) + iterator.index() - 1 ) % columns == 0 )
+				{
+//					trace( item.name );
+					collection.push({ item: item, reflection: reflection });
+				}
 			}
 			return collection;
 		}

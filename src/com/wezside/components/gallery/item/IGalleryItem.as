@@ -31,39 +31,31 @@ package com.wezside.components.gallery.item
 	public interface IGalleryItem
 	{
 		
-		function load( url:String, livedate:Date, linkage:String = "" ):void;
-		
-		function rollOver():void;
-		
-		function rollOut():void;
-		
-		function play():void;
-		
-		function stop():void;
-		
+		function load( url:String, livedate:Date, linkage:String = "" ):void;		
+		function rollOver():void;		
+		function rollOut():void;		
+		function play():void;		
+		function stop():void;		
 		function purge():void;
-		
-		function set name( value:String ):void;
-		
-		function get name():String;
-		
-		function set type( value:String ):void;
-		
-		function get type():String;
-		
-		function set selected( value:Boolean ):void;
-		
-		function get selected():Boolean;
-		
-		function set state( value:String ):void;
-		
-		function get state():String;
-		
-		function get width():Number;
-		
-		function get height():Number;
-		
-		function reset():void;		
+				
+		function set name( value:String ):void;		
+		function get name():String;		
+		function set type( value:String ):void;		
+		function get type():String;		
+		function set selected( value:Boolean ):void;		
+		function get selected():Boolean;		
+		function set state( value:String ):void;		
+		function get state():String;		
+		function get width():Number;		
+		function get height():Number;		
+		function set x( value:Number ):void;		
+		function get x():Number;		
+		function set y( value:Number ):void;		
+		function get y():Number;		
+		function set visible( value:Boolean ):void;		
+		function get visible():Boolean;
+				
+		function reset():void;
 		function update( dob:IGalleryItem ):void;		
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 		function dispatchEvent( event:Event ):Boolean;
