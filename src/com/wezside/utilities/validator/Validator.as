@@ -93,8 +93,8 @@ package com.wezside.utilities.validator
             var pattern:RegExp = /[[:punct:]]/;
             var result:Object = pattern.exec( str );
             if ( result == null  )
-                return true;
-            return false;
+            	return false;
+            return true;
         }
         
         public function validateForNumerical( str:String ):Boolean 
@@ -102,8 +102,8 @@ package com.wezside.utilities.validator
             var pattern:RegExp = /\D/g;
             var result:Object = pattern.exec( str );
             if ( result == null )
-                return true;
-            return false;
+                return false;
+            return true;
         }
 	
 		public function validateString( str:String, minLength:int ):Boolean

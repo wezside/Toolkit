@@ -8,7 +8,7 @@ Latest release
 
 * Compiled with Flex 4 SDK build 14159 
 
-Component [Build 0.1.0068]
+Component [Build 0.1.0069]
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion")
@@ -16,7 +16,7 @@ Component [Build 0.1.0068]
 * [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer")
 * [UIElement](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/components/UIElement.as "UIElement")
 
-Utilities [Build 0.1.0060]
+Utilities [Build 0.1.0061]
 =======
 
 * [DateUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/date/DateUtil.as "DateUtil") 
