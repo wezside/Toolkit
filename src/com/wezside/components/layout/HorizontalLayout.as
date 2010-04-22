@@ -11,8 +11,10 @@ package com.wezside.components.layout
 	 */
 	public class HorizontalLayout extends Layout 
 	{
+		
 		private var xOffset:int;
 		private var _horizontalGap:int = 0;
+
 
 		public function HorizontalLayout( decorated:IUIDecorator )
 		{
@@ -28,9 +30,7 @@ package com.wezside.components.layout
 			
 			while ( iterator.hasNext())
 			{
-//				trace( iterator.next() );
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				trace( child );				
 				child.x = xOffset;
 				xOffset += child.width + _horizontalGap;
 			}

@@ -23,6 +23,8 @@
  */
 package com.wezside.components 
 {
+	import flash.utils.getQualifiedClassName;
+	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
 	import com.wezside.data.iterator.ArrayIterator;
@@ -76,14 +78,16 @@ package com.wezside.components
 		{
 			build();
 			setStyle();
-			arrange();
 			
 			var iter:IIterator = iterator( ITERATOR_CHILDREN );
 			while ( iter.hasNext() )
 			{
 				var child:* = iter.next();
-				if ( child is IUIElement ) UIElement( child ).update();
-			}							
+				if ( child is IUIElement ) 
+					UIElement( child ).update();
+			}
+				
+			arrange();						
 		}		
 		
 		public function build():void
@@ -189,17 +193,32 @@ package com.wezside.components
 			
 			// If this has a styleName then apply the styles
 			if ( _styleName )
-				setProperties( this, _styleName );					
-			
+				setProperties( this, _styleName );
+						
 			// Test for children
 			while ( iter.hasNext() )
 			{
 				var child:* = iter.next();
-				
-				// Determine if the stylename should be inherited from parent if none was set				
+								
 				if ( child is IUIElement )
-					setProperties( child, IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null );
-			}		
+				{
+					// Auto inject class name as stylename if exists
+					/*
+					if ( !IUIElement( child ).styleName )
+					{
+						var str:String = getQualifiedClassName( child ); 
+						IUIElement( child ).styleName = str.substr( str.lastIndexOf(".")) ? str.substr( str.lastIndexOf(".")) : null;
+					}*/
+					
+					// Update child styleName 
+					IUIElement( child ).styleName = IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null;
+					
+					
+					// Inject the parent's styleManager if the child doesn't have one
+					if ( !IUIElement( child ).styleManager && IUIElement( child ).styleName )
+						IUIElement( child ).styleManager = styleManager;
+				}
+			}	
 
 			iter = null;
 			addChild( DisplayObject( _skin ));
@@ -221,7 +240,7 @@ package com.wezside.components
 			return super.hasOwnProperty( V );
 		}
 		
-		private function setProperties( child:DisplayObject, currentStyleName:String = "" ):void
+		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void
 		{
 			_currentStyleName = currentStyleName;
 			

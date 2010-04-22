@@ -1,5 +1,6 @@
 package com.wezside.components.layout 
 {
+	import com.wezside.utilities.logging.Tracer;
 	import flash.display.DisplayObject;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
@@ -23,7 +24,9 @@ package com.wezside.components.layout
 
 		override public function arrange( event:UIElementEvent = null ):void
 		{
+			Tracer.output( true, " VerticalLayout.arrange(event)", toString() );
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			
 			if ( iterator.hasNext() )
 			{
 				var firstChild:DisplayObject = iterator.next() as DisplayObject;
