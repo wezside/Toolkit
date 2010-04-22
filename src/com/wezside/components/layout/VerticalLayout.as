@@ -1,11 +1,12 @@
 package com.wezside.components.layout 
 {
 	import com.wezside.utilities.logging.Tracer;
-	import flash.display.DisplayObject;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
+
+	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -15,17 +16,20 @@ package com.wezside.components.layout
 
 		private var yOffset:int;
 		private var xOffset:int;
-		private var _verticalGap:int = 0;
+		private var _decorated:IUIDecorator;
 
 		public function VerticalLayout( decorated:IUIDecorator )
 		{
-			super( decorated );
+			_decorated = decorated;
+			this.decorated = decorated;
 		}
 
 		override public function arrange( event:UIElementEvent = null ):void
 		{
+			
+			super.arrange();
 			Tracer.output( true, " VerticalLayout.arrange(event)", toString() );
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			var iterator:IIterator = _decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			
 			if ( iterator.hasNext() )
 			{
@@ -40,20 +44,13 @@ package com.wezside.components.layout
 				var child:DisplayObject = iterator.next() as DisplayObject;
 				child.x = xOffset;
 				child.y = yOffset;
-				yOffset += child.height + _verticalGap;
+				yOffset += child.height + verticalGap;
 			}
-			
-			super.arrange();
 		}
-				
-		override public function get horizontalGap():int
+
+		override public function iterator( type:String = null ):IIterator
 		{
-			return _verticalGap;
-		}
-		
-		override public function set horizontalGap( value:int ):void
-		{
-			_verticalGap = value;
+			return _decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
 	}
 }

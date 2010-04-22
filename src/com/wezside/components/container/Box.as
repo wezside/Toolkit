@@ -1,6 +1,7 @@
 package com.wezside.components.container 
 {
 	import com.wezside.components.UIElement;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.GradientType;
 	import flash.display.Sprite;
@@ -49,10 +50,10 @@ package com.wezside.components.container
 
 		override public function update():void 
 		{
-			super.update( );
+			super.update();
 			draw( _backgroundColours, _backgroundAlphas );
 		}
-		
+	
 		public function get cornerRadius():int
 		{
 			return _cornerRadius;
@@ -110,11 +111,17 @@ package com.wezside.components.container
 			_backgroundHeight = value;
 		}
 
+
 		protected function draw( colors:Array, alphas:Array ):void
 		{			
-
+			Tracer.output( true, " Box.draw(colors, alphas)", toString() );
 			if ( _backgroundWidth == 0 ) _backgroundWidth = width;
 			if ( _backgroundHeight == 0 ) _backgroundHeight = height;
+			
+//			_backgroundHeight += layout.top;
+//			_backgroundHeight += layout.bottom;
+//			_backgroundWidth += layout.left;
+//			_backgroundWidth += layout.right;
 			
 			matrix = new Matrix();
 			matrix.createGradientBox( _backgroundWidth, _backgroundHeight, 90 / 180 * Math.PI );
