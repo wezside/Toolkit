@@ -23,8 +23,6 @@
  */
 package com.wezside.components 
 {
-	import flash.utils.getQualifiedClassName;
-	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
 	import com.wezside.data.iterator.ArrayIterator;
@@ -217,6 +215,8 @@ package com.wezside.components
 					// Inject the parent's styleManager if the child doesn't have one
 					if ( !IUIElement( child ).styleManager && IUIElement( child ).styleName )
 						IUIElement( child ).styleManager = styleManager;
+						
+					trace( this, IUIElement( child ), IUIElement( child ).styleManager , IUIElement( child ).styleName )
 				}
 			}	
 

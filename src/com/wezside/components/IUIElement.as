@@ -46,6 +46,7 @@ package com.wezside.components
 
 						 
 		 function hasOwnProperty( V:* = undefined ):Boolean;
+		 function setStyle():void;
 		 function build():void;
 		 function update():void;
 		 function purge():void;

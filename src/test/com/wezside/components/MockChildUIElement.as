@@ -9,14 +9,14 @@ package test.com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MockUIElement extends UIElement
+	public class MockChildUIElement extends UIElement
 	{
 		private var _antiAliasType:String = "";
 		private var _child:IUIElement;
 
 
 
-		public function MockUIElement()
+		public function MockChildUIElement()
 		{
 			super( );
 		}
@@ -25,14 +25,13 @@ package test.com.wezside.components
 		
 		override public function update():void 
 		{
-			Tracer.output( true, " MockUIElement.update()", toString() );
+			Tracer.output( true, " MockChildUIElement.update()", toString() );
 			super.update( );
 		}
 
 		override public function build():void
 		{
-			_child = new MockChildUIElement();
-			addChild( _child as DisplayObject );
+
 		}
 		
 		

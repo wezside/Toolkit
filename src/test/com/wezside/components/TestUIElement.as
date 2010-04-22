@@ -39,7 +39,7 @@ package test.com.wezside.components
 			mockUIElement = null;
 		}
 		
-		[Test]
+		[Test][Ignore]
 		public function testUIElementStates():void
 		{
 			mockUIElement.state = UIElementState.STATE_VISUAL_UP;
@@ -53,7 +53,7 @@ package test.com.wezside.components
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleWithChildren, 5000, null, timeout ), false, 0, true );
 		}
 		
-		[Test(async)]
+		[Test(async)][Ignore]
 		public function testStyleManagerNoChildren():void
 		{			
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleReady, 5000, null, timeout ), false, 0, true );
@@ -64,17 +64,24 @@ package test.com.wezside.components
 			mockUIElement.styleName = "title";
 			mockUIElement.styleManager = styles;
 			assertNull( mockUIElement.child );
-			mockUIElement.createChildren();
-			assertNotNull( mockUIElement.child );
-			assertNull( IUIElement( mockUIElement.child ).styleName );
+			mockUIElement.update();
 			
+			assertNotNull( mockUIElement.child );
+			assertNull( IUIElement( mockUIElement.child ).styleManager );
+			assertNull( IUIElement( mockUIElement.child ).styleName );
+						
 			mockUIElement.child.inheritCSS = true;
 			mockUIElement.setStyle();
-			assertEquals( "advanced", MockUIElement( mockUIElement.child ).antiAliasType  );
+			
+			assertNotNull( IUIElement( mockUIElement.child ).styleManager );
+			assertNotNull( IUIElement( mockUIElement.child ).styleName );
+			
+			mockUIElement.child.setStyle();
+			assertEquals( "advanced", MockChildUIElement( mockUIElement.child ).antiAliasType  );
 			
 			IUIElement( mockUIElement.child ).styleName = "body";			
-			mockUIElement.setStyle();
-			assertEquals( "normal", MockUIElement( mockUIElement.child ).antiAliasType );
+			mockUIElement.child.setStyle();
+			assertEquals( "normal", MockChildUIElement( mockUIElement.child ).antiAliasType );
 		}		
 				
 		private function styleReady( event:Event, object:Object ):void

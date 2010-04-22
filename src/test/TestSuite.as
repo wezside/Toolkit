@@ -12,11 +12,11 @@ package test
 	public class TestSuite
 	{
 		public var testUIElement:TestUIElement;
-		public var testSurvey:TestSurvey;
-		public var testDateUtil:TestDateUtil;
-		public var testGallery:TestGallery;
-		public var testStateManager:TestStateManager;
-		public var testURLUtil:TestURLUtil;
+//		public var testSurvey:TestSurvey;
+//		public var testDateUtil:TestDateUtil;
+//		public var testGallery:TestGallery;
+//		public var testStateManager:TestStateManager;
+//		public var testURLUtil:TestURLUtil;
 
 	}
 }
