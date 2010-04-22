@@ -24,5 +24,10 @@ package com.wezside.data.iterator
 		{
 			return 0;
 		}
+		
+		public function length():uint
+		{
+			return 0;
+		}
 	}
 }

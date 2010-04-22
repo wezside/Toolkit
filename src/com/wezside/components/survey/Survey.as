@@ -1,5 +1,6 @@
 package com.wezside.components.survey 
 {
+	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.ISurveyData;
 	import com.wezside.components.survey.form.BrickMatrix;
@@ -115,8 +116,7 @@ package com.wezside.components.survey
 		{
 			_state = value;			
 			switch( _state )
-			{
-				
+			{				
 				case STATE_SHOW_FORM: 
 					showForm();
 					break;
@@ -146,16 +146,20 @@ package com.wezside.components.survey
 
 		private function createSingleForm( data:IFormData ):void 
 		{			
+			Tracer.output( true, " Survey.createSingleForm(data)", toString() );
 			var form:IForm = new Form();
 			form.layout = new BrickMatrix();
 			form.data = data;
 			form.createChildren();
 			form.addEventListener( FormEvent.CREATION_COMPLETE, formCreated );
 			addChild( DisplayObject( form ));
+			
+			state = STATE_CREATION_COMPLETE;
 		}
 
 		private function formCreated( event:FormEvent ):void 
 		{
+			Tracer.output( true, " Survey.formCreated(event)", toString() );
 			event.currentTarget.removeEventListener( FormEvent.CREATION_COMPLETE, formCreated );
 			_data.forms.shift();
 			_data.forms.length > 0 ? createSingleForm( _data.forms[0] ) : allFormsCreated();			

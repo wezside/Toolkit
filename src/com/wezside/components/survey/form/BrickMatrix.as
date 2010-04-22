@@ -1,6 +1,6 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.components.container.HBox;
+	import com.wezside.components.container.Box;
 	import com.wezside.components.text.Label;
 
 	import flash.display.Sprite;
@@ -46,11 +46,11 @@ package com.wezside.components.survey.form
 		private function createFormRow( item:IFormItem ):void 
 		{
 			
-			var row:HBox = new HBox();
+			var row:Box = new Box();
 			var rowLabel:Label = new Label();
 			rowLabel.text = item.rowLabel;
 			
-			row.children = [ rowLabel ];
+			row.addChild( rowLabel );
 		}		
 	}
 }

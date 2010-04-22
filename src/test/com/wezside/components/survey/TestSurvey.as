@@ -25,7 +25,6 @@ package test.com.wezside.components.survey
 		private var data:ISurveyData;
 		private var formdata:IFormData;
 		private var item:FormItemData;
-		private var multipleFormData:SurveyData;
 
 		[Before]
 		public function setUp():void
@@ -44,12 +43,6 @@ package test.com.wezside.components.survey
 			formdata.cta = "";
 			formdata.items.push( item );
 			
-			multipleFormData = new SurveyData();
-			multipleFormData.forms.push( formdata );
-			multipleFormData.forms.push( formdata );
-			multipleFormData.forms.push( formdata );
-			multipleFormData.forms.push( formdata );
-			
 			data = new SurveyData();
 			data.forms.push( formdata );
 			
@@ -63,7 +56,6 @@ package test.com.wezside.components.survey
 			item = null;
 			survey = null;
 			formdata = null;
-			multipleFormData = null;
 		}
 		
 		[Test] 
@@ -80,14 +72,7 @@ package test.com.wezside.components.survey
 			survey.addEventListener( SurveyEvent.CREATION_COMPLETE, Async.asyncHandler( this, surveyCreated, 3000, null, timeout ), false, 0, true);
 			survey.create();			
 		}
-		
-		[Ignore][Test(async)] 
-		public function testSurveyCreateMultipleForms():void
-		{
-			survey.data = multipleFormData;
-			survey.addEventListener( SurveyEvent.CREATION_COMPLETE, Async.asyncHandler( this, surveyCreated, 3000, null, timeout ), false, 0, true);
-			survey.create();			
-		}		
+
 		
 		protected function surveyCreated( event:SurveyEvent, object:Object ):void
 		{

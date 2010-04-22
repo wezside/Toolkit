@@ -1,5 +1,6 @@
 package com.wezside.components.layout 
 {
+	import flash.display.DisplayObject;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
@@ -21,12 +22,15 @@ package com.wezside.components.layout
 		override public function arrange( event:UIElementEvent = null ):void
 		{
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			xOffset = UIElement( iterator.next() ).x;
+			if ( iterator.hasNext() )
+				xOffset = DisplayObject( iterator.next() ).x;
 			iterator.reset();
 			
 			while ( iterator.hasNext())
 			{
-				var child:UIElement = iterator.next() as UIElement;
+//				trace( iterator.next() );
+				var child:DisplayObject = iterator.next() as DisplayObject;
+				trace( child );				
 				child.x = xOffset;
 				xOffset += child.width + _horizontalGap;
 			}

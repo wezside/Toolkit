@@ -33,8 +33,6 @@ package com.wezside.components
 	public interface IUIElement 
 	{
 		
-		 function get children():Array;
-		 function set children( value:Array ):void;
 		 function get styleManager():IStyleManager;
 		 function set styleManager( value:IStyleManager ):void;
 		 function get styleName():String;
@@ -45,8 +43,11 @@ package com.wezside.components
 		 function set skin( value:IUIElementSkin ):void;
 		 function get inheritCSS():Boolean;
 		 function set inheritCSS( value:Boolean ):void;
-			 
+
+						 
 		 function hasOwnProperty( V:* = undefined ):Boolean;
+		 function build():void;
+		 function update():void;
 		 function purge():void;
 	
 	}

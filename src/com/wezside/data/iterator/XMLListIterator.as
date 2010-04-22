@@ -55,7 +55,7 @@ package com.wezside.data.iterator
 			return _index;
 		}
 		
-		public function get length():int
+		public function length():uint
 		{
 			return _collection.length();
 		}

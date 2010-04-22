@@ -35,14 +35,11 @@ package com.wezside.components
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.text.StyleSheet;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-
-	[DefaultProperty("children")]
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
@@ -59,11 +56,10 @@ package com.wezside.components
 		private var _inheritCSS:Boolean;
 		private var _currentStyleName:String;
 		private var _layout:ILayout;
-		private var _children:Array;		
+				
 		
 		public function UIElement() 
 		{
-			_children = [];
 			_layout = new Layout( this );
 			_skin = new UIElementSkin();
 			_stateManager = new StateManager();
@@ -78,50 +74,31 @@ package com.wezside.components
 		
 		public function update():void
 		{
+			build();
+			setStyle();
 			arrange();
+			
+			var iter:IIterator = iterator( ITERATOR_CHILDREN );
+			while ( iter.hasNext() )
+			{
+				var child:* = iter.next();
+				if ( child is IUIElement ) UIElement( child ).update();
+			}							
 		}		
+		
+		public function build():void
+		{
+		}
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{
 			_layout.arrange();
 		}
 
-		public function get children():Array
-		{
-			return _children;	
-		}		
-		
-		public function set children( value:Array ):void
-		{
-			if ( _children != value )
-			{
-				if ( _children.length > 0 )
-					for ( var i:int = 0; i < this.numChildren; ++i ) 
-						removeChildAt( i );
-								
-				_children = value;
-				updateDisplayList();
-			}
-		}
-
-		protected function updateDisplayList():void
-		{
-			for ( var i:int = 0; i < _children.length; ++i ) 
-				if ( _children[i] != null && _children[i] is DisplayObject )
-					addChild( _children[i] );
-			addEventListener( Event.ENTER_FRAME, nextFrame );
-		}
-		
-		private function nextFrame( event:Event ):void
-		{
-			removeEventListener( Event.ENTER_FRAME, nextFrame );
-			dispatchEvent( new UIElementEvent( UIElementEvent.CREATION_COMPLETE, false ));
-		}		
-		
 		public function get styleManager():IStyleManager
 		{
 			return _styleManager;
-		}
+		} 
 				
 		public function set styleManager( value:IStyleManager ):void
 		{
@@ -168,7 +145,7 @@ package com.wezside.components
 		{
 			_inheritCSS = value;			
 		}		
-				
+
 		public function get layout():ILayout
 		{
 			return _layout;
@@ -178,11 +155,17 @@ package com.wezside.components
 		{
 			_layout = value;
 			_layout.addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
-		}		
+		}
 
 		public function purge():void
 		{
-			_children = null;
+			var iter:IIterator = iterator( ITERATOR_CHILDREN );
+			while ( iter.hasNext() )
+			{
+				var child:* = iter.next();
+				if ( child is IUIElement ) UIElement( child ).purge();
+				removeChild( child );
+			}				
 			_styleManager = null;
 			_styleName = null;
 			_styleSheet = null;
@@ -212,23 +195,21 @@ package com.wezside.components
 			while ( iter.hasNext() )
 			{
 				var child:* = iter.next();
+				
+				// Determine if the stylename should be inherited from parent if none was set				
 				if ( child is IUIElement )
-				{
-					// Determine if the stylename should be inherited from parent if none was set 
 					setProperties( child, IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null );
-				}
 			}		
 
 			iter = null;
 			addChild( DisplayObject( _skin ));
-			update( );
 		}
 		
 		
 		public function iterator( type:String = null ):IIterator
 		{
 			switch ( type )
-			{
+			{				
 				case ITERATOR_PROPS: return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
 				case ITERATOR_CHILDREN: return new ChildIterator( this );  
 			}
@@ -261,7 +242,7 @@ package com.wezside.components
 					if ( String( property.value ).indexOf( "#" ) != -1 )
 						value = "0x" + String( property.value ).substring( 1 );
 						
-					if ( !isNaN(property.value ))
+					if ( !isNaN( property.value ))
 						value = Number( property.value );
 
 					child[ property.prop ] = value;
@@ -279,5 +260,7 @@ package com.wezside.components
 		{
 			dispatchEvent( event );
 		}
+		
+
 	}
 }

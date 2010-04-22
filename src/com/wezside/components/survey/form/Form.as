@@ -1,7 +1,8 @@
 package com.wezside.components.survey.form 
 {
+	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.UIElementEvent;
-	import com.wezside.components.container.VBox;
+	import com.wezside.components.container.Box;
 	import com.wezside.components.survey.data.FormItemData;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.IFormItemData;
@@ -25,7 +26,7 @@ package com.wezside.components.survey.form
 		private var _subheading:Label;
 		private var _body:Label;
 		private var _maxRowLabelWidth:int;
-		private var container:VBox;
+		private var container:Box;
 
 		
 		public function Form() 
@@ -38,11 +39,11 @@ package com.wezside.components.survey.form
 		{
 			
 			var arr:Array = [];
-			container = new VBox();
-			container.borderAlpha = 0;
+			container = new Box();
+//			container.borderAlpha = 0;
 			container.backgroundAlphas = [0,0];
-			container.verticalGap = 5;
-			container.addEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );
+//			container.verticalGap = 5;
+//			container.addEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );
 			addChild( container );
 			
 			if ( _data.heading != "" )
@@ -81,10 +82,12 @@ package com.wezside.components.survey.form
 				
 			// Check if there is a layout
 			if ( _data.items.length > 0 ) arr.push( _layout );
-			container.children = arr;
+//			container.children = arr;
+
+			containerCreated( new UIElementEvent( UIElementEvent.CREATION_COMPLETE ));
 		}
 
-
+		
 		public function purge():void
 		{
 		}
@@ -127,6 +130,7 @@ package com.wezside.components.survey.form
 		
 		private function containerCreated( event:UIElementEvent ):void 
 		{
+			Tracer.output( true, " Form.containerCreated(event)", toString() );
 			_layout.arrange();			
 			container.update();
 			container.removeEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );

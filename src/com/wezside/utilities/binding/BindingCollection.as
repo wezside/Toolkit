@@ -1,5 +1,6 @@
 package com.wezside.utilities.binding 
 {
+	import com.wezside.data.iterator.IIterator;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -13,7 +14,7 @@ package com.wezside.utilities.binding
 			_collection = [];	
 		}
 		
-		public function iterator():IBindingIterator
+		public function iterator():IIterator
 		{
 			return new BindingIterator( _collection );
 		}
