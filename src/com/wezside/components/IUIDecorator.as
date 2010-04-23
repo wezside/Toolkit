@@ -22,6 +22,9 @@ package com.wezside.components
 		function get height():Number
 		function set height( value:Number ):void		
 		
+		function get filters():Array
+		function set filters( value:Array ):void		
+		
 	 	function iterator( type:String = null ):IIterator;
 		function arrange( event:UIElementEvent = null ):void;
 		function update():void;

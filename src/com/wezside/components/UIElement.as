@@ -231,8 +231,6 @@ package com.wezside.components
 					// Inject the parent's styleManager if the child doesn't have one
 					if ( !IUIElement( child ).styleManager && IUIElement( child ).styleName )
 						IUIElement( child ).styleManager = styleManager;
-						
-					trace( this, IUIElement( child ), IUIElement( child ).styleManager , IUIElement( child ).styleName )
 				}
 			}	
 

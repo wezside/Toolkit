@@ -6,6 +6,7 @@ package test.com.wezside.components
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
 	import com.wezside.components.shape.Rectangle;
+	import com.wezside.components.shape.ShapeFilter;
 
 	import flash.events.Event;
 
@@ -42,7 +43,8 @@ package test.com.wezside.components
 			background = new Rectangle( this );
 			background.backgroundColours = [ 0xffffff, 0xffffff ];
 			background.backgroundAlphas = [ 1, 1 ];
-			
+
+						
 			super.update();
 		}
 
@@ -50,7 +52,7 @@ package test.com.wezside.components
 		{			
 					
 			super.build();
-						
+									
 			hbox = new Box();
 			hbox.width = 200;
 			hbox.height = 50;

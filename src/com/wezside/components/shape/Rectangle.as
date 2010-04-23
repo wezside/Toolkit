@@ -3,6 +3,7 @@ package com.wezside.components.shape
 	import com.wezside.components.IUIDecorator;
 
 	import flash.display.GradientType;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
 
 	/**
@@ -21,8 +22,7 @@ package com.wezside.components.shape
 
 
 		override public function draw():void
-		{			
-
+		{
 			if ( layout )
 			{
 				if ( _backgroundWidth == 0 ) _backgroundWidth = layout.width;
@@ -32,31 +32,33 @@ package com.wezside.components.shape
 				_backgroundHeight += layout.bottom;
 				_backgroundWidth += layout.left;
 				_backgroundWidth += layout.right;
-			}
-			
+			}			
 			
 			matrix = new Matrix();
 			matrix.createGradientBox( _backgroundWidth, _backgroundHeight, 90 / 180 * Math.PI );
+			
 
-			graphics.clear( );
-			graphics.beginGradientFill( GradientType.LINEAR, backgroundColours, backgroundAlphas, [ 0,255 ], matrix );
-			graphics.drawRoundRect( 0, 0, _backgroundWidth, _backgroundHeight, cornerRadius );
+			var drawing:Sprite = new Sprite();
+			drawing.graphics.clear( );
+			drawing.graphics.beginGradientFill( GradientType.LINEAR, backgroundColours, backgroundAlphas, [ 0,255 ], matrix );
+			drawing.graphics.drawRoundRect( 0, 0, _backgroundWidth, _backgroundHeight, cornerRadius );
 
 			if ( cornerRadius == 0 )
 			{
-				graphics.lineStyle( borderThickness, 0xffffff, borderAlpha );
-				graphics.moveTo( 0, 0 );
-				graphics.lineTo( _backgroundWidth, 0 );
-				graphics.moveTo( 0, 0 );
-				graphics.lineTo( 0, _backgroundHeight );
-				graphics.endFill( );
-				graphics.lineStyle( borderThickness, 0x666666, borderAlpha );
-				graphics.moveTo( 0, _backgroundHeight );
-				graphics.lineTo( _backgroundWidth, _backgroundHeight );
-				graphics.moveTo( _backgroundWidth, _backgroundHeight );
-				graphics.lineTo( _backgroundWidth, 0 );
+				drawing.graphics.lineStyle( borderThickness, 0xffffff, borderAlpha );
+				drawing.graphics.moveTo( 0, 0 );
+				drawing.graphics.lineTo( _backgroundWidth, 0 );
+				drawing.graphics.moveTo( 0, 0 );
+				drawing.graphics.lineTo( 0, _backgroundHeight );
+				drawing.graphics.endFill( );
+				drawing.graphics.lineStyle( borderThickness, 0x666666, borderAlpha );
+				drawing.graphics.moveTo( 0, _backgroundHeight );
+				drawing.graphics.lineTo( _backgroundWidth, _backgroundHeight );
+				drawing.graphics.moveTo( _backgroundWidth, _backgroundHeight );
+				drawing.graphics.lineTo( _backgroundWidth, 0 );
 			}
-			graphics.endFill( );
+			drawing.graphics.endFill( );
+			shape.addChild( drawing ); 
 		}		
 
 		

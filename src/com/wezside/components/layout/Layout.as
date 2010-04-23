@@ -161,5 +161,14 @@ package com.wezside.components.layout
 		{
 			_height = value;
 		}
+		
+		public function get filters():Array
+		{
+			return null;
+		}
+		
+		public function set filters(value:Array):void
+		{
+		}
 	}
 }

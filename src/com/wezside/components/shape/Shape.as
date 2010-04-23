@@ -17,19 +17,30 @@ package com.wezside.components.shape
 		private var _layout:ILayout;
 		private var _backgroundColors:Array;
 		private var _backgroundAlphas:Array;
-
-		protected var decorated:IUIDecorator;
 		private var _cornerRadius:int;
 		private var _borderAlpha:int;
 		private var _borderThickness:int;
+		private var _shape:Sprite;
 
+		protected var decorated:IUIDecorator;
+		
 		
 		public function Shape( decorated:IUIDecorator = null ) 
-		{
+		{					
 			this.decorated = decorated;	
 			this.layout = decorated.layout;
+			
+			if ( decorated is IShape )
+			{
+				shape = IShape( decorated ).shape;
+			}
+			else
+			{
+				shape = new Sprite();
+				addChild( shape );
+			}
 		}
-		
+
 		public function iterator(type:String = null):IIterator
 		{
 			return new NullIterator( );
@@ -116,6 +127,23 @@ package com.wezside.components.shape
 		public function set borderThickness(value:int):void
 		{
 			_borderThickness = value;
+		}
+
+		
+		override public function set filters(value:Array):void 
+		{
+			trace( value );
+			decorated.filters = value;
+		}
+		
+		public function get shape():Sprite
+		{
+			return _shape;
+		}
+		
+		public function set shape(value:Sprite):void
+		{
+			_shape = value;
 		}
 	}
 }

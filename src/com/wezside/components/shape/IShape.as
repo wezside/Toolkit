@@ -1,12 +1,17 @@
 package com.wezside.components.shape 
 {
 	import com.wezside.components.IUIDecorator;
-	
+
+	import flash.display.Sprite;
+
 	/**
 	 * @author Wesley.Swanepoel
 	 */
 	public interface IShape extends IUIDecorator 
 	{
+		function get shape():Sprite;
+		function set shape( value:Sprite ):void;
+		
 		function get backgroundColours():Array
 		function set backgroundColours( value:Array ):void
 		
