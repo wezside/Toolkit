@@ -8,13 +8,13 @@ package com.wezside.components.shape
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class RoundedRectangle extends Shape 
+	public class Rectangle extends Shape 
 	{
 		private var matrix:Matrix;
 		private var _backgroundWidth:int;
 		private var _backgroundHeight:int;
 
-		public function RoundedRectangle( decorated:IUIDecorator )
+		public function Rectangle( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}

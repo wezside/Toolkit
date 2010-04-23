@@ -1,15 +1,13 @@
 package test.com.wezside.components 
 {
-	import flash.events.Event;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.container.Box;
 	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
-	import com.wezside.components.shape.RoundedRectangle;
+	import com.wezside.components.shape.Rectangle;
 
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
+	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -41,17 +39,10 @@ package test.com.wezside.components
 			layout.top = 5;		
 			layout.right = 5;
 						
-			background = new RoundedRectangle( this );
+			background = new Rectangle( this );
 			background.backgroundColours = [ 0xffffff, 0xffffff ];
 			background.backgroundAlphas = [ 1, 1 ];
 			
-			var timer:Timer = new Timer( 1000, 1 );
-			timer.addEventListener( TimerEvent.TIMER_COMPLETE, timerComplete );
-			timer.start();
-		}
-
-		private function timerComplete(event:TimerEvent):void 
-		{
 			super.update();
 		}
 
