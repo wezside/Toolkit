@@ -25,6 +25,8 @@ package com.wezside.components
 {
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
+	import com.wezside.components.shape.IShape;
+	import com.wezside.components.shape.Shape;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
@@ -56,11 +58,13 @@ package com.wezside.components
 		private var _inheritCSS:Boolean;
 		private var _currentStyleName:String;
 		private var _layout:ILayout;
-				
+		private var _background:IShape;
+
 		
 		public function UIElement() 
 		{
 			_layout = new Layout( this );
+			_background = new Shape( this );
 			_skin = new UIElementSkin();
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
@@ -90,11 +94,13 @@ package com.wezside.components
 		
 		public function build():void
 		{
+			addChildAt( _background as DisplayObject, 0 );
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{
 			_layout.arrange();
+			_background.arrange();
 		}
 
 		public function get styleManager():IStyleManager
@@ -157,7 +163,17 @@ package com.wezside.components
 		{
 			_layout = value;
 			_layout.addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
+		}		
+		
+		public function get background():IShape
+		{
+			return _background;
 		}
+		
+		public function set background(value:IShape):void
+		{
+			_background = value;
+		}		
 
 		public function purge():void
 		{
@@ -279,7 +295,6 @@ package com.wezside.components
 		{
 			dispatchEvent( event );
 		}
-		
 
 	}
 }

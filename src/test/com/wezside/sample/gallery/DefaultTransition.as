@@ -31,9 +31,9 @@ package test.com.wezside.sample.gallery
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.item.IGalleryItem;
-	import com.wezside.components.gallery.item.ReflectionItem;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.components.gallery.transition.Transition;
+	import com.wezside.components.shape.IShape;
 	import com.wezside.data.collection.Collection;
 	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.iterator.ArrayIterator;

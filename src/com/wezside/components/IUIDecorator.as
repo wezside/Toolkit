@@ -1,6 +1,7 @@
 package com.wezside.components 
 {
 	import com.wezside.components.layout.ILayout;
+	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 
 	/**
@@ -8,8 +9,18 @@ package com.wezside.components
 	 */
 	public interface IUIDecorator 
 	{
+		
+		function get background():IShape
+		function set background( value:IShape ):void
+		
 		function get layout():ILayout
 		function set layout( value:ILayout ):void
+				
+		function get width():Number
+		function set width( value:Number ):void
+		
+		function get height():Number
+		function set height( value:Number ):void		
 		
 	 	function iterator( type:String = null ):IIterator;
 		function arrange( event:UIElementEvent = null ):void;

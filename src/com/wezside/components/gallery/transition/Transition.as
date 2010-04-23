@@ -24,18 +24,17 @@
 package com.wezside.components.gallery.transition 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
 
-	import flash.display.Sprite;
-
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Transition extends Sprite implements IGalleryTransition 
+	public class Transition extends UIElement implements IGalleryTransition 
 	{
 		
 		private var _stageWidth:Number;
@@ -76,7 +75,7 @@ package com.wezside.components.gallery.transition
 		
 		/**
 		 */
-		public function arrange( event:UIElementEvent = null ):void
+		override public function arrange( event:UIElementEvent = null ):void
 		{
 		}
 				
@@ -85,21 +84,12 @@ package com.wezside.components.gallery.transition
 			dispatchEvent( transEvent );
 		}		
 		
-		public function iterator( type:String = null ):IIterator
+		override public function iterator( type:String = null ):IIterator
 		{
 			return new ChildIterator( this );  
 		}
 		
-		public function update():void
-		{
-		}
-		
-		public function get layout():ILayout
-		{
-			return null;
-		}
-		
-		public function set layout(value:ILayout):void
+		override public function update():void
 		{
 		}
 		

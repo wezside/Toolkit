@@ -114,14 +114,20 @@ package com.wezside.components.container
 
 		protected function draw( colors:Array, alphas:Array ):void
 		{			
-			Tracer.output( true, " Box.draw(colors, alphas)", toString() );
+
 			if ( _backgroundWidth == 0 ) _backgroundWidth = width;
 			if ( _backgroundHeight == 0 ) _backgroundHeight = height;
 			
-//			_backgroundHeight += layout.top;
-//			_backgroundHeight += layout.bottom;
-//			_backgroundWidth += layout.left;
-//			_backgroundWidth += layout.right;
+			if ( layout )
+			{
+				_backgroundHeight += layout.top;
+				_backgroundHeight += layout.bottom;
+				_backgroundWidth += layout.left;
+				_backgroundWidth += layout.right;
+
+//				_backgroundHeight += layout.verticalGap;
+//				_backgroundWidth += layout.horizontalGap;
+			}
 			
 			matrix = new Matrix();
 			matrix.createGradientBox( _backgroundWidth, _backgroundHeight, 90 / 180 * Math.PI );

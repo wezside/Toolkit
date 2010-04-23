@@ -1,15 +1,19 @@
 package test.com.wezside.components 
 {
-	import org.flexunit.asserts.assertNull;
 	import flexunit.framework.Assert;
 
 	import test.com.wezside.sample.styles.LatinStyle;
 
+	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
+	import com.wezside.components.layout.HorizontalLayout;
+	import com.wezside.components.layout.PaddedLayout;
+	import com.wezside.components.layout.VerticalLayout;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
+	import org.flexunit.asserts.assertNull;
 	import org.flexunit.async.Async;
 
 	import flash.events.Event;
@@ -24,7 +28,6 @@ package test.com.wezside.components
 		private var styles:LatinStyle;
 		private var mockUIElement:MockUIElement;
 
-
 		[Before]
 		public function setUp():void
 		{
@@ -38,6 +41,24 @@ package test.com.wezside.components
 			styles = null;
 			mockUIElement = null;
 		}
+		
+		[Test]
+		public function testUIElementLayout():void
+		{
+			mockUIElement.layout = new HorizontalLayout( mockUIElement );	
+			mockUIElement.layout.horizontalGap = 10;	
+			mockUIElement.layout = new VerticalLayout( mockUIElement.layout );
+			mockUIElement.layout.verticalGap = 20;	
+			mockUIElement.layout = new PaddedLayout( mockUIElement.layout );
+			mockUIElement.layout.bottom = 5;		
+			mockUIElement.layout.left = 5;		
+			mockUIElement.layout.top = 5;		
+			mockUIElement.layout.right = 5;
+			
+			assertEquals( 20, mockUIElement.layout.verticalGap );
+			assertEquals( 10, mockUIElement.layout.horizontalGap );
+		}
+		
 		
 		[Test][Ignore]
 		public function testUIElementStates():void

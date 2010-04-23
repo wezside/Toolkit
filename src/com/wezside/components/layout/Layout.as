@@ -2,9 +2,9 @@ package com.wezside.components.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.NullIterator;
-	import com.wezside.utilities.logging.Tracer;
 
 	import flash.events.EventDispatcher;
 
@@ -14,28 +14,46 @@ package com.wezside.components.layout
 	public class Layout extends EventDispatcher implements ILayout, IUIDecorator 
 	{
 
-		protected var decorated:IUIDecorator;
 		private var _verticalGap:int;
 		private var _horizontalGap:int;
 		private var _top:int;
 		private var _bottom:int;
 		private var _left:int;
 		private var _right:int;
+		private var _width:int;
+		private var _height:int;
+		
+		protected var decorated:IUIDecorator;
 
 		public function Layout( decorated:IUIDecorator = null ) 
 		{
 			this.decorated = decorated;
+			
+			// If the decorated object is of type ILayout then copy the values over
+			if ( decorated is ILayout )
+			{
+				verticalGap = ILayout( this.decorated ).verticalGap;
+				horizontalGap = ILayout( this.decorated ).horizontalGap;
+				top = ILayout( this.decorated ).top;
+				bottom = ILayout( this.decorated ).bottom;
+				right = ILayout( this.decorated ).right;
+				left = ILayout( this.decorated ).left;
+			}
+			width = decorated.width;
+			height = decorated.height;
 		}
 
 		public function update():void
 		{
-			Tracer.output( true, " Layout.update()", toString() );
 			arrange();
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{			
-			if ( decorated.iterator().hasNext( ) ) decorated.arrange();
+			if ( decorated.iterator().hasNext( ))
+			{
+				decorated.arrange();
+			}
 			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));
 		}
 		
@@ -106,12 +124,42 @@ package com.wezside.components.layout
 		
 		public function get layout():ILayout
 		{
-			// TODO: Auto-generated method stub
 			return null;
 		}
 		
 		public function set layout(value:ILayout):void
 		{
+		
+		}
+		
+		public function get background():IShape
+		{
+			return null;
+		}
+		
+		public function set background(value:IShape):void
+		{
+
+		}
+
+		public function get width():Number
+		{
+			return _width;
+		}
+		
+		public function get height():Number
+		{
+			return _height;
+		}
+		
+		public function set width(value:Number):void
+		{
+			_width = value;
+		}
+		
+		public function set height(value:Number):void
+		{
+			_height = value;
 		}
 	}
 }
