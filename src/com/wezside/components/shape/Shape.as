@@ -34,37 +34,38 @@ package com.wezside.components.shape
 	{
 		
 		private var _layout:ILayout;
-		private var _backgroundColors:Array;
-		private var _backgroundAlphas:Array;
 		private var _cornerRadius:int;
 		private var _borderAlpha:int;
 		private var _borderThickness:int;
 		private var _shape:Sprite;
-		private var _backgroundWidth:int;
-		private var _backgroundHeight:int;
+
+		private var _colours:Array;
+		private var _alphas:Array;
+		private var _width:Number = 0;
+		private var _height:Number = 0;
 
 		protected var decorated:IUIDecorator;
-
 		
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
 			this.decorated = decorated;	
-			this.layout = decorated.layout;
+			this.layout = decorated.layout;			
 			
 			if ( decorated is IShape )
 			{
 				shape = IShape( decorated ).shape;
-				backgroundWidth = IShape( decorated ).backgroundWidth;
-				backgroundHeight = IShape( decorated ).backgroundHeight;
+				width = IShape( decorated ).width;
+				height = IShape( decorated ).height;
 			}
 			else
 			{
 				shape = new Sprite();
+				shape.name = "root";
+				Sprite( decorated ).addChild( shape );
 			}
-			addChild( shape );
 		}
 
-		public function iterator(type:String = null):IIterator
+		public function iterator( type:String = null ):IIterator
 		{
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
@@ -89,24 +90,24 @@ package com.wezside.components.shape
 			_layout = value;
 		}
 		
-		public function get backgroundColours():Array
+		public function get colours():Array
 		{
-			return _backgroundColors;
+			return _colours;
 		}
 		
-		public function set backgroundColours(value:Array):void
+		public function set colours(value:Array):void
 		{
-			_backgroundColors = value;
+			_colours = value;
 		}
 		
-		public function get backgroundAlphas():Array
+		public function get alphas():Array
 		{
-			return _backgroundAlphas;
+			return _alphas;
 		}
 		
-		public function set backgroundAlphas(value:Array):void
+		public function set alphas(value:Array):void
 		{
-			_backgroundAlphas = value;
+			_alphas = value;
 		}
 		
 		public function draw():void
@@ -164,42 +165,22 @@ package com.wezside.components.shape
 		
 		override public function set width(value:Number):void 
 		{
-			super.width = value;
+			_width = value;
 		}
 		
 		override public function get width():Number 
 		{
-			return super.width;
+			return _width;
 		}
-
+		
 		override public function set height(value:Number):void 
 		{
-			super.height = value;
+			_height = value;
 		}
 		
 		override public function get height():Number 
 		{
-			return super.height;
-		}
-		
-		public function get backgroundWidth():int
-		{
-			return _backgroundWidth;
-		}
-		
-		public function get backgroundHeight():int
-		{
-			return _backgroundHeight;
-		}
-		
-		public function set backgroundWidth(value:int):void
-		{
-			_backgroundWidth = value;	
-		}
-
-		public function set backgroundHeight(value:int):void
-		{
-			_backgroundHeight = value;
+			return _height;
 		}
 	}
 }

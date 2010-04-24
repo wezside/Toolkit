@@ -43,11 +43,11 @@ package com.wezside.components.layout
 		override public function arrange( event:UIElementEvent = null ):void
 		{
 			super.arrange();
-			
+			var firstChild:DisplayObject;
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
 			if ( iterator.hasNext() )
 			{
-				var firstChild:DisplayObject = iterator.next() as DisplayObject;
+				firstChild = iterator.next() as DisplayObject;
 				yOffset = firstChild.y;
 			}
 			iterator.reset();
@@ -59,9 +59,12 @@ package com.wezside.components.layout
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				child.y = yOffset;
-				yOffset += child.height;
-				if ( iterator.hasNext() ) yOffset += verticalGap;
+				if ( child is IUIDecorator )
+				{
+					child.y = yOffset;
+					yOffset += child.height;
+					if ( iterator.hasNext() ) yOffset += verticalGap;
+				}
 			}
 			
 			height = yOffset - verticalGap;

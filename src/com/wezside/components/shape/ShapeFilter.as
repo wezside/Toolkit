@@ -19,7 +19,6 @@
  */
 package com.wezside.components.shape 
 {
-	import flash.filters.DropShadowFilter;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -33,7 +32,7 @@ package com.wezside.components.shape
 		
 		override public function draw():void
 		{
-			shape.filters = [new DropShadowFilter()];			
+//			shape.filters = [ new DropShadowFilter()];		
 		}		
 	}
 }

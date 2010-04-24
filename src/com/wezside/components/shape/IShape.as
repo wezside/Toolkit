@@ -31,11 +31,11 @@ package com.wezside.components.shape
 		function get shape():Sprite;
 		function set shape( value:Sprite ):void;
 		
-		function get backgroundColours():Array
-		function set backgroundColours( value:Array ):void
+		function get colours():Array
+		function set colours( value:Array ):void
 		
-		function get backgroundAlphas():Array
-		function set backgroundAlphas( value:Array ):void
+		function get alphas():Array
+		function set alphas( value:Array ):void
 		
 		function get cornerRadius():int
 		function set cornerRadius( value:int ):void
@@ -45,12 +45,6 @@ package com.wezside.components.shape
 		
 		function get borderThickness():int
 		function set borderThickness( value:int ):void
-
-		function get backgroundWidth():int
-		function set backgroundWidth( value:int ):void
-		
-		function get backgroundHeight():int
-		function set backgroundHeight( value:int ):void
 		
 		function draw():void;
 	}

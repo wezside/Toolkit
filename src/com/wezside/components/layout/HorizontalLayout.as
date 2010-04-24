@@ -58,9 +58,12 @@ package com.wezside.components.layout
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				child.x = xOffset;
-				xOffset += child.width;
-				if ( iterator.hasNext() ) xOffset += horizontalGap;
+				if ( child is IUIDecorator )
+				{				
+					child.x = xOffset;
+					xOffset += child.width;
+					if ( iterator.hasNext() ) xOffset += horizontalGap;
+				}
 			}			
 			
 			width = xOffset - horizontalGap;

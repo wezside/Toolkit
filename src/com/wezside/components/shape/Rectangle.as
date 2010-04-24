@@ -29,50 +29,47 @@ package com.wezside.components.shape
 	 */
 	public class Rectangle extends Shape 
 	{
+		
+
 		private var matrix:Matrix;
+
 
 		public function Rectangle( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
 
-
 		override public function draw():void
 		{
-			if ( layout )
-			{
-				if ( backgroundWidth == 0 ) backgroundWidth = layout.width;
-				if ( backgroundHeight == 0 ) backgroundHeight = layout.height;
-								
-				backgroundHeight += layout.top;
-				backgroundHeight += layout.bottom;
-				backgroundWidth += layout.left;
-				backgroundWidth += layout.right;
-			}			
+
+			if ( width == 0 ) width = layout.width;
+			if ( height == 0 ) height = layout.height;
+							
+			height += layout.top;
+			height += layout.bottom;
+			width += layout.left;
+			width += layout.right;
 			
 			matrix = new Matrix();
-			matrix.createGradientBox( backgroundWidth, backgroundHeight, 90 / 180 * Math.PI );
-
-			shape.graphics.beginGradientFill( GradientType.LINEAR, backgroundColours, backgroundAlphas, [ 0,255 ], matrix );
-			shape.graphics.drawRoundRect( 0, 0, backgroundWidth, backgroundHeight, cornerRadius );
+			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
+		
+			shape.graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
+			shape.graphics.drawRoundRect( -layout.left, -layout.top, width, height, cornerRadius );
 
 			if ( cornerRadius == 0 )
 			{
 				shape.graphics.lineStyle( borderThickness, 0xffffff, borderAlpha );
 				shape.graphics.moveTo( 0, 0 );
-				shape.graphics.lineTo( backgroundWidth, 0 );
+				shape.graphics.lineTo( width, 0 );
 				shape.graphics.moveTo( 0, 0 );
-				shape.graphics.lineTo( 0, backgroundHeight );
+				shape.graphics.lineTo( 0, height );
 				shape.graphics.endFill( );
 				shape.graphics.lineStyle( borderThickness, 0x666666, borderAlpha );
-				shape.graphics.moveTo( 0, backgroundHeight );
-				shape.graphics.lineTo( backgroundWidth, backgroundHeight );
-				shape.graphics.moveTo( backgroundWidth, backgroundHeight );
-				shape.graphics.lineTo( backgroundWidth, 0 );
-			}
-			
-			trace( shape.name );
-		}		
-
+				shape.graphics.moveTo( 0, height );
+				shape.graphics.lineTo( width, height );
+				shape.graphics.moveTo( width, height );
+				shape.graphics.lineTo( width, 0 );
+			}			
+		}
 	}
 }

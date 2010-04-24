@@ -30,11 +30,11 @@ package test.com.wezside.components
 			x = 20;
 			y = 20;
 			
-			layout = new HorizontalLayout( this );
-			layout.horizontalGap = 5;
-							
+//			layout = new HorizontalLayout( this );
+//			layout.horizontalGap = 5;
+//							
 			layout = new VerticalLayout( this );
-			layout.verticalGap = 5;
+			layout.verticalGap = 15;
 			
 			layout = new PaddedLayout( layout );
 			layout.bottom = 5;		
@@ -43,16 +43,15 @@ package test.com.wezside.components
 			layout.right = 5;
 
 			background = new Rectangle( this );
-			background.backgroundColours = [ 0xffffff, 0xffffff ];
-			background.backgroundAlphas = [ 1, 1 ];
+			background.colours = [ 0, 0 ];
+			background.alphas = [ 1, 0 ];
 						
-			background = new Rectangle( background );
-			background.backgroundColours = [ 0, 0xffEFA ];
-			background.backgroundAlphas = [ .5, .5 ];
-			background.cornerRadius = 20;
+			background = new Rectangle( this );
+			background.colours = [ 0xFFFFFF, 0xFFFFFF ];
+			background.alphas = [ 1, 1 ];
 			
 //			background = new Resizer( background );
-			background = new ShapeFilter( background ); 			
+//			background = new ShapeFilter( background ); 			
 						
 			super.update();
 		}
@@ -64,29 +63,26 @@ package test.com.wezside.components
 								
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
-			hbox.background.backgroundColours = [ 0xff0000, 0xff0000 ];
-			hbox.background.backgroundAlphas = [ 1, 1 ];			
-			hbox.background.backgroundWidth = 200;
-			hbox.background.backgroundHeight = 50;
-			hbox.layout = new HorizontalLayout( hbox );
+			hbox.background.colours = [ 0xff0000, 0xff0000 ];
+			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
 			addChild( hbox );
 
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
-			hbox.background.backgroundColours = [ 0xffEFA, 0xffEFA ];
-			hbox.background.backgroundAlphas = [ 1, 1 ];			
-			hbox.background.backgroundWidth = 200;
-			hbox.background.backgroundHeight = 50;
-			hbox.layout = new HorizontalLayout( hbox );
+			hbox.background.colours = [ 0xffEFA, 0xffEFA ];
+			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
 			addChild( hbox );
 
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
-			hbox.background.backgroundColours = [ 0xEEEFFF, 0xEEEFFF ];
-			hbox.background.backgroundAlphas = [ 1, 1 ];			
-			hbox.background.backgroundWidth = 200;
-			hbox.background.backgroundHeight = 50;
-			hbox.layout = new HorizontalLayout( hbox );
+			hbox.background.colours = [ 0xAFEFDD, 0xAFEFDD ];
+			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
 			addChild( hbox );
 
 		}
