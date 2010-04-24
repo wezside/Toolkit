@@ -1,10 +1,29 @@
+/**
+ * Copyright (c) 2010 Wesley Swanepoel
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.wezside.components.shape 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.data.iterator.NullIterator;
 
 	import flash.display.Sprite;
 
@@ -21,9 +40,11 @@ package com.wezside.components.shape
 		private var _borderAlpha:int;
 		private var _borderThickness:int;
 		private var _shape:Sprite;
+		private var _backgroundWidth:int;
+		private var _backgroundHeight:int;
 
 		protected var decorated:IUIDecorator;
-		
+
 		
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
@@ -33,17 +54,19 @@ package com.wezside.components.shape
 			if ( decorated is IShape )
 			{
 				shape = IShape( decorated ).shape;
+				backgroundWidth = IShape( decorated ).backgroundWidth;
+				backgroundHeight = IShape( decorated ).backgroundHeight;
 			}
 			else
 			{
 				shape = new Sprite();
-				addChild( shape );
 			}
+			addChild( shape );
 		}
 
 		public function iterator(type:String = null):IIterator
 		{
-			return new NullIterator( );
+			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
 		
 		public function update():void
@@ -95,7 +118,7 @@ package com.wezside.components.shape
 			return null;
 		}
 		
-		public function set background(value:IShape):void
+		public function set background( value:IShape ):void
 		{
 		}
 		
@@ -128,13 +151,6 @@ package com.wezside.components.shape
 		{
 			_borderThickness = value;
 		}
-
-		
-		override public function set filters(value:Array):void 
-		{
-			trace( value );
-			decorated.filters = value;
-		}
 		
 		public function get shape():Sprite
 		{
@@ -144,6 +160,46 @@ package com.wezside.components.shape
 		public function set shape(value:Sprite):void
 		{
 			_shape = value;
+		}
+		
+		override public function set width(value:Number):void 
+		{
+			super.width = value;
+		}
+		
+		override public function get width():Number 
+		{
+			return super.width;
+		}
+
+		override public function set height(value:Number):void 
+		{
+			super.height = value;
+		}
+		
+		override public function get height():Number 
+		{
+			return super.height;
+		}
+		
+		public function get backgroundWidth():int
+		{
+			return _backgroundWidth;
+		}
+		
+		public function get backgroundHeight():int
+		{
+			return _backgroundHeight;
+		}
+		
+		public function set backgroundWidth(value:int):void
+		{
+			_backgroundWidth = value;	
+		}
+
+		public function set backgroundHeight(value:int):void
+		{
+			_backgroundHeight = value;
 		}
 	}
 }
