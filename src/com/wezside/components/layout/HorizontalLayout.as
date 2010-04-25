@@ -47,12 +47,9 @@ package com.wezside.components.layout
 			if ( iterator.hasNext() )
 			{
 				var firstChild:DisplayObject = iterator.next() as DisplayObject;
-				xOffset = firstChild.x;
+				xOffset = firstChild.x - horizontalGap;
 			}
 			iterator.reset();
-			
-			// Skip the background which is always the first child
-			iterator.next();				
 						
 			// Iterate over rest of the children and layout horizontally
 			while ( iterator.hasNext())

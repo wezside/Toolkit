@@ -44,7 +44,6 @@ package com.wezside.components.layout
 			super.arrange();
 
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			iterator.next();
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;

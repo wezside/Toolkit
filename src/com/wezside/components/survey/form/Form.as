@@ -1,12 +1,14 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.utilities.logging.Tracer;
+	import com.wezside.components.layout.VerticalLayout;
+	import com.wezside.components.shape.Rectangle;
+	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
-	import com.wezside.components.container.Box;
 	import com.wezside.components.survey.data.FormItemData;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.IFormItemData;
 	import com.wezside.components.text.Label;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.Sprite;
 
@@ -26,7 +28,7 @@ package com.wezside.components.survey.form
 		private var _subheading:Label;
 		private var _body:Label;
 		private var _maxRowLabelWidth:int;
-		private var container:Box;
+		private var container:UIElement;
 
 		
 		public function Form() 
@@ -39,11 +41,11 @@ package com.wezside.components.survey.form
 		{
 			
 			var arr:Array = [];
-			container = new Box();
-//			container.borderAlpha = 0;
-			container.backgroundAlphas = [0,0];
-//			container.verticalGap = 5;
-//			container.addEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );
+			container = new UIElement();
+
+			container.background = new Rectangle( container );
+			container.layout = new VerticalLayout( container ); 
+			container.layout.verticalGap = 5;
 			addChild( container );
 			
 			if ( _data.heading != "" )

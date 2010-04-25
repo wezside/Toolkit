@@ -89,7 +89,7 @@ package com.wezside.components.gallery.transition
 			return new ChildIterator( this );  
 		}
 		
-		override public function update():void
+		override public function update( recurse:Boolean = false ):void
 		{
 		}
 		

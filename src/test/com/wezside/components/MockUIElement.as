@@ -23,7 +23,7 @@ package test.com.wezside.components
 
 		
 		
-		override public function update():void 
+		override public function update(recurse:Boolean = false):void 
 		{
 			Tracer.output( true, " MockUIElement.update()", toString() );
 			super.update( );

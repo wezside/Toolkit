@@ -48,12 +48,11 @@ package com.wezside.components.layout
 			if ( iterator.hasNext() )
 			{
 				firstChild = iterator.next() as DisplayObject;
-				yOffset = firstChild.y;
+				yOffset = firstChild.y - verticalGap;
 			}
 			iterator.reset();
 			
-			// Skip the background which is always the first child
-			iterator.next();
+			if ( hasBackground ) iterator.next();
 			
 			// Iterate over rest of the children and layout vertically
 			while ( iterator.hasNext())

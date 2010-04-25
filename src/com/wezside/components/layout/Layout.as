@@ -41,12 +41,18 @@ package com.wezside.components.layout
 		private var _right:int;
 		private var _width:int;
 		private var _height:int;
+		private var _hasBackground:Boolean;
 		
 		protected var decorated:IUIDecorator;
 
 		public function Layout( decorated:IUIDecorator = null ) 
 		{
 			this.decorated = decorated;
+			if ( decorated.background )
+			{
+				decorated.background.layout = this;
+				_hasBackground = true;
+			}
 			
 			// If the decorated object is of type ILayout then copy the values over
 			if ( decorated is ILayout )
@@ -188,6 +194,16 @@ package com.wezside.components.layout
 		
 		public function set filters(value:Array):void
 		{
+		}
+		
+		public function get hasBackground():Boolean
+		{
+			return _hasBackground;
+		}
+		
+		public function set hasBackground( value:Boolean ):void
+		{
+			_hasBackground = value;
 		}
 	}
 }

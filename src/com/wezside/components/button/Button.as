@@ -100,7 +100,7 @@ package com.wezside.components.button
 		}
 		
 		
-		override public function update():void
+		override public function update( recurse:Boolean = false ):void
 		{
 			super.update();
 			arrange();

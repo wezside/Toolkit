@@ -63,8 +63,6 @@ package com.wezside.components
 		
 		public function UIElement() 
 		{
-			_layout = new Layout( this );
-			_background = new Shape( this );
 			_skin = new UIElementSkin();
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
@@ -76,31 +74,33 @@ package com.wezside.components
 			_stateManager.state = UIElementState.STATE_VISUAL_UP;
 		}		
 		
-		public function update():void
+		public function update( recurse:Boolean = false ):void
 		{
 			build();
 			setStyle();
 			
-			var iter:IIterator = iterator( ITERATOR_CHILDREN );
-			while ( iter.hasNext() )
+			if ( recurse )
 			{
-				var child:* = iter.next();
-				if ( child is IUIElement ) 
-					UIElement( child ).update();
-			}
-				
+				var iter:IIterator = iterator( ITERATOR_CHILDREN );
+				while ( iter.hasNext() )
+				{
+					var child:* = iter.next();
+					if ( child is IUIElement ) 
+						UIElement( child ).update();
+				}
+			}	
 			arrange();						
 		}		
 		
 		public function build():void
 		{
-			addChildAt( _background as DisplayObject, 0 );
+			if ( _background ) addChildAt( _background as DisplayObject, 0 );
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{
-			_layout.arrange();
-			_background.arrange();
+			if ( _layout ) _layout.arrange();
+			if ( _background ) _background.arrange();
 		}
 
 		public function get styleManager():IStyleManager

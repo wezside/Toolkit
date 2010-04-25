@@ -63,7 +63,7 @@ package com.wezside.utilities.manager.state
 				
 		public function set state( key:String ):void
 		{
-			var state:IState = stateByKey( key );			
+			var state:IState = stateByKey( key );
 			if ( state )
 			{
 				_history.push( state );			

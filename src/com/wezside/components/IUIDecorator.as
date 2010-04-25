@@ -27,7 +27,7 @@ package com.wezside.components
 		
 	 	function iterator( type:String = null ):IIterator;
 		function arrange( event:UIElementEvent = null ):void;
-		function update():void;
+
 		
 	}
 }

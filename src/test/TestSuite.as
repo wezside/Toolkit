@@ -1,5 +1,6 @@
 package test
 {
+	import test.com.wezside.components.TestUIDecorators;
 	import test.com.wezside.components.TestUIElement;
 	import test.com.wezside.components.gallery.TestGallery;
 	import test.com.wezside.components.survey.TestSurvey;
@@ -17,6 +18,7 @@ package test
 		public var testGallery:TestGallery;
 		public var testStateManager:TestStateManager;
 		public var testURLUtil:TestURLUtil;
+		public var testUIDecorators:TestUIDecorators;
 
 	}
 }

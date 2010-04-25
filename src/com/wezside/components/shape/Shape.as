@@ -23,8 +23,10 @@ package com.wezside.components.shape
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.layout.ILayout;
+	import com.wezside.components.layout.Layout;
 	import com.wezside.data.iterator.IIterator;
 
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 
 	/**
@@ -39,29 +41,32 @@ package com.wezside.components.shape
 		private var _borderThickness:int;
 		private var _shape:Sprite;
 
-		private var _colours:Array;
-		private var _alphas:Array;
+		private var _colours:Array = [];
+		private var _alphas:Array = [];
 		private var _width:Number = 0;
 		private var _height:Number = 0;
 
+
 		protected var decorated:IUIDecorator;
+		
 		
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
 			this.decorated = decorated;	
-			this.layout = decorated.layout;			
+			this.layout = decorated.layout ? decorated.layout : new Layout( this.decorated );
 			
 			if ( decorated is IShape )
-			{
-				shape = IShape( decorated ).shape;
+			{			
+				_shape = IShape( decorated ).shape;
+				_shape.graphics.copyFrom( IShape( decorated ).shape.graphics );
 				width = IShape( decorated ).width;
 				height = IShape( decorated ).height;
 			}
 			else
 			{
-				shape = new Sprite();
-				shape.name = "root";
-				Sprite( decorated ).addChild( shape );
+				_shape = new Sprite();
+				_shape.name = "root";
+				DisplayObjectContainer( decorated ).addChild( _shape );
 			}
 		}
 

@@ -1,7 +1,8 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.components.container.Box;
 	import com.wezside.components.text.Label;
+
+	import mx.containers.Box;
 
 	import flash.display.Sprite;
 

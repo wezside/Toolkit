@@ -22,6 +22,7 @@ package com.wezside.components.shape
 	import com.wezside.components.IUIDecorator;
 
 	import flash.display.GradientType;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
 
 	/**
@@ -30,10 +31,6 @@ package com.wezside.components.shape
 	public class Rectangle extends Shape 
 	{
 		
-
-		private var matrix:Matrix;
-
-
 		public function Rectangle( decorated:IUIDecorator )
 		{
 			super( decorated );
@@ -50,9 +47,9 @@ package com.wezside.components.shape
 			width += layout.left;
 			width += layout.right;
 			
-			matrix = new Matrix();
+			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-		
+
 			shape.graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
 			shape.graphics.drawRoundRect( -layout.left, -layout.top, width, height, cornerRadius );
 
@@ -69,7 +66,7 @@ package com.wezside.components.shape
 				shape.graphics.lineTo( width, height );
 				shape.graphics.moveTo( width, height );
 				shape.graphics.lineTo( width, 0 );
-			}			
+			}		
 		}
 	}
 }
