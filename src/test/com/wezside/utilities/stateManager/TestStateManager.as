@@ -38,13 +38,13 @@ package test.com.wezside.utilities.stateManager
 		[Test] 
 		public function testStateManagerNonReservedValue():void
 		{
-			sm.state = STATE_ROLLOVER;
+			sm.stateKey = STATE_ROLLOVER;
 			assertEquals( 1, sm.stateValue );
 			
-			sm.state = STATE_ROLLOUT;
+			sm.stateKey = STATE_ROLLOUT;
 			assertEquals( 4, sm.stateValue );	
 			
-			sm.state = STATE_ROLLOVER;
+			sm.stateKey = STATE_ROLLOVER;
 			assertEquals( 1, sm.stateValue );
 		}
 		
@@ -52,16 +52,16 @@ package test.com.wezside.utilities.stateManager
 		[Test]
 		public function testStateManagerReservedValue():void
 		{			
-			sm.state = STATE_SELECTED;
+			sm.stateKey = STATE_SELECTED;
 			assertEquals( 2, sm.stateValue );		
 				
-			sm.state = STATE_SELECTED;
+			sm.stateKey = STATE_SELECTED;
 			assertEquals( 0, sm.stateValue );
 			
-			sm.state = STATE_ROLLOUT;
+			sm.stateKey = STATE_ROLLOUT;
 			assertEquals( 4, sm.stateValue );
 			
-			sm.state = STATE_SELECTED;
+			sm.stateKey = STATE_SELECTED;
 			assertEquals( 6, sm.stateValue );
 		}
 		
@@ -69,16 +69,16 @@ package test.com.wezside.utilities.stateManager
 		[Test]
 		public function testStateManagerKey():void
 		{
-			sm.state = STATE_ROLLOVER;
+			sm.stateKey = STATE_ROLLOVER;
 			assertEquals( STATE_ROLLOVER, sm.stateKey );
 
-			sm.state = STATE_SELECTED;
+			sm.stateKey = STATE_SELECTED;
 			assertEquals( STATE_ROLLOVER + STATE_SELECTED, sm.stateKey ); 
 
-			sm.state = STATE_SELECTED;
+			sm.stateKey = STATE_SELECTED;
 			assertEquals( STATE_ROLLOVER, sm.stateKey );
 
-			sm.state = STATE_ROLLOUT;
+			sm.stateKey = STATE_ROLLOUT;
 			assertEquals( STATE_ROLLOUT, sm.stateKey );
 
 		}
@@ -88,18 +88,18 @@ package test.com.wezside.utilities.stateManager
 		{
 		
 			assertNull( sm.previousState() );
-			sm.state = STATE_ROLLOVER;
+			sm.stateKey = STATE_ROLLOVER;
 			assertEquals( STATE_ROLLOVER, sm.previousState().key );
 			
-			sm.state = STATE_ROLLOUT;
-			sm.state = STATE_ROLLOVER;			
+			sm.stateKey = STATE_ROLLOUT;
+			sm.stateKey = STATE_ROLLOVER;			
 			assertEquals( STATE_ROLLOUT, sm.previousState().key );
 		}
 				
 		[Test]
 		public function testStateManagerStateKeys():void
 		{
-			sm.state = STATE_ROLLOVER;
+			sm.stateKey = STATE_ROLLOVER;
 			assertEquals( 1, sm.stateKeys.length );
 		}
 	}

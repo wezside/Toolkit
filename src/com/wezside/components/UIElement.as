@@ -71,7 +71,7 @@ package com.wezside.components
 			_stateManager.addState( UIElementState.STATE_VISUAL_OVER );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DOWN );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DISABLED );
-			_stateManager.state = UIElementState.STATE_VISUAL_UP;
+			_stateManager.stateKey = UIElementState.STATE_VISUAL_UP;
 		}		
 		
 		public function update( recurse:Boolean = false ):void
@@ -196,7 +196,7 @@ package com.wezside.components
 		
 		public function set state( value:String ):void
 		{
-			_stateManager.state = value;
+			_stateManager.stateKey = value;
 			_skin.setSkin( _stateManager.stateKeys );
 		}
 		

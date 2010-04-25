@@ -84,12 +84,12 @@ package com.wezside.components.gallery.item
 
 		public function get state():String
 		{
-			return _sm.state;
+			return _sm.stateKey;
 		}
 		
 		public function set state( value:String ):void
 		{
-			_sm.state = value;
+			_sm.stateKey = value;
 			switch ( _sm.stateKey )
 			{
 				case Gallery.STATE_ROLLOUT:	rollOut(); break;
@@ -97,7 +97,7 @@ package com.wezside.components.gallery.item
 				case Gallery.STATE_ROLLOVER:
 				case Gallery.STATE_ROLLOVER + Gallery.STATE_SELECTED: rollOver(); break;				
 				case Gallery.STATE_SELECTED: selected = !_selected; break;					
-				default: _sm.state = ""; break;
+				default: _sm.stateKey = ""; break;
 			}
 		}
 		

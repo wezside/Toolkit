@@ -36,19 +36,19 @@ package test.com.wezside.sample.stateManager
 			field.text = "Use case  			| Current State Value   | History State Key\n";
 			field.appendText("--------------------------------------------------------------------\n");
 			
-			sm.state = "Credentials";			
+			sm.stateKey = "Credentials";			
 			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
-			sm.state = "Credentials";			
+			sm.stateKey = "Credentials";			
 			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
-			sm.state = "Credentials";			
+			sm.stateKey = "Credentials";			
 			field.appendText("Log in...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
-			sm.state = "Register";			
+			sm.stateKey = "Register";			
 			field.appendText( sm.state + "\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			
-			sm.state = "Credentials";			
+			sm.stateKey = "Credentials";			
 			field.appendText("Log out...\t\t\t|  " + sm.stateValue + "\t\t\t\t\t| " + sm.stateKey + "\n");
 			field.appendText("Previous State...\t|  " + sm.previousState() + "\t\t\t| " + sm.stateKey + "\n");
 

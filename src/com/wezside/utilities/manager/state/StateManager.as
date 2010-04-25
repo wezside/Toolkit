@@ -60,8 +60,13 @@ package com.wezside.utilities.manager.state
 			state.value = _baseTwo << _states.length;
 			_states.push( state );
 		}
-				
-		public function set state( key:String ):void
+						
+		public function get state():IState
+		{
+			return _state;
+		}
+										
+		public function set stateKey( key:String ):void
 		{
 			var state:IState = stateByKey( key );
 			if ( state )
@@ -94,16 +99,6 @@ package com.wezside.utilities.manager.state
 			}
 		}
 
-		public function get state():String
-		{
-			return _state.key;
-		}
-		
-		public function get stateValue():Number
-		{
-			return _state.value;
-		}
-		
 		/**
 		 * Contains the concatenated keys of all states which bits are true, i.e. 1 and not 0.
 		 * Non-reserved states are mutually exclusive whereas reserved states is allowed to 
@@ -117,6 +112,11 @@ package com.wezside.utilities.manager.state
 					str += _states[i].key;			
 			return str;
 		}
+
+		public function get stateValue():Number
+		{
+			return _state.value;
+		}		
 		
 		public function get stateKeys():Array
 		{

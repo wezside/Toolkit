@@ -28,12 +28,14 @@ package com.wezside.utilities.manager.state
 		private var _key:String;
 		private var _reserved:Boolean;
 		private var _value:Number;
+		private var _data:*;
 
 		
-		public function State( key:String, reserved:Boolean = false ) 
+		public function State( key:String, reserved:Boolean = false, data:* = null ) 
 		{
 			_key = key;
-			_reserved = reserved;	
+			_reserved = reserved;
+			_data = data;	
 		}
 		
 		public function clone():IState
@@ -73,6 +75,14 @@ package com.wezside.utilities.manager.state
 			_value = value;
 		}
 		
+		public function get data():*
+		{
+			return _data;
+		}
 		
+		public function set data( value:* ):void
+		{
+			_data = value;
+		}
 	}
 }

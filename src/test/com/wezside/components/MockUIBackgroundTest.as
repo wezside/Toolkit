@@ -1,7 +1,6 @@
 package test.com.wezside.components 
 {
 	import com.wezside.components.UIElement;
-	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
 	import com.wezside.components.shape.Rectangle;

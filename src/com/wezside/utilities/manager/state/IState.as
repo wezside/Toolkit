@@ -24,14 +24,14 @@ package com.wezside.utilities.manager.state
 	 * @author Wesley.Swanepoel
 	 */
 	public interface IState 
-	{
-		
+	{		
 		function get key():String;
 		function set key( value:String ):void;
 		function get reserved():Boolean;
 		function set reserved( value:Boolean ):void;
+		function get data():*;
+		function set data( value:* ):void;
 		function get value():Number;
-		function set value( value:Number ):void;
-		
+		function set value( value:Number ):void;		
 	}
 }

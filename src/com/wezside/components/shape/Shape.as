@@ -65,7 +65,6 @@ package com.wezside.components.shape
 			else
 			{
 				_shape = new Sprite();
-				_shape.name = "root";
 				DisplayObjectContainer( decorated ).addChild( _shape );
 			}
 		}
