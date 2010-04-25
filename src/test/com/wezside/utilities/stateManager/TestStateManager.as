@@ -83,7 +83,7 @@ package test.com.wezside.utilities.stateManager
 			assertEquals( STATE_ROLLOUT, sm.stateKey );
 			sm.stateKey = STATE_SELECTED;
 			assertTrue( sm.compare( STATE_SELECTED+STATE_ROLLOUT ));
-			trace( sm.state );
+
 			sm.stateKey = STATE_ROLLOUT;
 			assertTrue( sm.compare( STATE_ROLLOUT + STATE_SELECTED ));
 
