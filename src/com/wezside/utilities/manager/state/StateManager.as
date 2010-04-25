@@ -65,7 +65,12 @@ package com.wezside.utilities.manager.state
 		{
 			return _state;
 		}
-										
+						
+		/**				
+		 * Set the state key. This method will adhere to the reserved vs non-reserved rules.
+		 * Reserved states are not mutually exclusive, they are allowed to co exist with non-reserved 
+		 * and other reserved states. 
+		 */
 		public function set stateKey( key:String ):void
 		{
 			var state:IState = stateByKey( key );
@@ -113,11 +118,17 @@ package com.wezside.utilities.manager.state
 			return str;
 		}
 
+		/**
+		 * Get the current state base 2 value.
+		 */
 		public function get stateValue():Number
 		{
 			return _state.value;
 		}		
 		
+		/**
+		 * Return all state keys as Array.
+		 */
 		public function get stateKeys():Array
 		{
 			var arr:Array = [];
@@ -146,6 +157,20 @@ package com.wezside.utilities.manager.state
 				return null; 
 		}
 
+		/**
+		 * Use compare if the order of the concatenated states shouldn't matter. 
+		 * Thus compare will return true if the state "abc" is compare to "cba".  
+		 */
+		public function compare( value:String ):Boolean 
+		{
+			var isEqual:Boolean = false;
+			for ( var i:int = 0; i < _states.length; ++i ) 
+				if (( _state.value & _states[i].value ) == _states[i].value )
+					isEqual = value.indexOf( _states[i].key ) != -1;			
+					
+			return isEqual;					
+		}
+
 		public function purge():void
 		{
 			_state = null;
@@ -160,5 +185,6 @@ package com.wezside.utilities.manager.state
 					return _states[i];
 			return null;
 		}		
+
 	}
 }

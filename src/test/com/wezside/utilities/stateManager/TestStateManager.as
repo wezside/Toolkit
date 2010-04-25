@@ -1,5 +1,6 @@
 package test.com.wezside.utilities.stateManager 
 {
+	import org.flexunit.asserts.assertTrue;
 	import org.flexunit.asserts.assertNull;
 	import org.flexunit.asserts.assertEquals;
 	import com.wezside.utilities.manager.state.StateManager;
@@ -80,6 +81,11 @@ package test.com.wezside.utilities.stateManager
 
 			sm.stateKey = STATE_ROLLOUT;
 			assertEquals( STATE_ROLLOUT, sm.stateKey );
+			sm.stateKey = STATE_SELECTED;
+			assertTrue( sm.compare( STATE_SELECTED+STATE_ROLLOUT ));
+
+			sm.stateKey = STATE_ROLLOUT;
+			assertTrue( sm.compare( STATE_ROLLOUT + STATE_SELECTED ));
 
 		}
 				
