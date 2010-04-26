@@ -24,6 +24,7 @@ package com.wezside.components.shape
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 
 	/**
@@ -41,7 +42,6 @@ package com.wezside.components.shape
 		private var _width:Number = 0;
 		private var _height:Number = 0;
 
-
 		protected var decorated:IUIDecorator;
 
 		
@@ -50,7 +50,6 @@ package com.wezside.components.shape
 			this.decorated = decorated;
 		}
 		
-
 		public function iterator( type:String = null ):IIterator
 		{
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
@@ -61,7 +60,7 @@ package com.wezside.components.shape
 			arrange();
 		}
 		
-		public function arrange(event:UIElementEvent = null):void
+		public function arrange( event:UIElementEvent = null ):void
 		{
 			draw();
 		}
