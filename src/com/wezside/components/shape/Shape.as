@@ -22,7 +22,6 @@ package com.wezside.components.shape
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
-	import com.wezside.components.layout.ILayout;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.Sprite;
@@ -33,11 +32,10 @@ package com.wezside.components.shape
 	public class Shape extends Sprite implements IShape 
 	{
 		
-		private var _layout:ILayout;
+
 		private var _cornerRadius:int;
 		private var _borderAlpha:int;
 		private var _borderThickness:int;
-
 		private var _colours:Array = [];
 		private var _alphas:Array = [];
 		private var _width:Number = 0;
@@ -74,16 +72,6 @@ package com.wezside.components.shape
 			decorated.height = height;				
 		}		
 		
-		public function get layout():ILayout
-		{
-			return _layout;
-		}
-		
-		public function set layout(value:ILayout):void
-		{
-			_layout = value;
-		}
-		
 		public function get colours():Array
 		{
 			return _colours;
@@ -102,16 +90,6 @@ package com.wezside.components.shape
 		public function set alphas(value:Array):void
 		{
 			_alphas = value;
-		}
-		
-		
-		public function get background():IShape
-		{
-			return null;
-		}
-		
-		public function set background( value:IShape ):void
-		{
 		}
 		
 		public function get cornerRadius():int

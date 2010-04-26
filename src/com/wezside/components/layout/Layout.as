@@ -63,14 +63,10 @@ package com.wezside.components.layout
 			}
 			decorated.width = width;
 			decorated.height = height;
-			trace( this, decorated, left, top, right, bottom, width, height, horizontalGap, verticalGap );
 
 			// Test for children
-			// ILayout won't have any children 
-			if ( decorated.iterator().hasNext( ))
-			{
-				decorated.arrange();
-			}
+			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
+			if ( decorated.iterator().hasNext( )) decorated.arrange();
 		}
 		
 		public function iterator( type:String = null ):IIterator

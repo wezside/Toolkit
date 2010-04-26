@@ -95,8 +95,7 @@ package test.com.wezside.components
 			uiElement.background = new Rectangle( uiElement );
 			assertNotNull( uiElement.background );
 			
-			uiElement.update();
-			
+			uiElement.update();			
 			assertEquals( 5, uiElement.numChildren );
 		}
 		
@@ -107,8 +106,7 @@ package test.com.wezside.components
 			uiElement.background.width = 200;
 			uiElement.background.height = 200;
 			uiElement.layout = new VerticalLayout( uiElement );
-	
-			
+				
 			uiElement.update( true );
 			assertEquals( 5, uiElement.numChildren );
 		}

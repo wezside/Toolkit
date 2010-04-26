@@ -1,7 +1,7 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
 	import com.wezside.components.shape.Rectangle;
@@ -44,17 +44,18 @@ package test.com.wezside.components
 			sp.filters = [ new DropShadowFilter()];
 			*/
 			
-//			layout = new HorizontalLayout( this );
-//			layout.horizontalGap = 20;
+			layout = new HorizontalLayout( this );
+			layout.horizontalGap = 20;
 						
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
 			
 			layout = new VerticalLayout( this );
-			layout.verticalGap = 3;
-
+			layout.verticalGap = 10;
+			
 			layout = new PaddedLayout( layout ); 
+			layout.verticalGap = 3;
 			layout.bottom = 15;		
 			layout.left = 15;
 			layout.top = 15;
