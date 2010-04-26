@@ -21,7 +21,6 @@ package com.wezside.components.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElementEvent;
-	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.NullIterator;
 
@@ -30,7 +29,7 @@ package com.wezside.components.layout
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Layout extends EventDispatcher implements ILayout, IUIDecorator 
+	public class Layout extends EventDispatcher implements ILayout
 	{
 
 		private var _verticalGap:int;
@@ -41,45 +40,37 @@ package com.wezside.components.layout
 		private var _right:int;
 		private var _width:int;
 		private var _height:int;
-		private var _hasBackground:Boolean;
+		
 		
 		protected var decorated:IUIDecorator;
 
-		public function Layout( decorated:IUIDecorator = null ) 
-		{
+		
+		public function Layout( decorated:IUIDecorator ) 
+		{			
 			this.decorated = decorated;
-			if ( decorated.background )
-			{
-				decorated.background.layout = this;
-				_hasBackground = true;
-			}
-			
-			// If the decorated object is of type ILayout then copy the values over
-			if ( decorated is ILayout )
-			{
-				verticalGap = ILayout( this.decorated ).verticalGap;
-				horizontalGap = ILayout( this.decorated ).horizontalGap;
-				top = ILayout( this.decorated ).top;
-				bottom = ILayout( this.decorated ).bottom;
-				right = ILayout( this.decorated ).right;
-				left = ILayout( this.decorated ).left;
-			}
-			width = decorated.width;
-			height = decorated.height;
-		}
-
-		public function update():void
-		{
-			arrange();
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{			
+			if ( decorated is ILayout )
+			{
+				if ( left != 0 ) ILayout( decorated ).left = left;
+				if ( top != 0 ) ILayout( decorated ).top = top;
+				if ( right != 0 ) ILayout( decorated ).right = right;
+				if ( bottom != 0 ) ILayout( decorated ).bottom = bottom;
+				if ( verticalGap != 0 ) ILayout( decorated ).verticalGap = verticalGap;
+				if ( horizontalGap != 0 ) ILayout( decorated ).verticalGap = horizontalGap;
+			}
+			decorated.width = width;
+			decorated.height = height;
+			trace( this, decorated, left, top, right, bottom, width, height, horizontalGap, verticalGap );
+
+			// Test for children
+			// ILayout won't have any children 
 			if ( decorated.iterator().hasNext( ))
 			{
 				decorated.arrange();
 			}
-			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));
 		}
 		
 		public function iterator( type:String = null ):IIterator
@@ -146,26 +137,6 @@ package com.wezside.components.layout
 		{
 			_verticalGap = value;
 		}
-		
-		public function get layout():ILayout
-		{
-			return null;
-		}
-		
-		public function set layout(value:ILayout):void
-		{
-		
-		}
-		
-		public function get background():IShape
-		{
-			return null;
-		}
-		
-		public function set background(value:IShape):void
-		{
-
-		}
 
 		public function get width():Number
 		{
@@ -186,24 +157,6 @@ package com.wezside.components.layout
 		{
 			_height = value;
 		}
-		
-		public function get filters():Array
-		{
-			return null;
-		}
-		
-		public function set filters(value:Array):void
-		{
-		}
-		
-		public function get hasBackground():Boolean
-		{
-			return _hasBackground;
-		}
-		
-		public function set hasBackground( value:Boolean ):void
-		{
-			_hasBackground = value;
-		}
+
 	}
 }

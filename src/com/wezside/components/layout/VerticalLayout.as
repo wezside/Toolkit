@@ -22,6 +22,7 @@ package com.wezside.components.layout
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
@@ -32,8 +33,7 @@ package com.wezside.components.layout
 	public class VerticalLayout extends Layout 
 	{
 
-		private var yOffset:int;
-
+		private var yOffset:int = 0;
 
 		public function VerticalLayout( decorated:IUIDecorator )
 		{
@@ -41,23 +41,15 @@ package com.wezside.components.layout
 		}
 
 		override public function arrange( event:UIElementEvent = null ):void
-		{
-			super.arrange();
-			var firstChild:DisplayObject;
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
-			if ( iterator.hasNext() )
-			{
-				firstChild = iterator.next() as DisplayObject;
-				yOffset = firstChild.y - verticalGap;
-			}
-			iterator.reset();
-			
-			if ( hasBackground ) iterator.next();
-			
+		{			
+									
 			// Iterate over rest of the children and layout vertically
+			yOffset += top;
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
+				if ( child is IShape ) child = iterator.next() as DisplayObject;
 				if ( child is IUIDecorator )
 				{
 					child.y = yOffset;
@@ -66,8 +58,9 @@ package com.wezside.components.layout
 				}
 			}
 			
-			height = yOffset - verticalGap;
-	 		width = decorated.width;
+			height = yOffset - verticalGap + bottom;
+	 		width = decorated.width + left + right;
+			super.arrange();
 		}
 
 

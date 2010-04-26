@@ -47,16 +47,18 @@ package test.com.wezside.components
 		{
 			mockUIElement.layout = new HorizontalLayout( mockUIElement );	
 			mockUIElement.layout.horizontalGap = 10;	
+			assertEquals( 10, mockUIElement.layout.horizontalGap );
+			
 			mockUIElement.layout = new VerticalLayout( mockUIElement.layout );
 			mockUIElement.layout.verticalGap = 20;	
+			assertEquals( 20, mockUIElement.layout.verticalGap );
+			
 			mockUIElement.layout = new PaddedLayout( mockUIElement.layout );
 			mockUIElement.layout.bottom = 5;		
 			mockUIElement.layout.left = 5;		
 			mockUIElement.layout.top = 5;		
 			mockUIElement.layout.right = 5;
 			
-			assertEquals( 20, mockUIElement.layout.verticalGap );
-			assertEquals( 10, mockUIElement.layout.horizontalGap );
 		}
 		
 		

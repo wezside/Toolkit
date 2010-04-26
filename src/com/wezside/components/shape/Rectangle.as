@@ -22,7 +22,6 @@ package com.wezside.components.shape
 	import com.wezside.components.IUIDecorator;
 
 	import flash.display.GradientType;
-	import flash.display.Sprite;
 	import flash.geom.Matrix;
 
 	/**
@@ -39,34 +38,30 @@ package com.wezside.components.shape
 		override public function draw():void
 		{
 
-			if ( width == 0 ) width = layout.width;
-			if ( height == 0 ) height = layout.height;
-							
-			height += layout.top;
-			height += layout.bottom;
-			width += layout.left;
-			width += layout.right;
+			if ( width == 0 ) width = decorated.width;
+			if ( height == 0 ) height = decorated.height;
 			
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-
-			shape.graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
-			shape.graphics.drawRoundRect( -layout.left, -layout.top, width, height, cornerRadius );
+			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
+			graphics.drawRoundRect( 0, 0, width, height, cornerRadius );
 
 			if ( cornerRadius == 0 )
 			{
-				shape.graphics.lineStyle( borderThickness, 0xffffff, borderAlpha );
-				shape.graphics.moveTo( 0, 0 );
-				shape.graphics.lineTo( width, 0 );
-				shape.graphics.moveTo( 0, 0 );
-				shape.graphics.lineTo( 0, height );
-				shape.graphics.endFill( );
-				shape.graphics.lineStyle( borderThickness, 0x666666, borderAlpha );
-				shape.graphics.moveTo( 0, height );
-				shape.graphics.lineTo( width, height );
-				shape.graphics.moveTo( width, height );
-				shape.graphics.lineTo( width, 0 );
+				graphics.lineStyle( borderThickness, 0xffffff, borderAlpha );
+				graphics.moveTo( 0, 0 );
+				graphics.lineTo( width, 0 );
+				graphics.moveTo( 0, 0 );
+				graphics.lineTo( 0, height );
+				graphics.endFill( );
+				graphics.lineStyle( borderThickness, 0x666666, borderAlpha );
+				graphics.moveTo( 0, height );
+				graphics.lineTo( width, height );
+				graphics.moveTo( width, height );
+				graphics.lineTo( width, 0 );
 			}		
+			
+			super.draw();
 		}
 	}
 }

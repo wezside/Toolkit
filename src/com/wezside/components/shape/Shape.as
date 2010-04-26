@@ -23,10 +23,8 @@ package com.wezside.components.shape
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.layout.ILayout;
-	import com.wezside.components.layout.Layout;
 	import com.wezside.data.iterator.IIterator;
 
-	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 
 	/**
@@ -39,7 +37,6 @@ package com.wezside.components.shape
 		private var _cornerRadius:int;
 		private var _borderAlpha:int;
 		private var _borderThickness:int;
-		private var _shape:Sprite;
 
 		private var _colours:Array = [];
 		private var _alphas:Array = [];
@@ -48,26 +45,13 @@ package com.wezside.components.shape
 
 
 		protected var decorated:IUIDecorator;
-		
+
 		
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
-			this.decorated = decorated;	
-			this.layout = decorated.layout ? decorated.layout : new Layout( this.decorated );
-			
-			if ( decorated is IShape )
-			{			
-				_shape = IShape( decorated ).shape;
-				_shape.graphics.copyFrom( IShape( decorated ).shape.graphics );
-				width = IShape( decorated ).width;
-				height = IShape( decorated ).height;
-			}
-			else
-			{
-				_shape = new Sprite();
-				DisplayObjectContainer( decorated ).addChild( _shape );
-			}
+			this.decorated = decorated;
 		}
+		
 
 		public function iterator( type:String = null ):IIterator
 		{
@@ -75,7 +59,7 @@ package com.wezside.components.shape
 		}
 		
 		public function update():void
-		{
+		{		
 			arrange();
 		}
 		
@@ -83,6 +67,12 @@ package com.wezside.components.shape
 		{
 			draw();
 		}
+		
+		public function draw():void
+		{
+			decorated.width = width;
+			decorated.height = height;				
+		}		
 		
 		public function get layout():ILayout
 		{
@@ -114,9 +104,6 @@ package com.wezside.components.shape
 			_alphas = value;
 		}
 		
-		public function draw():void
-		{
-		}
 		
 		public function get background():IShape
 		{
@@ -156,17 +143,7 @@ package com.wezside.components.shape
 		{
 			_borderThickness = value;
 		}
-		
-		public function get shape():Sprite
-		{
-			return _shape;
-		}
-		
-		public function set shape(value:Sprite):void
-		{
-			_shape = value;
-		}
-		
+
 		override public function set width(value:Number):void 
 		{
 			_width = value;

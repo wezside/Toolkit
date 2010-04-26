@@ -19,6 +19,7 @@
  */
 package com.wezside.components.layout 
 {
+	import com.wezside.components.shape.IShape;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
@@ -32,7 +33,7 @@ package com.wezside.components.layout
 	public class HorizontalLayout extends Layout 
 	{
 		
-		private var xOffset:int;
+		private var xOffset:int = 0;
 
 		public function HorizontalLayout( decorated:IUIDecorator )
 		{
@@ -41,20 +42,14 @@ package com.wezside.components.layout
 
 		override public function arrange( event:UIElementEvent = null ):void
 		{
-			super.arrange();
-
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			if ( iterator.hasNext() )
-			{
-				var firstChild:DisplayObject = iterator.next() as DisplayObject;
-				xOffset = firstChild.x - horizontalGap;
-			}
-			iterator.reset();
-						
+			
 			// Iterate over rest of the children and layout horizontally
+			xOffset += left;
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
+				if ( child is IShape ) child = iterator.next() as DisplayObject;
 				if ( child is IUIDecorator )
 				{				
 					child.x = xOffset;
@@ -62,9 +57,10 @@ package com.wezside.components.layout
 					if ( iterator.hasNext() ) xOffset += horizontalGap;
 				}
 			}			
-			
-			width = xOffset - horizontalGap;
-	 		height = decorated.height;			
+
+			width = xOffset - horizontalGap + right;
+	 		height = decorated.height + left + right;			
+			super.arrange();
 		}	
 
 		override public function iterator( type:String = null ):IIterator

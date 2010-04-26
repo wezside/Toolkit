@@ -22,12 +22,16 @@ package com.wezside.components.layout
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
+	 * 
+	 * At firt the Padding lyout may seem redundant but it is necessary to udpate the children 
+	 * with the padding to keep any shapes at the correct coordinates. 
 	 */
 	public class PaddedLayout extends Layout 
 	{
@@ -40,22 +44,24 @@ package com.wezside.components.layout
 
 		
 		override public function arrange( event:UIElementEvent = null ):void
-		{
-			super.arrange();
-
+		{	
+			
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				child.x += left;
-				child.y += top;
+				if ( child is IShape ) child = iterator.next() as DisplayObject;
+				if ( child is IUIDecorator )
+				{
+					child.x += left;
+					child.y += top;
+				}
 			}
 	
-			if ( decorated is ILayout )
-			{
-				width = ILayout( decorated ).width;
-				height = ILayout( decorated ).height;
-			}
+			width = decorated.width + left + right;
+			height = decorated.height + top + bottom;
+			super.arrange();			
+			
 		}
 
 		override public function iterator( type:String = null ):IIterator

@@ -28,8 +28,6 @@ package com.wezside.components.shape
 	 */
 	public interface IShape extends IUIDecorator 
 	{
-		function get shape():Sprite;
-		function set shape( value:Sprite ):void;
 		
 		function get colours():Array
 		function set colours( value:Array ):void

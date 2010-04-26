@@ -1,10 +1,10 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.shape.Rectangle;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.HorizontalLayout;
-	import com.wezside.components.layout.Layout;
+	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
+	import com.wezside.components.shape.Rectangle;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
@@ -22,7 +22,29 @@ package test.com.wezside.components
 		public function setUp():void
 		{
 			uiElement = new UIElement();
+			hbox = new UIElement();			
+			hbox.background = new Rectangle( hbox );
+			hbox.background.colours = [ 0xff0000, 0xff0000 ];
+			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
+			uiElement.addChild( hbox );	
+			
 			hbox = new UIElement();
+			hbox.background = new Rectangle( hbox );
+			hbox.background.colours = [ 0xff0000, 0xff0000 ];
+			hbox.background.alphas = [ 1, 1 ];
+			hbox.background.width = 200;
+			hbox.background.height = 50;
+			uiElement.addChild( hbox );			
+			
+			hbox = new UIElement();
+			hbox.background = new Rectangle( hbox );
+			hbox.background.colours = [ 0xff0000, 0xff0000 ];
+			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
+			uiElement.addChild( hbox );						
 		}
 		
 		[After]
@@ -38,18 +60,19 @@ package test.com.wezside.components
 		[Test]
 		public function testLayoutDecorators():void
 		{
-			assertNull( uiElement.layout );				
-			assertEquals( 0, uiElement.numChildren );	
+			assertNotNull( uiElement.layout );				
+			assertEquals( 3, uiElement.numChildren );	
 			
 			// Create first layout decorator
 			uiElement.layout = new HorizontalLayout( uiElement );
 			uiElement.layout.horizontalGap = 10;
 			assertNotNull( uiElement.layout );
+			assertEquals( 10, uiElement.layout.horizontalGap );
 			
 			uiElement.layout = new VerticalLayout( uiElement.layout );
 			uiElement.layout.verticalGap = 15;
 		
-			assertEquals( 10, uiElement.layout.horizontalGap );
+			assertEquals( 0, uiElement.layout.horizontalGap );
 			assertEquals( 15, uiElement.layout.verticalGap );
 			
 			// Test commutiveness
@@ -59,7 +82,7 @@ package test.com.wezside.components
 			uiElement.layout = new VerticalLayout( uiElement.layout );
 			uiElement.layout.verticalGap = 15;
 			
-			assertEquals( 10, uiElement.layout.horizontalGap );
+			assertEquals( 0, uiElement.layout.horizontalGap );
 			assertEquals( 15, uiElement.layout.verticalGap );
 		}
 		
@@ -67,71 +90,124 @@ package test.com.wezside.components
 		public function testShapeDecorators():void
 		{
 			assertNull( uiElement.background );	
-			assertEquals( 0, uiElement.numChildren );	
+			assertEquals( 3, uiElement.numChildren );	
 			
 			uiElement.background = new Rectangle( uiElement );
 			assertNotNull( uiElement.background );
 			
 			uiElement.update();
 			
-			assertEquals( 3, uiElement.numChildren );
+			assertEquals( 5, uiElement.numChildren );
 		}
 		
 		[Test]
-		public function testShapeMixLayout():void
+		public function testVerticalLayout():void
 		{
 			uiElement.background = new Rectangle( uiElement );
 			uiElement.background.width = 200;
 			uiElement.background.height = 200;
 			uiElement.layout = new VerticalLayout( uiElement );
-						
-			hbox = new UIElement();			
-			hbox.background = new Rectangle( hbox );
-			hbox.background.colours = [ 0xff0000, 0xff0000 ];
-			hbox.background.alphas = [ 1, 1 ];			
-			hbox.background.width = 200;
-			hbox.background.height = 50;
-			uiElement.addChild( hbox );		
-			
-			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
-			hbox.background.colours = [ 0xff0000, 0xff0000 ];
-			hbox.background.alphas = [ 1, 1 ];			
-			hbox.background.width = 200;
-			hbox.background.height = 50;
-			uiElement.addChild( hbox );			
-			
-			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
-			hbox.background.colours = [ 0xff0000, 0xff0000 ];
-			hbox.background.alphas = [ 1, 1 ];			
-			hbox.background.width = 200;
-			hbox.background.height = 50;
-			uiElement.addChild( hbox );			
+	
 			
 			uiElement.update( true );
+			assertEquals( 5, uiElement.numChildren );
+		}
+		
+		[Test]
+		public function testPadding():void
+		{
+			uiElement.x = 20;
+			uiElement.y = 20;
+
+			uiElement.layout = new PaddedLayout( uiElement );
+			uiElement.layout.top = 15;		
+			uiElement.layout.left = 15;		
+			uiElement.layout.bottom = 15;		
+			uiElement.layout.right = 15;							
 			
+			uiElement.background = new Rectangle( uiElement );
+			uiElement.background.colours = [0,0];
+			uiElement.background.alphas = [1,1];
+						
+			uiElement.update( true );
+			dumpChildren();
+			assertEquals( 5, uiElement.numChildren );
+			assertEquals( 20, uiElement.x );
+			assertEquals( 20, uiElement.y );
+			assertEquals( 0, uiElement.getChildAt(0).x );
+			assertEquals( 0, uiElement.getChildAt(0).y );
+			assertEquals( 15+15+200, uiElement.width );
+			assertEquals( 15+15+50, uiElement.height );
+		}
+		
+		[Test]
+		public function testPaddingWithVerticalLayout():void	
+		{
+			
+			uiElement.x = 20;
+			uiElement.y = 20;
+			
+			uiElement.background = new Rectangle( uiElement );
+			uiElement.background.colours = [0,0];
+			uiElement.background.alphas = [1,1];	
+			
+			uiElement.layout = new PaddedLayout( uiElement );
+			uiElement.layout.top = 15;		
+			uiElement.layout.left = 15;		
+			uiElement.layout.bottom = 15;		
+			uiElement.layout.right = 15;
+					
+			uiElement.layout = new VerticalLayout( uiElement.layout );
+			uiElement.layout.verticalGap = 5;
+			uiElement.update( true );			
+						
+			assertEquals( 5, uiElement.numChildren );						
+			assertEquals( 20, uiElement.x );
+			assertEquals( 20, uiElement.y );
+			assertEquals( 15, uiElement.getChildAt(1).y );
+			assertEquals( 70, uiElement.getChildAt(2).y );
+			assertEquals( 125, uiElement.getChildAt(3).y );
+			assertEquals( 15, uiElement.getChildAt(1).x );
+			assertEquals( 190, int( uiElement.height ));
+		}
+		
+		
+		[Test]
+		public function testPaddingWithHorizontalLayout():void	
+		{
+			
+			uiElement.x = 20;
+			uiElement.y = 20;
+			
+			uiElement.background = new Rectangle( uiElement );
+			uiElement.background.colours = [0,0];
+			uiElement.background.alphas = [1,1];	
+					
+			uiElement.layout = new PaddedLayout( uiElement );
+			uiElement.layout.top = 15;		
+			uiElement.layout.left = 15;		
+			uiElement.layout.bottom = 15;		
+			uiElement.layout.right = 15;				
+			
+			uiElement.layout = new HorizontalLayout( uiElement.layout );
+			uiElement.update( true );
+						
+			assertEquals( 5, uiElement.numChildren );						
+			assertEquals( 20, uiElement.x );
+			assertEquals( 20, uiElement.y );
+			assertEquals( 15, uiElement.getChildAt(1).x );
+			assertEquals( 215, uiElement.getChildAt(2).x );
+			assertEquals( 415, uiElement.getChildAt(3).x );
+			assertEquals( 630, uiElement.width );
+		}
+		
+		private function dumpChildren():void
+		{
 			for ( var i:int = 0; i < uiElement.numChildren; ++i ) 
 			{
-				trace( uiElement.getChildAt(i) );	
-			}
-			
-			assertEquals( 6, uiElement.numChildren );
-		/*
-		 *  [object Rectangle]
-			[object Sprite]
-			[object UIElement]
-			[object UIElement]
-			[object UIElement]
-			com.wezside.components::UIElementSkin
-		 */
-			
-			assertEquals( 0, uiElement.getChildAt(0).y );				
-			assertEquals( 0, uiElement.getChildAt(1).y );				
-			assertEquals( 0, uiElement.getChildAt(2).y );
-			assertEquals( 50, uiElement.getChildAt(3).y );
-			assertEquals( 100, uiElement.getChildAt(4).y );
-			assertEquals( 0, uiElement.getChildAt(5).y );
+				trace( uiElement.getChildAt(i), uiElement.getChildAt(i).x, uiElement.getChildAt(i).y,
+					   uiElement.getChildAt(i).width, uiElement.getChildAt(i).height );	
+			}			
 		}
 	}
 }

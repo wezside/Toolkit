@@ -1,5 +1,6 @@
 package test.com.wezside.components 
 {
+	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
@@ -43,28 +44,27 @@ package test.com.wezside.components
 			sp.filters = [ new DropShadowFilter()];
 			*/
 			
-		 			
 //			layout = new HorizontalLayout( this );
-//			layout.horizontalGap = 5;
-
+//			layout.horizontalGap = 20;
+						
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
-			background.alphas = [1,1];
-							
+			background.alphas = [ 1, 1 ];
+			
 			layout = new VerticalLayout( this );
-			layout.verticalGap = 5;			
-			
-			layout = new PaddedLayout( layout );
-			layout.bottom = 5;		
-			layout.left = 5;		
-			layout.top = 5;		
-			layout.right = 5;
-						
-			
+			layout.verticalGap = 3;
+
+			layout = new PaddedLayout( layout ); 
+			layout.bottom = 15;		
+			layout.left = 15;
+			layout.top = 15;
+			layout.right = 15;
+
 //			background = new Resizer( background );
-//			background = new ShapeFilter( background ); 			
+//			background = new ShapeFilter( background ); 				
 						
 			super.update( true );
+
 		}
 
 		override public function build():void

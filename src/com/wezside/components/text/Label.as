@@ -91,7 +91,7 @@ package com.wezside.components.text
 		
 		override public function get width():Number
 		{
-			return int( field.textWidth );
+			return field ? int( field.textWidth ) : 0;
 		}
 		
 		override public function set width( value:Number ):void
@@ -101,7 +101,7 @@ package com.wezside.components.text
 		
 		override public function get height():Number
 		{
-			return int( field.textHeight );
+			return field ? int( field.textHeight ) : 0;
 		}
 		
 		override public function set height( value:Number ):void

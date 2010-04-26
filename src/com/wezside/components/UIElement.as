@@ -64,6 +64,7 @@ package com.wezside.components
 		public function UIElement() 
 		{
 			_skin = new UIElementSkin();
+			_layout = new Layout( this );
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
