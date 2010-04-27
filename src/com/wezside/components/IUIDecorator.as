@@ -7,13 +7,7 @@ package com.wezside.components
 	 */
 	public interface IUIDecorator 
 	{
-//		
-//		function get background():IShape
-//		function set background( value:IShape ):void
-//		
-//		function get layout():ILayout
-//		function set layout( value:ILayout ):void
-				
+
 		function get width():Number
 		function set width( value:Number ):void
 		

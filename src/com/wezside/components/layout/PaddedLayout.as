@@ -51,23 +51,14 @@ package com.wezside.components.layout
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
 				if ( child is IShape ) child = iterator.next() as DisplayObject;
-				if ( child is IUIDecorator )
-				{
-					child.x += left;
-					child.y += top;
-				}
+				child.x += left;
+				child.y += top;
 			}
 	
 			width = decorated.width + left + right;
 			height = decorated.height + top + bottom;
-			super.arrange();			
 			
+			super.arrange();
 		}
-
-		override public function iterator( type:String = null ):IIterator
-		{
-			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
-		}
-
 	}
 }

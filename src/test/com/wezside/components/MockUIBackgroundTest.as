@@ -1,11 +1,11 @@
 package test.com.wezside.components 
 {
 	import com.wezside.components.UIElement;
-	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
 	import com.wezside.components.shape.Rectangle;
 
+	import flash.display.Sprite;
 	import flash.events.Event;
 
 	/**
@@ -23,49 +23,30 @@ package test.com.wezside.components
 			addEventListener( Event.ADDED_TO_STAGE, initStage );
 		}
 
-
-		private function initStage(event:Event):void 
+		private function initStage( event:Event ):void 
 		{
 			x = 20;
-			y = 20;
-			
-			/*
-			var sp:Sprite = new Sprite();
-			addChild( sp );
-			var matrix:Matrix = new Matrix();
-			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-			sp.graphics.beginGradientFill( GradientType.LINEAR,  [ 0xFF00FB, 0xFFFFFF ], [1,1], [ 0,255 ], matrix );
-			sp.graphics.drawRoundRect( 0, 0, 200, 100, 10 );			
-
-			matrix = new Matrix();
-			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-			sp.graphics.beginGradientFill( GradientType.LINEAR,  [ 0xFFFFFF, 0 ], [0, 1], [0,255 ], matrix );
-			sp.graphics.drawRoundRect( 0, 30, 200, 100, 10 );				
-			sp.filters = [ new DropShadowFilter()];
-			*/
-			
-			layout = new HorizontalLayout( this );
-			layout.horizontalGap = 20;
-						
-			background = new Rectangle( this );
-			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1 ];
+			y = 20;			
 			
 			layout = new VerticalLayout( this );
-			layout.verticalGap = 10;
-			
-			layout = new PaddedLayout( layout ); 
 			layout.verticalGap = 3;
+
+			layout = new PaddedLayout( layout ); 
 			layout.bottom = 15;		
 			layout.left = 15;
 			layout.top = 15;
 			layout.right = 15;
-
+			
+			background = new Rectangle( this );
+			background.colours = [ 0, 0 ];
+			background.alphas = [ 1, 1 ];
+			
+//			layout = new HScroller( layout );
+//			layout = new VScroller( layout );
 //			background = new Resizer( background );
 //			background = new ShapeFilter( background ); 				
 						
 			super.update( true );
-
 		}
 
 		override public function build():void
@@ -96,6 +77,12 @@ package test.com.wezside.components
 			hbox.background.width = 200;
 			hbox.background.height = 50;
 			addChild( hbox );
+			
+			var sp:Sprite = new Sprite();
+			sp.graphics.beginFill( 0xAEFBB );
+			sp.graphics.drawRect(0, 0, 200, 50 );
+			sp.graphics.endFill();
+			addChild( sp );
 			
 		}
 	

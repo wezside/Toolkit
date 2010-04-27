@@ -26,7 +26,6 @@ package com.wezside.components
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
 	import com.wezside.components.shape.IShape;
-	import com.wezside.components.shape.Shape;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
@@ -87,7 +86,7 @@ package com.wezside.components
 				{
 					var child:* = iter.next();
 					if ( child is IUIElement ) 
-						UIElement( child ).update();
+						UIElement( child ).update( recurse );
 				}
 			}	
 			arrange();						

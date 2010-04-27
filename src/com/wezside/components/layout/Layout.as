@@ -20,9 +20,9 @@
 package com.wezside.components.layout 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.data.iterator.NullIterator;
 
 	import flash.events.EventDispatcher;
 
@@ -51,19 +51,19 @@ package com.wezside.components.layout
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
-		{			
+		{
 			if ( decorated is ILayout )
-			{
+			{								
 				if ( left != 0 ) ILayout( decorated ).left = left;
 				if ( top != 0 ) ILayout( decorated ).top = top;
 				if ( right != 0 ) ILayout( decorated ).right = right;
 				if ( bottom != 0 ) ILayout( decorated ).bottom = bottom;
 				if ( verticalGap != 0 ) ILayout( decorated ).verticalGap = verticalGap;
-				if ( horizontalGap != 0 ) ILayout( decorated ).verticalGap = horizontalGap;
+				if ( horizontalGap != 0 ) ILayout( decorated ).horizontalGap = horizontalGap;
 			}
-			decorated.width = width;
-			decorated.height = height;
-
+			if ( width != 0 ) decorated.width = width;
+			if ( height != 0 ) decorated.height = height;
+		
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
 			if ( decorated.iterator().hasNext( )) decorated.arrange();
@@ -71,7 +71,7 @@ package com.wezside.components.layout
 		
 		public function iterator( type:String = null ):IIterator
 		{
-			return new NullIterator( );
+			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
 		
 		public function get top():int

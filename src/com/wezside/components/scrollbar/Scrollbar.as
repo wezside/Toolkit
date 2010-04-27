@@ -1,21 +1,52 @@
 package com.wezside.components.scrollbar 
 {
-	import flash.display.Sprite;
+	import flash.display.DisplayObjectContainer;
+	import flash.events.MouseEvent;
+
+	import com.wezside.components.UIElement;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Scrollbar extends Sprite 
+	public class Scrollbar extends UIElement
 	{
+		private var _thumb:DisplayObjectContainer;
+		private var _trackHeight:Number;
 		
-		
-		public static const NONE:String = "none";
-		public static const VERTICAL:String = "vertical";
-		public static const HORIZONTAL:String = "horizontal";
-		
+		private var yMax:Number;
+		private var yMin:int;
+		private var yOffset:Number;
+
 		
 		public function Scrollbar()
 		{
+			yMin = 0;
+			yMax = _trackHeight - _thumb.height;
 		}
+		
+		private function thumbUp( event:MouseEvent ):void
+		{
+			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
+		}
+
+		private function thumbDown( event:MouseEvent ):void
+		{
+			stage.addEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
+			yOffset = mouseY - _thumb.y;
+		}
+
+		private function thumbMove( event:MouseEvent ):void 
+		{
+			_thumb.y = mouseY - yOffset;
+			if ( _thumb.y <= yMin ) _thumb.y = yMin;
+			if ( _thumb.y >= yMax ) _thumb.y = yMax;
+			
+			var sp:Number = _thumb.y / yMax;
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, sp ));
+			
+			event.updateAfterEvent();
+		}
+		
+		
 	}
 }

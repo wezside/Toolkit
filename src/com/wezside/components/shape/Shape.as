@@ -24,7 +24,6 @@ package com.wezside.components.shape
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
-	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 
 	/**

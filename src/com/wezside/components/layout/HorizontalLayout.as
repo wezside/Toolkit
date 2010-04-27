@@ -50,14 +50,10 @@ package com.wezside.components.layout
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
 				if ( child is IShape ) child = iterator.next() as DisplayObject;
-				if ( child is IUIDecorator )
-				{				
-					child.x = xOffset;
-					xOffset += child.width;
-					if ( iterator.hasNext() ) xOffset += horizontalGap;
-				}
+				child.x = xOffset;
+				xOffset += child.width;
+				if ( iterator.hasNext() ) xOffset += horizontalGap;
 			}			
-
 			width = xOffset - horizontalGap + right;
 	 		height = decorated.height + left + right;			
 			super.arrange();
