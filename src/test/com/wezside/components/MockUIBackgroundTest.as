@@ -3,6 +3,7 @@ package test.com.wezside.components
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
+	import com.wezside.components.scroll.VScroll;
 	import com.wezside.components.shape.Rectangle;
 
 	import flash.display.Sprite;
@@ -16,7 +17,7 @@ package test.com.wezside.components
 		
 		private var hbox:UIElement;
 
-
+		
 		public function MockUIBackgroundTest()
 		{
 			super();
@@ -39,13 +40,15 @@ package test.com.wezside.components
 			
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1 ];
+			background.alphas = [ 1, 1];
 			
-//			layout = new HScroller( layout );
-//			layout = new VScroller( layout );
+			scroll = new VScroll( this );
+			scroll.scrollHeight = 100; 
+			scroll.horizontalGap = 5;			
+
 //			background = new Resizer( background );
 //			background = new ShapeFilter( background ); 				
-						
+			
 			super.update( true );
 		}
 
@@ -57,7 +60,7 @@ package test.com.wezside.components
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xff0000, 0xff0000 ];
-			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
 			addChild( hbox );
@@ -65,7 +68,7 @@ package test.com.wezside.components
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xFF5100, 0xFF5100 ];
-			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.alphas = [ 0.3, 0.3];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
 			addChild( hbox );
@@ -73,13 +76,13 @@ package test.com.wezside.components
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xFFF300, 0xFFF300 ];
-			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
 			addChild( hbox );
 			
 			var sp:Sprite = new Sprite();
-			sp.graphics.beginFill( 0xAEFBB );
+			sp.graphics.beginFill( 0xEEEEE );
 			sp.graphics.drawRect(0, 0, 200, 50 );
 			sp.graphics.endFill();
 			addChild( sp );

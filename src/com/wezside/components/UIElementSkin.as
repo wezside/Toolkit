@@ -20,7 +20,6 @@ package com.wezside.components
 		private var _disabledSkin:DisplayObject;
 
 
-
 		public function setSkin( visibleStates:Array ):void
 		{
 			reset();

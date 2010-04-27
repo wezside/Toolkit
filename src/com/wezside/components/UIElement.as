@@ -23,6 +23,7 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.components.scroll.IScroll;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
 	import com.wezside.components.shape.IShape;
@@ -58,8 +59,8 @@ package com.wezside.components
 		private var _currentStyleName:String;
 		private var _layout:ILayout;
 		private var _background:IShape;
+		private var _scroll:IScroll;
 
-		
 		public function UIElement() 
 		{
 			_skin = new UIElementSkin();
@@ -78,7 +79,6 @@ package com.wezside.components
 		{
 			build();
 			setStyle();
-			
 			if ( recurse )
 			{
 				var iter:IIterator = iterator( ITERATOR_CHILDREN );
@@ -95,6 +95,7 @@ package com.wezside.components
 		public function build():void
 		{
 			if ( _background ) addChildAt( _background as DisplayObject, 0 );
+			if ( _scroll ) addChild( _scroll as DisplayObject );
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
@@ -174,7 +175,17 @@ package com.wezside.components
 		{
 			_background = value;
 		}		
-
+		
+		public function get scroll():IScroll
+		{
+			return _scroll;
+		}
+		
+		public function set scroll( value:IScroll ):void
+		{
+			_scroll = value;
+		}
+	
 		public function purge():void
 		{
 			var iter:IIterator = iterator( ITERATOR_CHILDREN );

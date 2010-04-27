@@ -19,6 +19,7 @@
  */
 package com.wezside.components.layout 
 {
+	import com.wezside.components.scroll.IScroll;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
@@ -34,6 +35,7 @@ package com.wezside.components.layout
 	{
 
 		private var yOffset:int = 0;
+		private var scroller:IScroll;
 
 		public function VerticalLayout( decorated:IUIDecorator )
 		{
@@ -50,11 +52,11 @@ package com.wezside.components.layout
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
 				if ( child is IShape ) child = iterator.next() as DisplayObject;
+				
 				child.y = yOffset;
 				yOffset += child.height;
 				if ( iterator.hasNext() ) yOffset += verticalGap;
 			}
-	
 			
 			height = yOffset - verticalGap + bottom;
 	 		width = decorated.width + left + right;

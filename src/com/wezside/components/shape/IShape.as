@@ -21,8 +21,6 @@ package com.wezside.components.shape
 {
 	import com.wezside.components.IUIDecorator;
 
-	import flash.display.Sprite;
-
 	/**
 	 * @author Wesley.Swanepoel
 	 */
@@ -44,6 +42,6 @@ package com.wezside.components.shape
 		function get borderThickness():int
 		function set borderThickness( value:int ):void
 		
-		function draw():void;
+		function draw():void
 	}
 }

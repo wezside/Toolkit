@@ -1,4 +1,4 @@
-package com.wezside.components.scrollbar 
+package com.wezside.components.scroll 
 {
 	import flash.events.Event;
 
@@ -8,9 +8,9 @@ package com.wezside.components.scrollbar
 	public class ScrollEvent extends Event 
 	{
 
+		public var percent:Number;
 		public static const CHANGE:String = "scrollValueChange"; 
 
-		private var percent:Number;
 		
 		public function ScrollEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, percent:Number = 0 )
 		{

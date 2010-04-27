@@ -1,4 +1,4 @@
-package com.wezside.components.scrollbar 
+package com.wezside.components.scroll 
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
@@ -22,6 +22,8 @@ package com.wezside.components.scrollbar
 		{
 			yMin = 0;
 			yMax = _trackHeight - _thumb.height;
+			_thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumbDown );			
+			stage.addEventListener(MouseEvent.MOUSE_UP, thumbUp );			
 		}
 		
 		private function thumbUp( event:MouseEvent ):void

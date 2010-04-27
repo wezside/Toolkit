@@ -1,5 +1,6 @@
 package test.com.wezside.components 
 {
+	import com.wezside.components.scroll.VScroll;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.layout.PaddedLayout;
@@ -198,6 +199,25 @@ package test.com.wezside.components
 			assertEquals( 415, uiElement.getChildAt(3).x );
 			assertEquals( 630, uiElement.width );
 		}
+		
+		
+		[Test]
+		public function testVScroll():void
+		{
+			uiElement.layout = new VerticalLayout( uiElement );
+			
+			uiElement.background = new Rectangle( uiElement );
+			uiElement.background.colours = [0,0];
+			uiElement.background.alphas = [1,1];
+							
+			uiElement.scroll = new VScroll( uiElement );
+			uiElement.update( true );
+			assertEquals( 6, uiElement.numChildren );
+			
+			trace("---------------------", "testVScroll", "---------------------");
+			dumpChildren();
+			trace( "---------------------", "end", "---------------------");
+		}		
 		
 		private function dumpChildren():void
 		{

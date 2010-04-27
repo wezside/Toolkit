@@ -41,7 +41,6 @@ package com.wezside.components.layout
 		private var _width:int;
 		private var _height:int;
 		
-		
 		protected var decorated:IUIDecorator;
 
 		
@@ -153,6 +152,5 @@ package com.wezside.components.layout
 		{
 			_height = value;
 		}
-
 	}
 }

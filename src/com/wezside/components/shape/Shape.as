@@ -54,11 +54,6 @@ package com.wezside.components.shape
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
 		
-		public function update():void
-		{		
-			arrange();
-		}
-		
 		public function arrange( event:UIElementEvent = null ):void
 		{
 			draw();
