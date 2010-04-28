@@ -1,5 +1,6 @@
 package test.com.wezside.components 
 {
+	import flash.display.StageScaleMode;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
@@ -26,9 +27,10 @@ package test.com.wezside.components
 
 		private function initStage( event:Event ):void 
 		{
+			
 			x = 20;
 			y = 20;			
-			
+						
 			layout = new VerticalLayout( this );
 			layout.verticalGap = 3;
 
@@ -38,16 +40,13 @@ package test.com.wezside.components
 			layout.top = 15;
 			layout.right = 15;
 			
+			scroll = new VScroll( this );
+			scroll.scrollHeight = 150; 
+			scroll.horizontalGap = 2;
+
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1];
-			
-			scroll = new VScroll( this );
-			scroll.scrollHeight = 100; 
-			scroll.horizontalGap = 5;			
-
-//			background = new Resizer( background );
-//			background = new ShapeFilter( background ); 				
+			background.alphas = [ 1, 1 ];
 			
 			super.update( true );
 		}

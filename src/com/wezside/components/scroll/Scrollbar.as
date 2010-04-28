@@ -44,8 +44,7 @@ package com.wezside.components.scroll
 			if ( _thumb.y >= yMax ) _thumb.y = yMax;
 			
 			var sp:Number = _thumb.y / yMax;
-			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, sp ));
-			
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, sp ));			
 			event.updateAfterEvent();
 		}
 		

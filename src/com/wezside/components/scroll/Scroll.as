@@ -1,43 +1,48 @@
 package com.wezside.components.scroll 
 {
 	import com.wezside.components.IUIDecorator;
-	import com.wezside.components.UIElement;
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.NullIterator;
 
+	import flash.display.Sprite;
+
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Scroll extends UIElement implements IScroll
+	public class Scroll extends Sprite implements IScroll
 	{
 		
 		private var _scrollHeight:int;
 		private var _target:IUIDecorator;
-		private var _width:Number;
-		private var _height:Number;
-		private var _horizontalGap:Number;
-
-		protected var decorated:IUIDecorator;
+		private var _width:Number = 0;
+		private var _height:Number = 0;
+		private var _thumb:IUIElement;
+		private var _track:IUIElement;
+		private var _horizontalGap:int;
 		
+		protected var decorated:IUIDecorator;
+
 		public function Scroll( decorated:IUIDecorator = null )
 		{
 			this.decorated = decorated;
 		}
-		
-		override public function iterator( type:String = null ):IIterator
+
+		public function iterator( type:String = null ):IIterator
 		{
 			return new NullIterator();
 		}
 		
-		override public function arrange( event:UIElementEvent = null ):void
+		public function arrange( event:UIElementEvent = null ):void
 		{
-			super.arrange();
 			draw();
 		}
 		
 		public function draw():void
 		{
+			decorated.width = width;
+			decorated.height = height;				
 		}				
 		
 		public function get scrollHeight():int
@@ -60,16 +65,6 @@ package com.wezside.components.scroll
 			_target = value;
 		}
 		
-		public function get horizontalGap():int
-		{
-			return _horizontalGap;
-		}
-		
-		public function set horizontalGap( value:int ):void
-		{
-			_horizontalGap = value;
-		}
-		
 		override public function set width(value:Number):void 
 		{
 			_width = value;
@@ -88,6 +83,36 @@ package com.wezside.components.scroll
 		override public function get height():Number 
 		{
 			return _height;
+		}
+		
+		public function get thumb():IUIElement
+		{
+			return _thumb;
+		}
+		
+		public function set thumb( value:IUIElement ):void
+		{
+			_thumb = value;
+		}
+		
+		public function get track():IUIElement
+		{
+			return _track;
+		}
+		
+		public function set track( value:IUIElement ):void
+		{
+			_track = value;
+		}
+		
+		public function get horizontalGap():int
+		{
+			return _horizontalGap;
+		}
+		
+		public function set horizontalGap(value:int):void
+		{
+			_horizontalGap = value;
 		}
 	}
 }

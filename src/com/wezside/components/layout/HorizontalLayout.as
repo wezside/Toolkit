@@ -49,7 +49,6 @@ package com.wezside.components.layout
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				if ( child is IShape ) child = iterator.next() as DisplayObject;
 				child.x = xOffset;
 				xOffset += child.width;
 				if ( iterator.hasNext() ) xOffset += horizontalGap;

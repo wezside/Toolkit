@@ -23,6 +23,8 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.components.layout.ILayout;
+	import com.wezside.components.shape.IShape;
 	import com.wezside.utilities.manager.style.IStyleManager;
 
 	import flash.text.StyleSheet;
@@ -30,7 +32,7 @@ package com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IUIElement 
+	public interface IUIElement extends IUIDecorator
 	{
 		
 		 function get styleManager():IStyleManager;
@@ -43,8 +45,14 @@ package com.wezside.components
 		 function set skin( value:IUIElementSkin ):void;
 		 function get inheritCSS():Boolean;
 		 function set inheritCSS( value:Boolean ):void;
-
-						 
+		 function get x():Number;
+		 function set x( value:Number ):void;
+		 function get y():Number;
+		 function set y( value:Number ):void;
+		 function get background():IShape;
+		 function set background( value:IShape ):void;
+		 function get layout():ILayout;
+		 function set layout( value:ILayout ):void;
 		 function hasOwnProperty( V:* = undefined ):Boolean;
 		 
 		 function build():void;

@@ -46,10 +46,6 @@ package com.wezside.components.layout
 		
 		function get verticalGap():int
 		function set verticalGap( value:int ):void		
-
-		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
-		function dispatchEvent( event:Event ):Boolean;
-		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
-		function hasEventListener( type:String ):Boolean;		
+	
 	}
 }

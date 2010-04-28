@@ -23,9 +23,10 @@
  */
 package com.wezside.components 
 {
-	import com.wezside.components.scroll.IScroll;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
+	import com.wezside.components.scroll.IScroll;
+	import com.wezside.components.scroll.ScrollEvent;
 	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
@@ -45,8 +46,9 @@ package com.wezside.components
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
-	public class UIElement extends Sprite implements IUIElement, IUIDecorator
+	public class UIElement extends Sprite implements IUIElement
 	{
+		
 		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";
 		public static const ITERATOR_CHILDREN:String = "ITERATOR_CHILDREN";
 
@@ -60,11 +62,13 @@ package com.wezside.components
 		private var _layout:ILayout;
 		private var _background:IShape;
 		private var _scroll:IScroll;
+		private var _childrenContainer:Sprite;
 
 		public function UIElement() 
 		{
 			_skin = new UIElementSkin();
 			_layout = new Layout( this );
+			_childrenContainer = new Sprite();
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
@@ -75,6 +79,11 @@ package com.wezside.components
 			_stateManager.stateKey = UIElementState.STATE_VISUAL_UP;
 		}		
 		
+		override public function addChild(child:DisplayObject):DisplayObject 
+		{
+			return _childrenContainer.addChild( child );
+		}
+
 		public function update( recurse:Boolean = false ):void
 		{
 			build();
@@ -89,19 +98,35 @@ package com.wezside.components
 						UIElement( child ).update( recurse );
 				}
 			}	
-			arrange();						
+			arrange();	
 		}		
 		
 		public function build():void
 		{
-			if ( _background ) addChildAt( _background as DisplayObject, 0 );
-			if ( _scroll ) addChild( _scroll as DisplayObject );
+			if ( _background ) super.addChildAt( _background as DisplayObject, 0 );
+			if ( _scroll ) super.addChild( _scroll as DisplayObject );
+			super.addChild( _childrenContainer );
 		}
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{
 			if ( _layout ) _layout.arrange();
 			if ( _background ) _background.arrange();
+			if ( _scroll )
+			{
+				_scroll.arrange();
+				drawScrollMask();
+			}
+		}
+
+		private function drawScrollMask():void 
+		{
+			var scrollMask:Sprite = new Sprite();
+			scrollMask.graphics.beginFill( 0xefefef );
+			scrollMask.graphics.drawRect( 0, 0, width, _scroll.scrollHeight );
+			scrollMask.graphics.endFill();
+			super.addChild( scrollMask );
+			_childrenContainer.mask = scrollMask;			
 		}
 
 		public function get styleManager():IStyleManager
@@ -184,6 +209,8 @@ package com.wezside.components
 		public function set scroll( value:IScroll ):void
 		{
 			_scroll = value;
+			
+			_scroll.addEventListener( ScrollEvent.CHANGE, scrollChange );
 		}
 	
 		public function purge():void
@@ -193,11 +220,19 @@ package com.wezside.components
 			{
 				var child:* = iter.next();
 				if ( child is IUIElement ) UIElement( child ).purge();
-				removeChild( child );
+				_childrenContainer.removeChild( child );
 			}				
+			if ( _childrenContainer && contains( _childrenContainer )) removeChild( _childrenContainer );
+			if ( _scroll && contains( DisplayObject( _scroll ) )) removeChild( DisplayObject( _scroll ));
+			if ( _skin && contains( DisplayObject( _skin ) )) removeChild( DisplayObject( _skin ));
+			if ( _background && contains( DisplayObject( _background ) )) removeChild( DisplayObject( _background ));
+			iter = null;
 			_styleManager = null;
 			_styleName = null;
 			_styleSheet = null;
+			_background = null;
+			_skin = null;
+			_scroll = null;
 		}		
 		
 		public function get state():String
@@ -255,7 +290,7 @@ package com.wezside.components
 			switch ( type )
 			{				
 				case ITERATOR_PROPS: return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
-				case ITERATOR_CHILDREN: return new ChildIterator( this );  
+				case ITERATOR_CHILDREN: return new ChildIterator( _childrenContainer );  
 			}
 			return new NullIterator();
 		}		
@@ -264,6 +299,17 @@ package com.wezside.components
 		{
 			return super.hasOwnProperty( V );
 		}
+		
+		protected function arrangeComplete( event:UIElementEvent ):void 
+		{
+			dispatchEvent( event );
+		}
+				
+		protected function scrollChange( event:ScrollEvent ):void 
+		{			
+//			trace( event.percent );
+			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight + _layout.top + _layout.bottom );
+		}		
 		
 		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void
 		{
@@ -299,11 +345,5 @@ package com.wezside.components
 			iter = null;
 			strUtil = null;
 		}
-
-		protected function arrangeComplete( event:UIElementEvent ):void 
-		{
-			dispatchEvent( event );
-		}
-
 	}
 }

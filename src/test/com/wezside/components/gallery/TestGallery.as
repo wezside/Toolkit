@@ -1,11 +1,11 @@
 package test.com.wezside.components.gallery 
 {
-	import org.flexunit.asserts.assertEquals;
 	import flexunit.framework.Assert;
 
 	import com.wezside.components.gallery.Gallery;
 	import com.wezside.components.gallery.GalleryEvent;
 
+	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.async.Async;
 
 	/**
@@ -47,7 +47,7 @@ package test.com.wezside.components.gallery
 
 		protected function galleryArranged( event:GalleryEvent, object:Object ):void
 		{
-			assertEquals( 8, gallery.numChildren );
+			assertEquals( 0, gallery.numChildren );
 		}
 		
 		protected function timeout( object:Object ):void
