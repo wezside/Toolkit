@@ -111,19 +111,19 @@ package com.wezside.components
 		public function arrange( event:UIElementEvent = null ):void
 		{
 			if ( _layout ) _layout.arrange();
-			if ( _background ) _background.arrange();
 			if ( _scroll )
 			{
 				_scroll.arrange();
 				drawScrollMask();
 			}
+			if ( _background ) _background.arrange();
 		}
 
 		private function drawScrollMask():void 
 		{
 			var scrollMask:Sprite = new Sprite();
 			scrollMask.graphics.beginFill( 0xefefef );
-			scrollMask.graphics.drawRect( 0, 0, width, _scroll.scrollHeight );
+			scrollMask.graphics.drawRect( 0, layout.top, width, _scroll.scrollHeight - layout.top );
 			scrollMask.graphics.endFill();
 			super.addChild( scrollMask );
 			_childrenContainer.mask = scrollMask;			
@@ -307,8 +307,7 @@ package com.wezside.components
 				
 		protected function scrollChange( event:ScrollEvent ):void 
 		{			
-			trace( event.percent );
-			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight + _layout.top + _layout.bottom );
+			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight + _layout.top );
 		}		
 		
 		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void

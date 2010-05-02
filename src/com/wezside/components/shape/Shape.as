@@ -20,6 +20,7 @@
 package com.wezside.components.shape 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
@@ -61,8 +62,9 @@ package com.wezside.components.shape
 		
 		public function draw():void
 		{
-			decorated.width = width;
-			decorated.height = height;				
+			if ( width != 0 ) decorated.width = width;
+			if ( height != 0 ) decorated.height = height;
+			if ( decorated is IUIElement ) UIElement( decorated ).scaleX = UIElement( decorated ).scaleY = 1;
 		}		
 		
 		public function get colours():Array

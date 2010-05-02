@@ -41,7 +41,6 @@ package com.wezside.components.shape
 			if ( width == 0 ) width = decorated.width;
 			if ( height == 0 ) height = decorated.height;
 
-			
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
 			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );

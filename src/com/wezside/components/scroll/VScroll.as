@@ -1,12 +1,10 @@
 package com.wezside.components.scroll 
 {
-	import com.wezside.components.IUIElement;
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.shape.Rectangle;
 
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 
 	/**
@@ -25,9 +23,9 @@ package com.wezside.components.scroll
 		
 		override public function draw():void
 		{			
+	
 			if ( width == 0 ) width = decorated.width;
 			if ( height == 0 ) height = decorated.height;
-
 			
 			track = new UIElement();
 			track.background = new Rectangle( UIElement( track ));
@@ -35,7 +33,7 @@ package com.wezside.components.scroll
 			track.background.height = scrollHeight - IUIElement( decorated ).layout.bottom;
 			track.background.alphas = [ 1, 1 ];
 			track.background.colours = [ 0xffffff, 0xffffff ];
-			track.x = width + horizontalGap - track.width - IUIElement( decorated ).layout.left;
+			track.x = width + horizontalGap - track.width + IUIElement( decorated ).layout.left;
 			track.y = IUIElement( decorated ).layout.top;
 			track.update();
 			addChild( track as UIElement );
@@ -55,10 +53,14 @@ package com.wezside.components.scroll
 			height = track.background.height;
 			
 			yMin = int( track.y );
-			yMax = int( track.y  + track.background.height - thumb.background.height );
+			yMax = int( track.y + track.height - thumb.height );
 			thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 			if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );				
 
+//			decorated.width += track.background.width + horizontalGap + IUIElement( decorated ).layout.left + IUIElement( decorated ).layout.right;
+//			decorated.height = track.background.height;
+			
+			if ( decorated is IUIElement ) UIElement( decorated ).scaleX = UIElement( decorated ).scaleY = 1;			
 		}
 		
 		private function thumbUp( event:MouseEvent ):void
@@ -69,7 +71,7 @@ package com.wezside.components.scroll
 		private function thumbDown( event:MouseEvent ):void
 		{
 			stage.addEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
-			yOffset = mouseY - thumb.y;
+			yOffset = int( mouseY - thumb.y );
 		}
 
 		private function thumbMove( event:MouseEvent ):void 
@@ -78,7 +80,8 @@ package com.wezside.components.scroll
 			if ( thumb.y <= yMin ) thumb.y = yMin;
 			if ( thumb.y >= yMax ) thumb.y = yMax;
 
-			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, thumb.y / yMax, scrollHeight ));
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 
+											int( thumb.y - track.y  ) / int( yMax - track.y ), scrollHeight ));
 			event.updateAfterEvent();
 		}		
 	}

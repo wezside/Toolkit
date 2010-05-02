@@ -19,6 +19,7 @@
  */
 package com.wezside.components.layout 
 {
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
@@ -62,7 +63,8 @@ package com.wezside.components.layout
 			}
 			if ( width != 0 ) decorated.width = width;
 			if ( height != 0 ) decorated.height = height;
-		
+			if ( decorated is IUIElement ) UIElement( decorated ).scaleX = UIElement( decorated ).scaleY = 1;
+			
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
 			if ( decorated.iterator().hasNext( )) decorated.arrange();

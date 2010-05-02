@@ -1,6 +1,5 @@
 package test.com.wezside.components 
 {
-	import flash.display.StageScaleMode;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
@@ -13,13 +12,13 @@ package test.com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MockUIBackgroundTest extends UIElement 
+	public class MockUIDecoratorTest extends UIElement 
 	{
 		
 		private var hbox:UIElement;
 
 		
-		public function MockUIBackgroundTest()
+		public function MockUIDecoratorTest()
 		{
 			super();
 			addEventListener( Event.ADDED_TO_STAGE, initStage );
@@ -40,13 +39,13 @@ package test.com.wezside.components
 			layout.top = 15;
 			layout.right = 15;
 			
-			scroll = new VScroll( this );
-			scroll.scrollHeight = 150; 
-			scroll.horizontalGap = 2;
-
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
+			
+			scroll = new VScroll( this );
+			scroll.scrollHeight = 150; 
+			scroll.horizontalGap = 2;
 			
 			super.update( true );
 		}
@@ -85,7 +84,15 @@ package test.com.wezside.components
 			sp.graphics.drawRect(0, 0, 200, 50 );
 			sp.graphics.endFill();
 			addChild( sp );
+
 			
+			hbox = new UIElement();
+			hbox.background = new Rectangle( hbox );
+			hbox.background.colours = [ 0xFFF300, 0xFFF300 ];
+			hbox.background.alphas = [ 1, 1];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
+			addChild( hbox );			
 		}
 	
 	}
