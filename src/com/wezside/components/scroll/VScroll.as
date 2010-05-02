@@ -36,7 +36,7 @@ package com.wezside.components.scroll
 			track.background.alphas = [ 1, 1 ];
 			track.background.colours = [ 0xffffff, 0xffffff ];
 			track.x = width + horizontalGap - track.width - IUIElement( decorated ).layout.left;
-//			track.y = IUIElement( decorated ).layout.top;
+			track.y = IUIElement( decorated ).layout.top;
 			track.update();
 			addChild( track as UIElement );
 			
@@ -54,7 +54,7 @@ package com.wezside.components.scroll
 			width = track.background.width;
 			height = track.background.height;
 			
-			yMin = track.y;
+			yMin = int( track.y );
 			yMax = int( track.y  + track.background.height - thumb.background.height );
 			thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 			if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );				

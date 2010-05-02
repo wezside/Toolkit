@@ -307,7 +307,7 @@ package com.wezside.components
 				
 		protected function scrollChange( event:ScrollEvent ):void 
 		{			
-//			trace( event.percent );
+			trace( event.percent );
 			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight + _layout.top + _layout.bottom );
 		}		
 		

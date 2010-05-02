@@ -51,7 +51,7 @@ package com.wezside.data.mapping
 				
 		public function addDataMap( clazz:Class, nodeName:String = "", parentCollectionProperty:String = "" ):void
 		{
-			Tracer.output( true, " XMLDataMapper.addDataMap(" + clazz + ", " + nodeName + " , " + parentCollectionProperty + ")", "");
+			Tracer.output( _debug, " XMLDataMapper.addDataMap(" + clazz + ", " + nodeName + " , " + parentCollectionProperty + ")", "");
 			item = new XMLDataItem();
 			item.clazz = clazz;
 			item.nodeName = nodeName;
@@ -136,7 +136,7 @@ package com.wezside.data.mapping
 				}
 				else
 				{
-					Tracer.output( _debug, " No mapping for '" + child.name() + "' moving on. Iterator index is " + XMLListIterator(  _xmlCollectionIterator ).index + " ", toString() );		 
+					Tracer.output( _debug, " No mapping for '" + child.name() + "' moving on. Iterator index is " + XMLListIterator(  _xmlCollectionIterator ).index() + " ", toString() );		 
 					if ( iterator.hasNext()) build( _xmlCollectionIterator, parent );
 				}
 			
