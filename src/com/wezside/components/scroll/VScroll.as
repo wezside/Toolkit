@@ -12,7 +12,7 @@ package com.wezside.components.scroll
 	 */
 	public class VScroll extends Scroll
 	{
-		private var yOffset:Number;
+		private var yOffset:Number; 
 		private var yMin:int;
 		private var yMax:*;
 
@@ -24,6 +24,7 @@ package com.wezside.components.scroll
 		override public function draw():void
 		{			
 	
+			// Because a Scroll decorator updates the width and height properties
 			if ( width == 0 ) width = decorated.width;
 			if ( height == 0 ) height = decorated.height;
 			
@@ -33,7 +34,7 @@ package com.wezside.components.scroll
 			track.background.height = scrollHeight - IUIElement( decorated ).layout.bottom;
 			track.background.alphas = [ 1, 1 ];
 			track.background.colours = [ 0xffffff, 0xffffff ];
-			track.x = width + horizontalGap - track.width + IUIElement( decorated ).layout.left;
+			track.x = width + IUIElement( decorated ).layout.left + horizontalGap;
 			track.y = IUIElement( decorated ).layout.top;
 			track.update();
 			addChild( track as UIElement );
@@ -49,18 +50,15 @@ package com.wezside.components.scroll
 			thumb.update();
 			addChild( thumb as UIElement );
 						
-			width = track.background.width;
-			height = track.background.height;
+//			width = width - horizontalGap - track.background.width;
+//			height = 200;
 			
+			trace( width, height, track.background.width, IUIElement( decorated ).layout.left );
 			yMin = int( track.y );
 			yMax = int( track.y + track.height - thumb.height );
 			thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 			if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );				
-
-//			decorated.width += track.background.width + horizontalGap + IUIElement( decorated ).layout.left + IUIElement( decorated ).layout.right;
-//			decorated.height = track.background.height;
-			
-			if ( decorated is IUIElement ) UIElement( decorated ).scaleX = UIElement( decorated ).scaleY = 1;			
+			super.draw();
 		}
 		
 		private function thumbUp( event:MouseEvent ):void

@@ -29,23 +29,25 @@ package test.com.wezside.components
 			
 			x = 20;
 			y = 20;			
-						
-			layout = new VerticalLayout( this );
-			layout.verticalGap = 3;
-
-			layout = new PaddedLayout( layout ); 
-			layout.bottom = 15;		
-			layout.left = 15;
-			layout.top = 15;
-			layout.right = 15;
-			
-			background = new Rectangle( this );
-			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1 ];
 			
 			scroll = new VScroll( this );
 			scroll.scrollHeight = 150; 
 			scroll.horizontalGap = 2;
+
+			background = new Rectangle( this );
+			background.colours = [ 0, 0 ];
+			background.alphas = [ 1, 1 ];
+
+			layout = new PaddedLayout( this ); 
+			layout.bottom = 15;		
+			layout.left = 15;
+			layout.top = 15;
+			layout.right = 15;
+
+			layout = new VerticalLayout( layout );
+			layout.verticalGap = 3;
+			
+			
 			
 			super.update( true );
 		}
@@ -84,7 +86,6 @@ package test.com.wezside.components
 			sp.graphics.drawRect(0, 0, 200, 50 );
 			sp.graphics.endFill();
 			addChild( sp );
-
 			
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );

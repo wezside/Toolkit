@@ -41,8 +41,8 @@ package com.wezside.components.scroll
 		
 		public function draw():void
 		{
-			if ( width != 0 ) decorated.width = width;
-			if ( height != 0 ) decorated.height = height;		
+//			if ( width != 0 ) decorated.width = width;
+//			if ( height != 0 ) decorated.height = height;		
 		}				
 		
 		public function get scrollHeight():int

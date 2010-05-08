@@ -45,6 +45,7 @@ package com.wezside.components.layout
 									
 			// Iterate over rest of the children and layout vertically
 			yOffset += top;
+
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
 			while ( iterator.hasNext())
 			{
@@ -54,6 +55,9 @@ package com.wezside.components.layout
 				if ( iterator.hasNext() ) yOffset += verticalGap;
 			}
 			
+			// Left and right properties will be zero if VerticalLayout is the first decorator however
+			// if it isn't then we need to update the width + height correctly with the padding properties in 
+			// case they were used 
 			height = yOffset - verticalGap + bottom;
 	 		width = decorated.width + left + right;
 			super.arrange();

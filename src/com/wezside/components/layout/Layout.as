@@ -19,8 +19,8 @@
  */
 package com.wezside.components.layout 
 {
-	import com.wezside.components.IUIElement;
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
@@ -52,8 +52,10 @@ package com.wezside.components.layout
 		
 		public function arrange( event:UIElementEvent = null ):void
 		{
+			
+			// Copy property values from previous ILayout decorator only if it wasn't explicitely set
 			if ( decorated is ILayout )
-			{								
+			{
 				if ( left != 0 ) ILayout( decorated ).left = left;
 				if ( top != 0 ) ILayout( decorated ).top = top;
 				if ( right != 0 ) ILayout( decorated ).right = right;
@@ -61,10 +63,17 @@ package com.wezside.components.layout
 				if ( verticalGap != 0 ) ILayout( decorated ).verticalGap = verticalGap;
 				if ( horizontalGap != 0 ) ILayout( decorated ).horizontalGap = horizontalGap;
 			}
-			if ( width != 0 ) decorated.width = width;
-			if ( height != 0 ) decorated.height = height;
-			if ( decorated is IUIElement ) UIElement( decorated ).scaleX = UIElement( decorated ).scaleY = 1;
-			
+			if ( decorated is IUIElement )
+			{
+				if ( left != 0 ) IUIElement( decorated ).layout.left = left;
+				if ( top != 0 ) IUIElement( decorated ).layout.top = top;
+				if ( right != 0 ) IUIElement( decorated ).layout.right = right;
+				if ( bottom != 0 ) IUIElement( decorated ).layout.bottom = bottom;
+				if ( verticalGap != 0 ) IUIElement( decorated ).layout.verticalGap = verticalGap;
+				if ( horizontalGap != 0 ) IUIElement( decorated ).layout.horizontalGap = horizontalGap;
+			}
+						
+		
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
 			if ( decorated.iterator().hasNext( )) decorated.arrange();
