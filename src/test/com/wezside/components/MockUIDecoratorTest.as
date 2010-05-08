@@ -30,7 +30,7 @@ package test.com.wezside.components
 			y = 20;			
 			
 			scroll = new VScroll( this );
-			scroll.scrollHeight = 200; 
+			scroll.scrollHeight = 180; 
 			scroll.horizontalGap = 2;
 
 			layout = new PaddedLayout( this ); 

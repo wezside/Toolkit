@@ -30,8 +30,8 @@ package com.wezside.components.scroll
 			
 			track = new UIElement();
 			track.background = new Rectangle( UIElement( track ));
-			track.background.width = 20;
-			track.background.height = scrollHeight - IUIElement( decorated ).layout.bottom;
+			track.background.width = trackWidth;
+			track.background.height = scrollHeight;
 			track.background.alphas = [ 1, 1 ];
 			track.background.colours = [ 0xffffff, 0xffffff ];
 			track.x = width + IUIElement( decorated ).layout.left + horizontalGap;
@@ -43,20 +43,20 @@ package com.wezside.components.scroll
 			thumb = new UIElement();
 			thumb.background = new Rectangle( UIElement( thumb ));
 			thumb.background.alphas = [1,1];
-			thumb.background.colours = [ 0xcccccc, 0xcccccc ];
+			thumb.background.colours = [ 0x666666, 0x666666 ];
 			thumb.background.width = 16;
 			thumb.background.height = 20;
 			thumb.x = track.x + 2;
-			thumb.y = track.y;
+			thumb.y = track.y + 2;
 			thumb.build();
 			thumb.arrange();
 			addChild( thumb as UIElement );
 												
 			width = track.background.width + horizontalGap;
-			height = track.y + track.background.height + IUIElement( decorated ).layout.top;
+			height = track.y + track.background.height + IUIElement( decorated ).layout.bottom;
 
-			yMin = int( track.y );
-			yMax = int( track.y + track.height - thumb.height );
+			yMin = int( track.y ) + 2;
+			yMax = int( track.y + track.height - thumb.height ) - 2;
 			thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 			if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );				
 		}

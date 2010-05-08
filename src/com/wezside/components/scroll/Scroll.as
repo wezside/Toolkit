@@ -20,6 +20,7 @@ package com.wezside.components.scroll
 		private var _thumb:IUIElement;
 		private var _track:IUIElement;
 		private var _horizontalGap:int;
+		private var _trackWidth:int = 20;
 		
 		protected var decorated:IUIDecorator;
 
@@ -110,6 +111,16 @@ package com.wezside.components.scroll
 		public function set horizontalGap(value:int):void
 		{
 			_horizontalGap = value;
+		}
+		
+		public function get trackWidth():int
+		{
+			return _trackWidth;
+		}
+		
+		public function set trackWidth( value:int ):void
+		{
+			_trackWidth = value;
 		}
 	}
 }

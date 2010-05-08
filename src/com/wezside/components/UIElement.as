@@ -154,7 +154,7 @@ package com.wezside.components
 		{
 			var scrollMask:Sprite = new Sprite();
 			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
-			scrollMask.graphics.drawRect( layout.left, layout.top, width, _scroll.scrollHeight - layout.top );
+			scrollMask.graphics.drawRect( layout.left, layout.top, width, _scroll.scrollHeight );
 			scrollMask.graphics.endFill();
 			super.addChild( scrollMask );
 			_childrenContainer.mask = scrollMask;			
@@ -298,7 +298,7 @@ package com.wezside.components
 				
 		protected function scrollChange( event:ScrollEvent ):void 
 		{			
-			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight + _layout.top );
+			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight );
 		}		
 		
 		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void
