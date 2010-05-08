@@ -53,15 +53,15 @@ package com.wezside.components.shape
 			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
 			graphics.drawRoundRect( 0, 0, width, height, cornerRadius );
 
-			if ( cornerRadius == 0 )
+			if ( cornerRadius == 0 && borderThickness > 0 )
 			{
-				graphics.lineStyle( borderThickness, 0xffffff, borderAlpha );
+				graphics.lineStyle( borderThickness, borderColor, borderAlpha );
 				graphics.moveTo( 0, 0 );
 				graphics.lineTo( width, 0 );
 				graphics.moveTo( 0, 0 );
 				graphics.lineTo( 0, height );
 				graphics.endFill( );
-				graphics.lineStyle( borderThickness, 0x666666, borderAlpha );
+				graphics.lineStyle( borderThickness, borderColor, borderAlpha );
 				graphics.moveTo( 0, height );
 				graphics.lineTo( width, height );
 				graphics.moveTo( width, height );

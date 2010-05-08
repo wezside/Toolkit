@@ -33,9 +33,10 @@ package com.wezside.components.shape
 	{
 		
 
-		private var _cornerRadius:int;
-		private var _borderAlpha:int;
-		private var _borderThickness:int;
+		private var _cornerRadius:int = 0;
+		private var _borderColor:uint = 0xffffff;
+		private var _borderAlpha:int = 1;
+		private var _borderThickness:int = 0;
 		private var _colours:Array = [];
 		private var _alphas:Array = [];
 		private var _width:Number = 0;
@@ -110,6 +111,16 @@ package com.wezside.components.shape
 		public function set borderThickness(value:int):void
 		{
 			_borderThickness = value;
+		}
+		
+		public function get borderColor():uint
+		{
+			return _borderColor;
+		}
+		
+		public function set borderColor( value:uint ):void
+		{
+			_borderColor = value;
 		}
 
 		override public function set width(value:Number):void 

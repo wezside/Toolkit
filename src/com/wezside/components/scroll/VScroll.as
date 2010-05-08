@@ -40,18 +40,19 @@ package com.wezside.components.scroll
 			track.arrange();
 			addChild( track as UIElement );
 			
+			var thumbHeight:int = int( scrollHeight / height * scrollHeight );
 			thumb = new UIElement();
 			thumb.background = new Rectangle( UIElement( thumb ));
-			thumb.background.alphas = [1,1];
+			thumb.background.alphas = [ 1, 1 ];
 			thumb.background.colours = [ 0x666666, 0x666666 ];
 			thumb.background.width = 16;
-			thumb.background.height = 20;
+			thumb.background.height = thumbHeight > 20 ? thumbHeight : 20;
 			thumb.x = track.x + 2;
 			thumb.y = track.y + 2;
 			thumb.build();
 			thumb.arrange();
 			addChild( thumb as UIElement );
-												
+			
 			width = track.background.width + horizontalGap;
 			height = track.y + track.background.height + IUIElement( decorated ).layout.bottom;
 
@@ -79,7 +80,7 @@ package com.wezside.components.scroll
 			if ( thumb.y >= yMax ) thumb.y = yMax;
 
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 
-											int( thumb.y - track.y  ) / int( yMax - track.y ), scrollHeight ));
+											int( thumb.y - track.y - 2  ) / int( yMax - track.y - 2 ), scrollHeight ));
 			event.updateAfterEvent();
 		}		
 	}
