@@ -208,8 +208,7 @@ package com.wezside.components
 		
 		public function set scroll( value:IScroll ):void
 		{
-			_scroll = value;
-			
+			_scroll = value;			
 			_scroll.addEventListener( ScrollEvent.CHANGE, scrollChange );
 		}
 	

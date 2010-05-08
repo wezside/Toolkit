@@ -37,10 +37,16 @@ package com.wezside.components.shape
 		}
 
 		override public function draw():void
-		{
-
-			if ( width == 0 ) width = decorated.width + UIElement( decorated ).layout.left +  + UIElement( decorated ).layout.right;
+		{				
+			if ( width == 0 ) width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			if ( height == 0 ) height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+			
+			// If a scrollbar is present then override the height to the scrollheight
+			if ( UIElement( decorated ).scroll )
+			{
+				width = decorated.width + UIElement( decorated ).layout.right;
+				height = UIElement( decorated ).scroll.height;	
+			}
 
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
@@ -60,9 +66,7 @@ package com.wezside.components.shape
 				graphics.lineTo( width, height );
 				graphics.moveTo( width, height );
 				graphics.lineTo( width, 0 );
-			}
-			
-					
+			}					
 		}
 	}
 }

@@ -25,8 +25,7 @@ package test.com.wezside.components
 		}
 
 		private function initStage( event:Event ):void 
-		{
-			
+		{			
 			x = 20;
 			y = 20;			
 			
@@ -34,20 +33,19 @@ package test.com.wezside.components
 			scroll.scrollHeight = 150; 
 			scroll.horizontalGap = 2;
 
-			background = new Rectangle( this );
-			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1 ];
+			layout = new VerticalLayout( this );
+			layout.verticalGap = 3;			
 
-			layout = new PaddedLayout( this ); 
+			layout = new PaddedLayout( layout ); 
 			layout.bottom = 15;		
 			layout.left = 15;
 			layout.top = 15;
 			layout.right = 15;
 
-			layout = new VerticalLayout( layout );
-			layout.verticalGap = 3;
 			
-			
+			background = new Rectangle( this );
+			background.colours = [ 0, 0 ];
+			background.alphas = [ 1, 1 ];
 			
 			super.update( true );
 		}

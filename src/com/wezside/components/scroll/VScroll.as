@@ -50,15 +50,13 @@ package com.wezside.components.scroll
 			thumb.update();
 			addChild( thumb as UIElement );
 						
-//			width = width - horizontalGap - track.background.width;
-//			height = 200;
+			width = track.background.width + horizontalGap;
+			height = track.y + track.background.height + IUIElement( decorated ).layout.top;
 			
-			trace( width, height, track.background.width, IUIElement( decorated ).layout.left );
 			yMin = int( track.y );
 			yMax = int( track.y + track.height - thumb.height );
 			thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 			if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );				
-			super.draw();
 		}
 		
 		private function thumbUp( event:MouseEvent ):void
