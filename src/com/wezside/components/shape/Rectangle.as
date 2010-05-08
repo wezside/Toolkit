@@ -44,7 +44,7 @@ package com.wezside.components.shape
 			// If a scrollbar is present then override the height to the scrollheight
 			if ( UIElement( decorated ).scroll )
 			{
-				width = decorated.width + UIElement( decorated ).layout.right;
+				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 				height = UIElement( decorated ).scroll.height;	
 			}
 

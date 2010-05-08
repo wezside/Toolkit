@@ -81,7 +81,7 @@ package test.com.wezside.sample.gallery
 		 * @param type Type of transition. Similar calculations are required for this transition so one method is used.  
 		 * @param direction Indicates the direction of the animation
 		 */
-		override public function arrange( event:UIElementEvent = null ):void
+		override public function arrange():void
 		{
 			
 			var i:int;

@@ -23,13 +23,6 @@ package test.com.wezside.components
 		public function setUp():void
 		{
 			uiElement = new UIElement();
-			hbox = new UIElement();			
-			hbox.background = new Rectangle( hbox );
-			hbox.background.colours = [ 0xff0000, 0xff0000 ];
-			hbox.background.alphas = [ 1, 1 ];			
-			hbox.background.width = 200;
-			hbox.background.height = 50;
-			uiElement.addChild( hbox );	
 			
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
@@ -37,6 +30,8 @@ package test.com.wezside.components
 			hbox.background.alphas = [ 1, 1 ];
 			hbox.background.width = 200;
 			hbox.background.height = 50;
+			hbox.build();
+			hbox.arrange();
 			uiElement.addChild( hbox );			
 			
 			hbox = new UIElement();
@@ -45,7 +40,10 @@ package test.com.wezside.components
 			hbox.background.alphas = [ 1, 1 ];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
-			uiElement.addChild( hbox );						
+			hbox.build();
+			hbox.arrange();
+			uiElement.addChild( hbox );
+									
 		}
 		
 		[After]
@@ -63,6 +61,9 @@ package test.com.wezside.components
 		{
 			assertNotNull( uiElement.layout );				
 			assertEquals( 0, uiElement.numChildren );	
+			
+			uiElement.build( );
+			uiElement.arrange();			
 			
 			// Create first layout decorator
 			uiElement.layout = new HorizontalLayout( uiElement );
@@ -96,8 +97,9 @@ package test.com.wezside.components
 			uiElement.background = new Rectangle( uiElement );
 			assertNotNull( uiElement.background );
 			
-			uiElement.update();			
-			assertEquals( 2, uiElement.numChildren );
+			uiElement.build();			
+			uiElement.arrange();			
+			assertEquals( 3, uiElement.numChildren );
 		}
 		
 		[Test]
@@ -108,8 +110,10 @@ package test.com.wezside.components
 			uiElement.background.height = 200;
 			uiElement.layout = new VerticalLayout( uiElement );
 				
-			uiElement.update( true );
-			assertEquals( 2, uiElement.numChildren );
+			uiElement.build();
+			uiElement.arrange();
+			
+			assertEquals( 3, uiElement.numChildren );
 		}
 		
 		[Test]
@@ -128,9 +132,10 @@ package test.com.wezside.components
 			uiElement.background.colours = [0,0];
 			uiElement.background.alphas = [1,1];
 						
-			uiElement.update( true );
+			uiElement.build();
+			uiElement.arrange();
 			dumpChildren();
-			assertEquals( 2, uiElement.numChildren );
+			assertEquals( 3, uiElement.numChildren );
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
 			assertEquals( 0, uiElement.getChildAt(0).x );
@@ -158,12 +163,13 @@ package test.com.wezside.components
 					
 			uiElement.layout = new VerticalLayout( uiElement.layout );
 			uiElement.layout.verticalGap = 5;
-			uiElement.update( true );			
+			uiElement.build();			
+			uiElement.arrange();			
 						
-			assertEquals( 2, uiElement.numChildren );						
+			assertEquals( 3, uiElement.numChildren );						
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
-			assertEquals( 190, int( uiElement.height ));
+			assertEquals( 135, int( uiElement.height ));
 		}
 		
 		
@@ -185,12 +191,13 @@ package test.com.wezside.components
 			uiElement.layout.right = 15;				
 			
 			uiElement.layout = new HorizontalLayout( uiElement.layout );
-			uiElement.update( true );
+			uiElement.build();
+			uiElement.arrange();
 						
-			assertEquals( 2, uiElement.numChildren );						
+			assertEquals( 3, uiElement.numChildren );						
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
-			assertEquals( 630, uiElement.width );
+			assertEquals( 430, uiElement.width );
 		}
 		
 		
@@ -204,8 +211,9 @@ package test.com.wezside.components
 			uiElement.background.alphas = [1,1];
 							
 			uiElement.scroll = new VScroll( uiElement );
-			uiElement.update( true );
-			assertEquals( 4, uiElement.numChildren );
+			uiElement.build();
+			uiElement.arrange();
+			assertEquals( 5, uiElement.numChildren );
 			
 			trace("---------------------", "testVScroll", "---------------------");
 			dumpChildren();

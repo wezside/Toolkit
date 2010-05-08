@@ -75,7 +75,7 @@ package com.wezside.components.gallery.transition
 		
 		/**
 		 */
-		override public function arrange( event:UIElementEvent = null ):void
+		override public function arrange():void
 		{
 		}
 				
@@ -87,10 +87,6 @@ package com.wezside.components.gallery.transition
 		override public function iterator( type:String = null ):IIterator
 		{
 			return new ChildIterator( this );  
-		}
-		
-		override public function update( recurse:Boolean = false ):void
-		{
 		}
 		
 		public function intro():void

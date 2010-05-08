@@ -53,7 +53,7 @@ package com.wezside.components.shape
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
 		
-		public function arrange( event:UIElementEvent = null ):void
+		public function arrange():void
 		{
 			draw();
 		}

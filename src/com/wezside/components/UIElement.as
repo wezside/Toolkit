@@ -83,32 +83,63 @@ package com.wezside.components
 		{
 			return _childrenContainer.addChild( child );
 		}
-
-		public function update( recurse:Boolean = false ):void
+		
+		public function addSuperChild( child:DisplayObject ):DisplayObject
 		{
-			build();
-			setStyle();
-			if ( recurse )
-			{
-				var iter:IIterator = iterator( ITERATOR_CHILDREN );
-				while ( iter.hasNext() )
-				{
-					var child:* = iter.next();
-					if ( child is IUIElement ) 
-						UIElement( child ).update( recurse );
-				}
-			}	
-			arrange();	
-		}		
+			return super.addChild( child );
+		}
 		
 		public function build():void
 		{
 			if ( _background ) super.addChildAt( _background as DisplayObject, 0 );
-			if ( _scroll ) super.addChild( _scroll as DisplayObject );
+			if ( _scroll )
+			{
+				 super.addChild( _scroll as DisplayObject );
+			}
 			super.addChild( _childrenContainer );
+			super.addChild( DisplayObject( _skin ));			
 		}
 		
-		public function arrange( event:UIElementEvent = null ):void
+		public function setStyle():void
+		{
+			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
+			
+			// If this has a styleName then apply the styles
+			if ( _styleName )
+				setProperties( this, _styleName );
+						
+			// Test for children
+
+			var iter:IIterator = iterator( ITERATOR_CHILDREN );
+			while ( iter.hasNext() )
+			{
+				var child:* = iter.next();
+								
+				if ( child is IUIElement )
+				{
+					// Auto inject class name as stylename if exists
+					/*
+					if ( !IUIElement( child ).styleName )
+					{
+						var str:String = getQualifiedClassName( child ); 
+						IUIElement( child ).styleName = str.substr( str.lastIndexOf(".")) ? str.substr( str.lastIndexOf(".")) : null;
+					}*/
+					
+					// Update child styleName 
+					IUIElement( child ).styleName = IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null;
+					
+					
+					// Inject the parent's styleManager if the child doesn't have one
+					if ( !IUIElement( child ).styleManager && IUIElement( child ).styleName )
+						IUIElement( child ).styleManager = styleManager;
+				}
+			}	
+			
+			iter = null;
+			super.addChild( DisplayObject( _skin ));
+		}
+						
+		public function arrange():void
 		{
 			if ( _layout ) _layout.arrange();
 			if ( _scroll )
@@ -116,14 +147,14 @@ package com.wezside.components
 				_scroll.arrange();
 				drawScrollMask();
 			}
-			if ( _background ) _background.arrange();
+			if ( _background ) _background.arrange();			
 		}
 
 		private function drawScrollMask():void 
 		{
 			var scrollMask:Sprite = new Sprite();
-			scrollMask.graphics.beginFill( 0xefefef );
-			scrollMask.graphics.drawRect( 0, layout.top, width, _scroll.scrollHeight - layout.top );
+			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
+			scrollMask.graphics.drawRect( layout.left, layout.top, width, _scroll.scrollHeight - layout.top );
 			scrollMask.graphics.endFill();
 			super.addChild( scrollMask );
 			_childrenContainer.mask = scrollMask;			
@@ -244,45 +275,6 @@ package com.wezside.components
 			_stateManager.stateKey = value;
 			_skin.setSkin( _stateManager.stateKeys );
 		}
-		
-		public function setStyle():void
-		{
-			var iter:IIterator = iterator( ITERATOR_CHILDREN );
-			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
-			
-			// If this has a styleName then apply the styles
-			if ( _styleName )
-				setProperties( this, _styleName );
-						
-			// Test for children
-			while ( iter.hasNext() )
-			{
-				var child:* = iter.next();
-								
-				if ( child is IUIElement )
-				{
-					// Auto inject class name as stylename if exists
-					/*
-					if ( !IUIElement( child ).styleName )
-					{
-						var str:String = getQualifiedClassName( child ); 
-						IUIElement( child ).styleName = str.substr( str.lastIndexOf(".")) ? str.substr( str.lastIndexOf(".")) : null;
-					}*/
-					
-					// Update child styleName 
-					IUIElement( child ).styleName = IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null;
-					
-					
-					// Inject the parent's styleManager if the child doesn't have one
-					if ( !IUIElement( child ).styleManager && IUIElement( child ).styleName )
-						IUIElement( child ).styleManager = styleManager;
-				}
-			}	
-
-			iter = null;
-			addChild( DisplayObject( _skin ));
-		}
-		
 		
 		public function iterator( type:String = null ):IIterator
 		{

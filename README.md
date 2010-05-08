@@ -3,12 +3,15 @@ Wezside Components/Utilities
 
 This is a hub for components I've written and re-use quite often. These include Actionscript and MXML components.
 
-Latest release
+Latest release [Build 0.1.0091]
 =======
 
 * Compiled with Flex 4 SDK build 14159 
 
-Component [Build 0.1.0086]
+Change log
+=======
+
+Component 
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion")
@@ -16,7 +19,7 @@ Component [Build 0.1.0086]
 * [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer")
 * [UIElement](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/components/UIElement.as "UIElement")
 
-Utilities [Build 0.1.0075]
+Utilities
 =======
 
 * [DateUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/date/DateUtil.as "DateUtil") 

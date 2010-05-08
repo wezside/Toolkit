@@ -17,7 +17,7 @@ package com.wezside.components
 		function set height( value:Number ):void		
 		
 	 	function iterator( type:String = null ):IIterator;
-		function arrange( event:UIElementEvent = null ):void;
+		function arrange():void;
 
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 		function dispatchEvent( event:Event ):Boolean;

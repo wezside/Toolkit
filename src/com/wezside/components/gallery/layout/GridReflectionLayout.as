@@ -36,7 +36,7 @@ package com.wezside.components.gallery.layout
 		 * Lay the items out in the specified columns and rows including the reflections with their alpha 
 		 * settings. 
 		*/
-		override public function arrange( event:UIElementEvent = null ):void
+		override public function arrange():void
 		{
 			
 			var item:DisplayObject;

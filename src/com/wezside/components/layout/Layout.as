@@ -50,7 +50,7 @@ package com.wezside.components.layout
 			this.decorated = decorated;
 		}
 		
-		public function arrange( event:UIElementEvent = null ):void
+		public function arrange():void
 		{
 			
 			// Copy property values from previous ILayout decorator only if it wasn't explicitely set

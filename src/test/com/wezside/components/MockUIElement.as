@@ -1,6 +1,5 @@
 package test.com.wezside.components 
 {
-	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 
@@ -21,17 +20,12 @@ package test.com.wezside.components
 			super( );
 		}
 
-		
-		
-		override public function update(recurse:Boolean = false):void 
-		{
-			Tracer.output( true, " MockUIElement.update()", toString() );
-			super.update( );
-		}
-
 		override public function build():void
 		{
+			super.build();
 			_child = new MockChildUIElement();
+			_child.build();
+			_child.arrange();
 			addChild( _child as DisplayObject );
 		}
 		

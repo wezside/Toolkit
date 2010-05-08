@@ -1,10 +1,7 @@
 package test.com.wezside.components 
 {
-	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
-
-	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -21,17 +18,10 @@ package test.com.wezside.components
 			super( );
 		}
 
-		
-		
-		override public function update(recurse:Boolean = false):void 
-		{
-			Tracer.output( true, " MockChildUIElement.update()", toString() );
-			super.update( );
-		}
 
 		override public function build():void
 		{
-
+			super.build();
 		}
 		
 		

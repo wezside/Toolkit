@@ -43,7 +43,7 @@ package com.wezside.components.layout
 		}
 
 		
-		override public function arrange( event:UIElementEvent = null ):void
+		override public function arrange():void
 		{	
 			
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );

@@ -2,7 +2,6 @@ package com.wezside.components.scroll
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.NullIterator;
 
@@ -34,15 +33,13 @@ package com.wezside.components.scroll
 			return new NullIterator();
 		}
 		
-		public function arrange( event:UIElementEvent = null ):void
+		public function arrange():void
 		{
 			draw();
 		}
 		
 		public function draw():void
 		{
-//			if ( width != 0 ) decorated.width = width;
-//			if ( height != 0 ) decorated.height = height;		
 		}				
 		
 		public function get scrollHeight():int

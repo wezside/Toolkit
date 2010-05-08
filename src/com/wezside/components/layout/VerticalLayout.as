@@ -40,7 +40,7 @@ package com.wezside.components.layout
 			super( decorated );
 		}
 
-		override public function arrange( event:UIElementEvent = null ):void
+		override public function arrange():void
 		{			
 									
 			// Iterate over rest of the children and layout vertically

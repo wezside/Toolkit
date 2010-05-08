@@ -19,10 +19,8 @@
  */
 package com.wezside.components.layout 
 {
-	import com.wezside.components.shape.IShape;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
@@ -40,7 +38,7 @@ package com.wezside.components.layout
 			super( decorated );
 		}
 
-		override public function arrange( event:UIElementEvent = null ):void
+		override public function arrange():void
 		{
 			
 			// Iterate over rest of the children and layout horizontally

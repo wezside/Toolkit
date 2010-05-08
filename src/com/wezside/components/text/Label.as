@@ -56,7 +56,7 @@ package com.wezside.components.text
 		}
 
 
-		override public function update( recurse:Boolean = false ):void
+		override public function arrange():void
 		{
 			setText();
 		}

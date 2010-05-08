@@ -30,30 +30,30 @@ package test.com.wezside.components
 			y = 20;			
 			
 			scroll = new VScroll( this );
-			scroll.scrollHeight = 150; 
+			scroll.scrollHeight = 200; 
 			scroll.horizontalGap = 2;
 
-			layout = new VerticalLayout( this );
-			layout.verticalGap = 3;			
-
-			layout = new PaddedLayout( layout ); 
+			layout = new PaddedLayout( this ); 
 			layout.bottom = 15;		
 			layout.left = 15;
 			layout.top = 15;
 			layout.right = 15;
+			
+			layout = new VerticalLayout( layout );
+			layout.verticalGap = 3;			
 
 			
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
 			
-			super.update( true );
+			build();
+			arrange();
 		}
 
 		override public function build():void
 		{			
-					
-			super.build();
+			
 
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
@@ -61,6 +61,8 @@ package test.com.wezside.components
 			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
+			hbox.build();
+			hbox.arrange();
 			addChild( hbox );
 
 			hbox = new UIElement();
@@ -69,6 +71,8 @@ package test.com.wezside.components
 			hbox.background.alphas = [ 0.3, 0.3];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
+			hbox.build();
+			hbox.arrange();			
 			addChild( hbox );
 
 			hbox = new UIElement();
@@ -77,6 +81,8 @@ package test.com.wezside.components
 			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
+			hbox.build();
+			hbox.arrange();					
 			addChild( hbox );
 			
 			var sp:Sprite = new Sprite();
@@ -91,8 +97,11 @@ package test.com.wezside.components
 			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
+			hbox.build();
+			hbox.arrange();					
 			addChild( hbox );			
-		}
-	
+		
+			super.build();			
+		}	
 	}
 }

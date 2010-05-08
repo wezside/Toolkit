@@ -14,7 +14,7 @@ package com.wezside.components.scroll
 	{
 		private var yOffset:Number; 
 		private var yMin:int;
-		private var yMax:*;
+		private var yMax:int;
 
 		public function VScroll( decorated:IUIDecorator ) 
 		{
@@ -36,7 +36,8 @@ package com.wezside.components.scroll
 			track.background.colours = [ 0xffffff, 0xffffff ];
 			track.x = width + IUIElement( decorated ).layout.left + horizontalGap;
 			track.y = IUIElement( decorated ).layout.top;
-			track.update();
+			track.build();
+			track.arrange();
 			addChild( track as UIElement );
 			
 			thumb = new UIElement();
@@ -47,12 +48,13 @@ package com.wezside.components.scroll
 			thumb.background.height = 20;
 			thumb.x = track.x + 2;
 			thumb.y = track.y;
-			thumb.update();
+			thumb.build();
+			thumb.arrange();
 			addChild( thumb as UIElement );
-						
+												
 			width = track.background.width + horizontalGap;
 			height = track.y + track.background.height + IUIElement( decorated ).layout.top;
-			
+
 			yMin = int( track.y );
 			yMax = int( track.y + track.height - thumb.height );
 			thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			

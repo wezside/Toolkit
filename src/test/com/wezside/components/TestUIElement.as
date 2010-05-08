@@ -4,7 +4,6 @@ package test.com.wezside.components
 
 	import test.com.wezside.sample.styles.LatinStyle;
 
-	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.layout.HorizontalLayout;
@@ -87,7 +86,8 @@ package test.com.wezside.components
 			mockUIElement.styleName = "title";
 			mockUIElement.styleManager = styles;
 			assertNull( mockUIElement.child );
-			mockUIElement.update();
+			mockUIElement.build();
+			mockUIElement.arrange();
 			
 			assertNotNull( mockUIElement.child );
 			assertNull( IUIElement( mockUIElement.child ).styleManager );

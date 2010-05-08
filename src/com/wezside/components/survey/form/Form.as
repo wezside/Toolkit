@@ -134,7 +134,8 @@ package com.wezside.components.survey.form
 		{
 			Tracer.output( true, " Form.containerCreated(event)", toString() );
 			_layout.arrange();			
-			container.update();
+			container.build();
+			container.arrange();
 			container.removeEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );
 			state = STATE_CREATION_COMPLETE;
 		}
