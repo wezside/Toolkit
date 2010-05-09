@@ -146,18 +146,26 @@ A component architecture for pure Actionscript components to allow for easy inte
 	mockUIElement = new MockUIElement();
 	mockUIElement.styleName = "title";
 	mockUIElement.styleManager = styleManager;
+	mockUIElement.build();
+	mockUIElement.arrange();
 
 *Decorator Vertical Layout Example*
 	mockUIElement = new MockUIElement();
 	mockUIElement.layout = new VerticalLayout( mockUIElement );
+	mockUIElement.build();
+	mockUIElement.arrange();
 	
 *Decorator Shape for creating a background*
 	mockUIElement = new MockUIElement();
 	mockUIElement.background.colours = [ 0, 0 ];
 	mockUIElement.background.alphas = [ 1, 1 ];
+	mockUIElement.build();
+	mockUIElement.arrange();
 	
 *Decorator Scroll for creating a Vertical Scrollbar*
 	mockUIElement = new MockUIElement();
 	mockUIElement.scroll = new VScroll( mockUIElement );
 	mockUIElement.scroll.scrollHeight = 150; 
 	mockUIElement.scroll.horizontalGap = 2;
+	mockUIElement.build();
+	mockUIElement.arrange();
