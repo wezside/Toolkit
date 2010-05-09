@@ -132,6 +132,7 @@ UIElement
 A component architecture for pure Actionscript components to allow for easy integration with the [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
 
 *Features*
+
 * Support for visual states and a runtime style SWF similar to Flex Runtime CSS
 * Decorator support for shape, layout and scrollbar
 
