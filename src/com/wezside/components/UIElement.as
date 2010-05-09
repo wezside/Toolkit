@@ -59,15 +59,17 @@ package com.wezside.components
 		private var _stateManager:StateManager;
 		private var _inheritCSS:Boolean;
 		private var _currentStyleName:String;
-		private var _layout:ILayout;
-		private var _background:IShape;
-		private var _scroll:IScroll;
 		private var _childrenContainer:Sprite;
+		
+		// Decorators
+		private var _layout:ILayout;
+		private var _scroll:IScroll;
+		private var _background:IShape;
 
 		public function UIElement() 
 		{
-			_skin = new UIElementSkin();
-			_layout = new Layout( this );
+			_skin = new UIElementSkin();  
+			_layout = new Layout( this ); 
 			_childrenContainer = new Sprite();
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
