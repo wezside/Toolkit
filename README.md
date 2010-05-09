@@ -129,7 +129,7 @@ in sequence starting at a specific animation or simply play a single (default) a
 UIElement
 ---------
 
-A component architecture for pure Actionscript components to allow for easy integration with the [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
+A component architecture for pure Actionscript components to allow for easy integration with Modulo's [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
 
 *Features*
 
