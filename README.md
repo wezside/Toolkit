@@ -10,13 +10,15 @@ Latest release [Build 0.1.0091]
 
 Change log
 =======
+* UIELement update() method removed and no recursion. SetStyle() will still use its rules to inject styleManager instance and the 
+inheritance of the parent styleName
+
 
 Component 
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion")
 * [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic.as "Gallery")
-* [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer")
 * [UIElement](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/components/UIElement.as "UIElement")
 
 Utilities
@@ -86,31 +88,6 @@ transitions where it is required to have the next items visible on screen before
 		gallery.y = 30;
 		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
 		addChildAt( gallery, 0 );
-
-Media Player
-------------
-
-A simple media player that loads three Youtube videos or an image. 
-
-		var item1:Media = new Media();
-		item1.url = "http://www.youtube.com/watch?v=MWe07krS8_E";
-		 
-		var item2:Media = new Media();
-		item2.url = "http://www.youtube.com/watch?v=uXyUtJYIdQA"; 
-		 
-		var item3:Media = new Media();
-		item3.url = "http://www.youtube.com/watch?v=MWe07krS8_E"; 
-				
-		var mediaItems:Array = [];
-		mediaItems.push( item1 );
-		mediaItems.push( item2 );
-		mediaItems.push( item3 );
-	
-		player = new MediaPlayer();
-		player.bgWidth = 350;			
-		player.bgHeight = 200;			
-		player.dataprovider = mediaItems;
-		addChild(player); 
 		
 StateManager
 ------------
@@ -160,11 +137,8 @@ Support for visual states and a runtime style SWF similar to Flex Runtime CSS is
 
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
-*Pure AS*
+*Example*
 	mockUIElement = new MockUIElement();
 	mockUIElement.styleName = "title";
 	mockUIElement.styleManager = styleManager;
-	
-*MXML*
-	<custom:MockUIElement id="myCustomComponent" styleManager="{styleManager}" styleName="title" />		
 
