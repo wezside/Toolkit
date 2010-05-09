@@ -12,7 +12,7 @@ Change log
 =======
 * UIELement update() method removed and no recursion. SetStyle() will still use its rules to inject styleManager instance and the 
 inheritance of the parent styleName
-
+* Basic Vertical Scroll decorator implemented
 
 Component 
 =======
@@ -130,7 +130,11 @@ UIElement
 ---------
 
 A component architecture for pure Actionscript components to allow for easy integration with the [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
-Support for visual states and a runtime style SWF similar to Flex Runtime CSS is the key to a UIElement. It also supports the use of this component with MXML syntax.  
+
+*Features*
+* Support for visual states and a runtime style SWF similar to Flex Runtime CSS
+* Decorator support for shape, layout and scrollbar
+
 [Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
 
 [MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
@@ -142,3 +146,17 @@ Support for visual states and a runtime style SWF similar to Flex Runtime CSS is
 	mockUIElement.styleName = "title";
 	mockUIElement.styleManager = styleManager;
 
+*Decorator Vertical Layout Example*
+	mockUIElement = new MockUIElement();
+	mockUIElement.layout = new VerticalLayout( mockUIElement );
+	
+*Decorator Shape for creating a background*
+	mockUIElement = new MockUIElement();
+	mockUIElement.background.colours = [ 0, 0 ];
+	mockUIElement.background.alphas = [ 1, 1 ];
+	
+*Decorator Scroll for creating a Vertical Scrollbar*
+	mockUIElement = new MockUIElement();
+	mockUIElement.scroll = new VScroll( mockUIElement );
+	mockUIElement.scroll.scrollHeight = 150; 
+	mockUIElement.scroll.horizontalGap = 2;
