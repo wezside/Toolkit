@@ -1,12 +1,15 @@
-Wezside Components/Utilities
-============================
+Wezside Toolkit
+===============
 
-This is a hub for components I've written and re-use quite often. These include Actionscript and MXML components.
+This is a hub for components I've written and re-use quite often. All components are based on a component architecture with the core being 
+UIElement. Read more on UIElement below.
 
-Latest release [Build 0.1.0091]
+Latest release 
 =======
 
+* Build 0.1.0101
 * Compiled with Flex 4 SDK build 14159 
+
 
 Change log
 =======
@@ -16,6 +19,7 @@ inheritance of the parent styleName
 
 Component 
 =======
+Component
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion")
 * [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic.as "Gallery")
@@ -88,6 +92,7 @@ transitions where it is required to have the next items visible on screen before
 		gallery.y = 30;
 		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
 		addChildAt( gallery, 0 );
+
 		
 StateManager
 ------------
@@ -129,6 +134,7 @@ in sequence starting at a specific animation or simply play a single (default) a
 UIElement
 ---------
 
+
 A component architecture for pure Actionscript components to allow for easy integration with Modulo's [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
 
 *Features*
@@ -136,11 +142,11 @@ A component architecture for pure Actionscript components to allow for easy inte
 * Support for visual states and a runtime style SWF similar to Flex Runtime CSS
 * Decorator support for shape, layout and scrollbar
 
+
 [Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
-
 [MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
-
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
+
 
 *Example*
 	mockUIElement = new MockUIElement();
@@ -169,3 +175,4 @@ A component architecture for pure Actionscript components to allow for easy inte
 	mockUIElement.scroll.horizontalGap = 2;
 	mockUIElement.build();
 	mockUIElement.arrange();
+

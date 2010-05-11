@@ -88,7 +88,7 @@ package com.wezside.components
 		
 		public function addSuperChild( child:DisplayObject ):DisplayObject
 		{
-			return super.addChild( child );
+			return super.addChild( child ); 
 		}
 		
 		public function build():void

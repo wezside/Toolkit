@@ -3,7 +3,7 @@ package test.com.wezside.components
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
-	import com.wezside.components.scroll.VScroll;
+	import com.wezside.components.scroll.ScrollVertical;
 	import com.wezside.components.shape.Rectangle;
 
 	import flash.display.Sprite;
@@ -29,9 +29,9 @@ package test.com.wezside.components
 			x = 20;
 			y = 20;			
 			
-			scroll = new VScroll( this );
+			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 150; 
-			scroll.horizontalGap = 2;
+			scroll.horizontalGap = 2; 
 
 			layout = new PaddedLayout( this ); 
 			layout.bottom = 15;		

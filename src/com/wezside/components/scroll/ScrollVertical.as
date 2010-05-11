@@ -10,13 +10,13 @@ package com.wezside.components.scroll
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class VScroll extends Scroll
+	public class ScrollVertical extends Scroll
 	{
 		private var yOffset:Number; 
 		private var yMin:int;
 		private var yMax:int;
 
-		public function VScroll( decorated:IUIDecorator ) 
+		public function ScrollVertical( decorated:IUIDecorator ) 
 		{
 			super( decorated );
 		}

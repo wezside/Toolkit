@@ -1,6 +1,6 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.scroll.VScroll;
+	import com.wezside.components.scroll.ScrollVertical;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.layout.PaddedLayout;
@@ -210,7 +210,7 @@ package test.com.wezside.components
 			uiElement.background.colours = [0,0];
 			uiElement.background.alphas = [1,1];
 							
-			uiElement.scroll = new VScroll( uiElement );
+			uiElement.scroll = new ScrollVertical( uiElement );
 			uiElement.build();
 			uiElement.arrange();
 			assertEquals( 5, uiElement.numChildren );
