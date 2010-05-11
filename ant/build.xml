@@ -4,8 +4,7 @@
 
 	<target name="build-all">
 		
-		<subant genericantfile="${basedir}/ant/component-build.xml" buildpath="."  />
-		<subant genericantfile="${basedir}/ant/utility-build.xml" buildpath="." />
+		<subant genericantfile="${basedir}/ant/toolkit-build.xml" buildpath="." />
 		<subant genericantfile="${basedir}/../Modulo/ant/build.xml" buildpath="${basedir}/../Modulo/" />
 		<subant genericantfile="${basedir}/../Modulo-GH-Pages/ant/build.xml" buildpath="${basedir}/../Modulo-GH-Pages/" />
 		

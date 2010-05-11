@@ -4,7 +4,6 @@ package test.com.wezside.components
 
 	import test.com.wezside.sample.styles.LatinStyle;
 
-	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.layout.HorizontalLayout;

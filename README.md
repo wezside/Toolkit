@@ -1,22 +1,22 @@
-Wezside Components/Utilities
-============================
+Wezside Toolkit
+===============
 
-This is a hub for components I've written and re-use quite often. These include Actionscript and MXML components.
+This is a hub for components I've written and re-use quite often. All components are based on a component architecture with the core being 
+UIElement. Read more on UIElement below.
 
-Latest release
+Latest release [Build 0.1.0101]
 =======
 
 * Compiled with Flex 4 SDK build 14159 
 
-Component [Build 0.1.0076]
+Component
 =======
 
 * [Accordion](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/accordion/AccordionAdvanced.mxml "Accordion")
 * [Gallery](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/gallery/GalleryBasic.as "Gallery")
-* [Media Player](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/sample/media/MediaSample.as "MediaPlayer")
 * [UIElement](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/components/UIElement.as "UIElement")
 
-Utilities [Build 0.1.0066]
+Utilities
 =======
 
 * [DateUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/date/DateUtil.as "DateUtil") 
@@ -84,30 +84,6 @@ transitions where it is required to have the next items visible on screen before
 		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
 		addChildAt( gallery, 0 );
 
-Media Player
-------------
-
-A simple media player that loads three Youtube videos or an image. 
-
-		var item1:Media = new Media();
-		item1.url = "http://www.youtube.com/watch?v=MWe07krS8_E";
-		 
-		var item2:Media = new Media();
-		item2.url = "http://www.youtube.com/watch?v=uXyUtJYIdQA"; 
-		 
-		var item3:Media = new Media();
-		item3.url = "http://www.youtube.com/watch?v=MWe07krS8_E"; 
-				
-		var mediaItems:Array = [];
-		mediaItems.push( item1 );
-		mediaItems.push( item2 );
-		mediaItems.push( item3 );
-	
-		player = new MediaPlayer();
-		player.bgWidth = 350;			
-		player.bgHeight = 200;			
-		player.dataprovider = mediaItems;
-		addChild(player); 
 		
 StateManager
 ------------
@@ -149,19 +125,46 @@ in sequence starting at a specific animation or simply play a single (default) a
 UIElement
 ---------
 
-A component architecture for pure Actionscript components to allow for easy integration with the [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
-Support for visual states and a runtime style SWF similar to Flex Runtime CSS is the key to a UIElement. It also supports the use of this component with MXML syntax.  
+A component architecture for pure Actionscript components to allow for easy integration with Modulo's StyleManager.
+
+*Features*
+
+* Support for visual states and a runtime style SWF similar to Flex Runtime CSS
+* Decorator support for shape, layout and scrollbar
+
 [Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
-
 [MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
-
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
-*Pure AS*
-	mockUIElement = new MockUIElement();
-	mockUIElement.styleName = "title";
-	mockUIElement.styleManager = styleManager;
-	
-*MXML*
-	<custom:MockUIElement id="myCustomComponent" styleManager="{styleManager}" styleName="title" />		
 
+*Example*
+
+mockUIElement = new MockUIElement();
+mockUIElement.styleName = "title";
+mockUIElement.styleManager = styleManager;
+mockUIElement.build();
+mockUIElement.arrange();
+
+*Decorator Vertical Layout Example*
+
+mockUIElement = new MockUIElement();
+mockUIElement.layout = new VerticalLayout( mockUIElement );
+mockUIElement.build();
+mockUIElement.arrange();
+
+*Decorator Shape for creating a background*
+
+mockUIElement = new MockUIElement();
+mockUIElement.background.colours = [ 0, 0 ];
+mockUIElement.background.alphas = [ 1, 1 ];
+mockUIElement.build();
+mockUIElement.arrange();
+
+*Decorator Scroll for creating a Vertical Scrollbar*
+
+mockUIElement = new MockUIElement();
+mockUIElement.scroll = new VScroll( mockUIElement );
+mockUIElement.scroll.scrollHeight = 150; 
+mockUIElement.scroll.horizontalGap = 2;
+mockUIElement.build();
+mockUIElement.arrange();

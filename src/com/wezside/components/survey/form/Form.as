@@ -84,7 +84,6 @@ package com.wezside.components.survey.form
 				
 			// Check if there is a layout
 			if ( _data.items.length > 0 ) arr.push( _layout );
-//			container.children = arr;
 
 			containerCreated( new UIElementEvent( UIElementEvent.CREATION_COMPLETE ));
 		}
