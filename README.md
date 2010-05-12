@@ -17,6 +17,7 @@ Change log since build .0100
 inheritance of the parent styleName
 * Basic Vertical Scroll decorator implemented
 * Support for automatic CSS  prop lookup  in StyleManager
+* Modulo inject styleManager instance into IModule 
 
 Component 
 =======
