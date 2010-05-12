@@ -1,8 +1,8 @@
 #Update build version
-#Wed May 12 21:29:17 BST 2010
+#Wed May 12 21:52:37 BST 2010
 FLEX_HOME=/home/wesley/bin/packages/flexsdk4.0.0.10485
 FLEX_HOME_PC=c\:/flex4sdk_4.0.0.14159
-build.int=0104
+build.int=0105
 lib.path=${basedir}/lib
 prop.file=${basedir}/ant/.toolkit-properties
 src.path=${basedir}/src
