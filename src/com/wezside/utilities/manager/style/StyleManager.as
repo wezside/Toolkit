@@ -19,6 +19,7 @@
  */
 package com.wezside.utilities.manager.style 
 {
+	import com.wezside.utilities.logging.Tracer;
 	import flash.system.SecurityDomain;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
@@ -37,36 +38,6 @@ package com.wezside.utilities.manager.style
 		
 		protected var _css:String;
 		protected var loader:Loader = new Loader( );
-		protected var propStyles:Array = ["backgroundAlpha", 
-										  "backgroundColor", 
-										  "borderColor", 
-										  "borderThickness",
-										  "paddingTop",
-										  "paddingLeft",
-										  "paddingBottom",
-										  "paddingRight",
-										  "cornerRadius",
-										  "enableDropShadow",
-										  "dropShadowAlpha",
-										  "horizontalGap",
-										  "verticalGap",
-										  "embedFonts", 
-										  "textRollOverColor", 
-										  "antiAliasType",
-										  "wordWrap",
-										  "autoSize",
-										  "multiline",
-										  "width",
-										  "height",
-										  "x",
-										  "y",
-										  "color",
-										  "disabledSkin",
-										  "selectedSkin",
-										  "upSkin",
-										  "overSkin",
-										  "downSkin",
-										  "invalidSkin"];
 		
 		private var _sheet:StyleSheet;		
 
@@ -111,12 +82,15 @@ package com.wezside.utilities.manager.style
 				
 		public function getPropertyStyles( styleName:String ):Array		
 		{
+			Tracer.output( true, " StyleManager.getPropertyStyles(styleName)", toString() );
 			var cssObj:Object = _sheet.getStyle( "." + styleName );
-			var props:Array = [];			
-			for ( var i:int = 0; i < propStyles.length; ++i ) 
-				if ( cssObj.hasOwnProperty( propStyles[i] ))
-					props.push({ prop: [propStyles[i]], value: cssObj[ propStyles[i] ]});
 			
+			var props:Array = [];			
+			for ( var i:String in cssObj ) 
+			{
+				props.push({ prop: i, value: cssObj[i] });
+			}
+
 			return props;	
 		}		
 

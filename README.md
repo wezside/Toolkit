@@ -7,15 +7,16 @@ UIElement. Read more on UIElement below.
 Latest release 
 =======
 
-* Build 0.1.0102
+* Build 0.1.0103
 * Compiled with Flex 4 SDK build 14159 
 
 
-Change log
+Change log since build .0100
 =======
 * UIELement update() method removed and no recursion. SetStyle() will still use its rules to inject styleManager instance and the 
 inheritance of the parent styleName
 * Basic Vertical Scroll decorator implemented
+* Support for automatic CSS  prop lookup  in StyleManager
 
 Component 
 =======

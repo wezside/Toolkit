@@ -61,7 +61,7 @@ package test.com.wezside.components
 		}
 		
 		
-		[Test][Ignore]
+		[Test]
 		public function testUIElementStates():void
 		{
 			mockUIElement.state = UIElementState.STATE_VISUAL_UP;
@@ -75,7 +75,7 @@ package test.com.wezside.components
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleWithChildren, 5000, null, timeout ), false, 0, true );
 		}
 		
-		[Test(async)][Ignore]
+		[Test(async)]
 		public function testStyleManagerNoChildren():void
 		{			
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleReady, 5000, null, timeout ), false, 0, true );
