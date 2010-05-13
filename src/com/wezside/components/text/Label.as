@@ -99,20 +99,10 @@ package com.wezside.components.text
 			fmt.font = value;
 		}		
 		
-		override public function get width():Number
-		{
-			return field ? int( field.textWidth ) : 0;
-		}
-		
 		override public function set width( value:Number ):void
 		{
 			field.width = int( value );
 		}				
-		
-		override public function get height():Number
-		{
-			return field ? int( field.textHeight ) : 0;
-		}
 		
 		override public function set height( value:Number ):void
 		{
