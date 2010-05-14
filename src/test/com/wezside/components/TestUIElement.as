@@ -104,7 +104,7 @@ package test.com.wezside.components
 			
 			IUIElement( mockUIElement.child ).styleName = "body";			
 			mockUIElement.child.setStyle();
-			assertEquals( "normal", MockChildUIElement( mockUIElement.child ).antiAliasType );
+			assertEquals( "advanced", MockChildUIElement( mockUIElement.child ).antiAliasType );
 		}		
 				
 		private function styleReady( event:Event, object:Object ):void

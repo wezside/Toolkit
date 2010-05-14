@@ -1,7 +1,5 @@
 package com.wezside.components 
 {
-
-
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;
@@ -55,6 +53,16 @@ package com.wezside.components
 			 if ( _selectedSkin ) hide( _selectedSkin );
 			 if ( _invalidSkin ) hide( _invalidSkin );
 			 if ( _disabledSkin ) hide( _disabledSkin );			
+		}
+		
+		public function setSize( w:int, h:int ):void
+		{
+			for ( var i:int = 0; i < this.numChildren; ++i ) 
+			{
+				var skin:DisplayObject = getChildAt( i );
+				skin.width = w;
+				skin.height = h;
+			}
 		}
 
 		public function hasSkinProperty( V:* = undefined ):Boolean

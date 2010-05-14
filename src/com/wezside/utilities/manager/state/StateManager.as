@@ -163,12 +163,11 @@ package com.wezside.utilities.manager.state
 		 */
 		public function compare( value:String ):Boolean 
 		{
-			var isEqual:Boolean = false;
-			for ( var i:int = 0; i < _states.length; ++i ) 
+			for ( var i:int = 0; i < _states.length; ++i )
 				if (( _state.value & _states[i].value ) == _states[i].value )
-					isEqual = value.indexOf( _states[i].key ) != -1;			
-					
-			return isEqual;					
+					if ( value.indexOf( _states[i].key ) != -1 )
+						return true;
+			return false;					
 		}
 
 		public function purge():void

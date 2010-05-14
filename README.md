@@ -18,6 +18,10 @@ inheritance of the parent styleName
 * Basic Vertical Scroll decorator implemented
 * Support for automatic CSS  prop lookup  in StyleManager
 * Modulo inject styleManager instance into IModule 
+* Swapped hierarchy of skin DisplayObject and childContainer
+* StateManager fixed compare bug
+* Added setSize( w, h ) method for UIElementSkin 
+* Expose StateManager property in UIElement
 
 Component 
 =======
