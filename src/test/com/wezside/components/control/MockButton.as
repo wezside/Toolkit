@@ -1,10 +1,11 @@
 package test.com.wezside.components.control 
 {
+	import flash.text.TextFieldAutoSize;
 	import test.com.wezside.sample.styles.LatinStyle;
 
 	import com.wezside.components.UIElement;
 	import com.wezside.components.control.Button;
-	import com.wezside.components.layout.VerticalLayout;
+	import com.wezside.components.text.Label;
 
 	import flash.events.Event;
 
@@ -15,6 +16,7 @@ package test.com.wezside.components.control
 	{
 		
 		private var button:Button;
+		private var label:Label;
 
 		public function MockButton()
 		{
@@ -36,7 +38,6 @@ package test.com.wezside.components.control
 		override public function build():void 
 		{
 			super.build();
-			layout = new VerticalLayout( this );
 			button = new Button();
 			button.styleManager = styleManager;
 			button.styleName = "button";
@@ -49,9 +50,21 @@ package test.com.wezside.components.control
 			button.arrange();		
 			addChild( button );
 			button.activate();
-			
 			button.x = 50;
 			button.y = 50;
+			
+			label = new Label();
+			label.text = "Ut quis justo in risus ultricies facilisis eget";
+			label.styleName = "buttonLabel";
+			label.styleManager = styleManager;
+			label.buttonMode = true;
+			label.activate();
+			label.build();
+			label.setStyle();
+			label.arrange();
+			label.x = 50;
+			label.y = 150;
+			addChild( label );
 		}
 	}
 }

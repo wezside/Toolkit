@@ -49,11 +49,11 @@ package com.wezside.components.control
 		{
 			state = UIElementState.STATE_VISUAL_UP;
 			buttonMode = true;
-//			_label.activate();
 			addEventListener( MouseEvent.ROLL_OVER, rollOver );
 			addEventListener( MouseEvent.ROLL_OUT, rollOut );
 			addEventListener( MouseEvent.MOUSE_DOWN, down );
 			addEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
+			addEventListener( MouseEvent.CLICK, click );		
 		}
 		
 		public function deactivate():void
@@ -64,6 +64,7 @@ package com.wezside.components.control
 			removeEventListener( MouseEvent.ROLL_OUT, rollOut );
 			removeEventListener( MouseEvent.MOUSE_DOWN, down );
 			removeEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
+			removeEventListener( MouseEvent.CLICK, click );		
 		}
 
 		public function get labelStyleName():String
@@ -85,9 +86,9 @@ package com.wezside.components.control
 		public function set text( value:String ):void
 		{
 			_label.text = value;
-			_label.buttonMode = true;
-			_label.activate();
+			_label.mouseChildren = false;
 		}
+		
 		public function get labelWidth():int
 		{
 			return _label.width;
@@ -149,28 +150,42 @@ package com.wezside.components.control
 		}
 
 		private function mouseUp( event:MouseEvent ):void 
-		{
-			state = UIElementState.STATE_VISUAL_UP;
-		}
-
-		private function rollOut( event:MouseEvent ):void 
-		{
- 			state = UIElementState.STATE_VISUAL_UP;
+		{			
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{			
+				_label.state = UIElementState.STATE_VISUAL_UP;
+				state = UIElementState.STATE_VISUAL_UP;
+			}
 		}
 
 		private function rollOver( event:MouseEvent ):void 
 		{
-			state = UIElementState.STATE_VISUAL_OVER;
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{			
+				state = UIElementState.STATE_VISUAL_OVER;
+				_label.state = UIElementState.STATE_VISUAL_OVER;
+			}
+		}
+
+		private function rollOut( event:MouseEvent ):void 
+		{
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{
+	 			state = UIElementState.STATE_VISUAL_UP;
+				_label.state = UIElementState.STATE_VISUAL_UP;
+			}
 		}
 
 		private function click( event:MouseEvent ):void 
 		{
 			state = UIElementState.STATE_VISUAL_SELECTED;
+			_label.state = UIElementState.STATE_VISUAL_SELECTED;
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
 			state = UIElementState.STATE_VISUAL_DOWN;
+			_label.state = UIElementState.STATE_VISUAL_DOWN;
 		}				
 	}
 }
