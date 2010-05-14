@@ -21,7 +21,6 @@ package com.wezside.components.shape
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.Sprite;
@@ -43,7 +42,8 @@ package com.wezside.components.shape
 		private var _height:Number = 0;
 
 		protected var decorated:IUIDecorator;
-		
+
+
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
 			this.decorated = decorated;

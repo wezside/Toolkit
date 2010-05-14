@@ -22,7 +22,6 @@ package com.wezside.components.layout
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.events.EventDispatcher;
