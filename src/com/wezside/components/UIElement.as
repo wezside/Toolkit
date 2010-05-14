@@ -275,6 +275,16 @@ package com.wezside.components
 			_skin.setSkin( _stateManager.stateKeys );
 		}
 		
+		public function get stateManager():StateManager
+		{
+			return _stateManager;
+		}
+		
+		public function set stateManager( value:StateManager ):void
+		{
+			_stateManager = value;
+		}
+		
 		public function iterator( type:String = null ):IIterator
 		{
 			switch ( type )

@@ -26,16 +26,21 @@
 	upSkin: ButtonUp;	
 	overSkin: ButtonOver;	
 	downSkin: ButtonDown;
+	paddingLeft: 10;
+	paddingRight: 10;
 }
 
 .buttonLabel {
 	font: ArialEmbed;
 	antiAliasType: advanced;
-	fontSize: 18;
-	textColor: #333;
-	textColorOver: #ff0000;
-	align: center;
-	autoSize: left;
+	size: 12;
+	textColourUp: #666666;
+	textColourOver: #333333;
+	textColourDown: #1111111;
+	textColourSelected: #ff0000;
+	align: left;
+	multiline: true;
+	wordWrap: true;	
 }
 
 .inputField

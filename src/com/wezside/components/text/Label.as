@@ -33,7 +33,6 @@ package com.wezside.components.text
 	public class Label extends UIElement
 	{
 
-
 		protected var fmt:TextFormat;
 		protected var field:TextField;
 				
@@ -81,6 +80,7 @@ package com.wezside.components.text
 			addEventListener( MouseEvent.ROLL_OUT, mouseUp );
 			addEventListener( MouseEvent.MOUSE_DOWN, down );
 			addEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
+			addEventListener( MouseEvent.CLICK, click  );		
 		}
 
 		public function deactivate():void
@@ -89,6 +89,7 @@ package com.wezside.components.text
 			removeEventListener( MouseEvent.ROLL_OUT, mouseUp );
 			removeEventListener( MouseEvent.MOUSE_DOWN, down );
 			removeEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
+			removeEventListener( MouseEvent.CLICK, click  );		
 		}
 
 		public function get font():String
@@ -100,7 +101,7 @@ package com.wezside.components.text
 		{
 			field.embedFonts = true;
 			fmt.font = value;
-		}		
+		}
 		
 		override public function set width( value:Number ):void
 		{
@@ -161,6 +162,7 @@ package com.wezside.components.text
 		public function set textColourUp( value:uint ):void
 		{
 			_textColourUp = value;
+			field.textColor = value;
 		}
 		
 		public function get textColourOver():uint
@@ -356,12 +358,19 @@ package com.wezside.components.text
 			
 		private function mouseUp( event:MouseEvent ):void 
 		{
-			state = UIElementState.STATE_VISUAL_UP;
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))	
+				state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		private function rollOver( event:MouseEvent ):void 
 		{
-			state = UIElementState.STATE_VISUAL_OVER;
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))	
+				state = UIElementState.STATE_VISUAL_OVER;
+		}
+
+		private function rollOut( event:MouseEvent ):void 
+		{
+			state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		private function click( event:MouseEvent ):void 

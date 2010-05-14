@@ -42,6 +42,8 @@ package test.com.wezside.components.control
 			button.styleName = "button";
 			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
 			button.labelStyleName = "buttonLabel";
+			button.labelWidth = 220;
+			button.labelHeight = 20;
 			button.build();
 			button.setStyle();
 			button.arrange();		

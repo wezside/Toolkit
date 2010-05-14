@@ -19,6 +19,7 @@ package com.wezside.components.control
 		public function Button()
 		{
 			super( );
+			layout = new PaddedLayout( this );
 			_label = new Label();
 			addChild( _label );			
 		}
@@ -48,7 +49,7 @@ package com.wezside.components.control
 		{
 			state = UIElementState.STATE_VISUAL_UP;
 			buttonMode = true;
-			_label.activate();
+//			_label.activate();
 			addEventListener( MouseEvent.ROLL_OVER, rollOver );
 			addEventListener( MouseEvent.ROLL_OUT, rollOut );
 			addEventListener( MouseEvent.MOUSE_DOWN, down );
@@ -87,18 +88,6 @@ package com.wezside.components.control
 			_label.buttonMode = true;
 			_label.activate();
 		}
-
-		public function get paddingLeft():int
-		{
-			return layout.left;
-		}
-		
-		public function set paddingLeft( value:int ):void
-		{
-			trace( value );
-			layout.left = value;
-		}
-		
 		public function get labelWidth():int
 		{
 			return _label.width;
@@ -117,6 +106,46 @@ package com.wezside.components.control
 		public function set labelHeight( value:int ):void
 		{
 			_label.height = value;
+		}
+
+		public function get paddingLeft():int
+		{
+			return layout.left;
+		}
+		
+		public function set paddingLeft( value:int ):void
+		{
+			layout.left = value;
+		}
+		
+		public function get paddingRight():int
+		{
+			return layout.right;
+		}
+		
+		public function set paddingRight( value:int ):void
+		{
+			layout.right = value;
+		}
+		
+		public function get paddingTop():int
+		{
+			return layout.top;
+		}
+		
+		public function set paddingTop( value:int ):void
+		{
+			layout.top = value;
+		}
+		
+		public function get paddingBottom():int
+		{
+			return layout.bottom;
+		}
+		
+		public function set paddingBottom( value:int ):void
+		{
+			layout.bottom = value;
 		}
 
 		private function mouseUp( event:MouseEvent ):void 

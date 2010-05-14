@@ -21,6 +21,7 @@ inheritance of the parent styleName
 * Swapped hierarchy of skin DisplayObject and childContainer
 * StateManager fixed compare bug
 * Added setSize( w, h ) method for UIElementSkin 
+* Expose StateManager property in UIElement
 
 Component 
 =======
