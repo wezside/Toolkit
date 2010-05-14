@@ -25,6 +25,7 @@ package com.wezside.components
 		function get disabledSkin():DisplayObject;
 		function set disabledSkin( value:DisplayObject ):void;
 		
+		function setSize( w:int, h:int ):void;
 		function setSkin( visibleStates:Array ):void;
 		function hasSkinProperty( V:* = undefined ):Boolean;
 		function hasOwnProperty( V:* = undefined ):Boolean;

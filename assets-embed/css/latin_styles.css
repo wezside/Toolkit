@@ -10,20 +10,8 @@
 	overSkin: InputFieldOverSkin;
 	downSkin: InputFieldDownSkin;
 	selectedSkin: InputFieldSelectedSkin;
-	x: 20;
-	y: 20;
 }
 
-.body {
-	fontFamily: ArialEmbed;
-	fontWeight: normal;
-	antiAliasType: normal;
-	embedFonts: true;
-	fontSize: 18;
-	color: #EFEFEF;
-	autoSize: left;
-	wordWrap: true;
-}
 
 .box
 {	
@@ -35,8 +23,19 @@
 
 .button
 {
-	upState: UpState;	
-	overState: OverState;	
+	upSkin: ButtonUp;	
+	overSkin: ButtonOver;	
+	downSkin: ButtonDown;
+}
+
+.buttonLabel {
+	font: ArialEmbed;
+	antiAliasType: advanced;
+	fontSize: 18;
+	textColor: #333;
+	textColorOver: #ff0000;
+	align: center;
+	autoSize: left;
 }
 
 .inputField

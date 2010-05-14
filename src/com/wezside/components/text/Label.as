@@ -21,6 +21,7 @@ package com.wezside.components.text
 {
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementState;
+	import com.wezside.components.layout.PaddedLayout;
 
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
@@ -37,10 +38,6 @@ package com.wezside.components.text
 		protected var field:TextField;
 				
 		private var _text:String;
-		private var _paddingTop:int;
-		private var _paddingLeft:int;
-		private var _paddingRight:int;
-		private var _paddingBottom:int;
 		private var _textColourUp:uint;
 		private var _textColourOver:uint;
 		private var _textColourDown:uint;
@@ -51,19 +48,17 @@ package com.wezside.components.text
 		
 		public function Label()
 		{
+			super();
 			fmt = new TextFormat( );
 			field = new TextField();
-			_paddingTop = 0;
-			_paddingLeft = 0;
-			_paddingRight = 0;
-			_paddingBottom = 0;			
+			layout = new PaddedLayout( this );
 			addChild( field ); 
 		}
 
 		override public function arrange():void
 		{
-			setText();
 			super.arrange();
+			setText();
 		}
 		
 		override public function set state( value:String ):void 
@@ -88,6 +83,14 @@ package com.wezside.components.text
 			addEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
 		}
 
+		public function deactivate():void
+		{
+			removeEventListener( MouseEvent.ROLL_OVER, rollOver );
+			removeEventListener( MouseEvent.ROLL_OUT, mouseUp );
+			removeEventListener( MouseEvent.MOUSE_DOWN, down );
+			removeEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
+		}
+
 		public function get font():String
 		{
 			return fmt.font;
@@ -103,7 +106,7 @@ package com.wezside.components.text
 		{
 			field.width = int( value );
 		}				
-		
+
 		override public function set height( value:Number ):void
 		{
 			field.height = int( value );
@@ -121,7 +124,7 @@ package com.wezside.components.text
 		
 		public function get text():String
 		{
-			return field.htmlText;
+			return _text;
 		}		
 		
 		public function set text( value:String ):void
@@ -232,42 +235,42 @@ package com.wezside.components.text
 		
 		public function get paddingTop():int
 		{
-			return _paddingTop;
+			return layout.top;
 		}
 		
 		public function set paddingTop( value:int ):void
 		{
-			_paddingTop = value;
+			layout.top = value;
 		}
 		
 		public function get paddingLeft():int
 		{
-			return _paddingLeft;
+			return layout.left;
 		}
 		
 		public function set paddingLeft( value:int ):void
 		{
-			_paddingLeft = value;
+			layout.left = value;
 		}
 		
 		public function get paddingRight():int
 		{
-			return _paddingRight;
+			return layout.right;
 		}
 		
 		public function set paddingRight( value:int ):void
 		{
-			_paddingRight = value;
+			layout.right = value;
 		}
 		
 		public function get paddingBottom():int
 		{
-			return _paddingBottom;
+			return layout.bottom;
 		}
 		
 		public function set paddingBottom( value:int ):void
 		{
-			_paddingBottom = value;
+			layout.bottom = value;
 		}
 		
 		public function get selectable():Boolean
@@ -351,12 +354,12 @@ package com.wezside.components.text
 			}
 		}	
 			
-		private function mouseUp(event:MouseEvent):void 
+		private function mouseUp( event:MouseEvent ):void 
 		{
 			state = UIElementState.STATE_VISUAL_UP;
 		}
 
-		private function rollOver(event:MouseEvent):void 
+		private function rollOver( event:MouseEvent ):void 
 		{
 			state = UIElementState.STATE_VISUAL_OVER;
 		}

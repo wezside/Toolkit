@@ -98,14 +98,12 @@ package com.wezside.components
 			{
 				 super.addChild( _scroll as DisplayObject );
 			}
+			super.addChild( DisplayObject( _skin ));	
 			super.addChild( _childrenContainer );
-			super.addChild( DisplayObject( _skin ));			
 		}
 		
 		public function setStyle():void
 		{
-			if ( contains( DisplayObject( _skin ))) removeChild( DisplayObject( _skin ));
-			
 			// If this has a styleName then apply the styles
 			if ( _styleName )
 				setProperties( this, _styleName );
@@ -138,7 +136,6 @@ package com.wezside.components
 			}	
 			
 			iter = null;
-			super.addChild( DisplayObject( _skin ));
 		}
 						
 		public function arrange():void

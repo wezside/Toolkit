@@ -19,14 +19,13 @@
  */
 package com.wezside.utilities.manager.style 
 {
-	import com.wezside.utilities.logging.Tracer;
-	import flash.system.SecurityDomain;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
+	import flash.system.SecurityDomain;
 	import flash.text.StyleSheet;
 	import flash.utils.ByteArray;
 
@@ -67,7 +66,6 @@ package com.wezside.utilities.manager.style
 				return new SymbolClass() as DisplayObject;
 			}
 			throw new Error( "Unable to find library asset " + linkageClassName );
-			return null;
 		}	
 				
 		public function getStyleSheet( styleName:String ):StyleSheet
@@ -82,9 +80,7 @@ package com.wezside.utilities.manager.style
 				
 		public function getPropertyStyles( styleName:String ):Array		
 		{
-			Tracer.output( true, " StyleManager.getPropertyStyles(styleName)", toString() );
-			var cssObj:Object = _sheet.getStyle( "." + styleName );
-			
+			var cssObj:Object = _sheet.getStyle( "." + styleName );			
 			var props:Array = [];			
 			for ( var i:String in cssObj ) 
 			{

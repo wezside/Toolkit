@@ -1,5 +1,6 @@
 package test.com.wezside.utilities.stateManager 
 {
+	import org.flexunit.asserts.assertFalse;
 	import org.flexunit.asserts.assertTrue;
 	import org.flexunit.asserts.assertNull;
 	import org.flexunit.asserts.assertEquals;
@@ -12,10 +13,11 @@ package test.com.wezside.utilities.stateManager
 	{
 		
 		
+		private var sm:StateManager;
 		private static const STATE_ROLLOVER:String = "STATE_ROLLOVER";
 		private static const STATE_ROLLOUT:String = "STATE_ROLLOUT";
 		private static const STATE_SELECTED:String = "STATE_SELECTED";
-		private var sm:StateManager;
+		private static const STATE_DISABLED:String = "STATE_DISABLED";
 		
 
 		[Before]
@@ -24,7 +26,8 @@ package test.com.wezside.utilities.stateManager
 			sm = new StateManager();
 			sm.addState( STATE_ROLLOVER );			
 			sm.addState( STATE_SELECTED, true );			
-			sm.addState( STATE_ROLLOUT );			
+			sm.addState( STATE_ROLLOUT );
+			sm.addState( STATE_DISABLED, true );			
 		}
 		
 				
@@ -86,9 +89,29 @@ package test.com.wezside.utilities.stateManager
 
 			sm.stateKey = STATE_ROLLOUT;
 			assertTrue( sm.compare( STATE_ROLLOUT + STATE_SELECTED ));
+			sm.stateKey = STATE_SELECTED;
+			assertTrue( sm.compare( STATE_ROLLOUT ));
 
 		}
 		
+		[Test]
+		public function testCompare():void
+		{
+			sm.stateKey = STATE_SELECTED;
+			sm.stateKey = STATE_DISABLED;
+			assertFalse( sm.compare( STATE_ROLLOVER ));
+			assertTrue( sm.compare( STATE_SELECTED + STATE_DISABLED ));
+			assertTrue( sm.compare( STATE_DISABLED + STATE_SELECTED ));
+			assertTrue( sm.compare( STATE_DISABLED ));
+			assertTrue( sm.compare( STATE_SELECTED ));
+			assertFalse( sm.compare( STATE_ROLLOVER ));
+			
+			sm.stateKey = STATE_ROLLOVER;
+			assertTrue( sm.compare( STATE_ROLLOVER ));
+			sm.stateKey = STATE_SELECTED;
+			assertFalse( sm.compare( STATE_SELECTED ));
+		}
+
 		[Test]
 		public function stateValueTest():void
 		{
