@@ -28,7 +28,6 @@ package com.wezside.components
 	import com.wezside.components.scroll.IScroll;
 	import com.wezside.components.scroll.ScrollEvent;
 	import com.wezside.components.shape.IShape;
-	import com.wezside.components.transition.Transition;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
@@ -66,13 +65,11 @@ package com.wezside.components
 		private var _layout:ILayout;
 		private var _scroll:IScroll;
 		private var _background:IShape;
-		private var _transition:Transition;
 
 		public function UIElement() 
 		{
 			_skin = new UIElementSkin();  
 			_layout = new Layout( this ); 
-			_transition = new Transition( this );
 			_childrenContainer = new Sprite();
 			_stateManager = new StateManager();
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
