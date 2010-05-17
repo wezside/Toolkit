@@ -13,6 +13,10 @@ Latest release
 
 Change log since build .0100
 =======
+* Added support for automatically assigning Class names as styleNames
+* Removed inheritCSS and parent injection of styleName and styleManager to children. Explicitely set what is needed on each UIElement instead. This proves
+cleaner code and more readable from a third perspective.
+* Refactor addSuperChild and remvoeSuperChild to addUIChild and removeUIChild to avoid confusion.
 * UIELement update() method removed and no recursion. SetStyle() will still use its rules to inject styleManager instance and the 
 inheritance of the parent styleName
 * Basic Vertical Scroll decorator implemented

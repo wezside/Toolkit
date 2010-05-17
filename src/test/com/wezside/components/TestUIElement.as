@@ -56,10 +56,8 @@ package test.com.wezside.components
 			mockUIElement.layout.bottom = 5;		
 			mockUIElement.layout.left = 5;		
 			mockUIElement.layout.top = 5;		
-			mockUIElement.layout.right = 5;
-			
-		}
-		
+			mockUIElement.layout.right = 5;			
+		}		
 		
 		[Test]
 		public function testUIElementStates():void
@@ -83,7 +81,7 @@ package test.com.wezside.components
 		
 		private function styleWithChildren( event:Event, object:Object ):void
 		{	
-			mockUIElement.styleName = "title";
+//			mockUIElement.styleName = "Mo";
 			mockUIElement.styleManager = styles;
 			assertNull( mockUIElement.child );
 			mockUIElement.build();
@@ -93,8 +91,11 @@ package test.com.wezside.components
 			assertNull( IUIElement( mockUIElement.child ).styleManager );
 			assertNull( IUIElement( mockUIElement.child ).styleName );
 						
-			mockUIElement.child.inheritCSS = true;
+			mockUIElement.child.styleManager = styles;
+			mockUIElement.child.styleName = "title";
 			mockUIElement.setStyle();
+			assertEquals( "MockUIElement", mockUIElement.styleName );
+			assertEquals( "normal", mockUIElement.antiAliasType );
 			
 			assertNotNull( IUIElement( mockUIElement.child ).styleManager );
 			assertNotNull( IUIElement( mockUIElement.child ).styleName );

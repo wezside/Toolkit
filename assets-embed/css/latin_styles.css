@@ -12,6 +12,10 @@
 	selectedSkin: InputFieldSelectedSkin;
 }
 
+MockUIElement {
+	size: 36;
+	antiAliasType: normal;
+}
 
 .box
 {	

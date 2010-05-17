@@ -43,8 +43,6 @@ package com.wezside.components
 		 function set styleSheet( value:StyleSheet ):void;
 		 function get skin():IUIElementSkin;
 		 function set skin( value:IUIElementSkin ):void;
-		 function get inheritCSS():Boolean;
-		 function set inheritCSS( value:Boolean ):void;
 		 function get x():Number;
 		 function set x( value:Number ):void;
 		 function get y():Number;

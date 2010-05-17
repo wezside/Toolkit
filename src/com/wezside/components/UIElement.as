@@ -23,6 +23,8 @@
  */
 package com.wezside.components 
 {
+	import flash.net.getClassByAlias;
+	import flash.utils.getQualifiedClassName;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
 	import com.wezside.components.scroll.IScroll;
@@ -57,7 +59,6 @@ package com.wezside.components
 		private var _styleSheet:StyleSheet;
 		private var _styleManager:IStyleManager;		
 		private var _stateManager:StateManager;
-		private var _inheritCSS:Boolean;
 		private var _currentStyleName:String;
 		private var _childrenContainer:Sprite;
 		
@@ -86,7 +87,17 @@ package com.wezside.components
 			return _childrenContainer.addChild( child );
 		}
 		
-		public function addSuperChild( child:DisplayObject ):DisplayObject
+		override public function removeChild( child:DisplayObject ):DisplayObject 
+		{
+			return _childrenContainer.removeChild( child );
+		}
+
+		public function removeUIChild( child:DisplayObject ):DisplayObject
+		{
+			return super.removeChild( child ); 
+		}
+
+		public function addUIChild( child:DisplayObject ):DisplayObject
 		{
 			return super.addChild( child ); 
 		}
@@ -107,37 +118,16 @@ package com.wezside.components
 			// If this has a styleName then apply the styles
 			if ( _styleName )
 				setProperties( this, _styleName );
-						
-			// Test for children
-
-			var iter:IIterator = iterator( ITERATOR_CHILDREN );
-			while ( iter.hasNext() )
+			else
 			{
-				var child:* = iter.next();
-								
-				if ( child is IUIElement )
-				{
-					// Auto inject class name as stylename if exists
-					/*
-					if ( !IUIElement( child ).styleName )
-					{
-						var str:String = getQualifiedClassName( child ); 
-						IUIElement( child ).styleName = str.substr( str.lastIndexOf(".")) ? str.substr( str.lastIndexOf(".")) : null;
-					}*/
-					
-					// Update child styleName 
-					IUIElement( child ).styleName = IUIElement( child ).styleName ? IUIElement( child ).styleName : IUIElement( child ).inheritCSS ? _styleName : null;
-					
-					
-					// Inject the parent's styleManager if the child doesn't have one
-					if ( !IUIElement( child ).styleManager && IUIElement( child ).styleName )
-						IUIElement( child ).styleManager = styleManager;
-				}
-			}	
-			
-			iter = null;
+				// Grab Constructor as styleName
+				var qualifiedClass:String = getQualifiedClassName( this );				
+				qualifiedClass = qualifiedClass.substr( qualifiedClass.lastIndexOf( "::" ) + 2 );
+				_styleName = qualifiedClass;
+				setProperties( this, _styleName );
+			}
 		}
-						
+
 		public function arrange():void
 		{
 			if ( _layout ) _layout.arrange();
@@ -199,16 +189,6 @@ package com.wezside.components
 		{
 			_skin = value;
 		}				
-		
-		public function get inheritCSS():Boolean
-		{
-			return _inheritCSS;
-		}
-		
-		public function set inheritCSS( value:Boolean ):void
-		{
-			_inheritCSS = value;			
-		}		
 
 		public function get layout():ILayout
 		{
@@ -251,10 +231,10 @@ package com.wezside.components
 				if ( child is IUIElement ) UIElement( child ).purge();
 				_childrenContainer.removeChild( child );
 			}				
-			if ( _childrenContainer && contains( _childrenContainer )) removeChild( _childrenContainer );
-			if ( _scroll && contains( DisplayObject( _scroll ) )) removeChild( DisplayObject( _scroll ));
-			if ( _skin && contains( DisplayObject( _skin ) )) removeChild( DisplayObject( _skin ));
-			if ( _background && contains( DisplayObject( _background ) )) removeChild( DisplayObject( _background ));
+			if ( _childrenContainer && contains( _childrenContainer )) removeUIChild( _childrenContainer );
+			if ( _scroll && contains( DisplayObject( _scroll ) )) removeUIChild( DisplayObject( _scroll ));
+			if ( _skin && contains( DisplayObject( _skin ) )) removeUIChild( DisplayObject( _skin ));
+			if ( _background && contains( DisplayObject( _background ) )) removeUIChild( DisplayObject( _background ));
 			iter = null;
 			_styleManager = null;
 			_styleName = null;
@@ -313,7 +293,6 @@ package com.wezside.components
 		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void
 		{
 			_currentStyleName = currentStyleName;
-			
 			var iter:IIterator = iterator( ITERATOR_PROPS );
 			var strUtil:StringUtil = new StringUtil( );
 			

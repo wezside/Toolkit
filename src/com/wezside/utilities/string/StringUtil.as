@@ -25,48 +25,19 @@ package com.wezside.utilities.string
 	 */
 	public class StringUtil 
 	{
-
-		public function StringUtil() 
-		{			
-		}
-
-		public function replace(str:String, oldSubStr:String, newSubStr:String):String 
+		
+		public function isFirstLetterLowerCase( value:String ):Boolean
 		{
-			return str.split( oldSubStr ).join( newSubStr );
+			 var firstCharASCII:int = value.charCodeAt( 0 );
+			 if ( firstCharASCII >= 97 && firstCharASCII <= 122  ) return true;
+			 return false;
 		}
-
-		public function trim(str:String, char:String):String 
+		
+		public function isFirstLetterUpperCase( value:String ):Boolean
 		{
-			return trimBack( trimFront( str, char ), char );
-		}
-
-		public function trimFront(str:String, char:String):String 
-		{
-			char = stringToCharacter( char );
-			if (str.charAt( 0 ) == char) 
-			{
-				str = trimFront( str.substring( 1 ), char );
-			}
-			return str;
-		}
-
-		public function trimBack(str:String, char:String):String 
-		{
-			char = stringToCharacter( char );
-			if (str.charAt( str.length - 1 ) == char) 
-			{
-				str = trimBack( str.substring( 0, str.length - 1 ), char );
-			}
-			return str;
-		}
-
-		public function stringToCharacter(str:String):String 
-		{
-			if (str.length == 1) 
-			{
-				return str;
-			}
-			return str.slice( 0, 1 );
+			 var firstCharASCII:int = value.charCodeAt( 0 );
+			 if ( firstCharASCII >= 65 && firstCharASCII <= 90  ) return true;
+			 return false;
 		}
 		
 		public function stringToBoolean( string:String ):Boolean

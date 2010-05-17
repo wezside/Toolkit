@@ -19,6 +19,7 @@
  */
 package com.wezside.utilities.manager.style 
 {
+	import com.wezside.utilities.string.StringUtil;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.Sprite;
@@ -80,7 +81,8 @@ package com.wezside.utilities.manager.style
 				
 		public function getPropertyStyles( styleName:String ):Array		
 		{
-			var cssObj:Object = _sheet.getStyle( "." + styleName );			
+			var strUtil:StringUtil = new StringUtil();
+			var cssObj:Object = _sheet.getStyle( strUtil.isFirstLetterLowerCase( styleName ) ? "." + styleName : styleName );			
 			var props:Array = [];			
 			for ( var i:String in cssObj ) 
 			{
