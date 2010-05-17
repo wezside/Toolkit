@@ -7,7 +7,7 @@ UIElement. Read more on UIElement below.
 Latest release 
 =======
 
-* Build 0.1.0105
+* Build 0.1.0106
 * Compiled with Flex 4 SDK build 14159 
 
 
