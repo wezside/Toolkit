@@ -80,7 +80,7 @@ package test.com.wezside.components.control
 			super.build();
 		}
 
-		private function stateChange(event:UIElementEvent):void 
+		private function stateChange( event:UIElementEvent ):void 
 		{
 			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
 				trace( "Clicked ");

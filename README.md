@@ -13,6 +13,7 @@ Latest release
 
 Change log since build .0100
 =======
+* New decorator added: Interactive - changes any UIElement into a button. 
 * Added support for automatically assigning Class names as styleNames
 * Removed inheritCSS and parent injection of styleName and styleManager to children. Explicitely set what is needed on each UIElement instead. This proves
 cleaner code and more readable from a third perspective.
