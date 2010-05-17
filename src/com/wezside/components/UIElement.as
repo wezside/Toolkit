@@ -23,8 +23,9 @@
  */
 package com.wezside.components 
 {
-	import flash.net.getClassByAlias;
-	import flash.utils.getQualifiedClassName;
+	import com.wezside.components.decorators.interactive.IInteractive;
+	import com.wezside.components.shape.Shape;
+	import com.wezside.components.decorators.interactive.Interactive;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
 	import com.wezside.components.scroll.IScroll;
@@ -41,6 +42,7 @@ package com.wezside.components
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.text.StyleSheet;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -48,7 +50,7 @@ package com.wezside.components
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
-	public class UIElement extends Sprite implements IUIElement
+	public class UIElement extends Sprite implements IUIElement, IInteractive
 	{
 		
 		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";
@@ -66,15 +68,17 @@ package com.wezside.components
 		private var _layout:ILayout;
 		private var _scroll:IScroll;
 		private var _background:IShape;
+		private var _interactive:IInteractive;
 
 		public function UIElement() 
 		{
 			_skin = new UIElementSkin();  
 			_layout = new Layout( this ); 
+			_interactive = new Interactive( this );
 			_childrenContainer = new Sprite();
 			_stateManager = new StateManager();
-			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
+			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_UP );
 			_stateManager.addState( UIElementState.STATE_VISUAL_OVER );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DOWN );
@@ -139,14 +143,13 @@ package com.wezside.components
 			if ( _background ) _background.arrange();			
 		}
 
-		private function drawScrollMask():void 
+		
+		public function activate():void
 		{
-			var scrollMask:Sprite = new Sprite();
-			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
-			scrollMask.graphics.drawRect( layout.left, layout.top, width, _scroll.scrollHeight );
-			scrollMask.graphics.endFill();
-			super.addChild( scrollMask );
-			_childrenContainer.mask = scrollMask;			
+		}
+		
+		public function deactivate():void
+		{
 		}
 
 		public function get styleManager():IStyleManager
@@ -206,7 +209,7 @@ package com.wezside.components
 			return _background;
 		}
 		
-		public function set background(value:IShape):void
+		public function set background( value:IShape ):void
 		{
 			_background = value;
 		}		
@@ -220,6 +223,16 @@ package com.wezside.components
 		{
 			_scroll = value;			
 			_scroll.addEventListener( ScrollEvent.CHANGE, scrollChange );
+		}
+	
+		public function get interactive():IInteractive
+		{
+			return _interactive;
+		}
+		
+		public function set interactive( value:IInteractive ):void
+		{
+			_interactive = value;
 		}
 	
 		public function purge():void
@@ -253,6 +266,7 @@ package com.wezside.components
 		{
 			_stateManager.stateKey = value;
 			_skin.setSkin( _stateManager.stateKeys );
+			dispatchEvent( new UIElementEvent( UIElementEvent.STATE_CHANGE, false, false, _stateManager.state ));
 		}
 		
 		public function get stateManager():StateManager
@@ -288,6 +302,16 @@ package com.wezside.components
 		protected function scrollChange( event:ScrollEvent ):void 
 		{			
 			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight );
+		}		
+		
+		private function drawScrollMask():void 
+		{
+			var scrollMask:Sprite = new Sprite();
+			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
+			scrollMask.graphics.drawRect( layout.left, layout.top, width, _scroll.scrollHeight );
+			scrollMask.graphics.endFill();
+			super.addChild( scrollMask );
+			_childrenContainer.mask = scrollMask;			
 		}		
 		
 		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void

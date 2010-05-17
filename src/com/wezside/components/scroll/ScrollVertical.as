@@ -22,14 +22,13 @@ package com.wezside.components.scroll
 		}
 		
 		override public function draw():void
-		{			
-	
+		{	
 			// Because a Scroll decorator updates the width and height properties
 			if ( width == 0 ) width = decorated.width;
 			if ( height == 0 ) height = decorated.height;
 			
 			track = new UIElement();
-			track.background = new Rectangle( UIElement( track ));
+			track.background = new Rectangle( track );
 			track.background.width = trackWidth;
 			track.background.height = scrollHeight;
 			track.background.alphas = [ 1, 1 ];
@@ -42,7 +41,7 @@ package com.wezside.components.scroll
 			
 			var thumbHeight:int = int( scrollHeight / height * scrollHeight );
 			thumb = new UIElement();
-			thumb.background = new Rectangle( UIElement( thumb ));
+			thumb.background = new Rectangle( thumb );
 			thumb.background.alphas = [ 1, 1 ];
 			thumb.background.colours = [ 0x666666, 0x666666 ];
 			thumb.background.width = 16;

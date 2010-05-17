@@ -1,13 +1,12 @@
 package com.wezside.components.survey 
 {
-	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.ISurveyData;
-	import com.wezside.components.survey.form.BrickMatrix;
 	import com.wezside.components.survey.form.Form;
 	import com.wezside.components.survey.form.FormEvent;
 	import com.wezside.components.survey.form.IForm;
 	import com.wezside.components.survey.form.IFormTransition;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -148,7 +147,6 @@ package com.wezside.components.survey
 		{			
 			Tracer.output( true, " Survey.createSingleForm(data)", toString() );
 			var form:IForm = new Form();
-			form.layout = new BrickMatrix();
 			form.data = data;
 			form.createChildren();
 			form.addEventListener( FormEvent.CREATION_COMPLETE, formCreated );

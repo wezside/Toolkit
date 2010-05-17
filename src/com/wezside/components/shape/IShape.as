@@ -41,7 +41,8 @@ package com.wezside.components.shape
 		
 		function get borderThickness():int
 		function set borderThickness( value:int ):void
-		
+
+					
 		function draw():void
 	}
 }

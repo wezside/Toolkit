@@ -37,8 +37,7 @@ package com.wezside.utilities.manager.style
 	{
 		
 		protected var _css:String;
-		protected var loader:Loader = new Loader( );
-		
+		protected var loader:Loader = new Loader( );		
 		private var _sheet:StyleSheet;		
 
 		

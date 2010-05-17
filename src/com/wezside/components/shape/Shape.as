@@ -30,7 +30,6 @@ package com.wezside.components.shape
 	 */
 	public class Shape extends Sprite implements IShape 
 	{
-		
 
 		private var _cornerRadius:int = 0;
 		private var _borderColor:uint = 0xffffff;
@@ -42,7 +41,6 @@ package com.wezside.components.shape
 		private var _height:Number = 0;
 
 		protected var decorated:IUIDecorator;
-
 
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					

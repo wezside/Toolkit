@@ -23,6 +23,8 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.utilities.manager.state.IState;
+
 	import flash.events.Event;
 
 	/**
@@ -35,15 +37,29 @@ package com.wezside.components
 		public static const CREATION_COMPLETE:String = "uiCreationComplete";			
 		public static const STYLEMANAGER_READY:String = "uiStyleManagerReady";			
 		public static const ARRANGE_COMPLETE:String = "uiArrangeComplete";
+		public static const STATE_CHANGE:String = "uiStateChange";
+		
+		private var _state:IState;
 
-		public function UIElementEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false )
+		public function UIElementEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false, state:IState = null )
 		{
 			super( type, bubbles, cancelable );
+			_state = state;
 		}
 
 		public override function clone():Event 
-		{ 
-			return new UIElementEvent( type, bubbles, cancelable );
+		{
+			return new UIElementEvent( type, bubbles, cancelable, _state );
+		}
+		
+		public function get state():IState
+		{
+			return _state;
+		}
+		
+		public function set state( value:IState ):void
+		{
+			_state = value;
 		}	
 	}
 }

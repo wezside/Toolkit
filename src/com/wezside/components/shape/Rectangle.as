@@ -19,8 +19,8 @@
  */
 package com.wezside.components.shape 
 {
-	import com.wezside.components.UIElement;
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
 
 	import flash.display.GradientType;
 	import flash.geom.Matrix;

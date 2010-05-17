@@ -23,7 +23,6 @@ package com.wezside.components.text
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.layout.PaddedLayout;
 
-	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 
@@ -50,7 +49,7 @@ package com.wezside.components.text
 			super();
 			fmt = new TextFormat( );
 			field = new TextField();
-			layout = new PaddedLayout( this );
+			layout = new PaddedLayout( this.layout );
 			addChild( field ); 
 		}
 
@@ -73,24 +72,16 @@ package com.wezside.components.text
 				case UIElementState.STATE_VISUAL_DISABLED : field.textColor = textColourDisabled; break;
 			}
 		}
-
-		public function activate():void
+		
+		override public function activate():void 
 		{
-			addEventListener( MouseEvent.ROLL_OVER, rollOver );
-			addEventListener( MouseEvent.ROLL_OUT, mouseUp );
-			addEventListener( MouseEvent.MOUSE_DOWN, down );
-			addEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
-			addEventListener( MouseEvent.CLICK, click  );		
+			interactive.activate();
 		}
-
-		public function deactivate():void
+		
+		override public function deactivate():void 
 		{
-			removeEventListener( MouseEvent.ROLL_OVER, rollOver );
-			removeEventListener( MouseEvent.ROLL_OUT, mouseUp );
-			removeEventListener( MouseEvent.MOUSE_DOWN, down );
-			removeEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
-			removeEventListener( MouseEvent.CLICK, click  );		
-		}
+			interactive.deactivate();
+		}		
 
 		public function get font():String
 		{
@@ -335,7 +326,7 @@ package com.wezside.components.text
 			fmt.align = value;
 		}		
 	
-		override public function set buttonMode(value:Boolean):void 
+		override public function set buttonMode( value:Boolean ):void 
 		{
 			super.buttonMode = value;
 			mouseChildren = false;
@@ -355,39 +346,5 @@ package com.wezside.components.text
 				field.setTextFormat( fmt );
 			}
 		}	
-			
-		private function mouseUp( event:MouseEvent ):void 
-		{			
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-				state = UIElementState.STATE_VISUAL_UP;
-		}			
-
-		private function rollOver( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-				state = UIElementState.STATE_VISUAL_OVER;
-		}
-
-		private function rollOut( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-	 			state = UIElementState.STATE_VISUAL_UP;
-		}
-
-		private function click( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-				state = UIElementState.STATE_VISUAL_SELECTED;
-			else if ( stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{
-				state = UIElementState.STATE_VISUAL_SELECTED;
-				state = UIElementState.STATE_VISUAL_OVER;
-			}
-		}
-
-		private function down( event:MouseEvent ):void 
-		{
-			state = UIElementState.STATE_VISUAL_DOWN;
-		}				
 	}
 }

@@ -38,8 +38,7 @@ package com.wezside.components.survey.form
 		
 		
 		public function createChildren():void
-		{
-			
+		{			
 			var arr:Array = [];
 			container = new UIElement();
 
@@ -132,7 +131,7 @@ package com.wezside.components.survey.form
 		private function containerCreated( event:UIElementEvent ):void 
 		{
 			Tracer.output( true, " Form.containerCreated(event)", toString() );
-			_layout.arrange();			
+//			_layout.arrange();			
 			container.build();
 			container.arrange();
 			container.removeEventListener( UIElementEvent.CREATION_COMPLETE, containerCreated );

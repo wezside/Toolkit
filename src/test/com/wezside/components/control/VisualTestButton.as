@@ -1,8 +1,10 @@
 package test.com.wezside.components.control 
 {
+	import com.wezside.components.UIElementState;
 	import test.com.wezside.sample.styles.LatinStyle;
 
 	import com.wezside.components.UIElement;
+	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.control.Button;
 	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.text.Label;
@@ -13,13 +15,13 @@ package test.com.wezside.components.control
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MockButton extends UIElement 
+	public class VisualTestButton extends UIElement 
 	{
 		
 		private var button:Button;
 		private var label:Label;
 
-		public function MockButton()
+		public function VisualTestButton()
 		{
 			super( );			
 			addEventListener( Event.ADDED_TO_STAGE, stageInit );
@@ -45,20 +47,22 @@ package test.com.wezside.components.control
 
 		override public function build():void 
 		{	
-			button = new Button();
+			button = new Button();			
+			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
 			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
 			button.labelStyleName = "buttonLabel";
 			button.labelWidth = 220;
 			button.labelHeight = 20;
+			button.iconStyleName = "buttonIcon";
 			button.build();
 			button.setStyle();
 			button.arrange();		
 			addChild( button );
 			button.activate();
 			button.x = 50;
-			button.y = 50;
+			button.y = 50;			
 	
 			label = new Label();
 			label.text = "Ut quis justo in risus ultricies facilisis eget";
@@ -74,6 +78,12 @@ package test.com.wezside.components.control
 			addChild( label );
 			
 			super.build();
+		}
+
+		private function stateChange(event:UIElementEvent):void 
+		{
+			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
+				trace( "Clicked ");
 		}
 	}
 }

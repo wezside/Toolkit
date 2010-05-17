@@ -16,5 +16,6 @@ package com.wezside.components.scroll
 		
 		function get horizontalGap():int;
 		function set horizontalGap( value:int ):void;
+
 	}
 }

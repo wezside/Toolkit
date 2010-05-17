@@ -1,11 +1,9 @@
 package com.wezside.components.control 
 {
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementState;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.text.Label;
-
-	import flash.events.MouseEvent;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -13,58 +11,100 @@ package com.wezside.components.control
 	public class Button extends UIElement 
 	{
 		
-		
+		private static const ICON_PLACEMENT_LEFT:String = "ICON_PLACEMENT_LEFT";
+		private static const ICON_PLACEMENT_RIGHT:String = "ICON_PLACEMENT_RIGHT";
+		private static const ICON_PLACEMENT_CENTER:String = "ICON_PLACEMENT_CENTER";
+		private static const ICON_PLACEMENT_BOTTOM:String = "ICON_PLACEMENT_BOTTOM";
+		private static const ICON_PLACEMENT_TOP:String = "ICON_PLACEMENT_TOP";
+
 		private var _label:Label;
 		private var _icon:UIElement;
+		private var iconAlign:StateManager;
 
 		public function Button()
 		{
 			super( );
 			layout = new PaddedLayout( this );
 			_label = new Label();
-			addChild( _label );			
+			addChild( _label );		
+			
+			_icon = new UIElement();
+			addChild( _icon );	
+			iconAlign = new StateManager();
+			iconAlign.addState( ICON_PLACEMENT_LEFT, true );
+			iconAlign.addState( ICON_PLACEMENT_RIGHT, true );
+			iconAlign.addState( ICON_PLACEMENT_CENTER, true );
+			iconAlign.addState( ICON_PLACEMENT_BOTTOM, true );
+			iconAlign.addState( ICON_PLACEMENT_TOP, true );
+			iconAlign.stateKey = ICON_PLACEMENT_LEFT;
 		}
 
 		override public function build():void 
 		{
 			super.build( );
-			if ( text )
-			{				
-				_label.layout = new PaddedLayout( _label );
-				_label.build();
-				if ( _label.styleManager ) _label.setStyle();
-				_label.arrange();					
-			}			
+			_label.layout = new PaddedLayout( _label );
+			_label.build();
+			if ( _label.styleManager ) _label.setStyle();
+			_label.arrange();					
 		}
+		
+		override public function set state( value:String ):void 
+		{
+			super.state = value;
+			_label.state = value;
+		}		
 		
 		override public function arrange():void 
 		{		
 			var skinWidth:int = int( _label.width + layout.left + layout.right );
 			var skinHeight:int = int( _label.height + layout.top + layout.bottom );
 			skin.setSize( skinWidth, skinHeight );
+			
+			// Center icon on y-axis and x-axis
+			_icon.x = - _icon.width;
+			_icon.y = ( skinHeight - _icon.height ) * 0.5;
+			
+			if ( iconAlign.compare( ICON_PLACEMENT_RIGHT ))
+			{
+				_icon.x = skinWidth;
+			}
+			
+			if ( iconAlign.compare( ICON_PLACEMENT_CENTER ))
+			{
+				_icon.x = ( skinWidth  - _icon.width ) * 0.5;
+			}
+			
+			if ( iconAlign.compare( ICON_PLACEMENT_TOP ))
+			{
+				_icon.y = - _icon.height;
+			}
+			
+			if ( iconAlign.compare( ICON_PLACEMENT_BOTTOM ))
+			{
+				_icon.y = - _icon.height;
+			}			
+			
 			super.arrange( );				
 		}
-
-		public function activate():void
+		
+		override public function activate():void 
 		{
-			state = UIElementState.STATE_VISUAL_UP;
-			buttonMode = true;
-			addEventListener( MouseEvent.ROLL_OVER, rollOver );
-			addEventListener( MouseEvent.ROLL_OUT, rollOut );
-			addEventListener( MouseEvent.MOUSE_DOWN, down );
-			addEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
-			addEventListener( MouseEvent.CLICK, click );		
+			interactive.activate();
 		}
 		
-		public function deactivate():void
+		override public function deactivate():void 
 		{
-			state = null;
-			buttonMode = false;
-			removeEventListener( MouseEvent.ROLL_OVER, rollOver );
-			removeEventListener( MouseEvent.ROLL_OUT, rollOut );
-			removeEventListener( MouseEvent.MOUSE_DOWN, down );
-			removeEventListener( MouseEvent.MOUSE_UP, mouseUp  );		
-			removeEventListener( MouseEvent.CLICK, click );		
+			interactive.deactivate();
+		}
+
+		public function get label():Label
+		{
+			return _label;
+		}
+		
+		public function set label( value:Label ):void
+		{
+			_label = value;
 		}
 
 		public function get labelStyleName():String
@@ -168,54 +208,6 @@ package com.wezside.components.control
 		{
 			_icon.styleName = value;
 			_icon.styleManager = styleManager;
-		}
-
-		private function mouseUp( event:MouseEvent ):void 
-		{			
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{		
-				_label.state = UIElementState.STATE_VISUAL_UP;
-				state = UIElementState.STATE_VISUAL_UP;
-			}
-		}
-
-		private function rollOver( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{			
-				state = UIElementState.STATE_VISUAL_OVER;
-				_label.state = UIElementState.STATE_VISUAL_OVER;
-			}
-		}
-
-		private function rollOut( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{
-	 			state = UIElementState.STATE_VISUAL_UP;
-				_label.state = UIElementState.STATE_VISUAL_UP;
-			}
-		}
-
-		private function click( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{				
-				state = UIElementState.STATE_VISUAL_SELECTED;
-				_label.state = UIElementState.STATE_VISUAL_SELECTED;
-			}
-			else if ( stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{
-				state = UIElementState.STATE_VISUAL_SELECTED;
-				state = UIElementState.STATE_VISUAL_OVER;
-				_label.state = UIElementState.STATE_VISUAL_OVER;				
-			}
-		}
-
-		private function down( event:MouseEvent ):void 
-		{
-			state = UIElementState.STATE_VISUAL_DOWN;
-			_label.state = UIElementState.STATE_VISUAL_DOWN;
 		}				
 	}
 }

@@ -35,11 +35,16 @@ MockUIElement {
 	paddingRight: 10;
 }
 
+.buttonIcon
+{
+	upSkin: ButtonIconUp;	
+}
+
 .buttonLabel {
 	font: ArialEmbed;
 	antiAliasType: advanced;
 	size: 12;
-	textColourUp: #666666;
+	textColourUp: #EF34AB;
 	textColourOver: #333333;
 	textColourDown: #111111;
 	textColourSelected: #ff0000;

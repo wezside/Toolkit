@@ -4,6 +4,7 @@ package com.wezside.components.scroll
 	import com.wezside.components.IUIElement;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.NullIterator;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Sprite;
 
@@ -121,6 +122,15 @@ package com.wezside.components.scroll
 		public function set trackWidth( value:int ):void
 		{
 			_trackWidth = value;
+		}
+		
+		public function get stateManager():StateManager
+		{
+			return null;
+		}
+		
+		public function set stateManager(value:StateManager):void
+		{
 		}
 	}
 }

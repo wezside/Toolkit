@@ -21,7 +21,6 @@ package com.wezside.components.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 
@@ -41,7 +40,6 @@ package com.wezside.components.layout
 		{
 			super( decorated );
 		}
-
 		
 		override public function arrange():void
 		{	

@@ -9,13 +9,13 @@ package com.wezside.components
 	 */
 	public interface IUIDecorator 
 	{
-
+	
 		function get width():Number
 		function set width( value:Number ):void
 		
 		function get height():Number
-		function set height( value:Number ):void		
-		
+		function set height( value:Number ):void	
+				
 	 	function iterator( type:String = null ):IIterator;
 		function arrange():void;
 

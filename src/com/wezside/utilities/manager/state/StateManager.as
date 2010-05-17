@@ -22,17 +22,17 @@ package com.wezside.utilities.manager.state
 
 	/**
 	 * @author Wesley.Swanepoel
-	 * 
+	 * <p></p>
 	 * <p>
 	 * A useful class to manage application or component state. The reserved property on an IState instance is used for 
 	 * application state which should only affect itself. 
 	 * </p>
-	 * 
+	 * <p></p>
 	 * <p><b>Reserved States</b></p>
 	 * <p>
 	 * Reserved states are not mutually exclusive, they are allowed to co exist with non-reserved and other reserved states. 
 	 * </p>
-	 * 
+	 * <p></p>
 	 * <p><b>Example</b></p>
 	 * <p>
 	 * An example of this is the Credential state, i.e. logged in vs not logged in.
