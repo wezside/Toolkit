@@ -357,30 +357,37 @@ package com.wezside.components.text
 		}	
 			
 		private function mouseUp( event:MouseEvent ):void 
-		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))	
+		{			
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
 				state = UIElementState.STATE_VISUAL_UP;
-		}
+		}			
 
 		private function rollOver( event:MouseEvent ):void 
 		{
-			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))	
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
 				state = UIElementState.STATE_VISUAL_OVER;
 		}
 
 		private function rollOut( event:MouseEvent ):void 
 		{
-			state = UIElementState.STATE_VISUAL_UP;
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+	 			state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		private function click( event:MouseEvent ):void 
 		{
-			state = UIElementState.STATE_VISUAL_SELECTED;
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+				state = UIElementState.STATE_VISUAL_SELECTED;
+			else if ( stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{
+				state = UIElementState.STATE_VISUAL_SELECTED;
+				state = UIElementState.STATE_VISUAL_OVER;
+			}
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
 			state = UIElementState.STATE_VISUAL_DOWN;
-		}			
+		}				
 	}
 }

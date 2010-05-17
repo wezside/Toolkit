@@ -26,6 +26,7 @@
 	upSkin: ButtonUp;	
 	overSkin: ButtonOver;	
 	downSkin: ButtonDown;
+	selectedSkin: ButtonSelected;
 	paddingLeft: 10;
 	paddingRight: 10;
 }

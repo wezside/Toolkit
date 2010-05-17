@@ -15,6 +15,7 @@ package com.wezside.components.control
 		
 		
 		private var _label:Label;
+		private var _icon:UIElement;
 
 		public function Button()
 		{
@@ -32,8 +33,7 @@ package com.wezside.components.control
 				_label.layout = new PaddedLayout( _label );
 				_label.build();
 				if ( _label.styleManager ) _label.setStyle();
-				_label.arrange();
-					
+				_label.arrange();					
 			}			
 		}
 		
@@ -148,11 +148,32 @@ package com.wezside.components.control
 		{
 			layout.bottom = value;
 		}
+		
+		public function get icon():UIElement
+		{
+			return _icon;
+		}
+		
+		public function set icon( value:UIElement ):void
+		{
+			_icon = value;
+		}
+		
+		public function get iconStyleName():String
+		{
+			return _icon.styleName;
+		}
+		
+		public function set iconStyleName( value:String ):void
+		{
+			_icon.styleName = value;
+			_icon.styleManager = styleManager;
+		}
 
 		private function mouseUp( event:MouseEvent ):void 
 		{			
 			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{			
+			{		
 				_label.state = UIElementState.STATE_VISUAL_UP;
 				state = UIElementState.STATE_VISUAL_UP;
 			}
@@ -178,8 +199,17 @@ package com.wezside.components.control
 
 		private function click( event:MouseEvent ):void 
 		{
-			state = UIElementState.STATE_VISUAL_SELECTED;
-			_label.state = UIElementState.STATE_VISUAL_SELECTED;
+			if ( !stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{				
+				state = UIElementState.STATE_VISUAL_SELECTED;
+				_label.state = UIElementState.STATE_VISUAL_SELECTED;
+			}
+			else if ( stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{
+				state = UIElementState.STATE_VISUAL_SELECTED;
+				state = UIElementState.STATE_VISUAL_OVER;
+				_label.state = UIElementState.STATE_VISUAL_OVER;				
+			}
 		}
 
 		private function down( event:MouseEvent ):void 
