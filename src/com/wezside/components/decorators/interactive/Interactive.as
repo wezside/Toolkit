@@ -15,6 +15,7 @@ package com.wezside.components.decorators.interactive
 	{
 		
 		protected var decorated:IInteractive;
+		private var forcedDeselect:Boolean;
 
 		public function Interactive( decorated:IInteractive = null  )
 		{
@@ -68,13 +69,25 @@ package com.wezside.components.decorators.interactive
 		{
 			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_OVER;
-			decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+			if ( !forcedDeselect )
+			{
+				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+			}
+			else
+			{
+				forcedDeselect = false;
+			}
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
 			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
+			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{			
+				forcedDeselect = true;
+				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+			}			
 		}
 
 		public function get state():String
