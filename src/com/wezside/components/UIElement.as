@@ -24,7 +24,6 @@
 package com.wezside.components 
 {
 	import com.wezside.components.decorators.interactive.IInteractive;
-	import com.wezside.components.shape.Shape;
 	import com.wezside.components.decorators.interactive.Interactive;
 	import com.wezside.components.layout.ILayout;
 	import com.wezside.components.layout.Layout;
@@ -126,8 +125,7 @@ package com.wezside.components
 			{
 				// Grab Constructor as styleName
 				var qualifiedClass:String = getQualifiedClassName( this );				
-				qualifiedClass = qualifiedClass.substr( qualifiedClass.lastIndexOf( "::" ) + 2 );
-				_styleName = qualifiedClass;
+				_styleName = qualifiedClass.substr( qualifiedClass.lastIndexOf( "::" ) + 2 );
 				setProperties( this, _styleName );
 			}
 		}
