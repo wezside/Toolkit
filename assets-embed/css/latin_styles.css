@@ -31,8 +31,22 @@ MockUIElement {
 	overSkin: ButtonOver;	
 	downSkin: ButtonDown;
 	selectedSkin: ButtonSelected;
-	paddingLeft: 10;
-	paddingRight: 10;
+	paddingLeft: 20;
+	paddingRight: 20;
+	paddingTop: 20;
+	paddingBottom: 20;
+	font: ArialEmbed;
+	antiAliasType: advanced;
+	size: 12;
+	textColourUp: #EF34AB;
+	textColourOver: #333333;
+	textColourDown: #111111;
+	textColourSelected: #ff0000;
+	align: left;
+	multiline: true;
+	wordWrap: true;
+	border: true;
+	borderColor: #000000;	
 }
 
 .buttonIcon
@@ -50,7 +64,9 @@ MockUIElement {
 	textColourSelected: #ff0000;
 	align: left;
 	multiline: true;
-	wordWrap: true;	
+	wordWrap: true;		
+	border: true;
+	borderColor: #000000;		
 }
 
 .inputField

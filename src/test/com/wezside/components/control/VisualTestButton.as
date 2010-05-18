@@ -1,5 +1,6 @@
 package test.com.wezside.components.control 
 {
+	import flash.display.Sprite;
 	import com.wezside.components.UIElementState;
 	import test.com.wezside.sample.styles.LatinStyle;
 
@@ -15,11 +16,12 @@ package test.com.wezside.components.control
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class VisualTestButton extends UIElement 
+	public class VisualTestButton extends Sprite 
 	{
 		
 		private var button:Button;
 		private var label:Label;
+		private var styleManager:LatinStyle;
 
 		public function VisualTestButton()
 		{
@@ -36,54 +38,46 @@ package test.com.wezside.components.control
 		private function styleReady( event:Event ):void 
 		{
 			build();
-			arrange();
 		}
 
-		private function timerComplete(event:TimerEvent):void 
-		{
-			layout = new HorizontalLayout( this );
-			layout.arrange();
-		}
-
-		override public function build():void 
+		public function build():void 
 		{	
 			button = new Button();			
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
-			button.labelStyleName = "buttonLabel";
-			button.labelWidth = 220;
-			button.labelHeight = 20;
-			button.iconStyleName = "buttonIcon";
+//			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
+			button.width = 220;
+			button.height = 50;
+//			button.iconStyleName = "buttonIcon";
 			button.build();
 			button.setStyle();
 			button.arrange();		
 			addChild( button );
 			button.activate();
 			button.x = 50;
-			button.y = 50;			
+			button.y = 50;		
+
 	
+			
 			label = new Label();
 			label.text = "Ut quis justo in risus ultricies facilisis eget";
 			label.styleName = "buttonLabel";
 			label.styleManager = styleManager;
-			label.buttonMode = true;
-			label.activate();
 			label.build();
 			label.setStyle();
 			label.arrange();
-			label.x = 50;
+			label.activate();
+			label.x = 350;
 			label.y = 150;
 			addChild( label );
-			
-			super.build();
+
 		}
 
 		private function stateChange( event:UIElementEvent ):void 
 		{
 			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
-				trace( "Clicked ");
+				trace( "Clicked", event.currentTarget, event.target );
 		}
 	}
 }

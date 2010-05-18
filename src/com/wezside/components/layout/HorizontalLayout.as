@@ -42,6 +42,7 @@ package com.wezside.components.layout
 		{
 			
 			// Iterate over rest of the children and layout horizontally
+			xOffset = 0;
 			xOffset += left;
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			while ( iterator.hasNext())

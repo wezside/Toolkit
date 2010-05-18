@@ -47,10 +47,9 @@ package com.wezside.components.text
 		public function Label()
 		{
 			super();
-			fmt = new TextFormat( );
-			field = new TextField();
 			layout = new PaddedLayout( this.layout );
-			addChild( field ); 
+			fmt = new TextFormat( );
+			field = new TextField();			
 		}
 
 		override public function arrange():void
@@ -122,6 +121,7 @@ package com.wezside.components.text
 		public function set text( value:String ):void
 		{
 			_text = value;
+			addChild( field );			
 		}		
 		
 		public function get embedFonts():Boolean
@@ -334,7 +334,11 @@ package com.wezside.components.text
 
 		private function setText():void
 		{
-			if ( !_text ) return;
+			if ( !text )
+			{
+				if ( contains( field )) removeChild( field );
+				return;
+			}
 			if ( styleSheet ) 
 			{
 				field.styleSheet = styleSheet; 

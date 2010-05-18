@@ -37,7 +37,10 @@ package com.wezside.utilities.manager.style
 	{
 		
 		protected var _css:String;
-		protected var loader:Loader = new Loader( );		
+		protected var loader:Loader = new Loader( );
+		
+		
+		private var _reserved:Array = [ "upSkin", "overSkin", "downSkin", "selectedSkin", "invalidSkin", "disabledSkin" ];		
 		private var _sheet:StyleSheet;		
 
 		
@@ -82,12 +85,24 @@ package com.wezside.utilities.manager.style
 		{
 			var strUtil:StringUtil = new StringUtil();
 			var cssObj:Object = _sheet.getStyle( strUtil.isFirstLetterLowerCase( styleName ) ? "." + styleName : styleName );			
-			var props:Array = [];			
+			var props:Array = [];
+			var orderedReserved:Array = [];
+			
+			for ( var k:int = 0; k < _reserved.length; ++k ) 
+				if ( cssObj.hasOwnProperty( _reserved[k] ))
+					orderedReserved.push( { prop: _reserved[k], value: cssObj[ _reserved[ k ]]});				
+						
 			for ( var i:String in cssObj ) 
 			{
-				props.push({ prop: i, value: cssObj[i] });
-			}
+				var result:Boolean;
+				for ( var j:int = 0; j < _reserved.length; ++j ) 
+					if ( i != _reserved[j])
+						result = true;
 
+				if ( result )
+					props.push({ prop: i, value: cssObj[i] });
+			}
+			props = props.concat( orderedReserved );	
 			return props;	
 		}		
 

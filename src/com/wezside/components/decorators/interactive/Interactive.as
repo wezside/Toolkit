@@ -47,34 +47,33 @@ package com.wezside.components.decorators.interactive
 			
 		private function mouseUp( event:MouseEvent ):void 
 		{			
+			event.stopImmediatePropagation();
 		}			
 
 		private function rollOver( event:MouseEvent ):void 
 		{
+			event.stopImmediatePropagation();
 			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))			
 				decorated.state = UIElementState.STATE_VISUAL_OVER;
 		}
 
 		private function rollOut( event:MouseEvent ):void 
 		{
+			event.stopImmediatePropagation();
 			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))			
 				decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		private function click( event:MouseEvent ):void 
 		{
-			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))				
-				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
-			else
-			{
-				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
-				decorated.state = UIElementState.STATE_VISUAL_OVER;
-			}
-							
+			event.stopImmediatePropagation();
+			decorated.state = UIElementState.STATE_VISUAL_OVER;
+			decorated.state = UIElementState.STATE_VISUAL_SELECTED;
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
+			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
 		}
 

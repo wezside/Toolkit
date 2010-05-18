@@ -43,6 +43,7 @@ package com.wezside.components.layout
 		{			
 									
 			// Iterate over rest of the children and layout vertically
+			yOffset = 0;
 			yOffset += top;
 
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			

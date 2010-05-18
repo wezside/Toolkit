@@ -29,7 +29,7 @@ package com.wezside.components
 					case UIElementState.STATE_VISUAL_OVER: if ( _overSkin ) show( _overSkin ); break; 
 					case UIElementState.STATE_VISUAL_DOWN: if ( _downSkin ) show( _downSkin ); break; 
 					case UIElementState.STATE_VISUAL_SELECTED: if ( _selectedSkin ) show( _selectedSkin );	break;												 
-					case UIElementState.STATE_VISUAL_INVALID: if ( _selectedSkin ) show( _invalidSkin ); break;											    
+					case UIElementState.STATE_VISUAL_INVALID: if ( _invalidSkin ) show( _invalidSkin ); break;											    
 					case UIElementState.STATE_VISUAL_DISABLED: if ( _disabledSkin ) show( _disabledSkin ); break; 
 				}				
 			}			
