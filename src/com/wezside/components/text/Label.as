@@ -71,16 +71,6 @@ package com.wezside.components.text
 				case UIElementState.STATE_VISUAL_DISABLED : field.textColor = textColourDisabled; break;
 			}
 		}
-		
-		override public function activate():void 
-		{
-			interactive.activate();
-		}
-		
-		override public function deactivate():void 
-		{
-			interactive.deactivate();
-		}		
 
 		public function get font():String
 		{

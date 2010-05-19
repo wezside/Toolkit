@@ -23,6 +23,7 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.components.decorators.interactive.IInteractive;
 	import com.wezside.components.decorators.interactive.Interactive;
 	import com.wezside.components.layout.ILayout;
@@ -68,6 +69,7 @@ package com.wezside.components
 		private var _scroll:IScroll;
 		private var _background:IShape;
 		private var _interactive:IInteractive;
+		private var _debug:Boolean;
 
 		public function UIElement() 
 		{
@@ -144,10 +146,12 @@ package com.wezside.components
 		
 		public function activate():void
 		{
+			_interactive.activate();
 		}
-		
+
 		public function deactivate():void
 		{
+			_interactive.deactivate();
 		}
 
 		public function get styleManager():IStyleManager
@@ -292,6 +296,16 @@ package com.wezside.components
 			return super.hasOwnProperty( V );
 		}
 		
+		public function get debug():Boolean
+		{
+			return _debug;
+		}
+		
+		public function set debug( value:Boolean ):void
+		{
+			_debug = value;
+		}
+		
 		protected function arrangeComplete( event:UIElementEvent ):void 
 		{
 			dispatchEvent( event );
@@ -312,7 +326,7 @@ package com.wezside.components
 			_childrenContainer.mask = scrollMask;			
 		}		
 		
-		private function setProperties( child:IUIElement, currentStyleName:String = "" ):void
+		private function setProperties( target:IUIElement, currentStyleName:String = "" ):void
 		{
 			_currentStyleName = currentStyleName;
 			var iter:IIterator = iterator( ITERATOR_PROPS );
@@ -323,7 +337,7 @@ package com.wezside.components
 				var property:Object = iter.next();
 				
 				// Set all non skin properties
-				if ( child.hasOwnProperty( property.prop ))
+				if ( target.hasOwnProperty( property.prop ))
 				{
 					var value:* = String( property.value );
 					if ( property.value == "false" || property.value == "true" )
@@ -335,7 +349,8 @@ package com.wezside.components
 					if ( !isNaN( property.value ))
 						value = Number( property.value );
 
-					child[ property.prop ] = value;
+					target[ property.prop ] = value;
+					Tracer.output( _debug, " " + property.prop + ": " + value, toString() );
 				}
 				
 				if ( _skin.hasSkinProperty( property.prop ))

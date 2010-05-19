@@ -1,5 +1,6 @@
 package com.wezside.components.control 
 {
+	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.text.Label;
 	import com.wezside.utilities.manager.state.StateManager;
@@ -10,74 +11,64 @@ package com.wezside.components.control
 	public class Button extends Label 
 	{
 		
-		private static const ICON_PLACEMENT_LEFT:String = "ICON_PLACEMENT_LEFT";
-		private static const ICON_PLACEMENT_RIGHT:String = "ICON_PLACEMENT_RIGHT";
-		private static const ICON_PLACEMENT_CENTER:String = "ICON_PLACEMENT_CENTER";
-		private static const ICON_PLACEMENT_BOTTOM:String = "ICON_PLACEMENT_BOTTOM";
-		private static const ICON_PLACEMENT_TOP:String = "ICON_PLACEMENT_TOP";
+		private static const ICON_PLACEMENT_TOP:String = "iconPlacementTop";
+		private static const ICON_PLACEMENT_LEFT:String = "iconPlacementLeft";
+		private static const ICON_PLACEMENT_RIGHT:String = "iconPlacementRight";
+		private static const ICON_PLACEMENT_CENTER:String = "iconPlacementCenter";
+		private static const ICON_PLACEMENT_BOTTOM:String = "iconPlacementBottom";
 
 		private var _id:String;
 		private var _icon:UIElement;
-		private var iconAlign:StateManager;
+		private var _iconAlign:StateManager;
 
 		public function Button()
 		{
 			super( );
-			_icon = new UIElement();
-			_icon.build();
+			_icon = new Icon();
+			_icon.debug = true;
+			_icon.layout = new PaddedLayout( _icon.layout );
 			addChild( _icon );	
-			iconAlign = new StateManager();
-			iconAlign.addState( ICON_PLACEMENT_LEFT, true );
-			iconAlign.addState( ICON_PLACEMENT_RIGHT, true );
-			iconAlign.addState( ICON_PLACEMENT_CENTER, true );
-			iconAlign.addState( ICON_PLACEMENT_BOTTOM, true );
-			iconAlign.addState( ICON_PLACEMENT_TOP, true );
-			iconAlign.stateKey = ICON_PLACEMENT_LEFT;
+			_iconAlign = new StateManager();
+			_iconAlign.addState( ICON_PLACEMENT_LEFT, true );
+			_iconAlign.addState( ICON_PLACEMENT_RIGHT, true );
+			_iconAlign.addState( ICON_PLACEMENT_CENTER, true );
+			_iconAlign.addState( ICON_PLACEMENT_BOTTOM, true );
+			_iconAlign.addState( ICON_PLACEMENT_TOP, true );
+			_iconAlign.stateKey = ICON_PLACEMENT_LEFT;
+		}
+	
+		override public function build():void 
+		{
+			super.build( );
+			_icon.build();
+			_icon.setStyle();
 		}
 
 		override public function arrange():void 
-		{		
-			var skinWidth:int = int( field.width + layout.left + layout.right );
-			var skinHeight:int = int( field.height + layout.top + layout.bottom );
+		{	
+			
+			// Add the Icon's padding to the total left padding if Icon is aligned left
+			layout.left += _icon.width + _icon.layout.left + _icon.layout.right;
+			
+			// Arrange the Label component to adjust the text field width and height based on the text
+			super.arrange( ); 
+									
+			// Custom arrange for icon UIElement
+			_icon.x = field.x - _icon.width - _icon.layout.right;
+			_icon.y = field.y + ( field.height - _icon.height ) * 0.5;			
+
+			var skinWidth:int = int( field.width + layout.left + layout.right + _icon.layout.left + _icon.layout.right );
+			var skinHeight:int = int( field.height + layout.top + layout.bottom);
 			skin.setSize( skinWidth, skinHeight );
-			
-			// Center icon on y-axis and x-axis
-			_icon.x = - _icon.width;
-			_icon.y = ( skinHeight - _icon.height ) * 0.5;
-			
-			if ( iconAlign.compare( ICON_PLACEMENT_RIGHT ))
-			{
-				_icon.x = skinWidth;
-			}
-			
-			if ( iconAlign.compare( ICON_PLACEMENT_CENTER ))
-			{
-				_icon.x = ( skinWidth  - _icon.width ) * 0.5;
-			}
-			
-			if ( iconAlign.compare( ICON_PLACEMENT_TOP ))
-			{
-				_icon.y = - _icon.height;
-			}
-			
-			if ( iconAlign.compare( ICON_PLACEMENT_BOTTOM ))
-			{
-				_icon.y = - _icon.height;
-			}			
-			
-			super.arrange( );				
+						 
+		}
+		
+		override public function set state( value:String ):void 
+		{
+			super.state = value;
+			_icon.state = value;
 		}
 
-		override public function activate():void 
-		{
-			interactive.activate();
-		}
-		
-		override public function deactivate():void 
-		{
-			interactive.deactivate();
-		}
-		
 		public function get icon():UIElement
 		{
 			return _icon;
@@ -98,6 +89,16 @@ package com.wezside.components.control
 			_icon.styleName = value;
 			_icon.styleManager = styleManager;
 		}				
+		
+		public function get iconAlign():String
+		{
+			return _iconAlign.stateKey;
+		}
+		
+		public function set iconAlign( value:String ):void
+		{
+			_iconAlign.stateKey = value;
+		}
 		
 		public function get id():String
 		{

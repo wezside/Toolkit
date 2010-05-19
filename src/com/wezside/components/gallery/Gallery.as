@@ -287,16 +287,6 @@ package com.wezside.components.gallery
 		{
 			return ( row * verticalgap ) * largestItemHeight * 0.5;
 		}
-		
-		public function get debug():Boolean
-		{
-			return _debug;
-		}
-		
-		public function set debug( value:Boolean ):void
-		{
-			_debug = value;
-		}
 
 		public function get thumbEnabled():Boolean
 		{

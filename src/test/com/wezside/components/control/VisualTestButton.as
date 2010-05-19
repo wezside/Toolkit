@@ -1,17 +1,14 @@
 package test.com.wezside.components.control 
 {
-	import flash.display.Sprite;
-	import com.wezside.components.UIElementState;
 	import test.com.wezside.sample.styles.LatinStyle;
 
-	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.UIElementState;
 	import com.wezside.components.control.Button;
-	import com.wezside.components.layout.HorizontalLayout;
 	import com.wezside.components.text.Label;
 
+	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -46,10 +43,9 @@ package test.com.wezside.components.control
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-//			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
-			button.width = 220;
-			button.height = 50;
-//			button.iconStyleName = "buttonIcon";
+			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
+			button.width = 170;
+			button.iconStyleName = "buttonIcon";
 			button.build();
 			button.setStyle();
 			button.arrange();		
@@ -57,18 +53,17 @@ package test.com.wezside.components.control
 			button.activate();
 			button.x = 50;
 			button.y = 50;		
-
-	
 			
 			label = new Label();
-			label.text = "Ut quis justo in risus ultricies facilisis eget";
-			label.styleName = "buttonLabel";
+			label.text = "UIElement Button Example";
+			label.styleName = "labelButton";
 			label.styleManager = styleManager;
+			label.width = 500;
 			label.build();
 			label.setStyle();
 			label.arrange();
 			label.activate();
-			label.x = 350;
+			label.x = 50;
 			label.y = 150;
 			addChild( label );
 
@@ -77,7 +72,7 @@ package test.com.wezside.components.control
 		private function stateChange( event:UIElementEvent ):void 
 		{
 			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
-				trace( "Clicked", event.currentTarget, event.target );
+				trace( "Clicked", event.currentTarget );
 		}
 	}
 }

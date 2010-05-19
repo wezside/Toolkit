@@ -31,42 +31,43 @@ MockUIElement {
 	overSkin: ButtonOver;	
 	downSkin: ButtonDown;
 	selectedSkin: ButtonSelected;
-	paddingLeft: 20;
-	paddingRight: 20;
-	paddingTop: 20;
-	paddingBottom: 20;
+	paddingLeft: 10;
+	paddingRight: 10;
+	paddingTop: 10;
+	paddingBottom: 10;
 	font: ArialEmbed;
 	antiAliasType: advanced;
 	size: 12;
-	textColourUp: #EF34AB;
+	textColourUp: #111111;
 	textColourOver: #333333;
 	textColourDown: #111111;
 	textColourSelected: #ff0000;
 	align: left;
+	autoSize: left;
 	multiline: true;
 	wordWrap: true;
-	border: true;
-	borderColor: #000000;	
 }
 
 .buttonIcon
 {
-	upSkin: ButtonIconUp;	
+	upSkin: IconUp;	
+	overSkin: IconOver;	
+	downSkin: IconUp;	
+	selectedSkin: IconSelected;
+	paddingRight: 5;
 }
 
-.buttonLabel {
+.labelButton {
 	font: ArialEmbed;
 	antiAliasType: advanced;
-	size: 12;
-	textColourUp: #EF34AB;
+	size: 30;
+	textColourUp: #111111;
 	textColourOver: #333333;
 	textColourDown: #111111;
 	textColourSelected: #ff0000;
 	align: left;
 	multiline: true;
 	wordWrap: true;		
-	border: true;
-	borderColor: #000000;		
 }
 
 .inputField

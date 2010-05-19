@@ -43,7 +43,6 @@ package com.wezside.components.layout
 		
 		override public function arrange():void
 		{	
-			
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			while ( iterator.hasNext())
 			{
