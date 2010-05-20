@@ -1,5 +1,6 @@
 package test.com.wezside.components.control 
 {
+	import com.wezside.components.control.Icon;
 	import test.com.wezside.sample.styles.LatinStyle;
 
 	import com.wezside.components.UIElementEvent;
@@ -26,17 +27,6 @@ package test.com.wezside.components.control
 			addEventListener( Event.ADDED_TO_STAGE, stageInit );
 		}
 
-		private function stageInit( event:Event ):void 
-		{
-			styleManager = new LatinStyle();
-			styleManager.addEventListener( Event.COMPLETE, styleReady );
-		}
-
-		private function styleReady( event:Event ):void 
-		{
-			build();
-		}
-
 		public function build():void 
 		{	
 			button = new Button();			
@@ -46,6 +36,7 @@ package test.com.wezside.components.control
 			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis justo in risus ultricies facilisis eget sit amet quam.";
 			button.width = 170;
 			button.iconStyleName = "buttonIcon";
+			button.iconAlign = Button.ICON_PLACEMENT_CENTER_LEFT;
 			button.build();
 			button.setStyle();
 			button.arrange();		
@@ -68,6 +59,18 @@ package test.com.wezside.components.control
 			addChild( label );
 
 		}
+		
+
+		private function stageInit( event:Event ):void 
+		{
+			styleManager = new LatinStyle();
+			styleManager.addEventListener( Event.COMPLETE, styleReady );
+		}
+
+		private function styleReady( event:Event ):void 
+		{
+			build();
+		}		
 
 		private function stateChange( event:UIElementEvent ):void 
 		{

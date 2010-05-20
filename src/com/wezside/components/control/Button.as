@@ -11,11 +11,18 @@ package com.wezside.components.control
 	public class Button extends Label 
 	{
 		
-		private static const ICON_PLACEMENT_TOP:String = "iconPlacementTop";
-		private static const ICON_PLACEMENT_LEFT:String = "iconPlacementLeft";
-		private static const ICON_PLACEMENT_RIGHT:String = "iconPlacementRight";
-		private static const ICON_PLACEMENT_CENTER:String = "iconPlacementCenter";
-		private static const ICON_PLACEMENT_BOTTOM:String = "iconPlacementBottom";
+		public static const ICON_PLACEMENT_TOP_LEFT:String = "iconPlacementTopLeft";
+		public static const ICON_PLACEMENT_TOP_CENTER:String = "iconPlacementTopCenter";
+		public static const ICON_PLACEMENT_TOP_RIGHT:String = "iconPlacementTopRight";
+		
+		public static const ICON_PLACEMENT_CENTER_LEFT:String = "iconPlacementCenterLeft";
+		public static const ICON_PLACEMENT_CENTER_RIGHT:String = "iconPlacementCenterRight";
+		public static const ICON_PLACEMENT_CENTER:String = "iconPlacementCenter";
+		
+		public static const ICON_PLACEMENT_BOTTOM_LEFT:String = "iconPlacementBottomLeft";
+		public static const ICON_PLACEMENT_BOTTOM_CENTER:String = "iconPlacementBottomCenter";
+		public static const ICON_PLACEMENT_BOTTOM_RIGHT:String = "iconPlacementBottomRight";
+
 
 		private var _id:String;
 		private var _icon:UIElement;
@@ -29,12 +36,16 @@ package com.wezside.components.control
 			_icon.layout = new PaddedLayout( _icon.layout );
 			addChild( _icon );	
 			_iconAlign = new StateManager();
-			_iconAlign.addState( ICON_PLACEMENT_LEFT, true );
-			_iconAlign.addState( ICON_PLACEMENT_RIGHT, true );
-			_iconAlign.addState( ICON_PLACEMENT_CENTER, true );
-			_iconAlign.addState( ICON_PLACEMENT_BOTTOM, true );
-			_iconAlign.addState( ICON_PLACEMENT_TOP, true );
-			_iconAlign.stateKey = ICON_PLACEMENT_LEFT;
+			_iconAlign.addState( ICON_PLACEMENT_TOP_LEFT );
+			_iconAlign.addState( ICON_PLACEMENT_TOP_CENTER );
+			_iconAlign.addState( ICON_PLACEMENT_TOP_RIGHT );
+			_iconAlign.addState( ICON_PLACEMENT_CENTER_LEFT );
+			_iconAlign.addState( ICON_PLACEMENT_CENTER_RIGHT );
+			_iconAlign.addState( ICON_PLACEMENT_CENTER );
+			_iconAlign.addState( ICON_PLACEMENT_BOTTOM_LEFT );
+			_iconAlign.addState( ICON_PLACEMENT_BOTTOM_CENTER );
+			_iconAlign.addState( ICON_PLACEMENT_BOTTOM_RIGHT );
+
 		}
 	
 		override public function build():void 
@@ -47,20 +58,76 @@ package com.wezside.components.control
 		override public function arrange():void 
 		{	
 			
-			// Add the Icon's padding to the total left padding if Icon is aligned left
-			layout.left += _icon.width + _icon.layout.left + _icon.layout.right;
+			// Copy the icon width + height to the Button's padding decorator properties
+			switch ( _iconAlign.stateKey )
+			{
+				case ICON_PLACEMENT_TOP_CENTER:
+					layout.top += _icon.height + _icon.layout.top + _icon.layout.bottom;
+					break;
+					
+				case ICON_PLACEMENT_BOTTOM_CENTER:
+					layout.bottom += _icon.height + _icon.layout.top + _icon.layout.bottom;
+					break;
+				
+				case ICON_PLACEMENT_TOP_RIGHT:
+				case ICON_PLACEMENT_CENTER_RIGHT:
+				case ICON_PLACEMENT_BOTTOM_RIGHT:
+					layout.right += _icon.width + _icon.layout.left + _icon.layout.right;
+					break;
+				
+				case ICON_PLACEMENT_TOP_LEFT:
+				case ICON_PLACEMENT_CENTER_LEFT:
+				case ICON_PLACEMENT_BOTTOM_LEFT:
+					layout.left += _icon.width + _icon.layout.left + _icon.layout.right;
+					break;								
+			}
 			
 			// Arrange the Label component to adjust the text field width and height based on the text
-			super.arrange( ); 
-									
-			// Custom arrange for icon UIElement
-			_icon.x = field.x - _icon.width - _icon.layout.right;
-			_icon.y = field.y + ( field.height - _icon.height ) * 0.5;			
-
-			var skinWidth:int = int( field.width + layout.left + layout.right + _icon.layout.left + _icon.layout.right );
+			super.arrange( ); 		
+			
+			switch ( _iconAlign.stateKey )
+			{	
+				case ICON_PLACEMENT_TOP_CENTER:
+					_icon.x = field.x + ( field.width - _icon.width ) * 0.5;
+					_icon.y = field.y - _icon.height - _icon.layout.bottom;
+					break;					
+				case ICON_PLACEMENT_BOTTOM_CENTER:
+					_icon.x = field.x + ( field.width - _icon.width ) * 0.5;
+					_icon.y = field.y + field.height + _icon.layout.top;
+					break;					
+				case ICON_PLACEMENT_TOP_RIGHT:
+					_icon.x = field.x + field.width;
+					_icon.y = field.y;
+					break;
+				case ICON_PLACEMENT_CENTER_RIGHT:
+					_icon.x = field.x + field.width + _icon.layout.left;
+					_icon.y = field.y + ( field.height - _icon.height ) * 0.5;
+					break;
+				case ICON_PLACEMENT_BOTTOM_RIGHT:
+					_icon.x = field.x + field.width;
+					_icon.y = field.y + field.height - _icon.height;
+					break;
+				case ICON_PLACEMENT_TOP_LEFT:
+					_icon.x = field.x - _icon.width;
+					_icon.y = field.y;
+					break;
+				case ICON_PLACEMENT_CENTER_LEFT:
+					_icon.x = field.x - _icon.width - _icon.layout.right;
+					_icon.y = field.y + ( field.height - _icon.height ) * 0.5;
+					break;
+				case ICON_PLACEMENT_BOTTOM_LEFT:
+					_icon.x = field.x - _icon.width;
+					_icon.y = field.y + field.height - _icon.height;
+					break;
+				default:
+					_icon.x = field.x + ( field.width - _icon.width ) * 0.5;
+					_icon.y = field.y + ( field.height - _icon.height ) * 0.5;
+					break;
+			}			
+			
+			var skinWidth:int = int( field.width + layout.left + layout.right );
 			var skinHeight:int = int( field.height + layout.top + layout.bottom);
-			skin.setSize( skinWidth, skinHeight );
-						 
+			skin.setSize( skinWidth, skinHeight );	
 		}
 		
 		override public function set state( value:String ):void 
