@@ -7,12 +7,13 @@ UIElement. Read more on UIElement below.
 Latest release 
 =======
 
-* Build 0.1.0110
+* Build 0.1.0113
 * Compiled with Flex 4 SDK build 14159 
 
 
 Change log since build .0100
 =======
+* New Button + Label components added - better support for decorators through CSS 
 * New decorator added: Interactive - changes any UIElement into a button. 
 * Added support for automatically assigning Class names as styleNames
 * Removed inheritCSS and parent injection of styleName and styleManager to children. Explicitely set what is needed on each UIElement instead. This proves
