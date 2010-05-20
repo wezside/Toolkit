@@ -31,10 +31,6 @@ MockUIElement {
 	overSkin: ButtonOver;	
 	downSkin: ButtonDown;
 	selectedSkin: ButtonSelected;
-	paddingLeft: 10;
-	paddingRight: 10;
-	paddingTop: 10;
-	paddingBottom: 10;
 	font: ArialEmbed;
 	antiAliasType: advanced;
 	size: 12;
@@ -44,8 +40,10 @@ MockUIElement {
 	textColourSelected: #ff0000;
 	align: left;
 	autoSize: left;
-	multiline: true;
-	wordWrap: true;
+	paddingLeft: 10;
+	paddingRight: 10;
+	paddingBottom: 10;
+	paddingTop: 10;
 }
 
 .buttonIcon

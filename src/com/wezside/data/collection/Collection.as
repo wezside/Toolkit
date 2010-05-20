@@ -51,7 +51,7 @@ package com.wezside.data.collection
 			iterator.reset();
 			
 			// Returns the first item
-			if ( value == "" ) return iterator.next();
+			if ( value == "" && iterator.hasNext() ) return iterator.next();
 			
 			while( iterator.hasNext())
 			{
