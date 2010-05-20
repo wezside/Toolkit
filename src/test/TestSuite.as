@@ -5,7 +5,8 @@ package test
 	import test.com.wezside.components.gallery.TestGallery;
 	import test.com.wezside.components.survey.TestSurvey;
 	import test.com.wezside.utilities.date.TestDateUtil;
-	import test.com.wezside.utilities.stateManager.TestStateManager;
+	import test.com.wezside.utilities.manager.state.TestStateManager;
+	import test.com.wezside.utilities.manager.timeline.TestTimelineManager;
 	import test.com.wezside.utilities.string.TestURLUtil;
 
 	[Suite]
@@ -19,6 +20,7 @@ package test
 		public var testStateManager:TestStateManager;
 		public var testURLUtil:TestURLUtil;
 		public var testUIDecorators:TestUIDecorators;
+		public var testTimelineManager:TestTimelineManager;
 
 	}
 }

@@ -1,4 +1,4 @@
-package test.com.wezside.utilities.stateManager 
+package test.com.wezside.utilities.manager.state 
 {
 	import org.flexunit.asserts.assertFalse;
 	import org.flexunit.asserts.assertTrue;

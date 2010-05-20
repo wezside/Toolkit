@@ -1,21 +1,20 @@
 package test.com.wezside.components.gallery 
 {
-	import test.com.wezside.sample.gallery.DefaultTransition;
-	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.Gallery;
+	import com.wezside.components.gallery.GalleryEvent;
 
 	import flash.display.Sprite;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class UITestGallery extends Sprite 
+	public class VisualTestGallery extends Sprite 
 	{
 
 		private var items:Array = [];
 		private var gallery:Gallery;
 
-		public function UITestGallery()
+		public function VisualTestGallery()
 		{					 
 			for ( var i : int = 0; i < 8; ++i) 
 				items.push( { id: i, url: "bin-release/images/00"+(i+1)+".jpg", livedate: new Date() });
@@ -27,7 +26,6 @@ package test.com.wezside.components.gallery
 			gallery.x = 30;
 			gallery.y = 30;			
 			gallery.create();
-			gallery.transition = new DefaultTransition( gallery );
 			addChild( gallery );
 		}
 

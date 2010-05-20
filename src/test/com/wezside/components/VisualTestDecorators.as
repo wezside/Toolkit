@@ -12,13 +12,13 @@ package test.com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class MockUIDecoratorTest extends UIElement 
+	public class VisualTestDecorators extends UIElement 
 	{
 		
 		private var hbox:UIElement;
 
 		
-		public function MockUIDecoratorTest()
+		public function VisualTestDecorators()
 		{
 			super();
 			addEventListener( Event.ADDED_TO_STAGE, initStage );
