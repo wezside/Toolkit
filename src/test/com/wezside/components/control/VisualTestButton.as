@@ -1,6 +1,6 @@
 package test.com.wezside.components.control 
 {
-	import test.com.wezside.sample.styles.LatinStyle;
+	import test.com.wezside.sample.style.LatinStyle;
 
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
@@ -32,10 +32,10 @@ package test.com.wezside.components.control
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit";
-			button.width = 100;
-			button.height = 30;
-			button.iconStyleName = "buttonIcon";
+			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
+			button.width = 300;
+			button.height = 15;
+			button.iconStyleName = "iconStylename";
 			button.iconAlign = Button.ICON_PLACEMENT_CENTER_LEFT;
 			button.build();
 			button.setStyle();

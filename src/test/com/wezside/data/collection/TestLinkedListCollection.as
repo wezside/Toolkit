@@ -33,6 +33,7 @@ package test.com.wezside.data.collection
 			collection.addElement( { id: "three", value: 4 });			
 			collection.addElement( { id: "two", value: 1 });			
 			assertEquals( 3, collection.length() );
+			assertNotNull( collection.getElementAt(0));
 			
 			assertNotNull( collection.find( "two" ));		
 			assertEquals( "two", collection.find( "two" ).id );	

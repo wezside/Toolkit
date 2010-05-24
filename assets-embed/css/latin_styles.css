@@ -44,9 +44,11 @@ MockUIElement {
 	paddingRight: 10;
 	paddingBottom: 10;
 	paddingTop: 10;
+	upIconSkin: IconUp;
+	wordWrap: true;
 }
 
-.buttonIcon
+.iconStylename
 {
 	upSkin: IconUp;	
 	overSkin: IconOver;	

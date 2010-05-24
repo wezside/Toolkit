@@ -19,6 +19,7 @@
  */
 package com.wezside.utilities.manager.timeline 
 {
+	import flash.display.MovieClip;
 	import flash.events.Event;
 
 	/**
@@ -27,22 +28,28 @@ package com.wezside.utilities.manager.timeline
 	public class TimelineEvent extends Event 
 	{
 		
+		public static const READY:String = "timelineReady";
+		public static const TARGET_INITIALIZED:String = "timelineTargetInitialized";
 		public static const COMPLETE:String = "timelineAnimationComplete";
 		public static const SEQUENTIAL_COMPLETE:String = "timelineSequentialAnimationComplete";
 
 		public var id:String;
 		public var index:int;
-		
-		public function TimelineEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, id:String = "", index:int = -1 )
+		public var total:int;
+		public var targetMC:MovieClip;
+
+		public function TimelineEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, id:String = "", index:int = -1, total:int = -1, targetMC:MovieClip = null )
 		{
 			super( type, bubbles, cancelable );
 			this.id = id;
 			this.index = index;
+			this.total = total;
+			this.targetMC = targetMC;
 		}
 				
 		override public function clone():Event
 		{
-			return new TimelineEvent( type, bubbles, cancelable, id, index );
+			return new TimelineEvent( type, bubbles, cancelable, id, index, total, targetMC );
 		}		
 	}
 }

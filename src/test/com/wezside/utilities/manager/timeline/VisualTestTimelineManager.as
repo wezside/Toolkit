@@ -16,35 +16,45 @@ package test.com.wezside.utilities.manager.timeline
 		[Embed(source="/../assets-embed/swf/timelineManager/Animation01.swf")]
 		private var Animation01:Class;
 		
-		[Embed(source="/../assets-embed/swf/timelineManager/Animation03.swf")]
+		[Embed(source="/../assets-embed/swf/timelineManager/Animation02.swf")]
 		private var Animation02:Class;
 		
 		[Embed(source="/../assets-embed/swf/timelineManager/Animation03.swf")]
 		private var Animation03:Class;
 		
 		private var tm:TimelineManager;
+		
 		private var mc1:MovieClip;
 		private var mc2:MovieClip;
 		private var mc3:MovieClip;
 
+
 		public function VisualTestTimelineManager()
 		{
 			tm = new TimelineManager();			
-			mc1 = new Animation01() as MovieClip;		
-			mc2 = new Animation02() as MovieClip;		
-			mc3 = new Animation03() as MovieClip;		
-			tm.push( "1", mc1 );
-			tm.push( "two", mc2 );
-			tm.push( "3", mc3 );
-			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, complete );
 			
-			addChild( mc1 );			
-			addChild( mc2 );			
+			mc1 = new Animation01();
+			mc2 = new Animation02();		
+			mc3 = new Animation03();
+			tm.addEventListener( TimelineEvent.READY, ready );
+			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, complete );
+			tm.addElement( "1", mc1, 0, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "2", mc2, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "3", mc3, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+												
 			addChild( mc3 );
-						
-			tm.play();
+			addChild( mc2 );			
+			addChild( mc1 );			
 		}
-		
+
+		private function ready( event:TimelineEvent ):void 
+		{
+			if ( event.total == 3 )
+			{
+				tm.play();
+			}
+		}
+
 		protected function complete( event:TimelineEvent):void
 		{
 			trace( "Sequence complete ");

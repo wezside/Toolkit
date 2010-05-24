@@ -42,7 +42,7 @@ package test.com.wezside.utilities.manager.timeline
 		[After]
 		public function tearDown():void
 		{
-			tm.purgeAll();
+			tm.purge();
 			tm = null;
 			mc1 = null;
 			mc2 = null;
@@ -52,18 +52,15 @@ package test.com.wezside.utilities.manager.timeline
 		[Test(async)]
 		public function testSimpleStruct():void
 		{
-			tm.push( "1", mc1 );
-			tm.push( "two", mc2 );
-			tm.push( "3", mc3 );
-			tm.playAuto();
-			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, Async.asyncHandler( this, complete, 13000, null, timeout ), false, 0, true );
+			tm.addElement( "1", mc1 );
+			tm.addElement( "two", mc2 );
+			tm.addElement( "3", mc3 );		
+			tm.addEventListener( TimelineEvent.READY, Async.asyncHandler( this, ready, 25000, null, timeout ), false, 0, true );
 		}
 		
-		protected function complete( event:TimelineEvent, object:Object ):void
+		protected function ready( event:TimelineEvent, object:Object ):void
 		{
-			assertEquals( 1, tm.total );
-			assertEquals( 1, tm.playIndex );
-			assertEquals( "1", tm.playID );
+			assertEquals( 1, event.total );
 		}		
 		
 		protected function timeout( object:Object ):void

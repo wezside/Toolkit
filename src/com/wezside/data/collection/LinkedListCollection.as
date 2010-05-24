@@ -36,16 +36,21 @@ package com.wezside.data.collection
 			
 			while ( _current.next )
 				_current = _current.next;
-				
+								
 			_current.next = node;
 			
 			++_length;	
 			node = null;
 		}
 		
+		public function getElementAt( index:int ):LinkedListNode
+		{
+			return _collection[ index.toString() ] as LinkedListNode;
+		}
+		
 		public function removeElement( id:String ):void
 		{
-				
+			
 		}		
 
 		public function iterator():IIterator
@@ -54,10 +59,9 @@ package com.wezside.data.collection
 		}
 		
 		public function find( value:String = "" ):Object
-		{
+		{		
 			var iterator:IIterator = iterator();
-			iterator.reset();
-			
+				
 			// Returns the first item
 			if ( value == "" && iterator.hasNext() ) return iterator.next().data;
 			
@@ -70,6 +74,7 @@ package com.wezside.data.collection
 			iterator = null;
 			return null;
 		}
+		
 		public function purge():void
 		{
 			for each ( var i:* in _collection )

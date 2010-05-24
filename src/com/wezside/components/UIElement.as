@@ -244,7 +244,8 @@ package com.wezside.components
 			{
 				var child:* = iter.next();
 				if ( child is IUIElement ) UIElement( child ).purge();
-				_childrenContainer.removeChild( child );
+				if ( _childrenContainer ) 
+					_childrenContainer.removeChild( child );
 			}				
 			if ( _childrenContainer && contains( _childrenContainer )) removeUIChild( _childrenContainer );
 			if ( _scroll && contains( DisplayObject( _scroll ) )) removeUIChild( DisplayObject( _scroll ));

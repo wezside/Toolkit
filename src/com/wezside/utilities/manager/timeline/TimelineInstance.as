@@ -1,25 +1,33 @@
 package com.wezside.utilities.manager.timeline 
 {
+	import flash.display.Loader;
 	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class TimelineInstance 
+	public class TimelineInstance extends EventDispatcher
 	{
 		private var _id:String;
 		private var _index:int;
 		private var _target:MovieClip;
-		private var _childPolicy:int;
+		private var _childPolicy:String;
 		private var _delay:int;
+		private var _autoVisible:Boolean;
 
+		
+		public function initTarget():void
+		{
+			Loader( _target.getChildAt(0)).contentLoaderInfo.addEventListener( Event.COMPLETE, initialized );
+		}
 		
 		public function purge():void
 		{
 			_id = null;
 			_target = null;
 		}
-		
 
 		public function get id():String
 		{
@@ -40,7 +48,7 @@ package com.wezside.utilities.manager.timeline
 		{
 			_target = value;
 		}
-		
+
 		public function get index():int
 		{
 			return _index;
@@ -51,12 +59,12 @@ package com.wezside.utilities.manager.timeline
 			_index = value;
 		}
 		
-		public function get childPolicy():int
+		public function get childPolicy():String
 		{
 			return _childPolicy;
 		}
 		
-		public function set childPolicy( value:int ):void
+		public function set childPolicy( value:String ):void
 		{
 			_childPolicy = value;
 		}
@@ -70,5 +78,22 @@ package com.wezside.utilities.manager.timeline
 		{
 			_delay = value;
 		}
+		
+		public function get autoVisible():Boolean
+		{
+			return _autoVisible;
+		}
+		
+		public function set autoVisible( value:Boolean ):void
+		{
+			_autoVisible = value;
+		}	
+		
+		private function initialized( event:Event ):void 
+		{
+			event.currentTarget.removeEventListener( Event.COMPLETE, initialized );
+			dispatchEvent( new TimelineEvent( TimelineEvent.TARGET_INITIALIZED, false, false, "", -1, -1, event.currentTarget.content as MovieClip )); 
+		}
+		
 	}
 }

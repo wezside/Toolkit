@@ -2,7 +2,7 @@ package test.com.wezside.components
 {
 	import flexunit.framework.Assert;
 
-	import test.com.wezside.sample.styles.LatinStyle;
+	import test.com.wezside.sample.style.LatinStyle;
 
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
