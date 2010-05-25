@@ -3,8 +3,10 @@ package test.com.wezside.utilities.manager.timeline
 	import com.wezside.utilities.manager.timeline.TimelineEvent;
 	import com.wezside.utilities.manager.timeline.TimelineManager;
 
+	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.system.System;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -58,6 +60,23 @@ package test.com.wezside.utilities.manager.timeline
 		protected function complete( event:TimelineEvent):void
 		{
 			trace( "Sequence complete ");
+					
+			mc1.removeChildAt(0);
+			mc2.removeChildAt(0);
+			mc3.removeChildAt(0);
+			removeChild( mc3 );
+			removeChild( mc2 );			
+			removeChild( mc1 );
+			
+			Animation01 = null;
+			Animation02 = null;
+			Animation03 = null;
+			
+			tm.purge();
+			tm = null;				
+			mc1 = null;
+			mc2 = null;		
+			mc3 = null;			
 		}		
 			
 	}

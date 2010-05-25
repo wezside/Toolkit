@@ -73,11 +73,20 @@ package com.wezside.utilities.manager.timeline
 
 		public function purge():void
 		{
+			currentTMI.purge();
+			playPolicy.purge();
 			animations.purge();
+			animations = null;
+			currentTMI = null;
+			playPolicy = null;
+			iterator = null;
+			playID = null;
 		}
 		
 		public function purgeAnimation( id:String ):void
 		{
+			TimelineInstance( animations.find( id )).purge();
+			animations.removeElement( id );
 		}
 		
 		public function get playbackPolicy():String
@@ -108,6 +117,8 @@ package com.wezside.utilities.manager.timeline
 			{
 				var tmi:TimelineInstance = iterator.next().data as TimelineInstance;
 				initSequential( tmi.id );
+				tmi.purge();
+				tmi = null;
 			}
 		}
 
@@ -181,6 +192,7 @@ package com.wezside.utilities.manager.timeline
 		            setChildrenProp( MovieClip( child ), prop, indentString + "    ");
 		        }		
 		    }
+		    child = null;
 		}		
 	}
 }

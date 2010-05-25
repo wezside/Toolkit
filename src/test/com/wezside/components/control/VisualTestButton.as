@@ -57,7 +57,9 @@ package test.com.wezside.components.control
 			label.x = 50;
 			label.y = 150;
 			addChild( label );
-
+			
+			
+			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed clas";
 		}
 		
 

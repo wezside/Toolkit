@@ -172,6 +172,12 @@ package com.wezside.utilities.manager.state
 
 		public function purge():void
 		{
+			for ( var i:int = 0; i < _states.length; ++i )
+				delete _states[i];
+				
+			for ( var k:int = 0; k < _history.length; ++k )
+				delete _history[k];
+			
 			_state = null;
 			_states = null;
 			_history = null;

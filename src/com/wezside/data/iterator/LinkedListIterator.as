@@ -48,6 +48,8 @@ package com.wezside.data.iterator
 		
 		public function purge():void
 		{
+			for each ( var i:* in _collection )
+				delete _collection[i];
 			_current = null;
 			_collection = null;
 		}

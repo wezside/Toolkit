@@ -49,7 +49,8 @@ package com.wezside.components.text
 			super();
 			layout = new PaddedLayout( this.layout );
 			fmt = new TextFormat( );
-			field = new TextField();			
+			field = new TextField();	
+			addChild( field );		
 		}
 
 		override public function arrange():void
@@ -111,7 +112,7 @@ package com.wezside.components.text
 		public function set text( value:String ):void
 		{
 			_text = value;
-			addChild( field );			
+			setText();
 		}		
 		
 		public function get embedFonts():Boolean

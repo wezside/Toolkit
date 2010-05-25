@@ -42,6 +42,7 @@ package test.com.wezside.utilities.manager.state
 		[Test] 
 		public function testStateManagerNonReservedValue():void
 		{
+			
 			sm.stateKey = STATE_ROLLOVER;
 			assertEquals( 1, sm.stateValue );
 			

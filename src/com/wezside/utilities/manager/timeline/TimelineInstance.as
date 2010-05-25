@@ -20,13 +20,15 @@ package com.wezside.utilities.manager.timeline
 		
 		public function initTarget():void
 		{
-			Loader( _target.getChildAt(0)).contentLoaderInfo.addEventListener( Event.COMPLETE, initialized );
+			Loader( _target.getChildAt( 0 )).contentLoaderInfo.addEventListener( Event.COMPLETE, initialized );
 		}
 		
 		public function purge():void
 		{
+			if ( _target ) _target.removeChildAt( 0 );
 			_id = null;
 			_target = null;
+			_childPolicy = null;
 		}
 
 		public function get id():String

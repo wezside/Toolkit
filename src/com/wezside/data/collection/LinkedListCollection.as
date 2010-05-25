@@ -50,7 +50,7 @@ package com.wezside.data.collection
 		
 		public function removeElement( id:String ):void
 		{
-			
+			delete _collection[ id ];
 		}		
 
 		public function iterator():IIterator
@@ -76,10 +76,14 @@ package com.wezside.data.collection
 		}
 		
 		public function purge():void
-		{
-			for each ( var i:* in _collection )
+		{			
+			for each ( var i:LinkedListNode in _collection )
+			{
+				if ( i.data ) i.data.purge();
 				delete _collection[i];
+			}
 			_collection = null;
+			_current = null;
 		}
 		
 		public function length():uint
