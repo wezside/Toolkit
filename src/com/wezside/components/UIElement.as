@@ -284,6 +284,7 @@ package com.wezside.components
 		
 		public function iterator( type:String = null ):IIterator
 		{
+			type = styleManager ? type : null;
 			switch ( type )
 			{				
 				case ITERATOR_PROPS: return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
