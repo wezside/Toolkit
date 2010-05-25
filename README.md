@@ -135,13 +135,32 @@ A simple class to deal with timeline animations. Manage timeline animations play
 end frame behaviour. A play policy exist to allow for playing back multiple animations at once or 
 in sequence starting at a specific animation or simply play a single (default) animation.
 
-		var manager:TimelineManager = new TimelineManager();
-		manager.push( id, mc );
-		manager.push( id, mc );
-		manager.push( id, mc );
-		manager.push( id, mc );
-		manager.playPolicy = TimelineManager.PLAY_POLICY_SEQUENTIAL; 
-		manager.play();
+
+		public function VisualTestTimelineManager()
+		{
+			tm = new TimelineManager();			
+			
+			mc1 = new Animation01();
+			mc2 = new Animation02();		
+			mc3 = new Animation03();
+			tm.addEventListener( TimelineEvent.READY, ready );
+			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, complete );
+			tm.addElement( "1", mc1, 0, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "2", mc2, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "3", mc3, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+												
+			addChild( mc3 );
+			addChild( mc2 );			
+			addChild( mc1 );			
+		}
+
+		private function ready( event:TimelineEvent ):void 
+		{
+			if ( event.total == 3 )
+			{
+				tm.play();
+			}
+		}
 		
 UIElement
 ---------
