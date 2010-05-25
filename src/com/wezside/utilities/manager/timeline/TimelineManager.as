@@ -73,7 +73,7 @@ package com.wezside.utilities.manager.timeline
 
 		public function purge():void
 		{
-			currentTMI.purge();
+			if ( currentTMI ) currentTMI.purge();
 			playPolicy.purge();
 			animations.purge();
 			animations = null;
