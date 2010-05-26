@@ -184,10 +184,11 @@ Currently 4 types of decorators exist, ILayout, IShape, IInteractive and IScroll
 
 *build()* A method used for adding children of a UIElement to the stage in the correct order. Children here refers to decorators and custom added children
 
-*setStyle()* A method used to apply a CSS style
+*setStyle()* A method used to apply a CSS style. Requirement for usage is for the properties *styleManager* and *styleName* to be valid. 
 
 *arrange()* A method that arranges children of a UIElement through a layout decorator. 
 
+**UI Decorators**
 All UIElement decorators are commutitative. This means the order does not matter. The order of the factory methods (build(), setStyle() and arrange()) does however 
 matter. build() is required whereas setStyle() and arrange() is optional based on the usage of the component.
 
