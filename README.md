@@ -231,7 +231,7 @@ Layout decorators can be chained.
 
 Each UIElement has a pre-built background decorator. It is reserved and therefore will always be at index 0. The background will automatically resize itself based on 
 the UIElement's layout decorator if defined. Alternatively the size can be set through *width* and *height* properties. To show a background make sure *colors* and 
-*alphas* is set with at least 2 values. Also make sure to call *arrange()* for the background to autosize. 
+*alphas* is set with at least 2 values. Also make sure to call *arrange()* for the background to autosize if required. 
  
 	mockUIElement = new MockUIElement();
 	mockUIElement.background = new Rectangle( mockUIElement );
