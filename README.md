@@ -189,6 +189,7 @@ Currently 4 types of decorators exist, ILayout, IShape, IInteractive and IScroll
 *arrange()* A method that arranges children of a UIElement through a layout decorator. 
 
 **UI Decorators**
+
 All UIElement decorators are commutitative. This means the order does not matter. The order of the factory methods (build(), setStyle() and arrange()) does however 
 matter. build() is required whereas setStyle() and arrange() is optional based on the usage of the component.
 
