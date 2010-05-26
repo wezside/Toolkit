@@ -103,11 +103,8 @@ package com.wezside.data.collection
 		public function purge():void
 		{			
 			for each ( var i:LinkedListNode in _collection )
-			{
-				delete _collection[i].data;
-				delete _collection[i].next;
 				delete _collection[i];
-			}
+
 			_collection = null;
 			_current.purge();
 			_current = null;

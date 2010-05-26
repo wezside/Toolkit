@@ -51,7 +51,7 @@ package com.wezside.components.layout
 				child.x += left;
 				child.y += top;
 			}
-	
+			
 			width = decorated.width + left + right;
 			height = decorated.height + top + bottom;	 		
 			super.arrange();

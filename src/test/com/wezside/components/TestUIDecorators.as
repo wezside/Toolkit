@@ -146,8 +146,7 @@ package test.com.wezside.components
 		
 		[Test]
 		public function testPaddingWithVerticalLayout():void	
-		{
-			
+		{			
 			uiElement.x = 20;
 			uiElement.y = 20;
 			

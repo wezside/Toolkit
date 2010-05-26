@@ -26,13 +26,10 @@ package test.com.wezside.components
 
 		private function initStage( event:Event ):void 
 		{			
+						
 			x = 20;
-			y = 20;			
+			y = 20;				
 			
-			scroll = new ScrollVertical( this );
-			scroll.scrollHeight = 150; 
-			scroll.horizontalGap = 2; 
-
 			layout = new PaddedLayout( this ); 
 			layout.bottom = 15;		
 			layout.left = 15;
@@ -40,12 +37,22 @@ package test.com.wezside.components
 			layout.right = 15;
 			
 			layout = new VerticalLayout( layout );
-			layout.verticalGap = 3;			
-			
+			layout.verticalGap = 3;	
+						
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
 			
+			scroll = new ScrollVertical( this );
+			scroll.scrollHeight = 150; 
+			scroll.horizontalGap = 2;
+ 
+			addEventListener( Event.ENTER_FRAME, enterFrame );
+		}
+
+		private function enterFrame(event:Event):void 
+		{
+			removeEventListener( Event.ENTER_FRAME, enterFrame );
 			build();
 			arrange();
 		}
@@ -53,7 +60,7 @@ package test.com.wezside.components
 		override public function build():void
 		{			
 			
-
+			
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xff0000, 0xff0000 ];
@@ -62,17 +69,21 @@ package test.com.wezside.components
 			hbox.background.height = 50;
 			hbox.build();
 			hbox.arrange();
+			hbox.setStyle();
+			hbox.activate();
 			addChild( hbox );
 
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xFF5100, 0xFF5100 ];
-			hbox.background.alphas = [ 0.3, 0.3];			
+			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
 			hbox.build();
-			hbox.arrange();			
+			hbox.arrange();
+			hbox.activate();
 			addChild( hbox );
+	
 
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
@@ -99,8 +110,8 @@ package test.com.wezside.components
 			hbox.build();
 			hbox.arrange();					
 			addChild( hbox );			
-		
-			super.build();			
+	
+			super.build();
 		}	
 	}
 }

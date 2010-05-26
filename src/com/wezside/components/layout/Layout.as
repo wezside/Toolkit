@@ -51,7 +51,6 @@ package com.wezside.components.layout
 		
 		public function arrange():void
 		{
-			
 			// Copy property values from previous ILayout decorator only if it wasn't explicitely set
 			if ( decorated is ILayout )
 			{

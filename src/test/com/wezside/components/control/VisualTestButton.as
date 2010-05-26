@@ -2,32 +2,35 @@ package test.com.wezside.components.control
 {
 	import test.com.wezside.sample.style.LatinStyle;
 
+	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.control.Button;
+	import com.wezside.components.layout.PaddedLayout;
+	import com.wezside.components.layout.VerticalLayout;
+	import com.wezside.components.shape.Rectangle;
 	import com.wezside.components.text.Label;
 
-	import flash.display.Sprite;
 	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class VisualTestButton extends Sprite 
+	public class VisualTestButton extends UIElement 
 	{
 		
 		private var button:Button;
 		private var label:Label;
-		private var styleManager:LatinStyle;
 
 		public function VisualTestButton()
 		{
-			super( );			
+			super( );
 			addEventListener( Event.ADDED_TO_STAGE, stageInit );
 		}
 
-		public function build():void 
+		override public function build():void 
 		{	
+			
 			button = new Button();			
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
@@ -56,15 +59,29 @@ package test.com.wezside.components.control
 			label.activate();
 			label.x = 50;
 			label.y = 150;
-			addChild( label );
-			
+			addChild( label );			
 			
 			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed clas";
+			
+			super.build();
 		}
 		
 
 		private function stageInit( event:Event ):void 
-		{
+		{			
+			background = new Rectangle( this );
+			background.colours = [ 0, 0 ];
+			background.alphas = [ 0.01, 0.05 ];		
+						
+			layout = new PaddedLayout( this ); 
+			layout.bottom = 15;		
+			layout.left = 15;
+			layout.top = 15;
+			layout.right = 15;
+			
+			layout = new VerticalLayout( layout );
+			layout.verticalGap = 5;
+			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, styleReady );
 		}
@@ -72,6 +89,7 @@ package test.com.wezside.components.control
 		private function styleReady( event:Event ):void 
 		{
 			build();
+			arrange();
 		}		
 
 		private function stateChange( event:UIElementEvent ):void 

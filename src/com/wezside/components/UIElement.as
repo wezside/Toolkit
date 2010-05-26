@@ -121,14 +121,16 @@ package com.wezside.components
 		public function setStyle():void
 		{
 			// If this has a styleName then apply the styles
-			if ( _styleName )
+			if ( _styleName && styleManager )
 				setProperties( this, _styleName );
 			else
 			{
 				// Grab Constructor as styleName
 				var qualifiedClass:String = getQualifiedClassName( this );				
 				_styleName = qualifiedClass.substr( qualifiedClass.lastIndexOf( "::" ) + 2 );
-				setProperties( this, _styleName );
+				
+				if ( styleManager )
+					setProperties( this, _styleName );
 			}
 		}
 
@@ -140,7 +142,7 @@ package com.wezside.components
 				_scroll.arrange();
 				drawScrollMask();
 			}
-			if ( _background ) _background.arrange();			
+			if ( _background ) _background.arrange();
 		}
 
 		
@@ -284,7 +286,6 @@ package com.wezside.components
 		
 		public function iterator( type:String = null ):IIterator
 		{
-			type = styleManager ? type : null;
 			switch ( type )
 			{				
 				case ITERATOR_PROPS: return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
