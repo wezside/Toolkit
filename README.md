@@ -176,14 +176,15 @@ A component architecture for pure Actionscript components to allow for easy inte
 * Decorator support for shape, layout and scrollbar
 
 
-[Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
+[Modulo](http://github.com/wezside/Modulo "Modulo") 
+Supports the auto loading of such a style SWF and injects instances into modules for ease of use.
 
 [MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
 
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
 
-*Example*
+**Example**
 
 A simple example showcasing the usage of the StyleManager and applying a CSS style to a UIElement. The order of the methods build(), setStyle() and arrange() is 
 important for the decorators and children of the UIElement. 
@@ -195,7 +196,7 @@ important for the decorators and children of the UIElement.
 	mockUIElement.setStyle();
 	mockUIElement.arrange();
 
-*Decorator Vertical Layout Example*
+**Decorator Vertical Layout Example**
 
 The layout decorator as with any other decorator should always be applied before calling the factory methods build(), setStyle() and arrange(). 
 
@@ -204,18 +205,27 @@ The layout decorator as with any other decorator should always be applied before
 	mockUIElement.build();
 	mockUIElement.arrange();
 	
-*Decorator Shape for creating a background*
+**Decorator Shape for creating a background**
 	mockUIElement = new MockUIElement();
 	mockUIElement.background.colours = [ 0, 0 ];
 	mockUIElement.background.alphas = [ 1, 1 ];
 	mockUIElement.build();
 	mockUIElement.arrange();
 	
-*Decorator Scroll for creating a Vertical Scrollbar*
+**Decorator Scroll for creating a Vertical Scrollbar**
 	mockUIElement = new MockUIElement();
 	mockUIElement.scroll = new VScroll( mockUIElement );
 	mockUIElement.scroll.scrollHeight = 150; 
 	mockUIElement.scroll.horizontalGap = 2;
 	mockUIElement.build();
 	mockUIElement.arrange();
+	
+**Interactive Decorator Example**
+
+Each UIElement has a default Interactive decorator which converts its behaviour into a button. 
+
+	mockUIElement = new MockUIElement();
+	mockUIElement.build();
+	mockUIElement.arrange();
+	mockUIElement.activate();
 
