@@ -13,6 +13,9 @@ Latest release
 
 Change log since build .0100
 =======
+* Fixed bug with setStyle() on UIElement with no styleName set
+* UIElement purge() updated to remove scroll, arrange listener and stateManager purge()
+* UIElement addChildAt() and addUIChildAt() methods added
 * New Button + Label components added - better support for decorators through CSS 
 * New decorator added: Interactive - changes any UIElement into a button. 
 * Added support for automatically assigning Class names as styleNames

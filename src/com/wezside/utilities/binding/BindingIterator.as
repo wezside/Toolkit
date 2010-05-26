@@ -40,5 +40,10 @@ package com.wezside.utilities.binding
 		{
 			return _collection.length;
 		}
+		
+		public function purge():void
+		{
+			_collection = null;
+		}
 	}
 }

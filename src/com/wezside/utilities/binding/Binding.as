@@ -26,7 +26,7 @@ package com.wezside.utilities.binding
 			map.target = target;
 			map.targetProp = targetProp;
 			map.listen();
-			collection.addElement( map );			
+			collection.addElement( map );
 		}
 		
 		public function unBindAll():void
@@ -34,6 +34,7 @@ package com.wezside.utilities.binding
 			var iterator:IIterator = collection.iterator();
 			while ( iterator.hasNext() )
 				BindingMap( iterator.next() ).purge();
+			BindingIterator( iterator ).purge();
 		}
 
 		override public function toString():String 

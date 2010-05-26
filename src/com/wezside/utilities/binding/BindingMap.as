@@ -57,19 +57,23 @@ package com.wezside.utilities.binding
 		public function listen():void
 		{
 			if ( _src is IEventDispatcher )
-				IEventDispatcher( _src ).addEventListener( BindingEvent.PROPERTY_CHANGE, update );
+				IEventDispatcher( _src ).addEventListener( BindingEvent.PROPERTY_CHANGE, update, false, 0, true );
 		}
 		
 		public function purge():void
 		{
-			IEventDispatcher( _src ).removeEventListener( BindingEvent.PROPERTY_CHANGE, update );
+			IEventDispatcher( _src ).removeEventListener( BindingEvent.PROPERTY_CHANGE, update, false );
+			_src = null;			
+			_srcProp = null;
+			_target = null;
+			_targetProp = null;					
 		}
 
-		private function update(event:BindingEvent):void 
+		private function update( event:BindingEvent ):void 
 		{
 			if ( event.property == srcProp )
 			{
-				target[ targetProp ] = event.newValue;				
+				target[ targetProp ] = event.newValue;			
 				Tracer.output( true, " Updated '" + target + "' with new value '" + event.newValue, "" );
 			} 			
 		}

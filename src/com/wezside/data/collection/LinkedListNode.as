@@ -9,8 +9,18 @@ package com.wezside.data.collection
 		
 
 		private var _data:*;
+		private var _index:int;
 		private var _next:LinkedListNode;
-
+		
+		public function get index():int
+		{
+			return _index;
+		}
+		
+		public function set index( value:int ):void
+		{
+			_index = value;
+		}
 
 		public function get data():*
 		{
@@ -30,6 +40,12 @@ package com.wezside.data.collection
 		public function set next( value:LinkedListNode ):void
 		{
 			_next = value;
+		}
+		
+		public function purge():void
+		{
+			_data = null;
+			_next = null;
 		}
 	}
 }

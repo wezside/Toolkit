@@ -36,7 +36,6 @@ package com.wezside.components.decorators.interactive
 		
 		public function deactivate():void
 		{
-			state = null;
 			decorated.buttonMode = false;
 			decorated.mouseChildren = true;
 			decorated.removeEventListener( MouseEvent.ROLL_OVER, rollOver );

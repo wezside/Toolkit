@@ -11,6 +11,7 @@ package com.wezside.data.collection
 	public class LinkedListCollection implements ICollection 
 	{
 		
+		
 		private var _length:int = 0;
 		private var _current:LinkedListNode;
 		private var _collection:Dictionary;
@@ -26,6 +27,7 @@ package com.wezside.data.collection
 			var node:LinkedListNode = new LinkedListNode();
 			node.data = value;
 			node.next = null;
+			node.index = _length;
 			_collection[ _length ] = node;
 			
 			if ( !_current )
@@ -50,7 +52,29 @@ package com.wezside.data.collection
 		
 		public function removeElement( id:String ):void
 		{
-			delete _collection[ id ];
+			var selectedIndex:int;
+			var iterator:IIterator = iterator();
+			while ( iterator.hasNext())
+			{
+				var node:LinkedListNode = iterator.next() as LinkedListNode;
+				
+				// Update the pointer to move the next one in the list				
+				if ( node.next && node.next.data.id == id )
+				{
+					node.next = iterator.next() as LinkedListNode;
+				}				 
+				else if ( node.data.id == id ) 
+				{
+					// If the node is the last in the list
+					if ( _collection["head"].next.data.id == id )
+						_collection["head"].next = null;
+						
+					selectedIndex = node.index;
+					node.purge();				
+				}				
+			}
+			LinkedListIterator( iterator ).purge();
+			delete _collection[ selectedIndex.toString() ];
 		}		
 
 		public function iterator():IIterator
@@ -68,9 +92,11 @@ package com.wezside.data.collection
 			while ( iterator.hasNext())
 			{
 				var item:LinkedListNode = iterator.next() as LinkedListNode;
+				trace( item, item.data );
 				if ( item.data.id == value )
 					return item.data; 
 			}
+			LinkedListIterator( iterator ).purge();			
 			iterator = null;
 			return null;
 		}
@@ -78,8 +104,13 @@ package com.wezside.data.collection
 		public function purge():void
 		{			
 			for each ( var i:LinkedListNode in _collection )
+			{
+				delete _collection[i].data;
+				delete _collection[i].next;
 				delete _collection[i];
+			}
 			_collection = null;
+			_current.purge();
 			_current = null;
 		}
 		
