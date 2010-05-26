@@ -179,7 +179,7 @@ A component architecture for pure Actionscript components to allow for easy inte
 [Modulo](http://github.com/wezside/Modulo "Modulo") 
 Supports the auto loading of such a style SWF and injects instances into modules for ease of use.
 
-[MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
+[VisualTestButton Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/control/VisualTestButton.as  "VisualTestButton")
 
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
@@ -206,7 +206,12 @@ The layout decorator as with any other decorator should always be applied before
 	mockUIElement.arrange();
 	
 **Decorator Shape for creating a background**
+
+Each UIElement has a pre-built in background decorator. It is reserved and therefore will always be at index 0. The background will automatically resize itself based on 
+the UIElement's layout decorator if defined. Alternatively the size can be set through *width* and *height* properties.
+ 
 	mockUIElement = new MockUIElement();
+	mockUIElement.background = new Rectangle( mockUIElement );
 	mockUIElement.background.colours = [ 0, 0 ];
 	mockUIElement.background.alphas = [ 1, 1 ];
 	mockUIElement.build();
