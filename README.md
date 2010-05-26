@@ -50,11 +50,10 @@ Utilities
 * [ImageResize](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/imaging/ImageResize.as "ImageResize") 
 * [Reflection](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/imaging/Reflection.as "Reflection") 
 * [SharedObjUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/sharedobj/SharedObjUtil.as "SharedObjUtil") 
-* [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/stateManager/StateTest.as "StateManager") 
+* [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/state/StateTest.as "StateManager") 
 * [StringUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/string/StringUtil.as "StringUtil") 
-* [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager") 
-* [SwitchUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/switchutil/SwitchUtil.as "SwitchUtil") 
-* [TimelineManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/timelineManager/TimelineSample.as "TimelineManager")
+* [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/style/StyleManager.as "StyleManager") 
+* [TimelineManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/timeline/TimelineSample.as "TimelineManager")
 * [Tracer](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/logging/Tracer.as "Tracer")
 * [TrackingUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/tracking/TrackingUtil.as "TrackingUtil")
 * [Validator](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/validator/Validator.as "Validator")
@@ -178,18 +177,28 @@ A component architecture for pure Actionscript components to allow for easy inte
 
 
 [Modulo](http://github.com/wezside/Modulo "Modulo") supports the auto loading of such a style SWF and injects instances into modules for ease of use.
+
 [MockUIElement Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/MockUIElementExample.as  "MockUIElementExample")
+
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
 
 *Example*
+
+A simple example showcasing the usage of the StyleManager and applying a CSS style to a UIElement. The order of the methods build(), setStyle() and arrange() is 
+important for the decorators and children of the UIElement. 
+
 	mockUIElement = new MockUIElement();
 	mockUIElement.styleName = "title";
 	mockUIElement.styleManager = styleManager;
 	mockUIElement.build();
+	mockUIElement.setStyle();
 	mockUIElement.arrange();
 
 *Decorator Vertical Layout Example*
+
+The layout decorator as with any other decorator should always be applied before calling the factory methods build(), setStyle() and arrange(). 
+
 	mockUIElement = new MockUIElement();
 	mockUIElement.layout = new VerticalLayout( mockUIElement );
 	mockUIElement.build();
