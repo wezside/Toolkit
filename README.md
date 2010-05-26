@@ -2,7 +2,7 @@ Wezside Toolkit
 ===============
 
 This is a hub for components I've written and re-use quite often. All components are based on a component architecture with the core being 
-UIElement. Read more on UIElement below.
+UIElement. Read more on <a href="#uielement">UIElement</a> below.
 
 Latest release 
 =======
@@ -164,6 +164,7 @@ in sequence starting at a specific animation or simply play a single (default) a
 			}
 		}
 		
+<a name="uielement"></a>
 UIElement
 ---------
 
