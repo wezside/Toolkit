@@ -92,7 +92,6 @@ package com.wezside.data.collection
 			while ( iterator.hasNext())
 			{
 				var item:LinkedListNode = iterator.next() as LinkedListNode;
-				trace( item, item.data );
 				if ( item.data.id == value )
 					return item.data; 
 			}
