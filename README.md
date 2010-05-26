@@ -216,7 +216,7 @@ The layout decorator as with any other decorator should always be applied before
 	
 **Chaining Vertical and Padded Layout Decorator Example**
 
-The layout decorator as with any other decorator should always be applied before calling the factory methods build(), setStyle() and arrange(). 
+Layout decorators can be chained.
 
 	mockUIElement = new MockUIElement();
 	mockUIElement.layout = new VerticalLayout( mockUIElement );
