@@ -167,13 +167,12 @@ in sequence starting at a specific animation or simply play a single (default) a
 UIElement
 ---------
 
-
 A component architecture for pure Actionscript components to allow for easy integration with Modulo's [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/styleManager/StyleManager.as "StyleManager").
 
 *Features*
 
-* Support for visual states and a runtime style SWF similar to Flex Runtime CSS
-* Decorator support for shape, layout and scrollbar
+* Support for visual states and styling through CSS
+* Decorator support for shape, layout, interactive and scrollbar
 
 
 [Modulo](http://github.com/wezside/Modulo "Modulo") 
@@ -183,6 +182,18 @@ Supports the auto loading of such a style SWF and injects instances into modules
 
 [StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
 
+
+**The UIElement Architecture**
+
+Each UIElement is considered to be a standalone component. The API allows for transformation through CSS and something known as decorator. A decorator simply 
+decorates an object (in this case UIElement) into something different. Currently 4 types of decorators exist, ILayout, IShape, IInteractive and IScroll.
+
+*build()* A method used for adding children of a UIElement to the stage in the correct order. Children here refers to decorators and custom added children
+*setStyle()* A method used to apply a CSS style. See StyleManager.
+*arrange()* A method that arranges children of a UIElement through a layout decorator. 
+
+All UIElement decorators are commutitative. This means the order does not matter. The order of the factory methods (build(), setStyle() and arrange()) does however 
+matter. build() is required whereas setStyle() and arrange() is optional based on the usage of the component.
 
 **Example**
 
@@ -205,10 +216,20 @@ The layout decorator as with any other decorator should always be applied before
 	mockUIElement.build();
 	mockUIElement.arrange();
 	
+**Chaining Decorator Vertical Layout Example**
+
+The layout decorator as with any other decorator should always be applied before calling the factory methods build(), setStyle() and arrange(). 
+
+	mockUIElement = new MockUIElement();
+	mockUIElement.layout = new VerticalLayout( mockUIElement );
+	mockUIElement.build();
+	mockUIElement.arrange();
+	
 **Decorator Shape for creating a background**
 
-Each UIElement has a pre-built in background decorator. It is reserved and therefore will always be at index 0. The background will automatically resize itself based on 
-the UIElement's layout decorator if defined. Alternatively the size can be set through *width* and *height* properties.
+Each UIElement has a pre-built background decorator. It is reserved and therefore will always be at index 0. The background will automatically resize itself based on 
+the UIElement's layout decorator if defined. Alternatively the size can be set through *width* and *height* properties. To show a background make sure *colors* and 
+*alphas* is set with at least 2 values. Also make sure to call *arrange()* for the background to autosize. 
  
 	mockUIElement = new MockUIElement();
 	mockUIElement.background = new Rectangle( mockUIElement );
