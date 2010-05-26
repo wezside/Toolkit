@@ -242,7 +242,7 @@ the UIElement's layout decorator if defined. Alternatively the size can be set t
 	
 **Decorator Scroll for creating a Vertical Scrollbar**
 	mockUIElement = new MockUIElement();
-	mockUIElement.scroll = new VScroll( mockUIElement );
+	mockUIElement.scroll = new ScrollVertical( mockUIElement );
 	mockUIElement.scroll.scrollHeight = 150; 
 	mockUIElement.scroll.horizontalGap = 2;
 	mockUIElement.build();
