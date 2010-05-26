@@ -193,19 +193,19 @@ Currently 4 types of decorators exist, ILayout, IShape, IInteractive and IScroll
 All UIElement decorators are commutitative. This means the order does not matter. The order of the factory methods (build(), setStyle() and arrange()) does however 
 matter. build() is required whereas setStyle() and arrange() is optional based on the usage of the component.
 
-**Example**
+**Simple UI CSS Example**
 
 A simple example showcasing the usage of the StyleManager and applying a CSS style to a UIElement. The order of the methods build(), setStyle() and arrange() is 
 important for the decorators and children of the UIElement. 
 
-	mockUIElement = new MockUIElement();
+	mockUIElement = new UIElement();
 	mockUIElement.styleName = "title";
 	mockUIElement.styleManager = styleManager;
 	mockUIElement.build();
 	mockUIElement.setStyle();
 	mockUIElement.arrange();
 
-**Decorator Vertical Layout Example**
+**Vertical Layout Decorator Example**
 
 The layout decorator as with any other decorator should always be applied before calling the factory methods build(), setStyle() and arrange(). 
 
@@ -214,12 +214,16 @@ The layout decorator as with any other decorator should always be applied before
 	mockUIElement.build();
 	mockUIElement.arrange();
 	
-**Chaining Decorator Vertical Layout Example**
+**Chaining Vertical and Padded Layout Decorator Example**
 
 The layout decorator as with any other decorator should always be applied before calling the factory methods build(), setStyle() and arrange(). 
 
 	mockUIElement = new MockUIElement();
 	mockUIElement.layout = new VerticalLayout( mockUIElement );
+	mockUIElement.layout.verticalGap = 5;
+	mockUIElement.layout = new PaddedLayout( mockUIElement.layout );
+	mockUIElement.layout.left = 5;
+	mockUIElement.layout.right = 5;
 	mockUIElement.build();
 	mockUIElement.arrange();
 	
