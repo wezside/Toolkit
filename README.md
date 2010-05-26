@@ -174,22 +174,18 @@ A component architecture for pure Actionscript components to allow for easy inte
 * Support for visual states and styling through CSS
 * Decorator support for shape, layout, interactive and scrollbar
 
-
-[Modulo](http://github.com/wezside/Modulo "Modulo") 
-Supports the auto loading of such a style SWF and injects instances into modules for ease of use.
-
-[VisualTestButton Example](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/components/control/VisualTestButton.as  "VisualTestButton")
-
-[StyleManager Example: LatinStyle](http://github.com/wezside/Toolkit/blob/master/src/test/com/wezside/sample/styles/LatinStyle.as  "LatinStyle")
-
-
-**The UIElement Architecture**
+**The Architecture**
 
 Each UIElement is considered to be a standalone component. The API allows for transformation through CSS and something known as decorator. A decorator simply 
-decorates an object (in this case UIElement) into something different. Currently 4 types of decorators exist, ILayout, IShape, IInteractive and IScroll.
+decorates an object (in this case UIElement) into something different. Think of it as changing the behaviour of an object. 
+Currently 4 types of decorators exist, ILayout, IShape, IInteractive and IScroll.
+
+**Factory Methods**
 
 *build()* A method used for adding children of a UIElement to the stage in the correct order. Children here refers to decorators and custom added children
-*setStyle()* A method used to apply a CSS style. See StyleManager.
+
+*setStyle()* A method used to apply a CSS style
+
 *arrange()* A method that arranges children of a UIElement through a layout decorator. 
 
 All UIElement decorators are commutitative. This means the order does not matter. The order of the factory methods (build(), setStyle() and arrange()) does however 
