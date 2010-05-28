@@ -360,6 +360,9 @@ package com.wezside.components
 					_skin[ property.prop ] = styleManager.getAssetByName( String( property.value ));
 			}
 			
+			if ( _skin.hasSkinProperty( "upSkin" ))
+				state = UIElementState.STATE_VISUAL_UP;
+			
 			iter = null;
 			strUtil = null;
 		}
