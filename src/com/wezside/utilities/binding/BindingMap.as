@@ -13,6 +13,7 @@ package com.wezside.utilities.binding
 		private var _srcProp:String;
 		private var _target:Object;
 		private var _targetProp:Object;
+		private var _debug:Boolean;
 
 		public function get src():Object
 		{
@@ -54,6 +55,16 @@ package com.wezside.utilities.binding
 			_targetProp = value;
 		}
 		
+		public function get debug():Boolean
+		{
+			return _debug;
+		}
+		
+		public function set debug( value:Boolean ):void
+		{
+			_debug = value;
+		}
+		
 		public function listen():void
 		{
 			if ( _src is IEventDispatcher )
@@ -74,7 +85,7 @@ package com.wezside.utilities.binding
 			if ( event.property == srcProp )
 			{
 				target[ targetProp ] = event.newValue;			
-				Tracer.output( true, " Updated '" + target + "' with new value '" + event.newValue, "" );
+				Tracer.output( _debug, " Updated '" + target + "' with new value '" + event.newValue, "" );
 			} 			
 		}
 	}
