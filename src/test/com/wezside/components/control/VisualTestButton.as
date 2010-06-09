@@ -7,9 +7,9 @@ package test.com.wezside.components.control
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.control.Button;
 	import com.wezside.components.decorators.interactive.InteractiveSelectable;
-	import com.wezside.components.layout.PaddedLayout;
-	import com.wezside.components.layout.VerticalLayout;
-	import com.wezside.components.shape.Rectangle;
+	import com.wezside.components.decorators.layout.PaddedLayout;
+	import com.wezside.components.decorators.layout.VerticalLayout;
+	import com.wezside.components.decorators.shape.Rectangle;
 	import com.wezside.components.text.Label;
 
 	import flash.events.Event;

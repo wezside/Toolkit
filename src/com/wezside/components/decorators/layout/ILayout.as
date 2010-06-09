@@ -17,44 +17,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.layout 
 {
 	import com.wezside.components.IUIDecorator;
-	import com.wezside.components.UIElement;
-	import com.wezside.components.shape.IShape;
-	import com.wezside.data.iterator.IIterator;
-
-	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
-	 * 
-	 * At firt the Padding lyout may seem redundant but it is necessary to udpate the children 
-	 * with the padding to keep any shapes at the correct coordinates. 
 	 */
-	public class PaddedLayout extends Layout 
+	public interface ILayout extends IUIDecorator
 	{
-
 		
-		public function PaddedLayout( decorated:IUIDecorator )
-		{
-			super( decorated );
-		}
+		function get top():int
+		function set top( value:int ):void
 		
-		override public function arrange():void
-		{	
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			while ( iterator.hasNext())
-			{
-				var child:DisplayObject = iterator.next() as DisplayObject;
-				if ( child is IShape ) child = iterator.next() as DisplayObject;
-				child.x += left;
-				child.y += top;
-			}
-			
-			width = decorated.width + left + right;
-			height = decorated.height + top + bottom;	 		
-			super.arrange();
-		}
+		function get bottom():int
+		function set bottom( value:int ):void
+		
+		function get left():int
+		function set left( value:int ):void
+		
+		function get right():int
+		function set right( value:int ):void
+		
+		function get horizontalGap():int
+		function set horizontalGap( value:int ):void
+		
+		function get verticalGap():int
+		function set verticalGap( value:int ):void		
+	
 	}
 }

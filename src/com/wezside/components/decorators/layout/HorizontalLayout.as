@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.layout 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
@@ -28,40 +28,39 @@ package com.wezside.components.layout
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class VerticalLayout extends Layout 
+	public class HorizontalLayout extends Layout 
 	{
-
-		private var yOffset:int = 0;
 		
+		private var xOffset:int = 0;
 
-		public function VerticalLayout( decorated:IUIDecorator )
+		public function HorizontalLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
 
-		override public function arrange():void
-		{			
-									
-			// Iterate over rest of the children and layout vertically
-			yOffset = 0;
-			yOffset += top;
-
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
+		override public function arrange():void 
+		{
+			
+			// Iterate over rest of the children and layout horizontally
+			xOffset = 0;
+			xOffset += left;
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				child.y = yOffset;
-				yOffset += child.height;
-				if ( iterator.hasNext() ) yOffset += verticalGap;
-			}
-			
-			// Left and right properties will be zero if VerticalLayout is the first decorator however
-			// if it isn't then we need to update the width + height correctly with the padding properties in 
-			// case they were used 
-			height = yOffset - verticalGap + bottom;
-	 		width = decorated.width + left + right;
+				child.x = xOffset;
+				xOffset += child.width;
+				if ( iterator.hasNext() ) xOffset += horizontalGap;
+			}			
+			width = xOffset - horizontalGap + right;
+	 		height = decorated.height + left + right;			
 			super.arrange();
-		}
+		}	
 
+		override public function iterator( type:String = null ):IIterator
+		{
+			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
+		}
+	
 	}
 }

@@ -17,32 +17,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.shape 
+package com.wezside.components.decorators.layout 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
+	import com.wezside.components.decorators.shape.IShape;
+	import com.wezside.data.iterator.IIterator;
+
+	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
+	 * 
+	 * At firt the Padding lyout may seem redundant but it is necessary to udpate the children 
+	 * with the padding to keep any shapes at the correct coordinates. 
 	 */
-	public interface IShape extends IUIDecorator 
+	public class PaddedLayout extends Layout 
 	{
-		
-		function get colours():Array
-		function set colours( value:Array ):void
-		
-		function get alphas():Array
-		function set alphas( value:Array ):void
-		
-		function get cornerRadius():int
-		function set cornerRadius( value:int ):void
-		
-		function get borderAlpha():int
-		function set borderAlpha( value:int ):void
-		
-		function get borderThickness():int
-		function set borderThickness( value:int ):void
 
-					
-		function draw():void
+		
+		public function PaddedLayout( decorated:IUIDecorator )
+		{
+			super( decorated );
+		}
+		
+		override public function arrange():void
+		{	
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			while ( iterator.hasNext())
+			{
+				var child:DisplayObject = iterator.next() as DisplayObject;
+				if ( child is IShape ) child = iterator.next() as DisplayObject;
+				child.x += left;
+				child.y += top;
+			}
+			
+			width = decorated.width + left + right;
+			height = decorated.height + top + bottom;	 		
+			super.arrange();
+		}
 	}
 }

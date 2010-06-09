@@ -23,8 +23,8 @@
  */
 package com.wezside.components 
 {
-	import com.wezside.components.layout.ILayout;
-	import com.wezside.components.shape.IShape;
+	import com.wezside.components.decorators.layout.ILayout;
+	import com.wezside.components.decorators.shape.IShape;
 	import com.wezside.utilities.manager.style.IStyleManager;
 
 	import flash.text.StyleSheet;

@@ -17,50 +17,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.shape 
 {
 	import com.wezside.components.IUIDecorator;
-	import com.wezside.components.UIElement;
-	import com.wezside.data.iterator.IIterator;
-
-	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class HorizontalLayout extends Layout 
+	public interface IShape extends IUIDecorator 
 	{
 		
-		private var xOffset:int = 0;
+		function get colours():Array
+		function set colours( value:Array ):void
+		
+		function get alphas():Array
+		function set alphas( value:Array ):void
+		
+		function get cornerRadius():int
+		function set cornerRadius( value:int ):void
+		
+		function get borderAlpha():int
+		function set borderAlpha( value:int ):void
+		
+		function get borderThickness():int
+		function set borderThickness( value:int ):void
 
-		public function HorizontalLayout( decorated:IUIDecorator )
-		{
-			super( decorated );
-		}
-
-		override public function arrange():void 
-		{
-			
-			// Iterate over rest of the children and layout horizontally
-			xOffset = 0;
-			xOffset += left;
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			while ( iterator.hasNext())
-			{
-				var child:DisplayObject = iterator.next() as DisplayObject;
-				child.x = xOffset;
-				xOffset += child.width;
-				if ( iterator.hasNext() ) xOffset += horizontalGap;
-			}			
-			width = xOffset - horizontalGap + right;
-	 		height = decorated.height + left + right;			
-			super.arrange();
-		}	
-
-		override public function iterator( type:String = null ):IIterator
-		{
-			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
-		}
-	
+		function get topLeftRadius():int;
+		function set topLeftRadius( value:int ):void;
+					
+		function get topRightRadius():int;
+		function set topRightRadius( value:int ):void;
+					
+		function get bottomLeftRadius():int;
+		function set bottomLeftRadius( value:int ):void;
+					
+		function get bottomRightRadius():int;
+		function set bottomRightRadius( value:int ):void;
+					
+		function draw():void
 	}
 }

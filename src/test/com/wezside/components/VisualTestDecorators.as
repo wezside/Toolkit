@@ -1,10 +1,10 @@
 package test.com.wezside.components 
 {
 	import com.wezside.components.UIElement;
-	import com.wezside.components.layout.PaddedLayout;
-	import com.wezside.components.layout.VerticalLayout;
-	import com.wezside.components.scroll.ScrollVertical;
-	import com.wezside.components.shape.Rectangle;
+	import com.wezside.components.decorators.layout.PaddedLayout;
+	import com.wezside.components.decorators.layout.VerticalLayout;
+	import com.wezside.components.decorators.scroll.ScrollVertical;
+	import com.wezside.components.decorators.shape.Rectangle;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -42,6 +42,7 @@ package test.com.wezside.components
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
+			background.cornerRadius = 10;
 			
 			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 150; 
@@ -63,10 +64,12 @@ package test.com.wezside.components
 			
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
-			hbox.background.colours = [ 0xff0000, 0xff0000 ];
-			hbox.background.alphas = [ 1, 1];			
+			hbox.background.colours = [ 0xff0000 ];
+			hbox.background.alphas = [ 1 ];			
 			hbox.background.width = 200;
 			hbox.background.height = 50;
+			hbox.background.topLeftRadius = 10;
+			hbox.background.bottomRightRadius = 10;
 			hbox.build();
 			hbox.arrange();
 			hbox.setStyle();

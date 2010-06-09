@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.shape 
+package com.wezside.components.decorators.shape 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
@@ -48,10 +48,17 @@ package com.wezside.components.shape
 				height = UIElement( decorated ).scroll.height;	
 			}
 
+			if ( alphas.length == 1 ) alphas.push( colours[0] );
+			if ( colours.length == 1 ) colours.push( colours[0] );
+
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
 			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
-			graphics.drawRoundRect( 0, 0, width, height, cornerRadius );
+			
+			if ( cornerRadius > 0 )
+				graphics.drawRoundRect( 0, 0, width, height, cornerRadius );
+			else
+				graphics.drawRoundRectComplex(0, 0, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
 
 			if ( cornerRadius == 0 && borderThickness > 0 )
 			{

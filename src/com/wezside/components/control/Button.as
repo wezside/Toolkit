@@ -1,7 +1,7 @@
 package com.wezside.components.control 
 {
-	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.text.Label;
 	import com.wezside.utilities.manager.state.StateManager;
 

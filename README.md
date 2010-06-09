@@ -13,6 +13,8 @@ Latest release
 
 Change log since build .0100
 =======
+* Updated Shape decorator to include individual corner radius properties bottomRightRadius, bottomLeftRadius, topRightRadius, topLeftRadius
+* Refactored decorators to namespace com.wezside.components.decorators
 * Include new Interactive decorator InteractiveSelectable which behaves as a toggle. The default now is single click and button won't stay selected.
 * Fixed bug with setStyle() on UIElement with no styleName set
 * UIElement purge() updated to remove scroll, arrange listener and stateManager purge()

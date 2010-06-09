@@ -17,35 +17,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.layout 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.UIElement;
+	import com.wezside.data.iterator.IIterator;
 
-	import flash.events.Event;
+	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface ILayout extends IUIDecorator
+	public class VerticalLayout extends Layout 
 	{
+
+		private var yOffset:int = 0;
 		
-		function get top():int
-		function set top( value:int ):void
-		
-		function get bottom():int
-		function set bottom( value:int ):void
-		
-		function get left():int
-		function set left( value:int ):void
-		
-		function get right():int
-		function set right( value:int ):void
-		
-		function get horizontalGap():int
-		function set horizontalGap( value:int ):void
-		
-		function get verticalGap():int
-		function set verticalGap( value:int ):void		
-	
+
+		public function VerticalLayout( decorated:IUIDecorator )
+		{
+			super( decorated );
+		}
+
+		override public function arrange():void
+		{			
+									
+			// Iterate over rest of the children and layout vertically
+			yOffset = 0;
+			yOffset += top;
+
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
+			while ( iterator.hasNext())
+			{
+				var child:DisplayObject = iterator.next() as DisplayObject;
+				child.y = yOffset;
+				yOffset += child.height;
+				if ( iterator.hasNext() ) yOffset += verticalGap;
+			}
+			
+			// Left and right properties will be zero if VerticalLayout is the first decorator however
+			// if it isn't then we need to update the width + height correctly with the padding properties in 
+			// case they were used 
+			height = yOffset - verticalGap + bottom;
+	 		width = decorated.width + left + right;
+			super.arrange();
+		}
+
 	}
 }
