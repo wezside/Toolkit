@@ -7,12 +7,13 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-* Build 0.1.0124
+* Build 0.1.0125
 * Compiled with Flex 4 SDK build 14159 
 
 
 Change log since build .0100
 =======
+* Include new Interactive decorator InteractiveSelectable which behaves as a toggle. The default now is single click and button won't stay selected.
 * Fixed bug with setStyle() on UIElement with no styleName set
 * UIElement purge() updated to remove scroll, arrange listener and stateManager purge()
 * UIElement addChildAt() and addUIChildAt() methods added
