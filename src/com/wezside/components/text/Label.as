@@ -169,7 +169,7 @@ package com.wezside.components.text
 		
 		public function get textColourSelected():uint
 		{
-			return _textColourSelected;
+			return _textColourSelected > 0 ? _textColourSelected : _textColourUp;
 		}
 		
 		public function set textColourSelected( value:uint ):void

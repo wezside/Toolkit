@@ -84,6 +84,7 @@ package com.wezside.components
 			_stateManager.addState( UIElementState.STATE_VISUAL_OVER );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DOWN );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DISABLED );
+			_stateManager.addState( UIElementState.STATE_VISUAL_CLICK );
 			_stateManager.stateKey = UIElementState.STATE_VISUAL_UP;
 		}		
 		

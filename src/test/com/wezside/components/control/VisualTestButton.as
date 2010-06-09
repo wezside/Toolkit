@@ -1,5 +1,9 @@
 package test.com.wezside.components.control 
 {
+	import com.wezside.components.decorators.interactive.InteractiveSelectable;
+	import com.wezside.utilities.logging.Tracer;
+	import flash.events.MouseEvent;
+	import com.wezside.utilities.manager.state.StateManager;
 	import test.com.wezside.sample.style.LatinStyle;
 
 	import com.wezside.components.UIElement;
@@ -32,6 +36,7 @@ package test.com.wezside.components.control
 		{	
 			
 			button = new Button();			
+			button.interactive = new InteractiveSelectable( button );
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
@@ -59,14 +64,15 @@ package test.com.wezside.components.control
 			label.activate();
 			label.x = 50;
 			label.y = 150;
+			label.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			addChild( label );			
 			
 			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed clas";
 			
 			super.build();
 		}
-		
 
+		
 		private function stageInit( event:Event ):void 
 		{			
 			background = new Rectangle( this );
@@ -94,8 +100,11 @@ package test.com.wezside.components.control
 
 		private function stateChange( event:UIElementEvent ):void 
 		{
+			trace( event.state.key );
 			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
-				trace( "Clicked", event.currentTarget );
+			{
+
+			}
 		}
 	}
 }

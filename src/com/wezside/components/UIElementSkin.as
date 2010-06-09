@@ -25,6 +25,7 @@ package com.wezside.components
 			{ 
 				switch ( visibleStates[i] )
 				{
+					case UIElementState.STATE_VISUAL_CLICK: 
 					case UIElementState.STATE_VISUAL_UP: if ( _upSkin ) show( _upSkin ); break; 
 					case UIElementState.STATE_VISUAL_OVER: if ( _overSkin ) show( _overSkin ); break; 
 					case UIElementState.STATE_VISUAL_DOWN: if ( _downSkin ) show( _downSkin ); break; 

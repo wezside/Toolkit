@@ -11,12 +11,13 @@ package com.wezside.components.decorators.interactive
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Interactive extends EventDispatcher implements IInteractive
+	public class InteractiveSelectable extends EventDispatcher implements IInteractive
 	{
 		
 		protected var decorated:IInteractive;
+		private var forcedDeselect:Boolean;
 
-		public function Interactive( decorated:IInteractive = null  )
+		public function InteractiveSelectable( decorated:IInteractive = null  )
 		{
 			this.decorated = decorated;
 		}
@@ -52,25 +53,40 @@ package com.wezside.components.decorators.interactive
 		private function rollOver( event:MouseEvent ):void 
 		{
 			event.stopImmediatePropagation();
-			decorated.state = UIElementState.STATE_VISUAL_OVER;
+			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))			
+				decorated.state = UIElementState.STATE_VISUAL_OVER;
 		}
 
 		private function rollOut( event:MouseEvent ):void 
 		{
 			event.stopImmediatePropagation();
-			decorated.state = UIElementState.STATE_VISUAL_UP;
+			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))			
+				decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		private function click( event:MouseEvent ):void 
 		{
 			event.stopImmediatePropagation();
-			decorated.state = UIElementState.STATE_VISUAL_CLICK;
+			decorated.state = UIElementState.STATE_VISUAL_OVER;
+			if ( !forcedDeselect )
+			{
+				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+			}
+			else
+			{
+				forcedDeselect = false;
+			}
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
 			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
+			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{			
+				forcedDeselect = true;
+				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+			}			
 		}
 
 		public function get state():String
