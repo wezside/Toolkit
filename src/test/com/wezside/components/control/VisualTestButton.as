@@ -1,15 +1,12 @@
 package test.com.wezside.components.control 
 {
-	import com.wezside.components.decorators.interactive.InteractiveSelectable;
-	import com.wezside.utilities.logging.Tracer;
-	import flash.events.MouseEvent;
-	import com.wezside.utilities.manager.state.StateManager;
 	import test.com.wezside.sample.style.LatinStyle;
 
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.control.Button;
+	import com.wezside.components.decorators.interactive.InteractiveSelectable;
 	import com.wezside.components.layout.PaddedLayout;
 	import com.wezside.components.layout.VerticalLayout;
 	import com.wezside.components.shape.Rectangle;
@@ -100,8 +97,7 @@ package test.com.wezside.components.control
 
 		private function stateChange( event:UIElementEvent ):void 
 		{
-			trace( event.state.key );
-			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
+			if ( event.state.key == UIElementState.STATE_VISUAL_CLICK ) 
 			{
 
 			}
