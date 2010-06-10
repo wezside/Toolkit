@@ -3,10 +3,8 @@ package test.com.wezside.utilities.manager.timeline
 	import com.wezside.utilities.manager.timeline.TimelineEvent;
 	import com.wezside.utilities.manager.timeline.TimelineManager;
 
-	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.system.System;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -39,14 +37,20 @@ package test.com.wezside.utilities.manager.timeline
 			mc2 = new Animation02();		
 			mc3 = new Animation03();
 			tm.addEventListener( TimelineEvent.READY, ready );
-			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, complete );
-			tm.addElement( "1", mc1, 0, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
-			tm.addElement( "2", mc2, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
-			tm.addElement( "3", mc3, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addEventListener( TimelineEvent.COMPLETE, complete );
+			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, sequenceComplete );
+			tm.addElement( "1", mc1, 0, -1, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "2", mc2, 0, 30, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "3", mc3, 0, -1, false, TimelineManager.CHILD_POLICY_RECURSIVE );
 												
 			addChild( mc3 );
 			addChild( mc2 );			
 			addChild( mc1 );			
+		}
+
+		private function complete( event:TimelineEvent ):void 
+		{
+			trace( "End Frame reached " + event.index );
 		}
 
 		private function ready( event:TimelineEvent ):void 
@@ -57,7 +61,7 @@ package test.com.wezside.utilities.manager.timeline
 			}
 		}
 
-		protected function complete( event:TimelineEvent):void
+		protected function sequenceComplete( event:TimelineEvent):void
 		{
 			trace( "Sequence complete ");
 					

@@ -1,10 +1,12 @@
 package test.com.wezside.components 
 {
+	import flash.text.TextFieldAutoSize;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
 	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.shape.Rectangle;
+	import com.wezside.components.text.Label;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -16,6 +18,7 @@ package test.com.wezside.components
 	{
 		
 		private var hbox:UIElement;
+		private var label:Label;
 
 		
 		public function VisualTestDecorators()
@@ -47,6 +50,18 @@ package test.com.wezside.components
 			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 150; 
 			scroll.horizontalGap = 2;
+  			
+ 			label = new Label();
+ 			label.autoSize = TextFieldAutoSize.LEFT;
+ 			label.width = 200;
+ 			label.multiline = true;
+ 			label.wordWrap = true;
+ 			label.textColor = 0xffffff;
+ 			label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu nunc non risus cursus pellentesque dapibus eget elit. Duis venenatis libero tempus sapien eleifend vel placerat augue feugiat. Suspendisse potenti. Cras vel ipsum purus. Aenean vel felis leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean urna eros, bibendum sed iaculis ut, varius ut orci. Integer lacus turpis, ultricies imperdiet suscipit sed, volutpat ultrices metus. Nunc eu sem eu quam pharetra volutpat. Donec nec leo felis. Phasellus eu lacus velit, ac accumsan libero. Nam et imperdiet quam.";
+ 			label.build();
+ 			label.setStyle();
+ 			label.arrange();
+			addChild( label );
  
 			addEventListener( Event.ENTER_FRAME, enterFrame );
 		}

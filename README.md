@@ -143,19 +143,24 @@ in sequence starting at a specific animation or simply play a single (default) a
 		public function VisualTestTimelineManager()
 		{
 			tm = new TimelineManager();			
-			
 			mc1 = new Animation01();
 			mc2 = new Animation02();		
 			mc3 = new Animation03();
 			tm.addEventListener( TimelineEvent.READY, ready );
-			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, complete );
-			tm.addElement( "1", mc1, 0, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
-			tm.addElement( "2", mc2, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
-			tm.addElement( "3", mc3, 0, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addEventListener( TimelineEvent.COMPLETE, complete );
+			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, sequenceComplete );
+			tm.addElement( "1", mc1, 0, -1, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "2", mc2, 0, 30, false, TimelineManager.CHILD_POLICY_RECURSIVE );
+			tm.addElement( "3", mc3, 0, -1, false, TimelineManager.CHILD_POLICY_RECURSIVE );
 												
 			addChild( mc3 );
 			addChild( mc2 );			
-			addChild( mc1 );			
+			addChild( mc1 );				
+		}
+
+		private function complete( event:TimelineEvent ):void 
+		{
+			trace( "End Frame reached " + event.index );
 		}
 
 		private function ready( event:TimelineEvent ):void 
@@ -165,6 +170,27 @@ in sequence starting at a specific animation or simply play a single (default) a
 				tm.play();
 			}
 		}
+
+		protected function sequenceComplete( event:TimelineEvent):void
+		{
+			trace( "Sequence complete ");					
+			mc1.removeChildAt(0);
+			mc2.removeChildAt(0);
+			mc3.removeChildAt(0);
+			removeChild( mc3 );
+			removeChild( mc2 );			
+			removeChild( mc1 );
+			
+			Animation01 = null;
+			Animation02 = null;
+			Animation03 = null;
+			
+			tm.purge();
+			tm = null;				
+			mc1 = null;
+			mc2 = null;		
+			mc3 = null;			
+		}		
 		
 <a name="uielement"></a>
 UIElement
