@@ -33,6 +33,17 @@ package test.com.wezside.components.control
 
 		override public function build():void 
 		{	
+			label = new Label();
+			label.text = "UIElement Button Example";
+			label.styleName = "labelButton";
+			label.styleManager = styleManager;
+			label.width = 500;
+			label.build();
+			label.setStyle();
+			label.arrange();
+			label.activate();
+			label.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
+			addChild( label );			
 			
 			button = new Button();
 			button.interactive = new InteractiveSelectable( button );
@@ -49,19 +60,7 @@ package test.com.wezside.components.control
 			addChild( button );
 			button.activate();
 						
-			label = new Label();
-			label.text = "UIElement Button Example";
-			label.styleName = "labelButton";
-			label.styleManager = styleManager;
-			label.width = 500;
-			label.build();
-			label.setStyle();
-			label.arrange();
-			label.activate();
-			label.x = 50;
-			label.y = 150;
-			label.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
-			addChild( label );			
+			y = 100;
 			
 			super.build();
 		}

@@ -29,8 +29,7 @@ package com.wezside.components.decorators.layout
 		
 		public function RelativeLayout( decorated:IUIDecorator )
 		{
-			super( decorated );
-			
+			super( decorated );			
 		}
 	
 		override public function arrange():void 
