@@ -28,8 +28,7 @@ package test.com.wezside.components
 		}
 
 		private function initStage( event:Event ):void 
-		{			
-						
+		{						
 			x = 20;
 			y = 20;				
 			
@@ -39,7 +38,7 @@ package test.com.wezside.components
 			layout.top = 15;
 			layout.right = 15;
 			
-			layout = new VerticalLayout( layout );
+			layout = new VerticalLayout( this.layout );
 			layout.verticalGap = 3;	
 						
 			background = new Rectangle( this );

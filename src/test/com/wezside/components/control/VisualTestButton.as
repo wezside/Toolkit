@@ -7,11 +7,13 @@ package test.com.wezside.components.control
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.control.Button;
 	import com.wezside.components.decorators.interactive.InteractiveSelectable;
+	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
 	import com.wezside.components.decorators.shape.Rectangle;
 	import com.wezside.components.text.Label;
 
+	import flash.display.Sprite;
 	import flash.events.Event;
 
 	/**
@@ -32,24 +34,21 @@ package test.com.wezside.components.control
 		override public function build():void 
 		{	
 			
-			button = new Button();			
+			button = new Button();
 			button.interactive = new InteractiveSelectable( button );
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
+			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
 			button.width = 300;
-			button.height = 15;
 			button.iconStyleName = "iconStylename";
-			button.iconAlign = Button.ICON_PLACEMENT_CENTER_LEFT;
+			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
 			button.build();
 			button.setStyle();
 			button.arrange();		
 			addChild( button );
 			button.activate();
-			button.x = 50;
-			button.y = 50;		
-			
+						
 			label = new Label();
 			label.text = "UIElement Button Example";
 			label.styleName = "labelButton";
@@ -63,8 +62,6 @@ package test.com.wezside.components.control
 			label.y = 150;
 			label.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			addChild( label );			
-			
-			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed clas";
 			
 			super.build();
 		}

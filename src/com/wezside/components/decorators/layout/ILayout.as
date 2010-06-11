@@ -44,6 +44,9 @@ package com.wezside.components.decorators.layout
 		
 		function get verticalGap():int
 		function set verticalGap( value:int ):void		
+		
+		function get placement():String;
+		function set placement( value:String ):void;
 	
 	}
 }

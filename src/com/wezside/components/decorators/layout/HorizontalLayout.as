@@ -57,10 +57,5 @@ package com.wezside.components.decorators.layout
 			super.arrange();
 		}	
 
-		override public function iterator( type:String = null ):IIterator
-		{
-			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
-		}
-	
 	}
 }

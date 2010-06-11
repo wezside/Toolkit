@@ -53,7 +53,8 @@ package com.wezside.components.decorators.layout
 			}
 			
 			width = decorated.width + left + right;
-			height = decorated.height + top + bottom;	 		
+			height = decorated.height + top + bottom;
+ 		
 			super.arrange();
 		}
 	}

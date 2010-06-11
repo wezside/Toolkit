@@ -55,8 +55,8 @@ package com.wezside.components.text
 
 		override public function arrange():void
 		{
-			super.arrange();
 			setText();
+			super.arrange();
 		}
 		
 		override public function set state( value:String ):void 

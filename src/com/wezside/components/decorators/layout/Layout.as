@@ -23,6 +23,7 @@ package com.wezside.components.decorators.layout
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.events.EventDispatcher;
 
@@ -30,7 +31,21 @@ package com.wezside.components.decorators.layout
 	 * @author Wesley.Swanepoel
 	 */
 	public class Layout extends EventDispatcher implements ILayout
-	{
+	{	
+		// Top placement
+		public static const PLACEMENT_TOP_LEFT:String = "placementTopLeft";
+		public static const PLACEMENT_TOP_CENTER:String = "placementTopCenter";
+		public static const PLACEMENT_TOP_RIGHT:String = "placementTopRight";
+		
+		// Center placement
+		public static const PLACEMENT_CENTER_LEFT:String = "placementCenterLeft";
+		public static const PLACEMENT_CENTER_RIGHT:String = "placementCenterRight";
+		public static const PLACEMENT_CENTER:String = "placementCenter";
+		
+		// Bottom placement
+		public static const PLACEMENT_BOTTOM_LEFT:String = "placementBottomLeft";
+		public static const PLACEMENT_BOTTOM_CENTER:String = "placementBottomCenter";
+		public static const PLACEMENT_BOTTOM_RIGHT:String = "placementBottomRight";		
 
 		private var _verticalGap:int;
 		private var _horizontalGap:int;
@@ -42,11 +57,24 @@ package com.wezside.components.decorators.layout
 		private var _height:int;
 		
 		protected var decorated:IUIDecorator;
+		protected var placementState:StateManager;
 
 		
 		public function Layout( decorated:IUIDecorator ) 
 		{			
-			this.decorated = decorated;
+			this.decorated = decorated;			
+			trace( this.decorated, this );
+			
+			placementState = new StateManager();
+			placementState.addState( PLACEMENT_TOP_LEFT );
+			placementState.addState( PLACEMENT_TOP_CENTER );
+			placementState.addState( PLACEMENT_TOP_RIGHT );
+			placementState.addState( PLACEMENT_CENTER_LEFT );
+			placementState.addState( PLACEMENT_CENTER_RIGHT );
+			placementState.addState( PLACEMENT_CENTER );
+			placementState.addState( PLACEMENT_BOTTOM_LEFT );
+			placementState.addState( PLACEMENT_BOTTOM_CENTER );
+			placementState.addState( PLACEMENT_BOTTOM_RIGHT );					
 		}
 		
 		public function arrange():void
@@ -70,7 +98,6 @@ package com.wezside.components.decorators.layout
 				if ( verticalGap != 0 ) IUIElement( decorated ).layout.verticalGap = verticalGap;
 				if ( horizontalGap != 0 ) IUIElement( decorated ).layout.horizontalGap = horizontalGap;
 			}
-						
 		
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
@@ -160,6 +187,16 @@ package com.wezside.components.decorators.layout
 		public function set height(value:Number):void
 		{
 			_height = value;
+		}
+		
+		public function get placement():String
+		{
+			return placementState.stateKey;
+		}
+		
+		public function set placement( value:String ):void
+		{
+			placementState.stateKey = value;
 		}
 	}
 }

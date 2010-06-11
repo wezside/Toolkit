@@ -44,8 +44,10 @@ MockUIElement {
 	paddingRight: 10;
 	paddingBottom: 10;
 	paddingTop: 10;
-	upIconSkin: IconUp;
 	wordWrap: true;
+	multiline: true;
+	border: false;
+	borderColor: #000000;
 }
 
 .iconStylename
@@ -54,21 +56,22 @@ MockUIElement {
 	overSkin: IconOver;	
 	downSkin: IconUp;	
 	selectedSkin: IconSelected;
-	paddingBottom: 0;
 	paddingTop: 0;
+	paddingBottom: 0;
 	paddingLeft: 0;
-	paddingRight: 5;
+	paddingRight: 0;
 }
 
 .labelButton {
 	font: ArialEmbed;
 	antiAliasType: advanced;
 	size: 30;
-	textColourUp: #111111;
+	textColourUp: #ababab;
 	textColourOver: #333333;
-	textColourDown: #111111;
+	textColourDown: #cccccc;
 	textColourSelected: #ff0000;
 	align: left;
+	autoSize: left;
 	multiline: true;
 	wordWrap: true;		
 }
