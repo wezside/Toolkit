@@ -23,7 +23,7 @@ package com.wezside.components.decorators.layout
 	{
 
 
-		private var _target:IUIElement;
+		private var _target:DisplayObject;
 		private var _anchor:DisplayObject;		
 
 		
@@ -35,6 +35,7 @@ package com.wezside.components.decorators.layout
 		override public function arrange():void 
 		{
 		
+			trace( this, decorated, _anchor, _target );
 			switch ( placementState.stateKey )
 			{
 				case PLACEMENT_CENTER:
@@ -42,59 +43,59 @@ package com.wezside.components.decorators.layout
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
 					break;
 				case PLACEMENT_CENTER_LEFT:
-					_target.x += _target.layout.left;
+					_target.x += IUIElement( _target ).layout.left;
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
-					_anchor.x += _target.x + _target.width + _target.layout.right;
-					right += _target.x + _target.width + _target.layout.right;
+					_anchor.x += _target.x + _target.width + IUIElement( _target ).layout.right;
+					right += _target.x + _target.width + IUIElement( _target ).layout.right;
 					break;
 				case PLACEMENT_CENTER_RIGHT:
-					_target.x = _anchor.x + _anchor.width + _target.layout.left;	
+					_target.x = _anchor.x + _anchor.width + IUIElement( _target ).layout.left;	
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
-					right += _target.width + _target.layout.left + _target.layout.right;
+					right += _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
 					break;
 				case PLACEMENT_TOP_CENTER:
 					_target.x = _anchor.x + ( _anchor.width - _target.width ) * 0.5;
-					_target.y = _target.layout.top;
-					_anchor.y = _target.y + _target.height + _target.layout.bottom;
-					bottom += _target.height + _target.layout.top + _target.layout.bottom;
+					_target.y = IUIElement( _target ).layout.top;
+					_anchor.y = _target.y + _target.height + IUIElement( _target ).layout.bottom;
+					bottom += _target.height + IUIElement( _target ).layout.top + IUIElement( _target ).layout.bottom;
 					break;
 				case PLACEMENT_TOP_LEFT:
-					_target.x += _target.layout.left;
-					_target.y += _target.layout.top;
-					_anchor.x += _target.x + _target.width + _target.layout.right;
-					right += _target.width + _target.layout.left + _target.layout.right;
+					_target.x += IUIElement( _target ).layout.left;
+					_target.y += IUIElement( _target ).layout.top;
+					_anchor.x += _target.x + _target.width + IUIElement( _target ).layout.right;
+					right += _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
 					break;
 				case PLACEMENT_TOP_RIGHT:
-					_target.x = _anchor.x + _anchor.width + _target.layout.left;
-					_target.y += _target.layout.top;
-					right += _target.width + _target.layout.left + _target.layout.right;
+					_target.x = _anchor.x + _anchor.width + IUIElement( _target ).layout.left;
+					_target.y += IUIElement( _target ).layout.top;
+					right += _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
 					break;
 				case PLACEMENT_BOTTOM_CENTER:
 					_target.x = _anchor.x + ( _anchor.width - _target.width ) * 0.5;
-					_target.y = _anchor.y + _anchor.height + _target.layout.top;
-					bottom += _target.height + _target.layout.top +  + _target.layout.bottom;
+					_target.y = _anchor.y + _anchor.height + IUIElement( _target ).layout.top;
+					bottom += _target.height + IUIElement( _target ).layout.top +  + IUIElement( _target ).layout.bottom;
 					break;
 				case PLACEMENT_BOTTOM_LEFT:
-					_target.x += _target.layout.left;
-					_target.y = _anchor.height - _target.height - _target.layout.bottom;
-					_anchor.x += _target.x + _target.width + _target.layout.right;
-					right += _target.width + _target.layout.left + _target.layout.right;
+					_target.x += IUIElement( _target ).layout.left;
+					_target.y = _anchor.height - _target.height - IUIElement( _target ).layout.bottom;
+					_anchor.x += _target.x + _target.width + IUIElement( _target ).layout.right;
+					right += _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
 					break;
 				case PLACEMENT_BOTTOM_RIGHT:
-					_target.x = _anchor.x + _anchor.width + _target.layout.left;
-					_target.y = _anchor.height - _target.height - _target.layout.bottom;
-					right += _target.width + _target.layout.left + _target.layout.right;
+					_target.x = _anchor.x + _anchor.width + IUIElement( _target ).layout.left;
+					_target.y = _anchor.height - _target.height - IUIElement( _target ).layout.bottom;
+					right += _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
 					break;
 			}
 			super.arrange( );
 		}
 		
-		public function get target():IUIElement
+		public function get target():DisplayObject
 		{
 			return _target;
 		}
 		
-		public function set target( value:IUIElement ):void
+		public function set target( value:DisplayObject ):void
 		{
 			_target = value;
 		}

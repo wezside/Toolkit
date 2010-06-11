@@ -1,5 +1,6 @@
 package com.wezside.components.control 
 {
+	import flash.display.DisplayObject;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.RelativeLayout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
@@ -82,13 +83,11 @@ package com.wezside.components.control
 		
 		public function set textPlacement( value:String ):void
 		{
-			if ( skin.upSkin )
-			{
-				autoSkinSize = false;
-//				layout = new AnchorLayout( this.layout );
-//				AnchorLayout( layout ).anchor = skin.upSkin;
-//				layout.placement = value;
-			}
+			autoSkinSize = false;
+			layout = new RelativeLayout( this.layout );
+			RelativeLayout( layout ).anchor = field;
+			RelativeLayout( layout ).target = skin as DisplayObject;				
+			layout.placement = value;
 		}
 		
 		public function get id():String

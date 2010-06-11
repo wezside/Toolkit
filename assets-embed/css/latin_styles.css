@@ -40,10 +40,10 @@ MockUIElement {
 	textColourSelected: #ff0000;
 	align: left;
 	autoSize: left;
-	paddingLeft: 10;
-	paddingRight: 10;
-	paddingBottom: 10;
-	paddingTop: 10;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingBottom: 0;
+	paddingTop: 0;
 	wordWrap: true;
 	multiline: true;
 	border: false;

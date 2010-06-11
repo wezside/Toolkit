@@ -63,7 +63,6 @@ package com.wezside.components.decorators.layout
 		public function Layout( decorated:IUIDecorator ) 
 		{			
 			this.decorated = decorated;			
-			trace( this.decorated, this );
 			
 			placementState = new StateManager();
 			placementState.addState( PLACEMENT_TOP_LEFT );

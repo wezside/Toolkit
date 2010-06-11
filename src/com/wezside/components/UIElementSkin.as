@@ -1,5 +1,14 @@
 package com.wezside.components 
 {
+	import com.wezside.components.decorators.layout.PaddedLayout;
+	import com.wezside.utilities.manager.style.IStyleManager;
+
+	import flash.text.StyleSheet;
+
+	import com.wezside.components.decorators.shape.IShape;
+	import com.wezside.components.decorators.layout.ILayout;
+	import com.wezside.data.iterator.IIterator;
+
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;
@@ -16,7 +25,12 @@ package com.wezside.components
 		private var _selectedSkin:DisplayObject;
 		private var _invalidSkin:DisplayObject;
 		private var _disabledSkin:DisplayObject;
+		private var _layout:ILayout;
 
+		public function UIElementSkin() 
+		{
+			layout = new PaddedLayout( this );	
+		}
 
 		public function setSkin( visibleStates:Array ):void
 		{
@@ -157,6 +171,88 @@ package com.wezside.components
 		override public function toString():String 
 		{
 			return getQualifiedClassName( this );
+		}
+		
+		public function build():void
+		{
+		}
+		
+		public function setStyle():void
+		{
+		}
+		
+		public function purge():void
+		{
+		}
+		
+		public function get styleManager():IStyleManager
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
+		
+		public function get styleName():String
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
+		
+		public function get styleSheet():StyleSheet
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
+		
+		public function get skin():IUIElementSkin
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
+		
+		public function get background():IShape
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
+		
+		public function get layout():ILayout
+		{
+			return _layout;
+		}
+		
+		public function set styleManager(value:IStyleManager):void
+		{
+		}
+		
+		public function set styleName(value:String):void
+		{
+		}
+		
+		public function set styleSheet(value:StyleSheet):void
+		{
+		}
+		
+		public function set skin(value:IUIElementSkin):void
+		{
+		}
+		
+		public function set background(value:IShape):void
+		{
+		}
+		
+		public function set layout(value:ILayout):void
+		{
+			_layout = value;
+		}
+		
+		public function iterator(type:String = null):IIterator
+		{
+			// TODO: Auto-generated method stub
+			return null;
+		}
+		
+		public function arrange():void
+		{
 		}
 	}
 }

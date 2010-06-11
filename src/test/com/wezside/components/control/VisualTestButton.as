@@ -54,6 +54,7 @@ package test.com.wezside.components.control
 			button.width = 300;
 			button.iconStyleName = "iconStylename";
 			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
+			button.textPlacement = Layout.PLACEMENT_CENTER_LEFT;
 			button.build();
 			button.setStyle();
 			button.arrange();		
