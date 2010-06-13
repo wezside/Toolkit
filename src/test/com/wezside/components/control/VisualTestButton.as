@@ -47,6 +47,7 @@ package test.com.wezside.components.control
 			button.activate();
 			button.x = 50;
 			button.y = 50;		
+			trace( button.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ));
 			
 			label = new Label();
 			label.text = "UIElement Button Example";
@@ -94,8 +95,15 @@ package test.com.wezside.components.control
 
 		private function stateChange( event:UIElementEvent ):void 
 		{
-			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
-				trace( "Clicked", event.currentTarget );
+			trace( event.currentTarget.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ) );
+			if ( event.currentTarget.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+			{
+				label.text  = "Selected.";
+			}
+			if ( !event.currentTarget.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ) && label )
+			{
+				label.text  = "UIElement Button Example";
+			}
 		}
 	}
 }
