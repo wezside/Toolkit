@@ -23,9 +23,8 @@
  */
 package com.wezside.components.gallery 
 {
-	import com.wezside.data.iterator.IIterator;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.gallery.collection.ClassCollection;
 	import com.wezside.components.gallery.item.BlankGalleryItem;
 	import com.wezside.components.gallery.item.CountdownGalleryItem;
@@ -37,6 +36,7 @@ package com.wezside.components.gallery
 	import com.wezside.components.gallery.item.ReflectionItem;
 	import com.wezside.components.gallery.layout.GridReflectionLayout;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
+	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.date.DateUtil;
 	import com.wezside.utilities.file.FileUtil;
 	import com.wezside.utilities.imaging.ImageResize;

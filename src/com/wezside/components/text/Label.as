@@ -21,7 +21,7 @@ package com.wezside.components.text
 {
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementState;
-	import com.wezside.components.layout.PaddedLayout;
+	import com.wezside.components.decorators.layout.PaddedLayout;
 
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -55,8 +55,8 @@ package com.wezside.components.text
 
 		override public function arrange():void
 		{
-			super.arrange();
 			setText();
+			super.arrange();
 		}
 		
 		override public function set state( value:String ):void 
@@ -169,7 +169,7 @@ package com.wezside.components.text
 		
 		public function get textColourSelected():uint
 		{
-			return _textColourSelected;
+			return _textColourSelected > 0 ? _textColourSelected : _textColourUp;
 		}
 		
 		public function set textColourSelected( value:uint ):void

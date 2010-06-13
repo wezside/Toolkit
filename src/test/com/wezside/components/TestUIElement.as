@@ -6,9 +6,9 @@ package test.com.wezside.components
 
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
-	import com.wezside.components.layout.HorizontalLayout;
-	import com.wezside.components.layout.PaddedLayout;
-	import com.wezside.components.layout.VerticalLayout;
+	import com.wezside.components.decorators.layout.HorizontalLayout;
+	import com.wezside.components.decorators.layout.PaddedLayout;
+	import com.wezside.components.decorators.layout.VerticalLayout;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;

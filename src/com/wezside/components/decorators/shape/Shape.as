@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.shape 
+package com.wezside.components.decorators.shape 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
@@ -39,6 +39,10 @@ package com.wezside.components.shape
 		private var _alphas:Array = [];
 		private var _width:Number = 0;
 		private var _height:Number = 0;
+		private var _bottomRightRadius:int;
+		private var _bottomLeftRadius:int;
+		private var _topRightRadius:int;
+		private var _topLeftRadius:int;
 
 		protected var decorated:IUIDecorator;
 
@@ -139,6 +143,46 @@ package com.wezside.components.shape
 		override public function get height():Number 
 		{
 			return _height;
+		}
+		
+		public function get topLeftRadius():int
+		{
+			return _topLeftRadius;
+		}
+		
+		public function set topLeftRadius( value:int ):void
+		{
+			_topLeftRadius = value;
+		}
+		
+		public function get topRightRadius():int
+		{
+			return _topRightRadius;
+		}
+		
+		public function set topRightRadius( value:int ):void
+		{
+			_topRightRadius = value;
+		}
+		
+		public function get bottomLeftRadius():int
+		{
+			return _bottomLeftRadius;
+		}
+		
+		public function set bottomLeftRadius( value:int ):void
+		{
+			_bottomLeftRadius = value;
+		}
+		
+		public function get bottomRightRadius():int
+		{
+			return _bottomRightRadius;
+		}
+		
+		public function set bottomRightRadius( value:int ):void
+		{
+			_bottomRightRadius = value;
 		}
 	}
 }

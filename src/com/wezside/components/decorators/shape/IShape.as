@@ -17,35 +17,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.shape 
 {
 	import com.wezside.components.IUIDecorator;
-
-	import flash.events.Event;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface ILayout extends IUIDecorator
+	public interface IShape extends IUIDecorator 
 	{
 		
-		function get top():int
-		function set top( value:int ):void
+		function get colours():Array
+		function set colours( value:Array ):void
 		
-		function get bottom():int
-		function set bottom( value:int ):void
+		function get alphas():Array
+		function set alphas( value:Array ):void
 		
-		function get left():int
-		function set left( value:int ):void
+		function get cornerRadius():int
+		function set cornerRadius( value:int ):void
 		
-		function get right():int
-		function set right( value:int ):void
+		function get borderAlpha():int
+		function set borderAlpha( value:int ):void
 		
-		function get horizontalGap():int
-		function set horizontalGap( value:int ):void
-		
-		function get verticalGap():int
-		function set verticalGap( value:int ):void		
-	
+		function get borderThickness():int
+		function set borderThickness( value:int ):void
+
+		function get topLeftRadius():int;
+		function set topLeftRadius( value:int ):void;
+					
+		function get topRightRadius():int;
+		function set topRightRadius( value:int ):void;
+					
+		function get bottomLeftRadius():int;
+		function set bottomLeftRadius( value:int ):void;
+					
+		function get bottomRightRadius():int;
+		function set bottomRightRadius( value:int ):void;
+					
+		function draw():void
 	}
 }

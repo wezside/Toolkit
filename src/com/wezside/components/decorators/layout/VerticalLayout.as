@@ -17,44 +17,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.layout 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.shape.IShape;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
 
 	/**
 	 * @author Wesley.Swanepoel
-	 * 
-	 * At firt the Padding lyout may seem redundant but it is necessary to udpate the children 
-	 * with the padding to keep any shapes at the correct coordinates. 
 	 */
-	public class PaddedLayout extends Layout 
+	public class VerticalLayout extends Layout 
 	{
 
+		private var yOffset:int = 0;
 		
-		public function PaddedLayout( decorated:IUIDecorator )
+
+		public function VerticalLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
-		
+
 		override public function arrange():void
-		{	
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+		{			
+									
+			// Iterate over rest of the children and layout vertically
+			yOffset = 0;
+			yOffset += top;
+
+			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				if ( child is IShape ) child = iterator.next() as DisplayObject;
-				child.x += left;
-				child.y += top;
+				child.y = yOffset;
+				yOffset += child.height;
+				if ( iterator.hasNext() ) yOffset += verticalGap;
 			}
 			
-			width = decorated.width + left + right;
-			height = decorated.height + top + bottom;	 		
+			// Left and right properties will be zero if VerticalLayout is the first decorator however
+			// if it isn't then we need to update the width + height correctly with the padding properties in 
+			// case they were used 
+			height = yOffset - verticalGap + bottom;
+	 		width = decorated.width + left + right;
 			super.arrange();
 		}
+
 	}
 }

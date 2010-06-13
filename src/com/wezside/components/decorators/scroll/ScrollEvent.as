@@ -1,4 +1,4 @@
-package com.wezside.components.scroll 
+package com.wezside.components.decorators.scroll 
 {
 	import flash.events.Event;
 

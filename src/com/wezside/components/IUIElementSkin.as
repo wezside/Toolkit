@@ -5,7 +5,7 @@ package com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IUIElementSkin 
+	public interface IUIElementSkin extends IUIElement
 	{
 		function get upSkin():DisplayObject;
 		function set upSkin( value:DisplayObject ):void;
@@ -28,7 +28,6 @@ package com.wezside.components
 		function setSize( w:int, h:int ):void;
 		function setSkin( visibleStates:Array ):void;
 		function hasSkinProperty( V:* = undefined ):Boolean;
-		function hasOwnProperty( V:* = undefined ):Boolean;
 
 	}
 }

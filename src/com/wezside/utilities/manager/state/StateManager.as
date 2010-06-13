@@ -60,6 +60,13 @@ package com.wezside.utilities.manager.state
 			state.value = _baseTwo << _states.length;
 			_states.push( state );
 		}
+		
+		public function removeState( key:String ):void
+		{
+			for ( var i:int = 0; i < _states.length; ++i )
+				if ( _states[i].key  == key )
+					_states.splice( i, 1 );
+		}
 						
 		public function get state():IState
 		{

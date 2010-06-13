@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.layout 
+package com.wezside.components.decorators.layout 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
@@ -57,10 +57,5 @@ package com.wezside.components.layout
 			super.arrange();
 		}	
 
-		override public function iterator( type:String = null ):IIterator
-		{
-			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
-		}
-	
 	}
 }

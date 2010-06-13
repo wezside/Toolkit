@@ -1,11 +1,11 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.scroll.ScrollVertical;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.layout.HorizontalLayout;
-	import com.wezside.components.layout.PaddedLayout;
-	import com.wezside.components.layout.VerticalLayout;
-	import com.wezside.components.shape.Rectangle;
+	import com.wezside.components.decorators.layout.HorizontalLayout;
+	import com.wezside.components.decorators.layout.PaddedLayout;
+	import com.wezside.components.decorators.layout.VerticalLayout;
+	import com.wezside.components.decorators.scroll.ScrollVertical;
+	import com.wezside.components.decorators.shape.Rectangle;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
@@ -28,6 +28,7 @@ package test.com.wezside.components
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xff0000, 0xff0000 ];
 			hbox.background.alphas = [ 1, 1 ];
+			hbox.background.cornerRadius = 10;
 			hbox.background.width = 200;
 			hbox.background.height = 50;
 			hbox.build();

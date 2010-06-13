@@ -1,4 +1,4 @@
-package com.wezside.components.scroll 
+package com.wezside.components.decorators.scroll 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;

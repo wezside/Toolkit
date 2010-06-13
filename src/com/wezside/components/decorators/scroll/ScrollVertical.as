@@ -1,9 +1,9 @@
-package com.wezside.components.scroll 
+package com.wezside.components.decorators.scroll 
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.shape.Rectangle;
+	import com.wezside.components.decorators.shape.Rectangle;
 
 	import flash.events.MouseEvent;
 

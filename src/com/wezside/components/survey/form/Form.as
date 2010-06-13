@@ -1,9 +1,9 @@
 package com.wezside.components.survey.form 
 {
-	import com.wezside.components.layout.VerticalLayout;
-	import com.wezside.components.shape.Rectangle;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.decorators.layout.VerticalLayout;
+	import com.wezside.components.decorators.shape.Rectangle;
 	import com.wezside.components.survey.data.FormItemData;
 	import com.wezside.components.survey.data.IFormData;
 	import com.wezside.components.survey.data.IFormItemData;

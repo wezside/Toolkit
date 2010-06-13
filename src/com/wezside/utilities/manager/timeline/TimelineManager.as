@@ -44,7 +44,17 @@ package com.wezside.utilities.manager.timeline
 			playPolicy.stateKey = PLAY_POLICY_SEQUENTIAL;
 		}
 		
-		public function addElement( id:String, target:MovieClip, delay:int = 0, autoVisible:Boolean = false, childPolicy:String = CHILD_POLICY_ROOT ):void
+		/**
+		 * Add a new timeline element to the manager. This method will create a new TimelineInstance element. 
+		 *  
+		 * @param id A unique ID fo referencing a specific TimelineInstance
+		 * @param target The Target embedded Movieclip
+		 * @param delay A start delay before the TimelineInstance starts playing
+		 * @param endFrame An end frame number for when the TimelineEvent.COMPLETE event is dispatch. Leave as -1 to use the totalFrames of the MovieClip
+		 * @param autoVisible Toggels visibility on and off at start and end of playback
+		 * @param childPolicy A policy defining if gotoAndStop(1) is called on all children at start and end of playback. Default is root only. 
+		 */
+		public function addElement( id:String, target:MovieClip, delay:int = 0, endFrame:int = -1, autoVisible:Boolean = false, childPolicy:String = CHILD_POLICY_ROOT ):void
 		{
 			var tmi:TimelineInstance = new TimelineInstance();
 			tmi.id = id;
@@ -52,7 +62,8 @@ package com.wezside.utilities.manager.timeline
 			tmi.delay = delay;
 			tmi.target = target;
 			tmi.autoVisible = autoVisible;
-			tmi.childPolicy = childPolicy; 
+			tmi.childPolicy = childPolicy;
+			tmi.endFrame = endFrame; 
 			tmi.initTarget();
 			animations.addElement( tmi );
 			++total;	
@@ -135,11 +146,12 @@ package com.wezside.utilities.manager.timeline
 		private function enterFrame( event:Event ):void 
 		{			
 			var mc:MovieClip = event.currentTarget as MovieClip;
-			if ( mc.currentFrame == mc.totalFrames )
+			if ( mc.currentFrame == currentTMI.endFrame )
 			{
 				mc.removeEventListener( Event.ENTER_FRAME, enterFrame );
 				mc.gotoAndStop( 1 );
 				mc.visible = !currentTMI.autoVisible;
+				
 				if ( currentTMI.childPolicy == CHILD_POLICY_RECURSIVE )
 					setChildrenProp( mc, "gotoAndStop", 1 );		
 					
@@ -154,13 +166,13 @@ package com.wezside.utilities.manager.timeline
 		
 		private function playNext():void
 		{			
+			dispatchEvent( new TimelineEvent( TimelineEvent.COMPLETE, false, false, playID, playIndex, total ));
 			if ( playIndex == total-1 )
 			{
 				dispatchEvent( new TimelineEvent( TimelineEvent.SEQUENTIAL_COMPLETE, false, false, playID, playIndex, total ));
 			}
 			if ( playIndex < total-1 )
 			{
-				dispatchEvent( new TimelineEvent( TimelineEvent.COMPLETE, false, false, playID, playIndex, total ));
 				var nextID:String = TimelineInstance( iterator.next().next.data ).id;
 				initSequential( nextID );
 			}					
@@ -173,6 +185,7 @@ package com.wezside.utilities.manager.timeline
 			tmi.target = event.targetMC as MovieClip;
 			tmi.target.gotoAndStop( 1 );
 			tmi.target.visible = !tmi.autoVisible;
+			tmi.endFrame = tmi.endFrame == -1 ? tmi.target.totalFrames : tmi.endFrame;
 			
 			if ( tmi.childPolicy == CHILD_POLICY_RECURSIVE )
 				setChildrenProp( tmi.target, "gotoAndStop", 1 );

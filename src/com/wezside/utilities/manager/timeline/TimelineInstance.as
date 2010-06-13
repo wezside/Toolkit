@@ -16,6 +16,7 @@ package com.wezside.utilities.manager.timeline
 		private var _childPolicy:String;
 		private var _delay:int;
 		private var _autoVisible:Boolean;
+		private var _endFrame:int;
 
 		
 		public function initTarget():void
@@ -90,6 +91,16 @@ package com.wezside.utilities.manager.timeline
 		{
 			_autoVisible = value;
 		}	
+		
+		public function get endFrame():int
+		{
+			return _endFrame;
+		}
+		
+		public function set endFrame( value:int ):void
+		{
+			_endFrame = value;
+		}
 		
 		private function initialized( event:Event ):void 
 		{
