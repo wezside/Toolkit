@@ -70,10 +70,13 @@ package com.wezside.utilities.business.rpc
 	
 		public function loadWSDL(uri:String = null):void {}
 		
-		public function kill():void
+		public function purge():void
 		{
-			_loader.removeEventListener( Event.COMPLETE, result );
-			_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault);
+			if ( _loader )
+			{
+				_loader.removeEventListener( Event.COMPLETE, result );
+				_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault);
+			}
 			_responder = null;
 			_request = null;
 			_loader = null;								
@@ -165,6 +168,7 @@ package com.wezside.utilities.business.rpc
 		
 		private function fault( event:IOErrorEvent ):void
 		{
+			_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault);			
 			Tracer.output( DEBUG, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
@@ -179,6 +183,7 @@ package com.wezside.utilities.business.rpc
 		
 		private function result( event:Event ):void
 		{
+			_loader.removeEventListener( Event.COMPLETE, result );
 			Tracer.output( DEBUG, " HTTPService.ResultEvent(event)", toString() );
 			if ( _responder != null )
 			{
