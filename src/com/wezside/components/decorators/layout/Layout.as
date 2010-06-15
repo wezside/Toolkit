@@ -58,12 +58,10 @@ package com.wezside.components.decorators.layout
 		
 		protected var decorated:IUIDecorator;
 		protected var placementState:StateManager;
-
 		
 		public function Layout( decorated:IUIDecorator ) 
 		{			
 			this.decorated = decorated;			
-			
 			placementState = new StateManager();
 			placementState.addState( PLACEMENT_TOP_LEFT );
 			placementState.addState( PLACEMENT_TOP_CENTER );

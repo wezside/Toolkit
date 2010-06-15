@@ -56,10 +56,10 @@ MockUIElement {
 	overSkin: IconOver;	
 	downSkin: IconUp;	
 	selectedSkin: IconSelected;
-	paddingTop: 0;
-	paddingBottom: 0;
-	paddingLeft: 0;
-	paddingRight: 0;
+	paddingTop: 10;
+	paddingBottom: 10;
+	paddingLeft: 10;
+	paddingRight: 10;
 }
 
 .labelButton {
