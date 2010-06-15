@@ -70,7 +70,7 @@ package com.wezside.utilities.business.rpc
 	
 		public function loadWSDL(uri:String = null):void {}
 		
-		public function purge():void
+		public function kill():void
 		{
 			if ( _loader )
 			{
