@@ -34,8 +34,7 @@ package com.wezside.components.decorators.layout
 	
 		override public function arrange():void 
 		{
-		
-			trace( this, decorated, _anchor, _target );
+
 			switch ( placementState.stateKey )
 			{
 				case PLACEMENT_CENTER:
