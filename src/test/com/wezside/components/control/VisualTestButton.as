@@ -13,7 +13,6 @@ package test.com.wezside.components.control
 	import com.wezside.components.decorators.shape.Rectangle;
 	import com.wezside.components.text.Label;
 
-	import flash.display.Sprite;
 	import flash.events.Event;
 
 	/**
@@ -62,7 +61,7 @@ package test.com.wezside.components.control
 			button.activate();
 						
 			y = 100;
-			
+		
 			super.build();
 		}
 
@@ -94,8 +93,9 @@ package test.com.wezside.components.control
 
 		private function stateChange( event:UIElementEvent ):void 
 		{
-			if ( event.state.key == UIElementState.STATE_VISUAL_CLICK ) 
+			if ( event.state.key == UIElementState.STATE_VISUAL_SELECTED ) 
 			{
+				trace( event.currentTarget.stateManager.compare( event.state.key ));
 			}
 		}
 	}
