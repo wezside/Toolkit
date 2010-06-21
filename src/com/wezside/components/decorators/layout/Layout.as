@@ -71,7 +71,7 @@ package com.wezside.components.decorators.layout
 			placementState.addState( PLACEMENT_CENTER );
 			placementState.addState( PLACEMENT_BOTTOM_LEFT );
 			placementState.addState( PLACEMENT_BOTTOM_CENTER );
-			placementState.addState( PLACEMENT_BOTTOM_RIGHT );					
+			placementState.addState( PLACEMENT_BOTTOM_RIGHT );	
 		}
 		
 		public function arrange():void
@@ -99,6 +99,18 @@ package com.wezside.components.decorators.layout
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
 			if ( decorated.iterator().hasNext( )) decorated.arrange();
+		}
+		
+		public function reset():void
+		{
+			_verticalGap = 0; 
+			_horizontalGap = 0; 
+			_top = 0;
+			_bottom = 0;
+			_left = 0;
+			_right = 0;
+			_width = 0;
+			_height = 0;			
 		}
 		
 		public function iterator( type:String = null ):IIterator

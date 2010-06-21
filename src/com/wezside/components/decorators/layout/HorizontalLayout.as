@@ -53,7 +53,7 @@ package com.wezside.components.decorators.layout
 				if ( iterator.hasNext() ) xOffset += horizontalGap;
 			}			
 			width = xOffset - horizontalGap + right;
-	 		height = decorated.height + left + right;			
+	 		height = decorated.height + top + bottom;			
 			super.arrange();
 		}	
 

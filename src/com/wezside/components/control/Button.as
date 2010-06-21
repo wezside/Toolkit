@@ -1,9 +1,9 @@
 package com.wezside.components.control 
 {
-	import flash.display.DisplayObject;
+	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.decorators.layout.RelativeLayout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
+	import com.wezside.components.decorators.layout.RelativeLayout;
 	import com.wezside.components.text.Label;
 
 	/**
@@ -37,7 +37,9 @@ package com.wezside.components.control
 			// Arrange the Label component to adjust the text field width and height based on the text
 			super.arrange( );	
 			if ( _autoSkinSize )
-					skin.setSize( int( field.width + layout.left + layout.right ), int( field.height + layout.top + layout.bottom) );
+				skin.setSize( int( field.width + layout.left + layout.right ), int( field.height + layout.top + layout.bottom) );
+			else
+				skin.setSize( 20, 20 );
 		}
 		
 		override public function set state( value:String ):void 
@@ -71,22 +73,14 @@ package com.wezside.components.control
 		{
 			_icon.styleName = value;
 			_icon.styleManager = styleManager;
-		}				
+		}
 		
 		public function set iconPlacement( value:String ):void
 		{
+			layout = new Layout( this );
 			layout = new RelativeLayout( this.layout );
 			RelativeLayout( layout ).anchor = field;
 			RelativeLayout( layout ).target = _icon;
-			layout.placement = value;
-		}
-		
-		public function set textPlacement( value:String ):void
-		{
-			autoSkinSize = false;
-			layout = new RelativeLayout( this.layout );
-			RelativeLayout( layout ).anchor = field;
-			RelativeLayout( layout ).target = skin as DisplayObject;				
 			layout.placement = value;
 		}
 		

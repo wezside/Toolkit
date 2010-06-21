@@ -39,6 +39,9 @@ package com.wezside.components.decorators.shape
 		function get borderAlpha():int
 		function set borderAlpha( value:int ):void
 		
+		function get borderColor():uint;
+		function set borderColor( value:uint ):void;
+		
 		function get borderThickness():int
 		function set borderThickness( value:int ):void
 

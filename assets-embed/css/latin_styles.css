@@ -76,6 +76,20 @@ MockUIElement {
 	wordWrap: true;		
 }
 
+.packageLabelButton {
+	font: ArialEmbed;
+	antiAliasType: advanced;
+	size: 12;
+	textColourUp: #ababab;
+	textColourOver: #333333;
+	textColourDown: #cccccc;
+	textColourSelected: #ff0000;
+	align: left;
+	autoSize: left;
+	multiline: true;
+	wordWrap: true;		
+}
+
 .inputField
 {
 	upSkin: InputFieldUpSkin;

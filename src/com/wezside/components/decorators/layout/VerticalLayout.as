@@ -58,8 +58,8 @@ package com.wezside.components.decorators.layout
 			// Left and right properties will be zero if VerticalLayout is the first decorator however
 			// if it isn't then we need to update the width + height correctly with the padding properties in 
 			// case they were used 
-			height = yOffset - verticalGap + bottom;
 	 		width = decorated.width + left + right;
+			height = yOffset - verticalGap + bottom;
 			super.arrange();
 		}
 
