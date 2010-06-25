@@ -58,5 +58,6 @@ package com.wezside.components.decorators.shape
 		function set bottomRightRadius( value:int ):void;
 					
 		function draw():void
+		function clear():void
 	}
 }

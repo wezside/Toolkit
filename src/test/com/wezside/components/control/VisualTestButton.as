@@ -1,7 +1,5 @@
 package test.com.wezside.components.control 
 {
-	import com.wezside.components.decorators.layout.HorizontalLayout;
-	import com.wezside.components.UIElementSkin;
 	import test.com.wezside.sample.style.LatinStyle;
 
 	import com.wezside.components.UIElement;
@@ -9,6 +7,7 @@ package test.com.wezside.components.control
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.control.Button;
 	import com.wezside.components.decorators.interactive.InteractiveSelectable;
+	import com.wezside.components.decorators.layout.HorizontalLayout;
 	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
@@ -39,33 +38,29 @@ package test.com.wezside.components.control
 			label.text = "UIElement Button Example";
 			label.styleName = "labelButton";
 			label.styleManager = styleManager;
-			label.width = 500;
 			label.selectable = false;
 			label.build();
 			label.setStyle();
 			label.arrange();
 			addChild( label );		
 				
-			label = new Label();
-			label.text = "com.wezside.components.control.Button";
-			label.styleName = "packageLabelButton";
-			label.styleManager = styleManager;
-			label.width = 500;
-			label.selectable = false;
-			label.build();
-			label.setStyle();
-			label.arrange();
+			var packageLabel:Label = new Label();
+			packageLabel.text = "com.wezside.components.control.Button";
+			packageLabel.styleName = "packageLabelButton";
+			packageLabel.styleManager = styleManager;
+			packageLabel.width = 400;
+			packageLabel.selectable = false;
+			packageLabel.build();
+			packageLabel.setStyle();
+			packageLabel.arrange();
 			addChild( label );			
 			
 			var hbox:UIElement = new UIElement();
 			hbox.layout = new HorizontalLayout( hbox );
 			hbox.layout.horizontalGap = 10;
 			hbox.layout = new PaddedLayout( hbox.layout );
-			hbox.layout.top = 20;
-			hbox.background = new Rectangle( hbox );
-			hbox.background.alphas = [ 0 ];
-			hbox.background.colours = [ 0 ]; 
-						
+			hbox.layout.top = 0;
+
 			autoSkinSizeButton = new Button( );
 			autoSkinSizeButton.interactive = new InteractiveSelectable( autoSkinSizeButton );
 			autoSkinSizeButton.styleName = "button";
@@ -76,11 +71,23 @@ package test.com.wezside.components.control
 			autoSkinSizeButton.arrange();
 			autoSkinSizeButton.activate( );
 			autoSkinSizeButton.addEventListener( UIElementEvent.STATE_CHANGE, autoSkinSizeHandler );
-			addChild( autoSkinSizeButton );			
-			
+			addChild( autoSkinSizeButton );
+						
 			hbox.addChild( createAlignButton( "Top Left" ));
+			hbox.addChild( createAlignButton( "Top Center" ));
+			hbox.addChild( createAlignButton( "Top Right" ));
+			hbox.build();
+			hbox.arrange();
+			addChild( hbox );
+			
+			hbox = new UIElement();
+			hbox.layout = new HorizontalLayout( hbox );
+			hbox.layout.horizontalGap = 10;
+			hbox.layout = new PaddedLayout( hbox.layout );
+			hbox.layout.top = 2;
 			hbox.addChild( createAlignButton( "Center Left" ));
-			hbox.addChild( createAlignButton( "Bottom Left" ));
+			hbox.addChild( createAlignButton( "Center" ));
+			hbox.addChild( createAlignButton( "Center Right" ));
 			hbox.build();
 			hbox.arrange();
 			addChild( hbox );
@@ -91,27 +98,23 @@ package test.com.wezside.components.control
 			hbox.layout = new PaddedLayout( hbox.layout );
 			hbox.layout.top = 2;
 			hbox.layout.bottom = 20;
-			hbox.background = new Rectangle( hbox );
-			hbox.background.alphas = [ 0 ];
-			hbox.background.colours = [ 0 ]; 
-			hbox.addChild( createAlignButton( "Top Right" ));
-			hbox.addChild( createAlignButton( "Center Right" ));
+			hbox.addChild( createAlignButton( "Bottom Left" ));
+			hbox.addChild( createAlignButton( "Bottom Center" ));
 			hbox.addChild( createAlignButton( "Bottom Right" ));
 			hbox.build();
 			hbox.arrange();
 			addChild( hbox );
-
 			
 			button = new Button();
 			button.interactive = new InteractiveSelectable( button );
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
+			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
 			button.width = 300;
 			button.iconStyleName = "iconStylename";
 			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
-			button.autoSkinSize = false;
+			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();
 			button.arrange();		
@@ -127,14 +130,14 @@ package test.com.wezside.components.control
 		private function createAlignButton( text:String ):UIElement
 		{
 			var iconAlignButton:Button = new Button( );
-			iconAlignButton.styleName = "button";
+			iconAlignButton.styleName = "alignButton";
 			iconAlignButton.styleManager = styleManager;
 			iconAlignButton.text = text;
 			iconAlignButton.width = 100;
 			iconAlignButton.build();
 			iconAlignButton.setStyle();
 			iconAlignButton.arrange();
-			iconAlignButton.activate( );
+			iconAlignButton.activate();
 			iconAlignButton.addEventListener( UIElementEvent.STATE_CHANGE, iconAlignButtonHandler );
 			return iconAlignButton;
 		}
@@ -145,15 +148,19 @@ package test.com.wezside.components.control
 			{
 				switch ( event.currentTarget.text )
 				{					
-					case "Center Left": button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT; break;
+					case "Top Right": button.iconPlacement = Layout.PLACEMENT_TOP_RIGHT; break;
+					case "Top Center": button.iconPlacement = Layout.PLACEMENT_TOP_CENTER; break;
 					case "Top Left": button.iconPlacement = Layout.PLACEMENT_TOP_LEFT; break;
 					case "Bottom Left": button.iconPlacement = Layout.PLACEMENT_BOTTOM_LEFT; break;
-					case "Top Right": button.iconPlacement = Layout.PLACEMENT_TOP_RIGHT; break;
-					case "Center Right": button.iconPlacement = Layout.PLACEMENT_CENTER_RIGHT; break;
 					case "Bottom Right": button.iconPlacement = Layout.PLACEMENT_BOTTOM_RIGHT; break;
+					case "Bottom Center": button.iconPlacement = Layout.PLACEMENT_BOTTOM_CENTER; break;
+					case "Center Left": button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT; break;
+					case "Center": button.iconPlacement = Layout.PLACEMENT_CENTER; break;
+					case "Center Right": button.iconPlacement = Layout.PLACEMENT_CENTER_RIGHT; break;
 				}
-//				button.autoSkinSize = true;
+				label.text = "Icon alignment " + event.currentTarget.text;
 				button.arrange();
+				arrange();
 			}			
 		}
 
@@ -163,6 +170,7 @@ package test.com.wezside.components.control
 			{ 
 				button.autoSkinSize = event.currentTarget.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED );
 				button.arrange();
+				arrange();				
 				event.target.text = "AutoSizeSkin On";
 			}
 			else
@@ -170,14 +178,13 @@ package test.com.wezside.components.control
 				event.target.text = "AutoSizeSkin Off";
 			}
 		}
-
 		
 		private function stageInit( event:Event ):void 
 		{			
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 0.01, 0.05 ];
-			background.borderColor = 1;
+			background.borderColor = 0xcccccc;
 			background.borderThickness = 1;
 			background.borderAlpha = 1;
 						
@@ -187,8 +194,8 @@ package test.com.wezside.components.control
 			layout.top = 15;
 			layout.right = 15;
 			
-			layout = new VerticalLayout( layout );
-			layout.verticalGap = 5;
+			layout = new VerticalLayout( this.layout );
+			layout.verticalGap = 10;
 			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, styleReady );

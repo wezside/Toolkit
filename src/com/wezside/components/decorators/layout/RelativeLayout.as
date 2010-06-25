@@ -33,12 +33,12 @@ package com.wezside.components.decorators.layout
 		}
 	
 		override public function arrange():void 
-		{	
+		{				
 			_anchor.x = 0;
 			_anchor.y = 0;
 			_target.x = 0;
 			_target.y = 0;
-			
+						
 			switch ( placementState.stateKey )
 			{
 				case PLACEMENT_CENTER:
@@ -49,7 +49,7 @@ package com.wezside.components.decorators.layout
 					_target.x = IUIElement( _target ).layout.left;
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
 					_anchor.x = _target.x + _target.width + IUIElement( _target ).layout.right;
-					right = _target.x + _target.width + IUIElement( _target ).layout.right;
+					right = _target.x + _target.width + IUIElement( _target ).layout.right;					
 					break;
 				case PLACEMENT_CENTER_RIGHT:
 					_target.x = _anchor.x + _anchor.width + IUIElement( _target ).layout.left;	

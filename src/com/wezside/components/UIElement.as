@@ -107,7 +107,7 @@ package com.wezside.components
 		{
 			return super.addChild( child ); 
 		}
-		
+				
 		public function build():void
 		{
 			if ( _background ) super.addChildAt( _background as DisplayObject, 0 );
@@ -145,7 +145,6 @@ package com.wezside.components
 			}
 			if ( _background ) _background.arrange();
 		}
-
 		
 		public function activate():void
 		{

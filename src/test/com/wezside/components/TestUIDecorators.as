@@ -152,8 +152,8 @@ package test.com.wezside.components
 			uiElement.y = 20;
 			
 			uiElement.background = new Rectangle( uiElement );
-			uiElement.background.colours = [0,0];
-			uiElement.background.alphas = [1,1];	
+			uiElement.background.colours = [ 0, 0 ];
+			uiElement.background.alphas = [ 1, 1 ];	
 			
 			uiElement.layout = new PaddedLayout( uiElement );
 			uiElement.layout.top = 15;		
@@ -219,6 +219,33 @@ package test.com.wezside.components
 			dumpChildren();
 			trace( "---------------------", "end", "---------------------");
 		}		
+		
+		
+		[Test]
+		public function testArrange():void
+		{
+			uiElement.x = 0;
+			uiElement.y = 0;
+			
+			uiElement.background = new Rectangle( uiElement );
+			uiElement.background.colours = [ 0, 0 ];
+			uiElement.background.alphas = [ 1, 1 ];	
+					
+			uiElement.layout = new PaddedLayout( uiElement );
+			uiElement.layout.top = 15;		
+			uiElement.layout.left = 15;		
+			uiElement.layout.bottom = 15;		
+			uiElement.layout.right = 15;				
+			
+			uiElement.layout = new HorizontalLayout( uiElement.layout );
+			uiElement.build();
+			uiElement.arrange();
+						
+			assertEquals( 430, uiElement.width );		
+			uiElement.arrange();
+			assertEquals( 430, uiElement.width );
+			
+		}
 		
 		private function dumpChildren():void
 		{

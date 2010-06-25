@@ -43,18 +43,21 @@ package com.wezside.components.decorators.layout
 		
 		override public function arrange():void
 		{	
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			while ( iterator.hasNext())
-			{
-				var child:DisplayObject = iterator.next() as DisplayObject;
-				if ( child is IShape ) child = iterator.next() as DisplayObject;
-				child.x += left;
-				child.y += top;
+			// Avoid set of padding if arrange has been called before for this decorator
+			if ( width == 0 && height == 0 )
+			{			
+				var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+				while ( iterator.hasNext())
+				{
+					var child:DisplayObject = iterator.next() as DisplayObject;
+					if ( child is IShape ) child = iterator.next() as DisplayObject;
+					child.x += left;
+					child.y += top;
+				}
+				
+				width = int( decorated.width + left + right ) | 0;
+				height = int( decorated.height + top + bottom ) | 0;
 			}
-			
-			width = decorated.width + left + right;
-			height = decorated.height + top + bottom;
- 		
 			super.arrange();
 		}
 	}

@@ -19,6 +19,9 @@ package com.wezside.components.control
 		public function Button()
 		{
 			super( );
+			
+			layout = new PaddedLayout( this.layout );
+			
 			_icon = new Icon();
 			_autoSkinSize = true;
 			_icon.layout = new PaddedLayout( _icon.layout );
@@ -78,7 +81,8 @@ package com.wezside.components.control
 		public function set iconPlacement( value:String ):void
 		{
 			layout = new Layout( this );
-			layout = new RelativeLayout( this.layout );
+			layout = new PaddedLayout( this.layout );
+			layout = new RelativeLayout( this.layout ); 
 			RelativeLayout( layout ).anchor = field;
 			RelativeLayout( layout ).target = _icon;
 			layout.placement = value;

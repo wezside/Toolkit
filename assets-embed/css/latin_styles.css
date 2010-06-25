@@ -10,6 +10,8 @@
 	overSkin: InputFieldOverSkin;
 	downSkin: InputFieldDownSkin;
 	selectedSkin: InputFieldSelectedSkin;
+	border: true;
+	borderColor: #000000;
 }
 
 MockUIElement {
@@ -17,15 +19,7 @@ MockUIElement {
 	antiAliasType: normal;
 }
 
-.box
-{	
-	paddingLeft: 10;
-	paddingRight: 10;
-	paddingTop: 10;
-	paddingBottom: 10;	
-}
-
-.button
+.alignButton
 {
 	upSkin: ButtonUp;	
 	overSkin: ButtonOver;	
@@ -50,16 +44,41 @@ MockUIElement {
 	borderColor: #000000;
 }
 
+.button
+{
+	upSkin: ButtonUp;	
+	overSkin: ButtonOver;	
+	downSkin: ButtonDown;
+	selectedSkin: ButtonSelected;
+	font: ArialEmbed;
+	antiAliasType: advanced;
+	size: 12;
+	textColourUp: #111111;
+	textColourOver: #333333;
+	textColourDown: #111111;
+	textColourSelected: #ff0000;
+	align: left;
+	autoSize: left;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingBottom: 0;
+	paddingTop: 0;
+	wordWrap: true;
+	multiline: true;
+	border: true;
+	borderColor: #000000;
+}
+
 .iconStylename
 {
 	upSkin: IconUp;	
 	overSkin: IconOver;	
 	downSkin: IconUp;	
 	selectedSkin: IconSelected;
-	paddingTop: 10;
-	paddingBottom: 10;
-	paddingLeft: 10;
-	paddingRight: 10;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
 }
 
 .labelButton {
@@ -72,8 +91,8 @@ MockUIElement {
 	textColourSelected: #ff0000;
 	align: left;
 	autoSize: left;
-	multiline: true;
-	wordWrap: true;		
+	border: false;
+	borderColor: #000000;	
 }
 
 .packageLabelButton {
@@ -88,6 +107,8 @@ MockUIElement {
 	autoSize: left;
 	multiline: true;
 	wordWrap: true;		
+	border: true;
+	borderColor: #000000;		
 }
 
 .inputField

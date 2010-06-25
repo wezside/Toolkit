@@ -39,10 +39,10 @@ package com.wezside.components.decorators.shape
 		private var _alphas:Array = [];
 		private var _width:Number = 0;
 		private var _height:Number = 0;
-		private var _bottomRightRadius:int;
-		private var _bottomLeftRadius:int;
-		private var _topRightRadius:int;
-		private var _topLeftRadius:int;
+		private var _bottomRightRadius:int = 0;
+		private var _bottomLeftRadius:int = 0;
+		private var _topRightRadius:int = 0;
+		private var _topLeftRadius:int = 0;
 
 		protected var decorated:IUIDecorator;
 
@@ -58,11 +58,17 @@ package com.wezside.components.decorators.shape
 		
 		public function arrange():void
 		{
+			clear();
 			draw();
 		}
-		
+				
 		public function draw():void
 		{
+		}		
+				
+		public function clear():void
+		{
+			graphics.clear();
 		}		
 		
 		public function get colours():Array
@@ -184,5 +190,6 @@ package com.wezside.components.decorators.shape
 		{
 			_bottomRightRadius = value;
 		}
+
 	}
 }

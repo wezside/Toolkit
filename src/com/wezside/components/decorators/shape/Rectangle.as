@@ -30,35 +30,62 @@ package com.wezside.components.decorators.shape
 	 */
 	public class Rectangle extends Shape 
 	{
+		private var _autoDetectWidth:Boolean;
+		private var _autoDetectHeight:Boolean;
 		
 		public function Rectangle( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
 
+		/**
+		 * This method is invoked everytime arrange is called. arrange() will clear the graphics object everytime. The correct 
+		 * width and height is then calculated based on the usecases outlined below:
+		 * 
+		 * 	o No width + height explicitely set so use decorated width + height values
+		 * 		o Previously decorated width + height values set and decorated arrange() is called again due 
+		 * 		  to children updating their width + height properties.
+		 * 		  
+		 * 	o Explicitely set width + height properties thus ignore decorated width + height
+		 */
 		override public function draw():void
-		{				
-			if ( width == 0 ) width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
-			if ( height == 0 ) height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
-			
+		{		
+			// If width or height has changed, i.e. resize is require, set drawable props to new resized value	
+			if ( _autoDetectWidth ) width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+			if ( _autoDetectHeight ) height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+						 
+			// If width wasn't explicitly set - detect it automatically
+			if (  width == 0 )
+			{
+				_autoDetectWidth = true;
+				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+			}
+			if ( height == 0 )
+			{
+				_autoDetectHeight = true;
+				height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+			}
 			// If a scrollbar is present then override the height to the scrollheight
 			if ( UIElement( decorated ).scroll )
 			{
 				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
-				height = UIElement( decorated ).scroll.height;	
+				height = UIElement( decorated ).scroll.height;
 			}
 
-			if ( alphas.length == 1 ) alphas.push( colours[0] );
-			if ( colours.length == 1 ) colours.push( colours[0] );
+			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
+			if ( colours.length == 1 ) colours.push( colours[ 0 ]);
 
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
 			
+			graphics.clear();
+			graphics.lineStyle( borderThickness, borderColor, borderAlpha );
+			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
+
 			if ( cornerRadius > 0 )
 				graphics.drawRoundRect( 0, 0, width, height, cornerRadius );
 			else
-				graphics.drawRoundRectComplex(0, 0, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
+				graphics.drawRoundRectComplex( 0, 0, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
 
 			if ( cornerRadius == 0 && borderThickness > 0 )
 			{
@@ -73,7 +100,8 @@ package com.wezside.components.decorators.shape
 				graphics.lineTo( width, height );
 				graphics.moveTo( width, height );
 				graphics.lineTo( width, 0 );
-			}					
+			}		
+			graphics.endFill();			
 		}
 	}
 }

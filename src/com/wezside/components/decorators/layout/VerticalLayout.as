@@ -40,17 +40,16 @@ package com.wezside.components.decorators.layout
 		}
 
 		override public function arrange():void
-		{			
-									
+		{									
 			// Iterate over rest of the children and layout vertically
 			yOffset = 0;
 			yOffset += top;
-
+			
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
 			while ( iterator.hasNext())
 			{
 				var child:DisplayObject = iterator.next() as DisplayObject;
-				child.y = yOffset;
+				child.y = yOffset | 0;
 				yOffset += child.height;
 				if ( iterator.hasNext() ) yOffset += verticalGap;
 			}
