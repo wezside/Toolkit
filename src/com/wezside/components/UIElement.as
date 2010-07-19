@@ -98,6 +98,16 @@ package com.wezside.components
 			return _childrenContainer.removeChild( child );
 		}
 
+		override public function get numChildren():int 
+		{
+			return _childrenContainer.numChildren;
+		}
+
+		public function get numUIChildren():int
+		{
+			return super.numChildren;
+		}
+
 		public function removeUIChild( child:DisplayObject ):DisplayObject
 		{
 			return super.removeChild( child ); 
