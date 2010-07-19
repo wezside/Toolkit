@@ -31,6 +31,7 @@ package com.wezside.data.iterator
 		function hasNext():Boolean;
 		function index():int;
 		function length():uint;
+		function purge():void;
 		
 	}
 }

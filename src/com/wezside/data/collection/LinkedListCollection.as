@@ -93,7 +93,7 @@ package com.wezside.data.collection
 			while ( iterator.hasNext())
 			{
 				var item:LinkedListNode = iterator.next() as LinkedListNode;
-				if ( item.data.id == value )
+				if ( item.data && item.data.id == value )
 					return item.data; 
 			}
 			LinkedListIterator( iterator ).purge();			

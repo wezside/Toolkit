@@ -61,6 +61,7 @@ package com.wezside.utilities.command {
 				}
 				element = null;
 				LinkedListIterator( it ).purge();
+				it.purge();				
 				it = null;
 			}
 			trace( "removed");
@@ -74,10 +75,11 @@ package com.wezside.utilities.command {
 				var it : IIterator = commandsList.iterator();
 				var element : CommandElement;
 				while ( it.hasNext() ) {
+					
 					element = CommandElement( LinkedListNode( it.next() ).data );
 					removeEventListener( element.eventType, element.callback, false );
 				}
-				it.reset();
+				it.purge();
 				it = null;
 				commandsList.purge();
 				commandsList = null;
@@ -153,7 +155,7 @@ package com.wezside.utilities.command {
 					events.push( element.eventType );
 				}
 			}
-			it.reset();
+			it.purge();
 			it = null;
 			return events;
 		}
