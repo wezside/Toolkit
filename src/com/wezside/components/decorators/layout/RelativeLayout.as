@@ -40,8 +40,6 @@ package com.wezside.components.decorators.layout
 			_target.x = 0;
 			_target.y = 0;
 				
-			trace( this, decorated, left, top, ILayout( decorated ).left );
-				
 			switch ( placementState.stateKey )
 			{
 				case PLACEMENT_CENTER:

@@ -41,9 +41,7 @@ package com.wezside.components.decorators.layout
 		
 		override public function arrange():void
 		{
-			
-			trace( this, decorated, left, top );
-							
+						
 			// Avoid set of padding if arrange has been called before for this decorator
 			if ( width == 0 && height == 0 )
 			{	
