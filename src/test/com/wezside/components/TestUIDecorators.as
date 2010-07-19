@@ -61,7 +61,7 @@ package test.com.wezside.components
 		public function testLayoutDecorators():void
 		{
 			assertNotNull( uiElement.layout );				
-			assertEquals( 0, uiElement.numChildren );	
+			assertEquals( 2, uiElement.numChildren );	
 			
 			uiElement.build( );
 			uiElement.arrange();			
@@ -93,14 +93,14 @@ package test.com.wezside.components
 		public function testShapeDecorators():void
 		{
 			assertNull( uiElement.background );	
-			assertEquals( 0, uiElement.numChildren );	
+			assertEquals( 2, uiElement.numChildren );	
 			
 			uiElement.background = new Rectangle( uiElement );
 			assertNotNull( uiElement.background );
 			
 			uiElement.build();			
 			uiElement.arrange();			
-			assertEquals( 3, uiElement.numChildren );
+			assertEquals( 2, uiElement.numChildren );
 		}
 		
 		[Test]
@@ -114,7 +114,7 @@ package test.com.wezside.components
 			uiElement.build();
 			uiElement.arrange();
 			
-			assertEquals( 3, uiElement.numChildren );
+			assertEquals( 2, uiElement.numChildren );
 		}
 		
 		[Test]
@@ -136,7 +136,7 @@ package test.com.wezside.components
 			uiElement.build();
 			uiElement.arrange();
 			dumpChildren();
-			assertEquals( 3, uiElement.numChildren );
+			assertEquals( 2, uiElement.numChildren );
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
 			assertEquals( 0, uiElement.getChildAt(0).x );
@@ -166,7 +166,7 @@ package test.com.wezside.components
 			uiElement.build();			
 			uiElement.arrange();			
 						
-			assertEquals( 3, uiElement.numChildren );						
+			assertEquals( 2, uiElement.numChildren );						
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
 			assertEquals( 135, int( uiElement.height ));
@@ -194,7 +194,7 @@ package test.com.wezside.components
 			uiElement.build();
 			uiElement.arrange();
 						
-			assertEquals( 3, uiElement.numChildren );						
+			assertEquals( 2, uiElement.numChildren );						
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
 			assertEquals( 430, uiElement.width );
@@ -213,7 +213,7 @@ package test.com.wezside.components
 			uiElement.scroll = new ScrollVertical( uiElement );
 			uiElement.build();
 			uiElement.arrange();
-			assertEquals( 5, uiElement.numChildren );
+			assertEquals( 2, uiElement.numChildren );
 			
 			trace("---------------------", "testVScroll", "---------------------");
 			dumpChildren();

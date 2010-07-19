@@ -34,7 +34,7 @@ package com.wezside.data.mapping
 	 */
 	public class XMLDataMapper 
 	{
-		
+
 		private var item:XMLDataItem;
 		private var _data:*;
 		private var _collection:XMLDataCollection;
@@ -46,13 +46,13 @@ package com.wezside.data.mapping
 		public function XMLDataMapper() 
 		{
 			_debug = false;
-			_collection = new XMLDataCollection();
+			_collection = new XMLDataCollection( );
 		}
-				
+
 		public function addDataMap( clazz:Class, nodeName:String = "", parentCollectionProperty:String = "" ):void
 		{
-			Tracer.output( _debug, " XMLDataMapper.addDataMap(" + clazz + ", " + nodeName + " , " + parentCollectionProperty + ")", "");
-			item = new XMLDataItem();
+			Tracer.output( _debug, " XMLDataMapper.addDataMap(" + clazz + ", " + nodeName + " , " + parentCollectionProperty + ")", "" );
+			item = new XMLDataItem( );
 			item.clazz = clazz;
 			item.nodeName = nodeName;
 			item.parentCollectionProperty = parentCollectionProperty;
@@ -62,11 +62,11 @@ package com.wezside.data.mapping
 		public function deserialize( xml:XML ):void 
 		{
 			// Create Top Level instance
-			var root:IXMLDataItem = _collection.iterator().next() as IXMLDataItem;
-			_data = new root.clazz();
-			_xmlCollection = new XMLListCollection(  );
-			_xmlCollection.collection = xml.children();
-			_xmlCollectionIterator = _xmlCollection.iterator();
+			var root:IXMLDataItem = _collection.iterator( ).next( ) as IXMLDataItem;
+			_data = new root.clazz( );
+			_xmlCollection = new XMLListCollection( );
+			_xmlCollection.collection = xml.children( );
+			_xmlCollectionIterator = _xmlCollection.iterator( );
 			build( _xmlCollectionIterator, _data );
 		}
 
@@ -74,7 +74,7 @@ package com.wezside.data.mapping
 		{
 			return _debug;
 		}
-		
+
 		public function set debug( value:Boolean ):void
 		{
 			_debug = value;
@@ -84,7 +84,7 @@ package com.wezside.data.mapping
 		{
 			return _data;
 		}
-		
+
 		public function get length():int
 		{
 			return _collection.length;
@@ -99,47 +99,55 @@ package com.wezside.data.mapping
 		{
 		
 			// Loop through collection using iterator
-			while( iterator.hasNext())
+			while( iterator.hasNext( ))
 			{
 							
-				var child:XML = XML( iterator.next());
-				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name() ));
+				var child:XML = XML( iterator.next( ) );
+				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name( ) ) );
 				
 				// Check if the class is mapped
 				if ( item )
 				{
-					var clazz:Object = new item.clazz();
-					Tracer.output( _debug, " Adding " + item.clazz, toString() );		
+					var clazz:Object = new item.clazz( );
+					Tracer.output( _debug, " Adding " + item.clazz, toString( ) );		
 			
 					// Map attributes to single properties
-					for ( var i:int = 0; i < child.attributes().length(); ++i ) 
+					for ( var i:int = 0; i < child.attributes( ).length( ); ++i ) 
 					{				
-						if ( clazz.hasOwnProperty( child.attributes()[i].name() ))
-							clazz[ String( child.attributes()[i].name()) ] = child.attributes()[i];
+						if ( clazz.hasOwnProperty( child.attributes( )[i].name( ) )) 
+						{
+							if ( clazz[ String( child.attributes( )[i].name( ) ) ] is Boolean ) 
+							{
+								clazz[ String( child.attributes( )[i].name( ) ) ] = ( child.attributes( )[i] == "true" || child.attributes( )[i] == "1" );
+							}
+							else 
+							{
+								clazz[ String( child.attributes( )[i].name( ) ) ] = child.attributes( )[i];
+							}
+						}
 					}
 					 
 					// Inject text property
 					if ( clazz.hasOwnProperty( "text" ))
-						clazz["text"] = child.text();
+						clazz["text"] = child.text( );
 					
 					// Add the new data instance to mapped parent's collection
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && !parent[ item.parentCollectionProperty ])
-						parent[ item.parentCollectionProperty ] = new Collection();
+						parent[ item.parentCollectionProperty ] = new Collection( );
 	
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && parent[ item.parentCollectionProperty ] is ICollection )
 						parent[ item.parentCollectionProperty ].push( clazz );
 																	
-				 	var xmlList:XMLListCollection = new XMLListCollection();
-					xmlList.collection = child.children();
-					Tracer.output( _debug, " '" + child.name() + "' has " + xmlList.length + " child(ren)", toString() );		 
-					build( xmlList.iterator(), clazz );
+					var xmlList:XMLListCollection = new XMLListCollection( );
+					xmlList.collection = child.children( );
+					Tracer.output( _debug, " '" + child.name( ) + "' has " + xmlList.length + " child(ren)", toString( ) );		 
+					build( xmlList.iterator( ), clazz );
 				}
 				else
 				{
-					Tracer.output( _debug, " No mapping for '" + child.name() + "' moving on. Iterator index is " + XMLListIterator(  _xmlCollectionIterator ).index() + " ", toString() );		 
-					if ( iterator.hasNext()) build( _xmlCollectionIterator, parent );
+					Tracer.output( _debug, " No mapping for '" + child.name( ) + "' moving on. Iterator index is " + XMLListIterator( _xmlCollectionIterator ).index( ) + " ", toString( ) );		 
+					if ( iterator.hasNext( )) build( _xmlCollectionIterator, parent );
 				}
-			
 			}
 		}
 	}

@@ -47,7 +47,7 @@ package test.com.wezside.components.gallery
 
 		protected function galleryArranged( event:GalleryEvent, object:Object ):void
 		{
-			assertEquals( 0, gallery.numChildren );
+			assertEquals( 8, gallery.numChildren );
 		}
 		
 		protected function timeout( object:Object ):void
