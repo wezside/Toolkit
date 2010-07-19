@@ -1,5 +1,6 @@
 package test
 {
+	import test.com.wezside.utilities.command.TestCommandMapper;
 	import test.com.wezside.components.TestUIDecorators;
 	import test.com.wezside.components.TestUIElement;
 	import test.com.wezside.components.gallery.TestGallery;
@@ -14,6 +15,7 @@ package test
 	[RunWith("org.flexunit.runners.Suite")]
 	public class TestSuite
 	{
+		public var testCommandMapper:TestCommandMapper;
 		public var testUIElement:TestUIElement;
 		public var testSurvey:TestSurvey;
 		public var testDateUtil:TestDateUtil;
