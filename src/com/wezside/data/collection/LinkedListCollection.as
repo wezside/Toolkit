@@ -61,6 +61,7 @@ package com.wezside.data.collection
 				// Update the pointer to move the next one in the list				
 				if ( node.next && node.next.data.id == id )
 				{
+					selectedIndex = node.next.index;
 					node.next = iterator.next() as LinkedListNode;
 				}				 
 				else if ( node.data.id == id ) 

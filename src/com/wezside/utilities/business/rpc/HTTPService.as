@@ -44,8 +44,7 @@ package com.wezside.utilities.business.rpc
 		private var _method:String = POST_METHOD;
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
-
-		private static const DEBUG:Boolean = true;
+		private var _debug:Boolean;
 
 		
 		public function HTTPService() 
@@ -161,6 +160,16 @@ package com.wezside.utilities.business.rpc
 		{
 		}
 		
+		public function get debug():Boolean
+		{
+			return _debug;
+		}
+		
+		public function set debug( value:Boolean ):void
+		{
+			_debug = value;
+		}
+		
 		override public function toString() : String 
 		{
 			return getQualifiedClassName( this );
@@ -169,7 +178,7 @@ package com.wezside.utilities.business.rpc
 		private function fault( event:IOErrorEvent ):void
 		{
 			_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault);			
-			Tracer.output( DEBUG, " HTTPService.FaultEvent(event) " + event.text, toString() );
+			Tracer.output( _debug, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
 				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, event.text ));
@@ -184,7 +193,7 @@ package com.wezside.utilities.business.rpc
 		private function result( event:Event ):void
 		{
 			_loader.removeEventListener( Event.COMPLETE, result );
-			Tracer.output( DEBUG, " HTTPService.ResultEvent(event)", toString() );
+			Tracer.output( _debug, " HTTPService.ResultEvent(event)", toString() );
 			if ( _responder != null )
 			{
 				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, _loader.data ));
