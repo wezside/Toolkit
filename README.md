@@ -14,6 +14,7 @@ Latest release
 Change log since build .0100
 =======
 
+* Fixed numChildren methods to return correct values
 * Updated Shape decorator to include individual corner radius properties bottomRightRadius, bottomLeftRadius, topRightRadius, topLeftRadius
 * Refactored decorators to namespace com.wezside.components.decorators
 * Include new Interactive decorator InteractiveSelectable which behaves as a toggle. The default now is single click and button won't stay selected.
