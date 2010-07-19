@@ -22,7 +22,7 @@ package com.wezside.components.decorators.layout
 	public class RelativeLayout extends Layout 
 	{
 
-		private var _target:DisplayObject;
+		private var _target:IUIElement;
 		private var _anchor:DisplayObject;		
 		private var _originY:Number;
 		private var _originX:Number;
@@ -33,28 +33,37 @@ package com.wezside.components.decorators.layout
 		}
 	
 		override public function arrange():void 
-		{				
+		{		
+			
 			_anchor.x = 0;
 			_anchor.y = 0;
 			_target.x = 0;
 			_target.y = 0;
-						
+				
+			trace( this, decorated, left, top, ILayout( decorated ).left );
+				
 			switch ( placementState.stateKey )
 			{
 				case PLACEMENT_CENTER:
 					_target.x = _anchor.x + ( _anchor.width - _target.width ) * 0.5;
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
 					break;
+					
 				case PLACEMENT_CENTER_LEFT:
-					_target.x = IUIElement( _target ).layout.left;
+					
+					// icon y
+					_target.x = _target.layout.left;
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
-					_anchor.x = _target.x + _target.width + IUIElement( _target ).layout.right;
-					right = _target.x + _target.width + IUIElement( _target ).layout.right;					
+					
+					// field x next to anchor
+					_anchor.x = _target.x + _target.width + _target.layout.right;
 					break;
+					
 				case PLACEMENT_CENTER_RIGHT:
-					_target.x = _anchor.x + _anchor.width + IUIElement( _target ).layout.left;	
+					_anchor.x = left;
+					_target.x = _anchor.x + _anchor.width + _target.layout.left;
 					_target.y = _anchor.y + ( _anchor.height - _target.height ) * 0.5;
-					right = _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
+//					right = _target.width + right + _target.layout.right;
 					break;
 				case PLACEMENT_TOP_CENTER:
 					_target.x = _anchor.x + ( _anchor.width - _target.width ) * 0.5;
@@ -90,15 +99,16 @@ package com.wezside.components.decorators.layout
 					right = _target.width + IUIElement( _target ).layout.left + IUIElement( _target ).layout.right;
 					break;
 			}
-			super.arrange( );
+			
+			super.arrange();
 		}
 		
-		public function get target():DisplayObject
+		public function get target():IUIElement
 		{
 			return _target;
 		}
 		
-		public function set target( value:DisplayObject ):void
+		public function set target( value:IUIElement ):void
 		{
 			_target = value;
 		}

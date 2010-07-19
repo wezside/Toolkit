@@ -18,13 +18,11 @@ package com.wezside.components.control
 
 		public function Button()
 		{
-			super( );
-			
-			layout = new PaddedLayout( this.layout );
-			
+			super( );			
+			layout = new PaddedLayout( this );			
 			_icon = new Icon();
 			_autoSkinSize = true;
-			_icon.layout = new PaddedLayout( _icon.layout );
+			_icon.layout = new PaddedLayout( _icon );
 			addChild( _icon );
 		}
 
@@ -38,9 +36,9 @@ package com.wezside.components.control
 		override public function arrange():void 
 		{	
 			// Arrange the Label component to adjust the text field width and height based on the text
-			super.arrange( );	
+			super.arrange();	
 			if ( _autoSkinSize )
-				skin.setSize( int( field.width + layout.left + layout.right ), int( field.height + layout.top + layout.bottom) );
+				skin.setSize( int( field.width + layout.left + _icon.width + layout.right ), int( field.height + layout.top + layout.bottom ));
 			else
 				skin.setSize( 20, 20 );
 		}
@@ -54,7 +52,7 @@ package com.wezside.components.control
 		override public function set debug(value:Boolean):void 
 		{
 			super.debug = value;
-			_icon.debug = value;			
+			_icon.debug = value;
 		}
 
 		public function get icon():UIElement

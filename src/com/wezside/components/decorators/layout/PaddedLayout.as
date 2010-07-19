@@ -33,19 +33,20 @@ package com.wezside.components.decorators.layout
 	 * with the padding to keep any shapes at the correct coordinates. 
 	 */
 	public class PaddedLayout extends Layout 
-	{
-
-		
+	{		
 		public function PaddedLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
 		
 		override public function arrange():void
-		{	
+		{
+			
+			trace( this, decorated, left, top );
+							
 			// Avoid set of padding if arrange has been called before for this decorator
 			if ( width == 0 && height == 0 )
-			{			
+			{	
 				var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 				while ( iterator.hasNext())
 				{

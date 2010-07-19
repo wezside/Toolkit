@@ -61,7 +61,7 @@ package com.wezside.components.decorators.layout
 		
 		public function Layout( decorated:IUIDecorator ) 
 		{			
-			this.decorated = decorated;			
+			this.decorated = decorated;		
 			placementState = new StateManager();
 			placementState.addState( PLACEMENT_TOP_LEFT );
 			placementState.addState( PLACEMENT_TOP_CENTER );
@@ -103,14 +103,6 @@ package com.wezside.components.decorators.layout
 		
 		public function reset():void
 		{
-			_verticalGap = 0; 
-			_horizontalGap = 0; 
-			_top = 0;
-			_bottom = 0;
-			_left = 0;
-			_right = 0;
-			_width = 0;
-			_height = 0;			
 		}
 		
 		public function iterator( type:String = null ):IIterator

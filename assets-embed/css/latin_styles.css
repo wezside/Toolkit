@@ -10,7 +10,7 @@
 	overSkin: InputFieldOverSkin;
 	downSkin: InputFieldDownSkin;
 	selectedSkin: InputFieldSelectedSkin;
-	border: true;
+	border: false;
 	borderColor: #000000;
 }
 
@@ -59,13 +59,13 @@ MockUIElement {
 	textColourSelected: #ff0000;
 	align: left;
 	autoSize: left;
-	paddingLeft: 0;
-	paddingRight: 0;
-	paddingBottom: 0;
-	paddingTop: 0;
+	paddingLeft: 10;
+	paddingRight: 10;
+	paddingBottom: 10;
+	paddingTop: 10;
 	wordWrap: true;
 	multiline: true;
-	border: true;
+	border: false;
 	borderColor: #000000;
 }
 

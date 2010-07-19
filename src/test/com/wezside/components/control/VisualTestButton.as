@@ -55,6 +55,33 @@ package test.com.wezside.components.control
 			packageLabel.arrange();
 			addChild( label );			
 			
+			createPropertyButtons();
+
+			button = new Button();
+			button.interactive = new InteractiveSelectable( button );
+			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
+			button.styleManager = styleManager;
+			button.styleName = "button";
+			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
+//			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec";
+			button.width = 300;
+			button.iconStyleName = "iconStylename";
+			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
+			button.autoSkinSize = true;
+			button.build();
+			button.setStyle();
+			button.arrange();		
+			addChild( button );
+			button.activate();
+						
+			x = 20;
+			y = 20;
+		
+			super.build();
+		}
+
+		private function createPropertyButtons():void
+		{
 			var hbox:UIElement = new UIElement();
 			hbox.layout = new HorizontalLayout( hbox );
 			hbox.layout.horizontalGap = 10;
@@ -104,27 +131,6 @@ package test.com.wezside.components.control
 			hbox.build();
 			hbox.arrange();
 			addChild( hbox );
-			
-			button = new Button();
-			button.interactive = new InteractiveSelectable( button );
-			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
-			button.styleManager = styleManager;
-			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
-			button.width = 300;
-			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
-			button.autoSkinSize = true;
-			button.build();
-			button.setStyle();
-			button.arrange();		
-			addChild( button );
-			button.activate();
-						
-			x = 20;
-			y = 20;
-		
-			super.build();
 		}
 
 		private function createAlignButton( text:String ):UIElement
@@ -147,7 +153,7 @@ package test.com.wezside.components.control
 			if ( event.state.key == UIElementState.STATE_VISUAL_CLICK ) 
 			{
 				switch ( event.currentTarget.text )
-				{					
+				{
 					case "Top Right": button.iconPlacement = Layout.PLACEMENT_TOP_RIGHT; break;
 					case "Top Center": button.iconPlacement = Layout.PLACEMENT_TOP_CENTER; break;
 					case "Top Left": button.iconPlacement = Layout.PLACEMENT_TOP_LEFT; break;
@@ -170,7 +176,7 @@ package test.com.wezside.components.control
 			{ 
 				button.autoSkinSize = event.currentTarget.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED );
 				button.arrange();
-				arrange();				
+				arrange();
 				event.target.text = "AutoSizeSkin On";
 			}
 			else
@@ -187,15 +193,16 @@ package test.com.wezside.components.control
 			background.borderColor = 0xcccccc;
 			background.borderThickness = 1;
 			background.borderAlpha = 1;
+			
+			layout = new VerticalLayout( this );
+			layout.verticalGap = 10;
 						
-			layout = new PaddedLayout( this ); 
+			layout = new PaddedLayout( this.layout ); 
 			layout.bottom = 15;		
 			layout.left = 15;
 			layout.top = 15;
 			layout.right = 15;
 			
-			layout = new VerticalLayout( this.layout );
-			layout.verticalGap = 10;
 			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, styleReady );
