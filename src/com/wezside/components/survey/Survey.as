@@ -1,171 +1,66 @@
 package com.wezside.components.survey 
 {
-	import com.wezside.components.survey.data.IFormData;
-	import com.wezside.components.survey.data.ISurveyData;
-	import com.wezside.components.survey.form.Form;
-	import com.wezside.components.survey.form.FormEvent;
-	import com.wezside.components.survey.form.IForm;
-	import com.wezside.components.survey.form.IFormTransition;
-	import com.wezside.utilities.logging.Tracer;
-
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
+	import com.wezside.components.UIElement;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Survey extends Sprite implements ISurvey  
+	public class Survey extends UIElement 
 	{
-		
-		
-		public static const STATE_CREATION_COMPLETE:String = "stateSurveyCreationComplete";
-		public static const STATE_SHOW_FORM:String = "stateShowForm";
+		private var controller:SurveyController;
+		private var parser:SurveyDataParser;
 
 		
-		private var _data:ISurveyData;
-		private var _state:String;
-		private var _selectedFormIndex:int;
-		private var _currentForm:IForm;
-
-		
-		public function Survey() 
+		public function Survey()
 		{
-			visible = false;
-		}		
-
-		public function show():void
-		{
-			visible = true;
+			super();
+			init();
 		}
 
-		public function hide():void
+		override public function build():void 
 		{
-			visible = false;
-		}							
-	
-		public function purge():void
-		{
-			while ( this.numChildren > 0 )
-				removeChildAt( this.numChildren - 1 );
-		}		
-
-		public function get selectedFormIndex():int
-		{
-			return _selectedFormIndex;
-		}
-		
-		public function set selectedFormIndex( value:int ):void
-		{
-			_selectedFormIndex = value;
-		}
-
-		public function get data():ISurveyData
-		{
-			return _data;
-		}
-
-		public function get pages():int
-		{
-			return 0;
-		}
-
-		public function get pageIndex():int
-		{
-			return 0;
-		}
-
-		public function get transition():IFormTransition
-		{
-			return null;
-		}
-
-		public function set data( value:ISurveyData ):void
-		{
-			_data = value.clone();
-		}
-
-		public function set pages( value:int ):void
-		{
-		}
-
-		public function set pageIndex( value:int ):void
-		{
-		}
-
-		public function set transition( value:IFormTransition ):void
-		{
-		}		
-					
-		public function get currentForm():IForm
-		{
-			return _currentForm;
-		}
-		
-		public function set currentForm(value:IForm):void
-		{
-			_currentForm = value;
-		}
-		
-		public function get state():String
-		{
-			return _state;
-		}
-		
-		public function set state( value:String ):void
-		{
-			_state = value;			
-			switch( _state )
-			{				
-				case STATE_SHOW_FORM: 
-					showForm();
-					break;
-					
-				case STATE_CREATION_COMPLETE: 
-					dispatchEvent( new SurveyEvent( SurveyEvent.CREATION_COMPLETE ));					
-					break;
-				default:
-			}
-		}		
-
-		public function create():void 
-		{
-			if ( _data.forms.length > 0 )
-				createSingleForm( _data.forms[0] );
-		}
-		
-		protected function showForm():void
-		{
+			super.build( );			
 			
-		}
-				
-		protected function hideForm():void
-		{
-				
-		}		
+			// TODO: Create Background
+						
+			// TODO: Create Preloader
 
-		private function createSingleForm( data:IFormData ):void 
+			// TODO: Create fixed elements like navigation, header and footer - should include the option to exclude from start page
+									
+		}
+
+		private function init():void 
+		{
+			initializationComplete();	// async
+			
+			parser = new SurveyDataParser();
+		}
+
+		/**
+		 * This method assumes successful load of all external data and assets required. This includes:
+		 * 	o Survey Data
+		 * 	o Styles
+		 * 	o Images/SWFs
+		 */
+		private function initializationComplete():void 
 		{			
-			Tracer.output( true, " Survey.createSingleForm(data)", toString() );
-			var form:IForm = new Form();
-			form.data = data;
-			form.createChildren();
-			form.addEventListener( FormEvent.CREATION_COMPLETE, formCreated );
-			addChild( DisplayObject( form ));
+			// TODO: Init command map
+			// TODO: Store ref to parser
+			// TODO: Init FormController			
+			controller = new SurveyController();
+			controller.debug = true;
+			controller.data = parser.data; 
 			
-			state = STATE_CREATION_COMPLETE;
+			build();
+			setStyle();
+			arrange();
+			start();
 		}
 
-		private function formCreated( event:FormEvent ):void 
+		private function start():void 
 		{
-			Tracer.output( true, " Survey.formCreated(event)", toString() );
-			event.currentTarget.removeEventListener( FormEvent.CREATION_COMPLETE, formCreated );
-			_data.forms.shift();
-			_data.forms.length > 0 ? createSingleForm( _data.forms[0] ) : allFormsCreated();			
-		}
-
-		private function allFormsCreated():void 
-		{
-			state = STATE_CREATION_COMPLETE;
+			// TODO: Create first form and show/transition in
+			controller.createForm( "Start" );
 		}
 
 	}

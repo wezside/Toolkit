@@ -1,23 +1,27 @@
 package com.wezside.components.survey.data 
 {
 
-	/**
-	 * @author Wesley.Swanepoel
-	 */
 	public interface IFormData 
 	{
-		function get heading():String;
-		function set heading( value:String ):void;		
-		function get subheading():String;
-		function set subheading( value:String ):void;		
-		function get body():String;
-		function set body( value:String ):void;		
-		function get submit():String;
-		function set submit( value:String ):void;		
-		function get cta():String;
-		function set cta( value:String ):void;				
-		function get items():Array;
-		function set items( value:Array ):void;				
-	
+		function get id():String;	
+		function set id(value:String):void;		
+
+		function get body():String;		
+		function set body(value:String):void;		
+
+		function get cta():String;		
+		function set cta(value:String):void;		
+
+		function get heading():String;		
+		function set heading(value:String):void;	
+		
+		function get subheading():String;		
+		function set subheading(value:String):void;		
+
+		function get isValid():Boolean;
+		function set isValid( value:Boolean ):void;		
+
+		function addGroupData( id:String, group:IFormGroupData ):void;
+		function purgeData():void;
 	}
 }

@@ -61,7 +61,7 @@ package com.wezside.utilities.command {
 				}
 				element = null;
 				LinkedListIterator( it ).purge();
-				it.purge();				
+
 				it = null;
 			}
 			trace( "removed");
@@ -79,7 +79,6 @@ package com.wezside.utilities.command {
 					element = CommandElement( LinkedListNode( it.next() ).data );
 					removeEventListener( element.eventType, element.callback, false );
 				}
-				it.purge();
 				it = null;
 				commandsList.purge();
 				commandsList = null;
@@ -155,7 +154,6 @@ package com.wezside.utilities.command {
 					events.push( element.eventType );
 				}
 			}
-			it.purge();
 			it = null;
 			return events;
 		}

@@ -1,52 +1,47 @@
-package com.wezside.components.survey.form
+package com.wezside.components.survey.form 
 {
-	import flash.display.DisplayObject;
+	import com.wezside.components.survey.data.IFormItemData;
+	import com.wezside.components.IUIElement;
 
 	/**
-	 * @author Wesley.Swanepoel
+	 * @author DaSmith
 	 */
-	public interface IFormItem 
+	public interface IFormItem extends IUIElement
 	{
-		
+
+
 		function get id():String;
-		function set id( value:String ):void;
-		
+
+		function get type():String;
+
 		function get value():String;
+
 		function set value( value:String ):void;
-		
-		function get skin():IFormItemSkin;
-		function set skin( value:IFormItemSkin ):void;
-		
+
+		function get selected():Boolean;
+
+		function set selected( value:Boolean ):void;
+
+		function get data():IFormItemData;
+
+		function set data( value:IFormItemData ):void;
+
+		function get parentGroup():IFormGroup;			// TODO: Remove this - UGLY way to lookup the chain
+
+		function set parentGroup( value:IFormGroup ):void;
+
 		function get state():String;
+
 		function set state( value:String ):void;
-		
-		function get group():IFormGroup;
-		function set group( value:IFormGroup ):void;
-		
-		function get label():IFormLabel;
-		function set label( value:IFormLabel ):void;
-		
-		function get labelPlacement():String;
-		function set labelPlacement( value:String ):void;
-		
-		function get regexValidation():String;
-		function set regexValidation( value:String ):void;
-		
-		function get icon():DisplayObject;
-		function set icon( value:DisplayObject ):void;
-		
-		function get iconPlacement():String;
-		function set iconPlacement( value:String ):void;
-						
-		function get maxRowLabelWidth():int;
-		function set maxRowLabelWidth( value:int ):void;
-				
-		function get rowID():String;
-		function set rowID( value:String ):void;		
-				
-		function get rowLabel():String;
-		function set rowLabel( value:String ):void;		
-		
-		function purge():void;
+
+		function get debug():Boolean;
+
+		function set debug( value:Boolean ):void;
+
+		function get isValid():Boolean;
+
+		function set isValid( value:Boolean ):void;
+
+		function showValid( value:Boolean ):void;
 	}
 }

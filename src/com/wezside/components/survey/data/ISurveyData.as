@@ -6,10 +6,8 @@ package com.wezside.components.survey.data
 	 */
 	public interface ISurveyData 
 	{
-		function get forms():Array;
-		function set forms( value:Array ):void;		
-
-		function clone():ISurveyData;
-
+		function addFormData( id:String, formData:IFormData ):void
+		function getFormData( id:String ):IFormData
+		function purgeData():void;
 	}
 }
