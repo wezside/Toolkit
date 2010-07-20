@@ -66,6 +66,13 @@ package com.wezside.components.gallery.collection
 		public function get length():int
 		{
 			return _collection.length;
-		}			
+		}
+		
+		public function purge():void
+		{
+			_collection = null;
+			classIterator.purge();
+			classIterator = null;
+		}
 	}
 }

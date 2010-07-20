@@ -29,10 +29,12 @@ package com.wezside.data.collection
 	{
 
 		private var _collection:Array;
-		
+		private var collectionIterator:IIterator;
+
 		public function Collection() 
 		{
 			_collection = [];	
+			collectionIterator = iterator();
 		}	
 
 		public function iterator():IIterator
@@ -40,22 +42,15 @@ package com.wezside.data.collection
 			return new ArrayIterator( _collection );					
 		}
 		
-		public function push( value:* ):void
-		{
-			_collection.push( value );
-		}
-		
 		public function find( value:String = "" ):Object
-		{
-			var iterator:IIterator = iterator();
-			iterator.reset();
-			
+		{			
+			collectionIterator.reset();			
 			// Returns the first item
-			if ( value == "" && iterator.hasNext() ) return iterator.next();
+			if ( value == "" && collectionIterator.hasNext() ) return collectionIterator.next();
 			
-			while( iterator.hasNext())
+			while ( collectionIterator.hasNext())
 			{
-				var item:* = iterator.next();
+				var item:* = collectionIterator.next();
 				if ( item.id == value )
 					return item; 
 			}
@@ -65,6 +60,40 @@ package com.wezside.data.collection
 		public function get length():int
 		{
 			return _collection.length;
-		}			
+		}
+		
+		public function purge():void
+		{
+			_collection = null;
+			collectionIterator.purge();
+			collectionIterator = null;
+		}
+		
+		public function addElement( value:* ):void
+		{
+			_collection.push( value );
+		}
+		
+		public function getElementAt( index:int ):*
+		{
+			return _collection[ index ];
+		}		
+		
+		public function removeElement( id:String ):*
+		{
+			var removeIndex:int = -1;
+			collectionIterator.reset();
+			while ( collectionIterator.hasNext())
+			{
+				var item:* = collectionIterator.next();
+				if ( item.id == id )
+				{
+					removeIndex = collectionIterator.index() - 1;
+					break;
+				}
+			}
+			trace( removeIndex );
+			return _collection.splice( removeIndex, 1 );
+		}
 	}
 }

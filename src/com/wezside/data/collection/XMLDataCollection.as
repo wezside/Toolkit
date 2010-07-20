@@ -30,10 +30,12 @@ package com.wezside.data.collection
 	{
 		
 		private var _collection:Array;
+		private var xmlDataIterator:IIterator;
 
 		public function XMLDataCollection() 
 		{
 			_collection = [];	
+			xmlDataIterator = iterator();
 		}
 		
 		public function iterator():IIterator
@@ -47,12 +49,11 @@ package com.wezside.data.collection
 		}
 
 		public function find( value:String = "" ):Object 
-		{
-			var iterator:IIterator = iterator();
-			iterator.reset();
-			while ( iterator.hasNext() )	
+		{			
+			xmlDataIterator.reset();
+			while ( xmlDataIterator.hasNext() )	
 			{
-				var item:IXMLDataItem = IXMLDataItem( iterator.next() );
+				var item:IXMLDataItem = IXMLDataItem( xmlDataIterator.next() );
 				if ( item.nodeName == value )
 					return item;
 			}
@@ -62,6 +63,13 @@ package com.wezside.data.collection
 		public function get length():int
 		{
 			return _collection.length;			
+		}
+		
+		public function purge():void
+		{
+			xmlDataIterator.purge();
+			xmlDataIterator = null;
+			_collection = null;
 		}
 	}
 }

@@ -48,6 +48,11 @@ package com.wezside.data.iterator
 		public function index():int
 		{
 			return _index;
+		}
+		
+		public function purge():void
+		{
+			_collection = null;
 		}		
 	}
 }

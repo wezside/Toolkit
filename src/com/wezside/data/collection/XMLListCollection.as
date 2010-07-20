@@ -76,5 +76,17 @@ package com.wezside.data.collection
 		{
 			return _collection.length();			
 		}
+		
+		public function getElementAt(index:int):*
+		{
+		}
+		
+		public function removeElement(id:String):*
+		{
+		}
+		
+		public function purge():void
+		{
+		}
 	}
 }

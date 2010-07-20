@@ -1,22 +1,23 @@
 package test.com.wezside.data.collection 
 {
-	import org.flexunit.asserts.assertNull;
-	import org.flexunit.asserts.assertNotNull;
+	import com.wezside.data.collection.Collection;
+
 	import org.flexunit.asserts.assertEquals;
-	import com.wezside.data.collection.LinkedListCollection;
+	import org.flexunit.asserts.assertNotNull;
+	import org.flexunit.asserts.assertNull;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class TestLinkedListCollection 
+	public class TestCollection 
 	{
 		
-		private var collection:LinkedListCollection;
+		private var collection:Collection;
 
 		[Before]
 		public function setUp():void
 		{
-			collection = new LinkedListCollection();					
+			collection = new Collection();					
 		}
 		
 		[After]
@@ -35,11 +36,6 @@ package test.com.wezside.data.collection
 			collection.addElement( { id: "two", value: 1 });			
 			assertEquals( 3, collection.length );
 			assertNotNull( collection.getElementAt(0));
-			
-			assertNotNull( collection.find( "two" ));		
-			assertEquals( "two", collection.find( "two" ).id );	
-			assertEquals( "one", collection.find( "one" ).id );	
-			assertEquals( 4, collection.find( "three" ).value );	
 		}
 						
 		[Test]
@@ -50,6 +46,7 @@ package test.com.wezside.data.collection
 			collection.addElement( { id: "three", value: 4 });			
 			collection.addElement( { id: "two", value: 1 });			
 			
+			assertNotNull( collection.find( "three" ));
 			collection.removeElement( "three" );						
 			assertEquals( 2, collection.length );
 			assertNull( collection.find( "three" ));

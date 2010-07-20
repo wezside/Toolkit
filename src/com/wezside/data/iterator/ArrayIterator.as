@@ -59,5 +59,10 @@ package com.wezside.data.iterator
 		{
 			return _index;
 		}
+		
+		public function purge():void
+		{
+			_collection = null;
+		}
 	}
 }

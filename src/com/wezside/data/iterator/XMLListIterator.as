@@ -57,7 +57,12 @@ package com.wezside.data.iterator
 		
 		public function length():uint
 		{
-			return _collection.length();
+			return _collection.length( );
+		}
+		
+		public function purge():void
+		{
+			_collection = null;
 		}
 	}
 }

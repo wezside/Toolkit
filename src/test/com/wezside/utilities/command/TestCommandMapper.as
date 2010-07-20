@@ -43,7 +43,7 @@ package test.com.wezside.utilities.command
 			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_3_EVENT ));			
 		}
 		
-		[Test(async)][Ignore]
+		[Test(async)]
 		public function testCommandMapper() : void {
 			
 			commandMapper.addCommand( SampleEvent.SAMPLE_2_EVENT, AsyncCommand, "mySequence" );

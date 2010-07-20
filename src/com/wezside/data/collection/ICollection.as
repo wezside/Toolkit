@@ -25,7 +25,8 @@ package com.wezside.data.collection
 	 * @author Wesley.Swanepoel
 	 */
 	public interface ICollection 
-	{
+	{		
+		function purge():void;
 		function iterator():IIterator;
 		function find( value:String = "" ):Object;
 	}

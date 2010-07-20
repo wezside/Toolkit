@@ -2,7 +2,6 @@ package com.wezside.utilities.command {
 	import com.wezside.data.collection.LinkedListCollection;
 	import com.wezside.data.collection.LinkedListNode;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.data.iterator.LinkedListIterator;
 
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,32 +9,29 @@ package com.wezside.utilities.command {
 	public class CommandMapper extends EventDispatcher implements ICommandMapper {
 		
 		private var sequencedEvents : Array;
-		private var commandsList : LinkedListCollection;		private var currentCommand : ICommand;
+		private var commandsList : LinkedListCollection;		private var currentCommand : ICommand;		private var currentGroupID : String;
 		
 		
 		public function CommandMapper() {
-			
-			commandsList = new LinkedListCollection();			
+			commandsList = new LinkedListCollection();
 			addCommand( CommandEvent.SEQUENCE, CommandMapper );
 		}
 		
-		public function hasCommand( eventType:String ):Boolean
-		{
-			if ( !commandsList ) return false;				
-			var it : IIterator = commandsList.iterator();
+		public function hasCommand( eventType : String ) : Boolean {
+			if ( commandsList == null ) return false;
 			return commandsList.find( eventType ) ? true : false;
 		}
 		
 		public function addCommand( eventType : String, commandClass : Class, groupID : String = "" ) : void {
 			
-			if ( commandsList.length() > 0 && commandsList.find( eventType ) ) {
+			if ( commandsList.length > 0 && commandsList.find( eventType ) ) {
 				throw new Error( eventType + " already mapped to " + commandClass );
 			}
 			
 			var element : CommandElement = new CommandElement();
 			element.id = eventType;			element.eventType = eventType;			element.commandClass = commandClass;			element.groupID = groupID;
 			element.callback = function( event : Event ) : void {
-				execute( commandClass, event, groupID );
+				execute( event, commandClass , groupID );
 			};
 			
 			// add command
@@ -48,23 +44,22 @@ package com.wezside.utilities.command {
 			if ( commandsList ) {
 				
 				var it : IIterator = commandsList.iterator();
+				
 				var element : CommandElement;
 				while ( it.hasNext() ) {
 					element = CommandElement( LinkedListNode( it.next() ).data );
-					if ( element.eventType == eventType ) {
+					if ( element && element.callback && element.eventType == eventType ) {
 						removeEventListener( element.eventType, element.callback, false );
-						//FIXME removeElement doesn't work for some reason
 						commandsList.removeElement( element.id );
-						element.callback = null;
+						element.eventType = "";						element.callback = null;
 						element.commandClass = null;
 					}
 				}
 				element = null;
-				LinkedListIterator( it ).purge();
-
+				it.reset();
+				it.purge();
 				it = null;
 			}
-			trace( "removed");
 		}
 		
 		public function purge() : void {
@@ -75,10 +70,13 @@ package com.wezside.utilities.command {
 				var it : IIterator = commandsList.iterator();
 				var element : CommandElement;
 				while ( it.hasNext() ) {
-					
 					element = CommandElement( LinkedListNode( it.next() ).data );
-					removeEventListener( element.eventType, element.callback, false );
+					if ( element && element.callback && element.eventType ) {
+						removeEventListener( element.eventType, element.callback, false );
+					}
 				}
+				it.reset();
+				it.purge();
 				it = null;
 				commandsList.purge();
 				commandsList = null;
@@ -88,7 +86,7 @@ package com.wezside.utilities.command {
 			sequencedEvents = null;
 		}
 		
-		private function execute( commandClass : Class, event : Event, groupID : String ) : void {
+		private function execute( event : Event, commandClass : Class, groupID : String ) : void {
 			
 			switch ( event.type ) {
 				
@@ -122,13 +120,15 @@ package com.wezside.utilities.command {
 		private function sequenceEvents( event : CommandEvent ) : void {
 			
 			sequencedEvents = new Array();
+			currentGroupID = "";
 			
 			var events : Array = eventTypesFromGroupID( event.groupID );
-			trace( "events: " + events );
+			
 			if ( events && events.length > 0 ) {
 				
 				if ( event.asynchronous ) {
 					sequencedEvents = events;
+					currentGroupID = event.groupID;
 					dispatchEvent( new Event( events[0] ) );
 				}
 				else {
@@ -150,10 +150,12 @@ package com.wezside.utilities.command {
 			var events : Array = new Array();
 			while ( it.hasNext() ) {
 				element = CommandElement( LinkedListNode( it.next() ).data );
-				if ( element.groupID == groupID ) {
+				if ( element && element.groupID == groupID ) {
 					events.push( element.eventType );
 				}
 			}
+			it.reset();
+			it.purge();
 			it = null;
 			return events;
 		}
@@ -170,8 +172,7 @@ package com.wezside.utilities.command {
 					dispatchEvent( new Event( sequencedEvents[0] ) );
 				}
 				else {
-					//TODO get groupID
-					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE ) );
+					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, currentGroupID ) );
 				}
 			}
 		}

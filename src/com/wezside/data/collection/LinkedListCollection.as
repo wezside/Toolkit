@@ -52,7 +52,7 @@ package com.wezside.data.collection
 		
 		public function removeElement( id:String ):void
 		{
-			var selectedIndex:int;
+			var selectedIndex:int = -1;
 			var iterator:IIterator = iterator();
 			while ( iterator.hasNext())
 			{
@@ -62,7 +62,11 @@ package com.wezside.data.collection
 				if ( node.next && node.next.data.id == id )
 				{
 					selectedIndex = node.next.index;
-					node.next = iterator.next() as LinkedListNode;
+					
+					var nextNode:LinkedListNode = iterator.next() as LinkedListNode;
+					node.next = nextNode.next;
+					nextNode.purge();
+					--_length;
 				}				 
 				else if ( node.data.id == id ) 
 				{
@@ -72,10 +76,16 @@ package com.wezside.data.collection
 						
 					selectedIndex = node.index;
 					node.purge();				
+					--_length;
 				}				
 			}
-			LinkedListIterator( iterator ).purge();
-			delete _collection[ selectedIndex.toString() ];
+			iterator.purge();
+			
+			if ( selectedIndex > -1 )
+			{
+				_collection[ selectedIndex.toString() ] = null;
+				delete _collection[ selectedIndex.toString() ];
+			}
 		}		
 
 		public function iterator():IIterator
@@ -104,16 +114,19 @@ package com.wezside.data.collection
 		public function purge():void
 		{			
 			for each ( var i:LinkedListNode in _collection )
+			{
 				delete _collection[i];
-
+				_collection[i] = null;
+			}
 			_collection = null;
 			_current.purge();
 			_current = null;
 		}
 		
-		public function length():uint
+		public function get length():int
 		{
 			return _length;
 		}		
+
 	}
 }

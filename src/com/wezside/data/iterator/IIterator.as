@@ -30,6 +30,7 @@ package com.wezside.data.iterator
 		function next():Object;
 		function hasNext():Boolean;
 		function index():int;
+		function purge():void;
 		function length():uint;
 		
 	}

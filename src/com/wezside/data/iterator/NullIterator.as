@@ -29,5 +29,9 @@ package com.wezside.data.iterator
 		{
 			return 0;
 		}
+		
+		public function purge():void
+		{
+		}
 	}
 }
