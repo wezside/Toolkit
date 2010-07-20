@@ -96,13 +96,11 @@ package com.wezside.data.mapping
 		}
 
 		private function build( iterator:IIterator, parent:* ):void 
-		{
-		
+		{		
 			// Loop through collection using iterator
 			while( iterator.hasNext( ))
-			{
-							
-				var child:XML = XML( iterator.next( ) );
+			{							
+				var child:XML = XML( iterator.next() );
 				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name( ) ) );
 				
 				// Check if the class is mapped

@@ -96,19 +96,14 @@ package com.wezside.utilities.command {
 					
 				default : 
 					
-					if ( groupID != "" ) {
-						purgeCurrentCommand();
-						currentCommand = ICommand( new commandClass() );
-						currentCommand.addEventListener( CommandEvent.COMPLETE, commandComplete );
-						currentCommand.execute( event );
-					}
-					else {
-						ICommand( new commandClass() ).execute( event );
-					}
+					purgeCurrentCommand();
+					currentCommand = ICommand( new commandClass() );
+					currentCommand.addEventListener( CommandEvent.COMPLETE, commandComplete );
+					currentCommand.execute( event );
 					break;
 			}
 		}
-		
+
 		private function purgeCurrentCommand() : void {
 			if ( currentCommand ) {
 				currentCommand.removeEventListener( CommandEvent.COMPLETE, commandComplete );
@@ -163,13 +158,14 @@ package com.wezside.utilities.command {
 		private function commandComplete( event : CommandEvent ) : void {
 			
 			purgeCurrentCommand();
+			dispatchEvent( event );
 			
 			if ( sequencedEvents && sequencedEvents[0] == event.commandEventType ) {
 				
 				sequencedEvents.shift();
 				
 				if ( sequencedEvents.length > 0 ) {
-					dispatchEvent( new Event( sequencedEvents[0] ) );
+					dispatchEvent( new Event( sequencedEvents[0] ));
 				}
 				else {
 					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, currentGroupID ) );

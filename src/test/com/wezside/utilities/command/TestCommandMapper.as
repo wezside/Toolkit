@@ -39,7 +39,7 @@ package test.com.wezside.utilities.command
 			commandMapper.addCommand( SampleEvent.SAMPLE_4_EVENT, AsyncCommand, "mySequence" );
 			
 			// remove an event from the mapper
-			commandMapper.removeCommand( SampleEvent.SAMPLE_3_EVENT );			
+			commandMapper.removeCommand( SampleEvent.SAMPLE_3_EVENT );	
 			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_3_EVENT ));			
 		}
 		
@@ -50,7 +50,7 @@ package test.com.wezside.utilities.command
 			commandMapper.addCommand( SampleEvent.SAMPLE_3_EVENT, AsyncCommand, "mySequence" );
 			commandMapper.addCommand( SampleEvent.SAMPLE_4_EVENT, AsyncCommand, "mySequence" );
 			
-			commandMapper.addEventListener( CommandEvent.SEQUENCE, Async.asyncHandler( this, ready, 1500, null, timeout ), false, 0, true );
+			commandMapper.addEventListener( CommandEvent.COMPLETE, Async.asyncHandler( this, ready, 15000, null, timeout ), false, 0, true );
 			
 			// dispatch a sequence of command
 			commandMapper.dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE, "mySequence", false ) );
@@ -58,7 +58,7 @@ package test.com.wezside.utilities.command
 		
 		protected function ready( event:CommandEvent, object:Object ):void
 		{
-			assertEquals( event.type, CommandEvent.SEQUENCE );
+			assertEquals( SampleEvent.SAMPLE_2_EVENT, event.commandEventType  );
 		}		
 		
 		protected function timeout( object:Object ):void

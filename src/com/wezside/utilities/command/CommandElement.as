@@ -8,6 +8,7 @@ package com.wezside.utilities.command {
 		public var id : String;		public var eventType : String;
 		public var commandClass : Class;
 		public var groupID : String;
+		public var constructor : Function;
 		public var callback : Function;
 		
 		
