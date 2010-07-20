@@ -136,7 +136,7 @@ package com.wezside.data.mapping
 						parent[ item.parentCollectionProperty ] = new Collection( );
 	
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && parent[ item.parentCollectionProperty ] is ICollection )
-						parent[ item.parentCollectionProperty ].push( clazz );
+						parent[ item.parentCollectionProperty ].addElement( clazz );
 																	
 					var xmlList:XMLListCollection = new XMLListCollection( );
 					xmlList.collection = child.children( );
