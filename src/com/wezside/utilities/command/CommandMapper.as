@@ -158,7 +158,7 @@ package com.wezside.utilities.command {
 		private function commandComplete( event : CommandEvent ) : void {
 			
 			purgeCurrentCommand();
-			dispatchEvent( event );
+			super.dispatchEvent( event );
 			
 			if ( sequencedEvents && sequencedEvents[0] == event.commandEventType ) {
 				
