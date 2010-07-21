@@ -74,5 +74,17 @@ package com.wezside.components.gallery.collection
 			classIterator.purge();
 			classIterator = null;
 		}
+		
+		public function toString():String
+		{
+			var str:String = "";
+			classIterator.reset();
+			while ( classIterator.hasNext())
+			{
+				var item:* = classIterator.next();	
+				str += item.toString();
+			}
+			return str;
+		}
 	}
 }

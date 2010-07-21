@@ -71,5 +71,17 @@ package com.wezside.data.collection
 			xmlDataIterator = null;
 			_collection = null;
 		}
+		
+		public function toString():String
+		{
+			var str:String = "";
+			xmlDataIterator.reset();
+			while ( xmlDataIterator.hasNext())
+			{
+				var item:* = xmlDataIterator.next();	
+				str += item.toString();
+			}
+			return str;
+		}
 	}
 }

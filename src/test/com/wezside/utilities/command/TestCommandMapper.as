@@ -58,7 +58,7 @@ package test.com.wezside.utilities.command
 		
 		protected function ready( event:CommandEvent, object:Object ):void
 		{
-			assertEquals( SampleEvent.SAMPLE_2_EVENT, event.commandEventType  );
+			assertEquals( SampleEvent.SAMPLE_4_EVENT, event.commandEventType  );
 		}		
 		
 		protected function timeout( object:Object ):void

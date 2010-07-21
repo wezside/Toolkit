@@ -126,7 +126,19 @@ package com.wezside.data.collection
 		public function get length():int
 		{
 			return _length;
-		}		
-
+		}
+		
+		public function toString():String
+		{
+			var str:String = "";
+			var iterator:IIterator = iterator();
+			while ( iterator.hasNext())
+			{
+				var item:* = iterator.next();	
+				str += item.toString();
+			}
+			iterator.purge();
+			return str;
+		}	
 	}
 }

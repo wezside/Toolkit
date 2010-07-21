@@ -92,8 +92,19 @@ package com.wezside.data.collection
 					break;
 				}
 			}
-			trace( removeIndex );
 			return _collection.splice( removeIndex, 1 );
+		}
+		
+		public function toString():String
+		{
+			var str:String = "";
+			collectionIterator.reset();
+			while ( collectionIterator.hasNext())
+			{
+				var item:* = collectionIterator.next();	
+				str += item.toString();
+			}
+			return str;
 		}
 	}
 }

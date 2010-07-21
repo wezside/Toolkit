@@ -29,5 +29,6 @@ package com.wezside.data.collection
 		function purge():void;
 		function iterator():IIterator;
 		function find( value:String = "" ):Object;
+		function toString():String;
 	}
 }
