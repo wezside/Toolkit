@@ -102,6 +102,11 @@ package com.wezside.components
 		{
 			return _childrenContainer.numChildren;
 		}
+		
+		override public function getChildByName( name:String ):DisplayObject 
+		{
+			return _childrenContainer.getChildByName( name );
+		}
 
 		public function get numUIChildren():int
 		{
@@ -117,6 +122,11 @@ package com.wezside.components
 		{
 			return super.addChild( child ); 
 		}
+		
+		public function getUIChildByName( name:String ):DisplayObject 
+		{
+			return getChildByName( name );
+		}		
 				
 		public function build():void
 		{
