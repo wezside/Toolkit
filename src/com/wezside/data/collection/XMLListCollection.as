@@ -66,6 +66,7 @@ package com.wezside.data.collection
 			while ( iterator.hasNext() )	
 			{
 				var item:XML = XML( iterator.next() );
+				trace( "Looking for node " + value, "Current Node is ", item.nodeName );
 				if ( item.nodeName == value )
 					return item;
 			}

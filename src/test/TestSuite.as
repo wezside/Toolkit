@@ -1,5 +1,6 @@
 package test
 {
+	import test.com.wezside.data.mapping.TestXMLDataMapper;
 	import test.com.wezside.data.collection.TestCollection;
 	import test.com.wezside.components.TestUIDecorators;
 	import test.com.wezside.components.TestUIElement;
@@ -25,6 +26,7 @@ package test
 		public var testTimelineManager:TestTimelineManager;
 		public var testLinkedList:TestLinkedListCollection;
 		public var testCollection:TestCollection;
+		public var testXMLDataMapper:TestXMLDataMapper;
 
 	}
 }

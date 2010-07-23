@@ -41,7 +41,6 @@ package com.wezside.data.mapping
 		private var _xmlCollection:XMLListCollection;
 		private var _xmlCollectionIterator:IIterator;
 		private var _debug:Boolean;
-
 		
 		public function XMLDataMapper() 
 		{
@@ -64,8 +63,8 @@ package com.wezside.data.mapping
 			// Create Top Level instance
 			var root:IXMLDataItem = _collection.iterator( ).next( ) as IXMLDataItem;
 			_data = new root.clazz( );
-			_xmlCollection = new XMLListCollection( );
-			_xmlCollection.collection = xml.children( );
+			_xmlCollection = new XMLListCollection();
+			_xmlCollection.collection = xml.children();			
 			_xmlCollectionIterator = _xmlCollection.iterator( );
 			build( _xmlCollectionIterator, _data );
 		}
@@ -98,12 +97,12 @@ package com.wezside.data.mapping
 		private function build( iterator:IIterator, parent:* ):void 
 		{		
 			// Loop through collection using iterator
-			while( iterator.hasNext( ))
+			while ( iterator.hasNext( ))
 			{							
 				var child:XML = XML( iterator.next() );
-				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name( ) ) );
+				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name().localName ));
 				
-				// Check if the class is mapped
+				// Check if there is a class to map from the xml supplied
 				if ( item )
 				{
 					var clazz:Object = new item.clazz( );
@@ -114,20 +113,20 @@ package com.wezside.data.mapping
 					{				
 						if ( clazz.hasOwnProperty( child.attributes( )[i].name( ) )) 
 						{
-							if ( clazz[ String( child.attributes( )[i].name( ) ) ] is Boolean ) 
+							if ( clazz[ String( child.attributes( )[i].name() ) ] is Boolean ) 
 							{
-								clazz[ String( child.attributes( )[i].name( ) ) ] = ( child.attributes( )[i] == "true" || child.attributes( )[i] == "1" );
+								clazz[ String( child.attributes( )[i].name())] = ( child.attributes( )[i] == "true" || child.attributes( )[i] == "1" );
 							}
 							else 
 							{
-								clazz[ String( child.attributes( )[i].name( ) ) ] = child.attributes( )[i];
+								clazz[ String( child.attributes( )[i].name())] = child.attributes( )[i];
 							}
 						}
 					}
 					 
 					// Inject text property
 					if ( clazz.hasOwnProperty( "text" ))
-						clazz["text"] = child.text( );
+						clazz["text"] = child.text();
 					
 					// Add the new data instance to mapped parent's collection
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && !parent[ item.parentCollectionProperty ])
@@ -135,10 +134,10 @@ package com.wezside.data.mapping
 	
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && parent[ item.parentCollectionProperty ] is ICollection )
 						parent[ item.parentCollectionProperty ].addElement( clazz );
-																	
+										
 					var xmlList:XMLListCollection = new XMLListCollection( );
-					xmlList.collection = child.children( );
-					Tracer.output( _debug, " '" + child.name( ) + "' has " + xmlList.length + " child(ren)", toString( ) );		 
+					xmlList.collection = child.children();
+					Tracer.output( _debug, " '" + child.name() + "' has " + xmlList.length + " child(ren)", toString( ) );		 
 					build( xmlList.iterator( ), clazz );
 				}
 				else
