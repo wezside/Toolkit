@@ -10,6 +10,7 @@ package com.wezside.components.survey.data.ui
 	{
 		
 		public var id:String;
+		public var cssID:String;
 		public var hiddenIDCollection:Collection = new Collection();
 
 		private var _hiddenID:String;

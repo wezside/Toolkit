@@ -1,8 +1,8 @@
 package com.wezside.components.survey.data 
 {
-	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.IDeserializable;
 	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.logging.Tracer;
 
@@ -16,13 +16,37 @@ package com.wezside.components.survey.data
 				
 		public var layout:ICollection;
 		public var customCSS:ICollection;
-		public var components:ICollection;
+		public var component:ICollection;
+		public var customForm:ICollection;
 		
 		private var _forms:Collection = new Collection();
 		
 		public function getFormData( id:String ):IFormData
 		{
 			return _forms.find( id ) as IFormData;
+		}
+		
+		public function getFormGroupData( id:String ):IFormGroupData
+		{			
+			var formIterator:IIterator = _forms.iterator();
+			while( formIterator.hasNext() )
+			{
+				var formData:IFormData = formIterator.next() as IFormData;
+				var groupIterator:IIterator = formData.iterator;
+				while( groupIterator.hasNext() )
+				{
+					var groupData:IFormGroupData = groupIterator.next() as IFormGroupData;
+					if ( groupData.id == id )
+					{
+						groupIterator.purge();
+						formIterator.purge();
+						return groupData;
+					}
+				}			
+				groupIterator.purge();	
+			}
+			formIterator.purge();
+			return null;
 		}
 				
 		public function purgeData():void

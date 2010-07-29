@@ -135,6 +135,7 @@ package com.wezside.components.survey.data
 		{
 			Tracer.output( true, "\t\t\t Item: " + _id + " | type: " + _type + " | Styles [" + styleNameCollection + "]", "" );
 			Tracer.output( true, "\t\t\t\t Label: " + _label, "" );
+			Tracer.output( true, "\t\t\t\t SubLabel: " + _sublabel, "" );
 		}
 		
 		public function purge():void

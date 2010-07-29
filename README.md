@@ -7,13 +7,14 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-* Build 0.1.0151
+* Build 0.1.0154
 * Compiled with Flex 4 SDK build 14159 
 
 
 Change log since build .0100
 =======
 
+* Fixed bug in XMLDataMapper when mapping nodes with CDATA to text property
 * Fixed numChildren methods to return correct values
 * Updated Shape decorator to include individual corner radius properties bottomRightRadius, bottomLeftRadius, topRightRadius, topLeftRadius
 * Refactored decorators to namespace com.wezside.components.decorators

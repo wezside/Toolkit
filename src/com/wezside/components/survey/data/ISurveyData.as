@@ -12,6 +12,7 @@ package com.wezside.components.survey.data
 		function get iterator():IIterator;
 		function addFormData( formData:IFormData ):void
 		function getFormData( id:String ):IFormData
+		function getFormGroupData( id:String ):IFormGroupData;
 		function purgeData():void;
 	}
 }

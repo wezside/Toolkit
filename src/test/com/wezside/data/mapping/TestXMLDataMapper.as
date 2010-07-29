@@ -20,7 +20,7 @@ package test.com.wezside.data.mapping
 		private var mapper:XMLDataMapper;
 		private var loader:URLLoader;
 
-		[Embed( source="/../bin/resources-en-MS/config.xml", mimeType="application/octet-stream")]
+		[Embed( source="/../bin/resources-en-MS/survey-config.xml", mimeType="application/octet-stream")]
 		public static var ConfigXMLData:Class;
 		private var data:*;
 		private var str:*;
@@ -46,7 +46,7 @@ package test.com.wezside.data.mapping
 			data = null;
 		}		
 				
-		[Test][Ignore]
+		[Test]
 		public function testDataMapper():void
 		{						
 			mapper.addDataMap( SurveyData );
@@ -57,19 +57,19 @@ package test.com.wezside.data.mapping
 			assertEquals( 1, SurveyData( mapper.data ).layout.iterator().length() );			
 		}
 		
-		[Test]
+		[Test][Ignore]
 		public function testDataMapperWithNamespace():void
 		{					
 
 			mapper.addDataMap( SurveyData );
-			mapper.addDataMap( UIData, "components", "components" );
+			mapper.addDataMap( UIData, "component", "component" );
 			mapper.addDataMap( UIItemData, "item", "items" );
 			mapper.debug = true;
 			mapper.deserialize( xml );
 			
 			assertNotNull( SurveyData( mapper.data ));
-			assertNotNull( SurveyData( mapper.data ).components );			
-			assertEquals( 1, SurveyData( mapper.data ).components.iterator().length() );			
+			assertNotNull( SurveyData( mapper.data ).component );			
+			assertEquals( 1, SurveyData( mapper.data ).component.iterator().length() );
 		}
 	}
 }

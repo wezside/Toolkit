@@ -100,8 +100,8 @@ package com.wezside.data.mapping
 			while ( iterator.hasNext( ))
 			{							
 				var child:XML = XML( iterator.next() );
-				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name().localName ));
-				
+				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name() ? child.name().localName : "" ));
+
 				// Check if there is a class to map from the xml supplied
 				if ( item )
 				{
@@ -110,8 +110,8 @@ package com.wezside.data.mapping
 			
 					// Map attributes to single properties
 					for ( var i:int = 0; i < child.attributes( ).length( ); ++i ) 
-					{				
-						if ( clazz.hasOwnProperty( child.attributes( )[i].name( ) )) 
+					{
+						if ( clazz.hasOwnProperty( child.attributes( )[i].name())) 
 						{
 							if ( clazz[ String( child.attributes( )[i].name() ) ] is Boolean ) 
 							{
