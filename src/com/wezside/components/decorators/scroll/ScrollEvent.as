@@ -9,20 +9,22 @@ package com.wezside.components.decorators.scroll
 	{
 
 		public var percent:Number;
-		public var scrollHeight:int;
+		public var scrollValue:int;
+		public var prop:String;
 		public static const CHANGE:String = "scrollValueChange"; 
 
 		
-		public function ScrollEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, percent:Number = 0, scrollHeight:int = 0 )
+		public function ScrollEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, percent:Number = 0, scrollValue:int = 0, prop:String = "y" )
 		{
 			super( type, bubbles, cancelable );
 			this.percent = percent;
-			this.scrollHeight = scrollHeight;
+			this.scrollValue = scrollValue;
+			this.prop = prop;
 		}
 		
 		override public function clone():Event 
 		{
-			return new ScrollEvent( type, false, false, percent );
+			return new ScrollEvent( type, false, false, percent, scrollValue, prop );
 		}
 	}
 }

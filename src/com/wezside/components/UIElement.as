@@ -23,6 +23,8 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
+	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.interactive.IInteractive;
 	import com.wezside.components.decorators.interactive.Interactive;
 	import com.wezside.components.decorators.layout.ILayout;
@@ -336,17 +338,20 @@ package com.wezside.components
 				
 		protected function scrollChange( event:ScrollEvent ):void 
 		{			
-			_childrenContainer.y = -event.percent * ( _childrenContainer.height -  event.scrollHeight );
+			var childContainerProp:String = event.prop == "y" ? "height" : "width";
+			_childrenContainer[ event.prop ] = -event.percent * ( _childrenContainer[ childContainerProp ] -  event.scrollValue );
 		}		
 		
 		private function drawScrollMask():void 
 		{
+			var w:int = scroll is ScrollHorizontal ? _scroll.scrollWidth : width;
+			var h:int = scroll is ScrollVertical ? _scroll.scrollHeight : height;
 			var scrollMask:Sprite = new Sprite();
 			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
-			scrollMask.graphics.drawRect( layout.left, layout.top, width, _scroll.scrollHeight );
+			scrollMask.graphics.drawRect( layout.left, layout.top, w, h );
 			scrollMask.graphics.endFill();
 			super.addChild( scrollMask );
-			_childrenContainer.mask = scrollMask;			
+			_childrenContainer.mask = scrollMask;
 		}		
 		
 		private function setProperties( target:IUIElement, currentStyleName:String = "" ):void

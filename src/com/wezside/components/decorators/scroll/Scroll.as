@@ -15,13 +15,16 @@ package com.wezside.components.decorators.scroll
 	{
 		
 		private var _scrollHeight:int;
+		private var _scrollWidth:int;
 		private var _target:IUIDecorator;
 		private var _width:Number = 0;
 		private var _height:Number = 0;
 		private var _thumb:IUIElement;
 		private var _track:IUIElement;
 		private var _horizontalGap:int;
+		private var _verticalGap:int;
 		private var _trackWidth:int = 20;
+		private var _trackHeight:int = 20;
 		
 		protected var decorated:IUIDecorator;
 
@@ -48,15 +51,25 @@ package com.wezside.components.decorators.scroll
 		{
 			return _scrollHeight;
 		}
+				
+		public function get scrollWidth():int
+		{
+			return _scrollWidth;
+		}
 		
 		public function get target():IUIDecorator
 		{
 			return _target;
 		}
 		
-		public function set scrollHeight(value:int):void
+		public function set scrollHeight( value:int ):void
 		{
 			_scrollHeight = value;
+		}
+		
+		public function set scrollWidth( value:int ):void
+		{
+			_scrollWidth = value;
 		}
 		
 		public function set target(value:IUIDecorator):void
@@ -114,6 +127,16 @@ package com.wezside.components.decorators.scroll
 			_horizontalGap = value;
 		}
 		
+		public function get verticalGap():int
+		{
+			return _verticalGap;
+		}
+		
+		public function set verticalGap( value:int ):void
+		{
+			_verticalGap = value;
+		}
+		
 		public function get trackWidth():int
 		{
 			return _trackWidth;
@@ -124,6 +147,16 @@ package com.wezside.components.decorators.scroll
 			_trackWidth = value;
 		}
 		
+		public function get trackHeight():int
+		{
+			return _trackHeight;
+		}
+		
+		public function set trackHeight( value:int ):void
+		{
+			_trackHeight = value;
+		}
+		
 		public function get stateManager():StateManager
 		{
 			return null;
@@ -132,5 +165,6 @@ package com.wezside.components.decorators.scroll
 		public function set stateManager(value:StateManager):void
 		{
 		}
+
 	}
 }

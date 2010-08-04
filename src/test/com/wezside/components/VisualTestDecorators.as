@@ -1,5 +1,7 @@
 package test.com.wezside.components 
 {
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
+	import com.wezside.components.decorators.layout.HorizontalLayout;
 	import flash.text.TextFieldAutoSize;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.PaddedLayout;
@@ -38,21 +40,21 @@ package test.com.wezside.components
 			layout.top = 15;
 			layout.right = 15;
 			
-			layout = new VerticalLayout( this.layout );
-			layout.verticalGap = 3;	
-						
+			layout = new HorizontalLayout( this.layout );
+			layout.horizontalGap = 3;
+				
 			background = new Rectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
-			background.cornerRadius = 10;
-			
-			scroll = new ScrollVertical( this );
-			scroll.scrollHeight = 150; 
-			scroll.horizontalGap = 2;
-  			
+			background.cornerRadius = 20;			
+						
+			scroll = new ScrollHorizontal( this );
+			scroll.scrollWidth = 200; 
+			scroll.verticalGap = 2;
+			  			
  			label = new Label();
  			label.autoSize = TextFieldAutoSize.LEFT;
- 			label.width = 200;
+ 			label.width = 250;
  			label.multiline = true;
  			label.wordWrap = true;
  			label.textColor = 0xffffff;
@@ -90,6 +92,7 @@ package test.com.wezside.components
 			hbox.activate();
 			addChild( hbox );
 
+			/*
 			hbox = new UIElement();
 			hbox.background = new Rectangle( hbox );
 			hbox.background.colours = [ 0xFF5100, 0xFF5100 ];
@@ -127,7 +130,7 @@ package test.com.wezside.components
 			hbox.build();
 			hbox.arrange();					
 			addChild( hbox );			
-	
+			*/
 			super.build();
 		}	
 	}
