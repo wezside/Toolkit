@@ -1,9 +1,9 @@
-package com.wezside.components.gallery.layout 
+package com.wezside.components.decorators.layout 
 {
+	import com.wezside.components.UIElementEvent;
+	import com.wezside.components.UIElementState;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementEvent;
-	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
@@ -22,7 +22,7 @@ package com.wezside.components.gallery.layout
 		private var _columns:int;
 		private var _largestItemHeight:int;
 		private var _largestItemWidth:int;
-		private var _reflectionHeightInRows:int;
+		private var _reflectionHeightInRows:int = 0;
 
 		
 		public function GridReflectionLayout( decorated:IUIDecorator )
@@ -61,8 +61,8 @@ package com.wezside.components.gallery.layout
 					var posY:int = ( _rows - currentRow ) * ( item.height + verticalGap ) * 2 - item.height;
 					reflection.y += posY + yOffset - verticalGap;
 				}
-				
-				if (( int( item.name ) + 1 ) % ( _columns ) == 0  )
+								
+				if (( iterator.index() ) % ( _columns ) == 0  )
 				{
 					++currentRow;
 					yOffset += _largestItemHeight + verticalGap;
@@ -72,12 +72,12 @@ package com.wezside.components.gallery.layout
 				{
 					xOffset += _largestItemWidth + horizontalGap;
 				}
-				
-
-					
 			}
 			
-			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));
+	 		width = decorated.width + left + right;
+			height = decorated.height + top + bottom;
+			super.arrange();
+			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));			
 		}
 		
 		public function get rows():int

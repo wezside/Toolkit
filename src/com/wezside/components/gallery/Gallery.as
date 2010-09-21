@@ -34,7 +34,7 @@ package com.wezside.components.gallery
 	import com.wezside.components.gallery.item.ImageGalleryItem;
 	import com.wezside.components.gallery.item.MovieClipGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
-	import com.wezside.components.gallery.layout.GridReflectionLayout;
+	import com.wezside.components.decorators.layout.GridReflectionLayout;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.date.DateUtil;

@@ -62,8 +62,8 @@ package test.com.wezside.components.control
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
-//			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec";
+//			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
+			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec";
 			button.width = 300;
 			button.iconStyleName = "iconStylename";
 			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
