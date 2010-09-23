@@ -1,13 +1,11 @@
 package test.com.wezside.components.decorators
 {
-	import gs.TweenLite;
-	import gs.easing.Cubic;
-
+	import flash.events.TimerEvent;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
 
-	import flash.display.DisplayObject;
 	import flash.geom.Rectangle;
+	import flash.utils.Timer;
 	
 	/**
 	 * @author Wesley.Swanepoel
@@ -34,12 +32,16 @@ package test.com.wezside.components.decorators
 			x = 20;
 			y = 20;
 	
-			TweenLite.to( DisplayObject( background ), 1.5, { delay: 1, height: 300, ease: Cubic.easeOut, onComplete: complete });
+			background.height = 300;
+			
+			var timer:Timer = new Timer( 1000, 1 );
+			timer.addEventListener( TimerEvent.TIMER_COMPLETE, complete );
+			timer.start();
 		}
 		
-		private function complete():void
+		private function complete( event:TimerEvent ):void
 		{
-			TweenLite.to( DisplayObject( background ), 1.5, { delay: .5, height: 100, ease: Cubic.easeInOut });						
+			background.height = 50;						
 		}
 	}
 }
