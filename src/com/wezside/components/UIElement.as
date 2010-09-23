@@ -23,6 +23,7 @@
  */
 package com.wezside.components 
 {
+	import flash.geom.Rectangle;
 	import com.wezside.components.decorators.scroll.ScrollHorizontal;
 	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.interactive.IInteractive;
@@ -94,6 +95,11 @@ package com.wezside.components
 		{
 			return _childrenContainer.addChild( child );
 		}
+			
+		override public function addChildAt( child:DisplayObject, index:int ):DisplayObject 
+		{
+			return _childrenContainer.addChildAt( child, index );
+		}
 		
 		override public function removeChild( child:DisplayObject ):DisplayObject 
 		{
@@ -109,7 +115,7 @@ package com.wezside.components
 		{
 			return _childrenContainer.getChildByName( name );
 		}
-
+		
 		public function get numUIChildren():int
 		{
 			return super.numChildren;

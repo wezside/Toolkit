@@ -5,7 +5,7 @@ package test.com.wezside.components
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
 	import com.wezside.components.decorators.scroll.ScrollVertical;
-	import com.wezside.components.decorators.shape.Rectangle;
+	import com.wezside.components.decorators.shape.ShapeRectangle;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
@@ -25,7 +25,7 @@ package test.com.wezside.components
 			uiElement = new UIElement();
 			
 			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
+			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xff0000, 0xff0000 ];
 			hbox.background.alphas = [ 1, 1 ];
 			hbox.background.cornerRadius = 10;
@@ -36,7 +36,7 @@ package test.com.wezside.components
 			uiElement.addChild( hbox );			
 			
 			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
+			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xff0000, 0xff0000 ];
 			hbox.background.alphas = [ 1, 1 ];			
 			hbox.background.width = 200;
@@ -95,7 +95,7 @@ package test.com.wezside.components
 			assertNull( uiElement.background );	
 			assertEquals( 2, uiElement.numChildren );	
 			
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			assertNotNull( uiElement.background );
 			
 			uiElement.build();			
@@ -106,7 +106,7 @@ package test.com.wezside.components
 		[Test]
 		public function testVerticalLayout():void
 		{
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			uiElement.background.width = 200;
 			uiElement.background.height = 200;
 			uiElement.layout = new VerticalLayout( uiElement );
@@ -129,7 +129,7 @@ package test.com.wezside.components
 			uiElement.layout.bottom = 15;		
 			uiElement.layout.right = 15;							
 			
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			uiElement.background.colours = [0,0];
 			uiElement.background.alphas = [1,1];
 						
@@ -151,7 +151,7 @@ package test.com.wezside.components
 			uiElement.x = 20;
 			uiElement.y = 20;
 			
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			uiElement.background.colours = [ 0, 0 ];
 			uiElement.background.alphas = [ 1, 1 ];	
 			
@@ -180,7 +180,7 @@ package test.com.wezside.components
 			uiElement.x = 20;
 			uiElement.y = 20;
 			
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			uiElement.background.colours = [0,0];
 			uiElement.background.alphas = [1,1];	
 					
@@ -206,7 +206,7 @@ package test.com.wezside.components
 		{
 			uiElement.layout = new VerticalLayout( uiElement );
 			
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			uiElement.background.colours = [0,0];
 			uiElement.background.alphas = [1,1];
 							
@@ -227,7 +227,7 @@ package test.com.wezside.components
 			uiElement.x = 0;
 			uiElement.y = 0;
 			
-			uiElement.background = new Rectangle( uiElement );
+			uiElement.background = new ShapeRectangle( uiElement );
 			uiElement.background.colours = [ 0, 0 ];
 			uiElement.background.alphas = [ 1, 1 ];	
 					

@@ -23,17 +23,21 @@ package com.wezside.components.decorators.shape
 	import com.wezside.components.UIElement;
 
 	import flash.display.GradientType;
+	import flash.display.JointStyle;
+	import flash.display.LineScaleMode;
 	import flash.geom.Matrix;
+	import flash.geom.Rectangle;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Rectangle extends Shape 
+	public class ShapeRectangle extends Shape 
 	{
 		private var _autoDetectWidth:Boolean;
-		private var _autoDetectHeight:Boolean;
+		private var _autoDetectHeight : Boolean;
+		private var _scale9Grid:Rectangle;
 		
-		public function Rectangle( decorated:IUIDecorator )
+		public function ShapeRectangle( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
@@ -101,7 +105,14 @@ package com.wezside.components.decorators.shape
 				graphics.moveTo( width, height );
 				graphics.lineTo( width, 0 );
 			}		
-			graphics.endFill();			
+			graphics.endFill();
+			
+			if ( _scale9Grid ) super.scale9Grid = _scale9Grid;
+		}
+		
+		override public function set scale9Grid( innerRectangle:Rectangle ):void
+		{
+			_scale9Grid = innerRectangle;
 		}
 	}
 }

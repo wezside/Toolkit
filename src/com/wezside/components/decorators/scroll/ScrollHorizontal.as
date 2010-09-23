@@ -3,7 +3,7 @@ package com.wezside.components.decorators.scroll
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.decorators.shape.Rectangle;
+	import com.wezside.components.decorators.shape.ShapeRectangle;
 
 	import flash.events.MouseEvent;
 
@@ -31,7 +31,7 @@ package com.wezside.components.decorators.scroll
 			if ( width > scrollWidth )
 			{			
 				track = new UIElement();
-				track.background = new Rectangle( track );
+				track.background = new ShapeRectangle( track );
 				track.background.width = scrollWidth;
 				track.background.height = trackHeight;
 				track.background.alphas = [ 1, 1 ];
@@ -44,7 +44,7 @@ package com.wezside.components.decorators.scroll
 				
 				var thumbWidth:int = int( scrollWidth / width * scrollWidth );
 				thumb = new UIElement();
-				thumb.background = new Rectangle( thumb );
+				thumb.background = new ShapeRectangle( thumb );
 				thumb.background.alphas = [ 1, 1 ];
 				thumb.background.colours = [ 0x666666, 0x666666 ];
 				thumb.background.width = thumbWidth > 20 ? thumbWidth : 20;

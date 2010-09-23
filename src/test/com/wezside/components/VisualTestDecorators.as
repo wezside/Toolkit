@@ -9,7 +9,7 @@ package test.com.wezside.components
 	import com.wezside.components.decorators.layout.GridReflectionLayout;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.PaddedLayout;
-	import com.wezside.components.decorators.shape.Rectangle;
+	import com.wezside.components.decorators.shape.ShapeRectangle;
 	import com.wezside.components.text.Label;
 
 	import flash.display.Sprite;
@@ -53,7 +53,7 @@ package test.com.wezside.components
 			GridReflectionLayout( layout ).largestItemHeight = 50;
 						
 				
-			background = new Rectangle( this );
+			background = new ShapeRectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 1, 1 ];
 			background.cornerRadius = 20;			
@@ -89,7 +89,7 @@ package test.com.wezside.components
 		{			
 						
 			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
+			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xff0000 ];
 			hbox.background.alphas = [ 1 ];			
 			hbox.background.width = 200;
@@ -101,7 +101,7 @@ package test.com.wezside.components
 			addChild( hbox );
 
 			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
+			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xFF5100, 0xFF5100 ];
 			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
@@ -112,7 +112,7 @@ package test.com.wezside.components
 			addChild( hbox );	
 
 			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
+			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xFFF300, 0xFFF300 ];
 			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;
@@ -122,7 +122,7 @@ package test.com.wezside.components
 			addChild( hbox );
 			
 			hbox = new UIElement();
-			hbox.background = new Rectangle( hbox );
+			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xffaa56, 0xffaa56 ];
 			hbox.background.alphas = [ 1, 1];			
 			hbox.background.width = 200;

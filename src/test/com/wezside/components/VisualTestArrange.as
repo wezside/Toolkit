@@ -5,7 +5,7 @@ package test.com.wezside.components
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
-	import com.wezside.components.decorators.shape.Rectangle;
+	import com.wezside.components.decorators.shape.ShapeRectangle;
 	import com.wezside.components.text.Label;
 
 	import flash.events.Event;
@@ -26,7 +26,7 @@ package test.com.wezside.components
 		{
 			super( );
 			
-			background = new Rectangle( this );
+			background = new ShapeRectangle( this );
 			background.colours = [ 0, 0 ];
 			background.alphas = [ 0.01, 0.05 ];
 			background.borderColor = 1;
