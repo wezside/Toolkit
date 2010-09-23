@@ -14,6 +14,9 @@ Latest release
 Change log since build .0100
 =======
 
+* Support for scale9grid added to ShapeRectangle
+* Rectangle Shape decorator refactored to ShapeRectangle
+* Shape decorator width and height properties updated to set Sprite width and height if arrange() has been called before
 * New Horizontal scroll decorator added. Minimum requirement is to set scrollWidth as with ScrollVertical where it is scrollHeight
 * Fixed bug in XMLDataMapper when mapping nodes with CDATA to text property
 * Fixed numChildren methods to return correct values
