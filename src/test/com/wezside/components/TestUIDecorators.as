@@ -1,5 +1,6 @@
 package test.com.wezside.components 
 {
+	import org.flexunit.asserts.assertTrue;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.HorizontalLayout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
@@ -10,6 +11,8 @@ package test.com.wezside.components
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
 	import org.flexunit.asserts.assertNull;
+
+	import flash.geom.Rectangle;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -245,6 +248,51 @@ package test.com.wezside.components
 			uiElement.arrange();
 			assertEquals( 430, uiElement.width );
 			
+		}
+		
+		[Test]
+		public function testShapeScale9GridBefore():void
+		{
+			uiElement.background = new ShapeRectangle(uiElement);
+			uiElement.background.alphas = [1, 1];
+			uiElement.background.colours = [0, 0];
+			uiElement.background.width = 200;
+			uiElement.background.height = 200;
+			uiElement.background.cornerRadius = 40;
+			uiElement.background.scale9Grid = new Rectangle( 20, 20, 160, 160 );
+
+			uiElement.build();
+			uiElement.setStyle();
+			uiElement.arrange();
+			
+			uiElement.x = 20;
+			uiElement.y = 20;	
+			uiElement.background.height = 300;			
+			
+			assertTrue( true );	
+		}
+		
+		[Test]
+		public function testShapeScale9GridAfter():void
+		{
+			uiElement.background = new ShapeRectangle(uiElement);
+			uiElement.background.alphas = [1, 1];
+			uiElement.background.colours = [0, 0];
+			uiElement.background.width = 200;
+			uiElement.background.height = 200;
+			uiElement.background.cornerRadius = 40;
+
+			uiElement.build();
+			uiElement.setStyle();
+			uiElement.arrange();
+			
+			uiElement.x = 20;
+			uiElement.y = 20;
+				
+			uiElement.background.scale9Grid = new Rectangle( 20, 20, 160, 160 );
+			uiElement.background.height = 300;			
+			
+			assertTrue( true );	
 		}
 		
 		private function dumpChildren():void

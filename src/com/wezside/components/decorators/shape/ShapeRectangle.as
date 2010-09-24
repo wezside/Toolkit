@@ -105,14 +105,16 @@ package com.wezside.components.decorators.shape
 				graphics.moveTo( width, height );
 				graphics.lineTo( width, 0 );
 			}		
-			graphics.endFill();
-			
+			graphics.endFill();			
 			if ( _scale9Grid ) super.scale9Grid = _scale9Grid;
 		}
 		
 		override public function set scale9Grid( innerRectangle:Rectangle ):void
 		{
 			_scale9Grid = innerRectangle;
+			trace( decorated.width, decorated.height );
+			if ( decorated.width > 0 && decorated.height > 0 )
+				super.scale9Grid = _scale9Grid;
 		}
 	}
 }

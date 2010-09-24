@@ -89,7 +89,6 @@
 			   include-classes="${project_classes_property}">
 
 		        <source-path path-element="${basedir}/src/"/>
-
 		</compc>
 	</target>		
 

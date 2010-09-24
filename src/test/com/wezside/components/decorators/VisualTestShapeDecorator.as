@@ -27,13 +27,12 @@ package test.com.wezside.components.decorators
 
 			build();
 			setStyle();
-			arrange();			
+			arrange();
 			
 			x = 20;
 			y = 20;
 	
-			background.height = 300;
-			
+			background.height = 300;			
 			var timer:Timer = new Timer( 1000, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, complete );
 			timer.start();
