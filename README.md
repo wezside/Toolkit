@@ -14,6 +14,7 @@ Latest release
 Change log since build .0100
 =======
 
+* Scale9 issue resolved when setting scale9Grid after arrange() is called. Now you can set either before or after arrange() on a ShapeRectangle Shape decorator.
 * Support for scale9grid added to ShapeRectangle
 * Rectangle Shape decorator refactored to ShapeRectangle
 * Shape decorator width and height properties updated to set Sprite width and height if arrange() has been called before
