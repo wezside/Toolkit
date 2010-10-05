@@ -36,6 +36,8 @@ package com.wezside.utilities.manager.style
 
 	/**
 	 * @author Wesley.Swanepoel
+	 * 
+	 * patched by Sean Lailvaux
 	 */
 	public class StyleManager extends Sprite implements IStyleManager
 	{
