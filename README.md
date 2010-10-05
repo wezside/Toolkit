@@ -14,6 +14,8 @@ Latest release
 Change log since build .0100
 =======
 
+* StyleManager has been updated to allow for instantiating the style class and listening for the EVENT.COMPLETE event. Previously the EVENT.COMPLETE was not invoked due to the instantiating happening so quickly.
+* Label now supports a few more default properties
 * Scale9 issue resolved when setting scale9Grid after arrange() is called. Now you can set either before or after arrange() on a ShapeRectangle Shape decorator.
 * Support for scale9grid added to ShapeRectangle
 * Rectangle Shape decorator refactored to ShapeRectangle
