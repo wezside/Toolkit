@@ -31,6 +31,8 @@ package com.wezside.utilities.manager.style
 		
 		function parseCSSByteArray( clazz:Class ):void;
 		
+		function hasAssetByName( linkageClassName:String ):Boolean;
+		
 		function getAssetByName( linkageClassName:String ):DisplayObject;
 		
 		function getStyleSheet( styleName:String ):StyleSheet;		
@@ -40,6 +42,8 @@ package com.wezside.utilities.manager.style
 		function getPropertyStyles( styleName:String ):Array;
 		
 		function get css():String;
+		
+		function get ready():Boolean;
 		
 		function dispatchEvent( event:Event ):Boolean;
 		function hasEventListener( type:String ):Boolean;
