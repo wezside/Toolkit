@@ -30,7 +30,7 @@ package test.com.wezside.components
 		[Before]
 		public function setUp():void
 		{
-			styles = new LatinStyle();
+			
 			mockUIElement = new MockUIElement();
 		}
 
@@ -70,12 +70,14 @@ package test.com.wezside.components
 		[Test(async)]
 		public function testStyleManagerWithChildren():void
 		{			
+			styles = new LatinStyle();
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleWithChildren, 5000, null, timeout ), false, 0, true );
 		}
 		
 		[Test(async)]
 		public function testStyleManagerNoChildren():void
 		{			
+			styles = new LatinStyle();
 			styles.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleReady, 5000, null, timeout ), false, 0, true );
 		}
 		

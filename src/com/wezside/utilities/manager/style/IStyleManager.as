@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.manager.style 
+package com.wezside.utilities.manager.style
 {
 	import flash.display.DisplayObject;
 	import flash.events.Event;
@@ -26,28 +26,30 @@ package com.wezside.utilities.manager.style
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IStyleManager 
+	public interface IStyleManager
 	{
-		
-		function parseCSSByteArray( clazz:Class ):void;
-		
-		function hasAssetByName( linkageClassName:String ):Boolean;
-		
-		function getAssetByName( linkageClassName:String ):DisplayObject;
-		
-		function getStyleSheet( styleName:String ):StyleSheet;		
+		function parseCSSByteArray(clazz:Class):void;
 
-		function getLibraryItems( styleName:String ):Object;
-		
-		function getPropertyStyles( styleName:String ):Array;
-		
+		function hasAssetByName(linkageClassName:String):Boolean;
+
+		function getAssetByName(linkageClassName:String):DisplayObject;
+
+		function getStyleSheet(styleName:String):StyleSheet;
+
+		function getLibraryItems(styleName:String):Object;
+
+		function getPropertyStyles(styleName:String):Array;
+
 		function get css():String;
-		
+
 		function get ready():Boolean;
-		
-		function dispatchEvent( event:Event ):Boolean;
-		function hasEventListener( type:String ):Boolean;
-		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
-		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false ):void;			
+
+		function dispatchEvent(event:Event):Boolean;
+
+		function hasEventListener(type:String):Boolean;
+
+		function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void;
+
+		function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 	}
 }
