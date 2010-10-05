@@ -23,15 +23,14 @@
  */
 package com.wezside.components 
 {
-	import flash.geom.Rectangle;
-	import com.wezside.components.decorators.scroll.ScrollHorizontal;
-	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.interactive.IInteractive;
 	import com.wezside.components.decorators.interactive.Interactive;
 	import com.wezside.components.decorators.layout.ILayout;
 	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.components.decorators.scroll.IScroll;
 	import com.wezside.components.decorators.scroll.ScrollEvent;
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
+	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.shape.IShape;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
