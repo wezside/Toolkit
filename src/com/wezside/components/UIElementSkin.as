@@ -1,14 +1,5 @@
 package com.wezside.components 
 {
-	import com.wezside.components.decorators.layout.PaddedLayout;
-	import com.wezside.utilities.manager.style.IStyleManager;
-
-	import flash.text.StyleSheet;
-
-	import com.wezside.components.decorators.shape.IShape;
-	import com.wezside.components.decorators.layout.ILayout;
-	import com.wezside.data.iterator.IIterator;
-
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.utils.getQualifiedClassName;

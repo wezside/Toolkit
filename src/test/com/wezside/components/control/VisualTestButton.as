@@ -62,15 +62,16 @@ package test.com.wezside.components.control
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
+			button.width = 250;
 //			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
 			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec";
-			button.width = 300;
+			button.layout = new PaddedLayout( button.layout );
 			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
+			button.iconPlacement = Layout.PLACEMENT_CENTER;
 			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();
-			button.arrange();		
+			button.arrange();
 			addChild( button );
 			button.activate();
 						
@@ -187,13 +188,6 @@ package test.com.wezside.components.control
 		
 		private function stageInit( event:Event ):void 
 		{			
-			background = new ShapeRectangle( this );
-			background.colours = [ 0, 0 ];
-			background.alphas = [ 0.01, 0.05 ];
-			background.borderColor = 0xcccccc;
-			background.borderThickness = 1;
-			background.borderAlpha = 1;
-			
 			layout = new VerticalLayout( this );
 			layout.verticalGap = 10;
 						
@@ -201,8 +195,7 @@ package test.com.wezside.components.control
 			layout.bottom = 15;		
 			layout.left = 15;
 			layout.top = 15;
-			layout.right = 15;
-			
+			layout.right = 15;			
 			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, styleReady );

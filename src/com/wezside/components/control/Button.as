@@ -1,6 +1,5 @@
 package com.wezside.components.control 
 {
-	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.RelativeLayout;
@@ -20,8 +19,8 @@ package com.wezside.components.control
 		{
 			super( );			
 			layout = new PaddedLayout( this );			
-			_icon = new Icon();
 			_autoSkinSize = true;
+			_icon = new Icon();
 			_icon.layout = new PaddedLayout( _icon );
 			addChild( _icon );
 		}
@@ -37,10 +36,11 @@ package com.wezside.components.control
 		{	
 			// Arrange the Label component to adjust the text field width and height based on the text
 			super.arrange();	
+			
 			if ( _autoSkinSize )
-				skin.setSize( int( field.width + layout.left + _icon.width + layout.right ), int( field.height + layout.top + layout.bottom ));
-			else
-				skin.setSize( 20, 20 );
+				skin.setSize( width, height );
+//			else
+//				skin.setSize( 20, 20 );
 		}
 		
 		override public function set state( value:String ):void 
@@ -74,15 +74,13 @@ package com.wezside.components.control
 		{
 			_icon.styleName = value;
 			_icon.styleManager = styleManager;
+			layout = new RelativeLayout( this.layout ); 
+			RelativeLayout( layout ).anchor = field;
+			RelativeLayout( layout ).target = _icon;
 		}
 		
 		public function set iconPlacement( value:String ):void
 		{
-			layout = new Layout( this );
-			layout = new PaddedLayout( this.layout );
-			layout = new RelativeLayout( this.layout ); 
-			RelativeLayout( layout ).anchor = field;
-			RelativeLayout( layout ).target = _icon;
 			layout.placement = value;
 		}
 		

@@ -112,7 +112,6 @@ package com.wezside.components.decorators.shape
 		override public function set scale9Grid( innerRectangle:Rectangle ):void
 		{
 			_scale9Grid = innerRectangle;
-			trace( decorated.width, decorated.height );
 			if ( decorated.width > 0 && decorated.height > 0 )
 				super.scale9Grid = _scale9Grid;
 		}
