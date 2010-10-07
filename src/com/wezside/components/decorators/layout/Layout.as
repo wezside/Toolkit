@@ -62,7 +62,7 @@ package com.wezside.components.decorators.layout
 		
 		public function Layout( decorated:IUIDecorator ) 
 		{			
-			this.decorated = decorated;		
+			this.decorated = decorated;
 			placementState = new StateManager();
 			placementState.addState( PLACEMENT_TOP_LEFT );
 			placementState.addState( PLACEMENT_TOP_CENTER );
@@ -86,6 +86,7 @@ package com.wezside.components.decorators.layout
 				if ( bottom != 0 ) ILayout( decorated ).bottom = bottom;
 				if ( verticalGap != 0 ) ILayout( decorated ).verticalGap = verticalGap;
 				if ( horizontalGap != 0 ) ILayout( decorated ).horizontalGap = horizontalGap;
+				ILayout( decorated ).usePercent = usePercent;
 			}
 			if ( decorated is IUIElement )
 			{
