@@ -28,7 +28,7 @@
 
 	<!--  FORMS GROUPS & ITEM LAYOUT -->
 	<layout id="PrevExperience">
-		<decorator id="HorizontalLayout"><![CDATA[ texct ]]></decorator>
+		<decorator id="HorizontalLayout" width="100%"><![CDATA[ texct ]]></decorator>
 	</layout>	
 
 	<!-- STYLE MANAGER -->

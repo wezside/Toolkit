@@ -1,14 +1,15 @@
 package test.com.wezside.data.mapping 
 {
-	import org.flexunit.asserts.assertNotNull;
 	import com.wezside.components.survey.data.SurveyData;
 	import com.wezside.components.survey.data.config.LayoutData;
 	import com.wezside.components.survey.data.config.LayoutDecoratorData;
 	import com.wezside.components.survey.data.ui.UIData;
 	import com.wezside.components.survey.data.ui.UIItemData;
+	import com.wezside.data.collection.Collection;
 	import com.wezside.data.mapping.XMLDataMapper;
 
 	import org.flexunit.asserts.assertEquals;
+	import org.flexunit.asserts.assertNotNull;
 
 	import flash.net.URLLoader;
 
@@ -54,7 +55,10 @@ package test.com.wezside.data.mapping
 			mapper.addDataMap( LayoutDecoratorData, "decorator", "decorators" );
 			mapper.debug = true;
 			mapper.deserialize( xml );
-			assertEquals( 1, SurveyData( mapper.data ).layout.iterator().length() );			
+						
+			assertEquals(1, SurveyData(mapper.data).layout.iterator().length());
+			assertEquals( 100, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData(mapper.data).layout).find()).decorators).getElementAt(0)).width);			
+			assertEquals( true, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData(mapper.data).layout).find()).decorators).getElementAt(0)).usePercent );			
 		}
 		
 		[Test][Ignore]

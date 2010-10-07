@@ -19,6 +19,7 @@
  */
 package com.wezside.data.mapping 
 {
+	import com.wezside.utilities.string.StringUtil;
 	import com.wezside.data.collection.Collection;
 	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.collection.XMLDataCollection;
@@ -41,9 +42,11 @@ package com.wezside.data.mapping
 		private var _xmlCollection:XMLListCollection;
 		private var _xmlCollectionIterator:IIterator;
 		private var _debug:Boolean;
+		private var _strUtil:StringUtil;
 		
 		public function XMLDataMapper() 
 		{
+			_strUtil = new StringUtil();
 			_debug = false;
 			_collection = new XMLDataCollection( );
 		}
@@ -116,6 +119,11 @@ package com.wezside.data.mapping
 							if ( clazz[ String( child.attributes( )[i].name() ) ] is Boolean ) 
 							{
 								clazz[ String( child.attributes( )[i].name())] = ( child.attributes( )[i] == "true" || child.attributes( )[i] == "1" );
+							}
+							else if ( String( child.attributes( )[i] ).indexOf( "%" ) != -1 )
+							{
+								clazz[ String( child.attributes( )[i].name())] = _strUtil.getNumeric( child.attributes( )[i] );
+								if ( clazz.hasOwnProperty( "usePercent" )) clazz[ "usePercent" ] = true;								
 							}
 							else 
 							{

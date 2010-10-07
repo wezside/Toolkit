@@ -14,5 +14,9 @@ package com.wezside.components.survey.data.config
 		public var right:int;
 		public var horizontalGap:int;
 		public var verticalGap:int;
+		public var width:Number;
+		public var usePercent:Boolean;
+		
+		
 	}
 }
