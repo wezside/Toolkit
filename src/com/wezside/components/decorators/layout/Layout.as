@@ -55,6 +55,7 @@ package com.wezside.components.decorators.layout
 		private var _right:int;
 		private var _width:int;
 		private var _height:int;
+		private var _usePercent:Boolean;
 		
 		protected var decorated:IUIDecorator;
 		protected var placementState:StateManager;
@@ -198,6 +199,16 @@ package com.wezside.components.decorators.layout
 		public function set placement( value:String ):void
 		{
 			placementState.stateKey = value;
+		}
+
+		public function get usePercent():Boolean
+		{
+			return _usePercent;
+		}
+
+		public function set usePercent( value:Boolean ):void
+		{
+			_usePercent = value;
 		}
 	}
 }
