@@ -14,6 +14,7 @@ Latest release
 Change log since build .0100
 =======
 
+* FillLayout layout decorator added (still in testing phase)
 * XMLDataMapper now includessupport for percentage values in attributes 
 * StyleManager has been updated to allow for instantiating the style class and listening for the EVENT.COMPLETE event. Previously the EVENT.COMPLETE was not invoked due to the instantiating happening so quickly.
 * Label now supports a few more default properties
