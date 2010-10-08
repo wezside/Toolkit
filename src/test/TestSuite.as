@@ -17,18 +17,18 @@ package test
 	[RunWith("org.flexunit.runners.Suite")]
 	public class TestSuite
 	{
-		public var testCommandMapper:TestCommandMapper;
-		public var testUIElement:TestUIElement;
-		public var testDateUtil:TestDateUtil;
-		public var testGallery:TestGallery;
-		public var testStateManager:TestStateManager;
-		public var testURLUtil:TestURLUtil;
+//		public var testCommandMapper:TestCommandMapper;
+//		public var testUIElement:TestUIElement;
+//		public var testDateUtil:TestDateUtil;
+//		public var testGallery:TestGallery;
+//		public var testStateManager:TestStateManager;
+//		public var testURLUtil:TestURLUtil;
 		public var testUIDecorators:TestUIDecorators;
-		public var testTimelineManager:TestTimelineManager;
-		public var testLinkedList:TestLinkedListCollection;
-		public var testCollection:TestCollection;
-		public var testXMLDataMapper:TestXMLDataMapper;
-		public var testRelativeLayout:TestButton;
+//		public var testTimelineManager:TestTimelineManager;
+//		public var testLinkedList:TestLinkedListCollection;
+//		public var testCollection:TestCollection;
+//		public var testXMLDataMapper:TestXMLDataMapper;
+//		public var testRelativeLayout:TestButton;
 
 	}
 }

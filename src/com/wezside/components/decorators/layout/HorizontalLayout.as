@@ -44,16 +44,22 @@ package com.wezside.components.decorators.layout
 			// Iterate over rest of the children and layout horizontally
 			xOffset = 0;
 			xOffset += left;
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			while ( iterator.hasNext())
+			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			while ( it.hasNext())
 			{
-				var child:DisplayObject = iterator.next() as DisplayObject;
+				var child:DisplayObject = it.next() as DisplayObject;
 				child.x = xOffset;
 				xOffset += child.width;
-				if ( iterator.hasNext() ) xOffset += horizontalGap;
+				if ( it.hasNext() ) xOffset += horizontalGap;
 			}			
 			width = xOffset - horizontalGap + right;
-	 		height = decorated.height + top + bottom;			
+	 		height = decorated.height + top + bottom;
+	 		
+	 		if ( it.length() > 1 ) width -= horizontalGap;
+			
+			it.purge();
+			it = null;
+			child = null;
 			super.arrange();
 		}	
 

@@ -48,9 +48,6 @@ package com.wezside.components.decorators.layout
 		function get placement():String;
 		function set placement( value:String ):void;
 		
-		function get usePercent():Boolean;
-		function set usePercent( value:Boolean ):void;
-		
 		function reset():void;
 	}
 }

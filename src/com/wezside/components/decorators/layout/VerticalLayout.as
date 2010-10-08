@@ -45,13 +45,13 @@ package com.wezside.components.decorators.layout
 			yOffset = 0;
 			yOffset += top;
 			
-			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
-			while ( iterator.hasNext())
+			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
+			while ( it.hasNext())
 			{
-				var child:DisplayObject = iterator.next() as DisplayObject;
+				var child:DisplayObject = it.next() as DisplayObject;
 				child.y = yOffset | 0;
 				yOffset += child.height;
-				if ( iterator.hasNext() ) yOffset += verticalGap;
+				if ( it.hasNext() ) yOffset += verticalGap;
 			}
 			
 			// Left and right properties will be zero if VerticalLayout is the first decorator however
@@ -59,6 +59,12 @@ package com.wezside.components.decorators.layout
 			// case they were used 
 	 		width = decorated.width + left + right;
 			height = yOffset - verticalGap + bottom;
+			if ( it.length() > 1 ) height -= verticalGap;
+			
+			it.purge();
+			it = null;
+			child = null;			
+			
 			super.arrange();
 		}
 
