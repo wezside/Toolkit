@@ -51,22 +51,18 @@ package com.wezside.components.decorators.layout
 			var child:DisplayObject;
 			var target:DisplayObject;
 			var updated:Boolean = false;
-
 			if ( horizontalFill )
 			{
 				// Test for % use in width or fixedWidth
+
 				if ( ( widthRatio > 0 && baseWidth > 0 ) || _prevWidth != width )
 				{
 					_prevWidth = width;
-
 					it = decorated.iterator(UIElement.ITERATOR_CHILDREN);
-
 					var totalFixedWidth:Number = 0;
-
 					while ( it.hasNext())
 					{
 						child = DisplayObject(it.next());
-
 						if ( !target )
 						{
 							target = child;
@@ -74,18 +70,12 @@ package com.wezside.components.decorators.layout
 						else if ( target && sameRow(child, target) )
 						{
 							totalFixedWidth += child.width;
-							if ( it.hasNext() )
-								totalFixedWidth += horizontalGap;
 						}
 					}
-
-					width = widthRatio > 0 ? ( baseWidth - left - right ) * widthRatio : _prevWidth;
-
+					var totalHGap:Number = horizontalGap * (it.length() - 1 );
+					width = widthRatio > 0 ? ( baseWidth - left - right - totalHGap ) * widthRatio : _prevWidth;
 					if ( target )
-					{
-						target.width = width - totalFixedWidth - horizontalGap;
-					}
-
+						target.width = width - totalFixedWidth;
 					it.purge();
 					it = null;
 					child = null;
@@ -93,20 +83,18 @@ package com.wezside.components.decorators.layout
 					updated = true;
 				}
 			}
-
 			if ( verticalFill )
 			{
 				// Test for % use in width or fixedWidth
+
 				if ( ( heightRatio > 0 && baseHeight > 0 ) || _prevHeight != height )
 				{
 					_prevHeight = height;
-
 					it = decorated.iterator(UIElement.ITERATOR_CHILDREN);
 					var totalFixedHeight:Number = 0;
 					while ( it.hasNext())
 					{
 						child = DisplayObject(it.next());
-
 						if ( !target )
 						{
 							target = child;
@@ -114,27 +102,19 @@ package com.wezside.components.decorators.layout
 						else if ( target && sameColumn(child, target) )
 						{
 							totalFixedHeight += child.height;
-							if ( it.hasNext() )
-								totalFixedHeight += verticalGap;
 						}
 					}
-
-					height = heightRatio > 0 ? ( baseHeight - top - bottom ) * heightRatio : _prevHeight;
-
+					var totalVGap:Number = verticalGap * (it.length() - 1 );
+					height = heightRatio > 0 ? ( baseHeight - top - bottom - totalVGap ) * heightRatio : _prevHeight;
 					if ( target )
-					{
-						target.height = height - totalFixedHeight - verticalGap;
-					}
-
+						target.height = height - totalFixedHeight;
 					it.purge();
 					it = null;
 					child = null;
 					target = null;
-
 					updated = true;
 				}
 			}
-
 			if ( updated )
 				super.arrange();
 		}
@@ -143,12 +123,10 @@ package com.wezside.components.decorators.layout
 		{
 			var tPos:Number = target.x;
 			var cPos:Number = child.x;
-
 			if ( target is IUIElement )
 				tPos += left;
 			if ( child is IUIElement )
 				cPos += left;
-
 			return ( tPos == cPos );
 		}
 
@@ -156,12 +134,10 @@ package com.wezside.components.decorators.layout
 		{
 			var tPos:Number = target.y;
 			var cPos:Number = child.y;
-
 			if ( target is IUIElement )
 				tPos += top;
 			if ( child is IUIElement )
 				cPos += top;
-
 			return ( tPos == cPos );
 		}
 	}
