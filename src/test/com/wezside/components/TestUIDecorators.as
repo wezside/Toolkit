@@ -62,7 +62,7 @@ package test.com.wezside.components
 			uiElement = null;
 		}
 				
-		[Test][Ignore]
+		[Test]
 		public function testLayoutDecorators():void
 		{
 			assertNotNull( uiElement.layout );				
@@ -94,7 +94,7 @@ package test.com.wezside.components
 			assertEquals( 15, uiElement.layout.verticalGap );
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testShapeDecorators():void
 		{
 			assertNull( uiElement.background );	
@@ -108,7 +108,7 @@ package test.com.wezside.components
 			assertEquals( 2, uiElement.numChildren );
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testVerticalLayout():void
 		{
 			uiElement.background = new ShapeRectangle( uiElement );
@@ -122,7 +122,7 @@ package test.com.wezside.components
 			assertEquals( 2, uiElement.numChildren );
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testPadding():void
 		{
 			uiElement.x = 20;
@@ -150,7 +150,7 @@ package test.com.wezside.components
 			assertEquals( 15+15+50, uiElement.height );
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testPaddingWithVerticalLayout():void	
 		{			
 			uiElement.x = 20;
@@ -178,7 +178,7 @@ package test.com.wezside.components
 		}
 		
 		
-		[Test][Ignore]
+		[Test]
 		public function testPaddingWithHorizontalLayout():void	
 		{
 			
@@ -206,7 +206,7 @@ package test.com.wezside.components
 		}
 		
 		
-		[Test][Ignore]
+		[Test]
 		public function testVScroll():void
 		{
 			uiElement.layout = new VerticalLayout( uiElement );
@@ -226,7 +226,7 @@ package test.com.wezside.components
 		}		
 		
 		
-		[Test][Ignore]
+		[Test]
 		public function testArrange():void
 		{
 			uiElement.x = 0;
@@ -252,7 +252,7 @@ package test.com.wezside.components
 			
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testShapeScale9GridBefore():void
 		{
 			uiElement.background = new ShapeRectangle(uiElement);
@@ -274,7 +274,7 @@ package test.com.wezside.components
 			assertTrue( true );	
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testShapeScale9GridAfter():void
 		{
 			uiElement.background = new ShapeRectangle(uiElement);
