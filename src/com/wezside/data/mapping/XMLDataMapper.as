@@ -122,8 +122,11 @@ package com.wezside.data.mapping
 							}
 							else if ( String( child.attributes( )[i] ).indexOf( "%" ) != -1 )
 							{
-								clazz[ String( child.attributes( )[i].name())] = _strUtil.getNumeric( child.attributes( )[i] );
-								if ( clazz.hasOwnProperty( "usePercent" )) clazz[ "usePercent" ] = true;								
+								if ( String( child.attributes( )[i].name() == "width" ))
+									clazz[ "widthRatio" ] = _strUtil.getNumeric( child.attributes( )[i] ) / 100;
+									
+								if ( String( child.attributes( )[i].name() == "height" ))
+									clazz[ "heightRatio" ] = _strUtil.getNumeric( child.attributes( )[i] ) / 100;
 							}
 							else 
 							{
