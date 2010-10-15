@@ -17,6 +17,19 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="git-push-remote">
+		<attribute name="src" />
+		<attribute name="dest" />
+		<sequential>
+			<git command="push">
+				<args>
+					<arg value="@{src}" />
+					<arg value="@{dest}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
 	<target name="commit">
 
 		<condition property="tag.release">
@@ -53,7 +66,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git command="push origin master" dir="${basedir}">
-		</git>
+		<git-push-remote src="origin" dest="master" />
 	</target>
 </project>
