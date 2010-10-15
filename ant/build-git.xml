@@ -11,6 +11,7 @@
 		<sequential>
 			<echo message="git @{command} " />
 			<exec executable="${GIT_HOME}/git" dir="@{dir}">
+				<env key="HOME" value="C:\Documents and Settings\WSwanepoel"/>
 				<arg value="@{command}" />
 				<args />
 			</exec>
