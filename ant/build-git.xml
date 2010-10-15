@@ -53,11 +53,7 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git command="push" dir="${basedir}">
-			<args>
-				<arg value="origin" />
-				<arg value="master" />
-			</args>			
+		<git command="push origin master" dir="${basedir}">
 		</git>
 	</target>
 </project>
