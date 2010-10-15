@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Git Build" default="push-remote" basedir="..">
+
+	<property file="ant/.toolkit-properties" />
+	
+
+	<macrodef name="git">
+		<attribute name="command" />
+		<attribute name="dir" default="" />
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command}" />
+			<exec executable="git" dir="@{dir}">
+				<arg value="@{command}" />
+				<args />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-clone-pull">
+		<attribute name="repository" />
+		<attribute name="dest" />
+		<sequential>
+			<git command="clone">
+				<args>
+					<arg value="@{repository}" />
+					<arg value="@{dest}" />
+				</args>
+			</git>
+			<git command="pull" dir="@{dest}" />
+		</sequential>
+	</macrodef>
+	
+	<target name="commit">
+		<git command="commit" dir="${basedir}">
+			<args>
+				<arg value="m" />
+				<arg value="[Auto Build Toolkit ${version}${build.int}]" />
+			</args>
+		</git>
+	</target>
+	
+	<target name="push-remote" depends="commit">
+		
+	</target>
+</project>
