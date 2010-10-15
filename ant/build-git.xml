@@ -50,7 +50,6 @@
 				<arg value="." />
 				<arg value="-m" />
 				<arg value="[Auto Build] ${project.name} ${version}${build.int}" />
-				<arg value="--author=${author}" />
 			</args>
 		</git>
 	</target>
