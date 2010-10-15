@@ -44,6 +44,7 @@
 		<echo message="[Auto Build ] Tag Toolkit Release ${version}${build.int}] " />
 		<git command="tag" dir="${basedir}">
 			<args>
+				<arg value="${version}${build.int}" />
 				<arg value="-m" />
 				<arg value="[Auto Tag Toolkit Release ${version}${build.int}]" />
 			</args>
