@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.decorators.layout 
+package com.wezside.components.decorators.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
@@ -28,45 +28,44 @@ package com.wezside.components.decorators.layout
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class VerticalLayout extends Layout 
+	public class VerticalLayout extends Layout
 	{
-
 		private var yOffset:int = 0;
-		
 
 		public function VerticalLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
 		}
 
-		override public function arrange():void
-		{									
-			// Iterate over rest of the children and layout vertically
+		override public function arrange() : void
+		{
+			// Iterate over rest of the children and layout horizontally
 			yOffset = 0;
 			yOffset += top;
-			
-			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );			
+			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			var child:DisplayObject;
 			while ( it.hasNext())
 			{
-				var child:DisplayObject = it.next() as DisplayObject;
+				child = DisplayObject( it.next() );
 				child.y = yOffset | 0;
 				yOffset += child.height;
-				if ( it.hasNext() ) yOffset += verticalGap;
+				if ( it.hasNext() )
+					yOffset += verticalGap;
 			}
 			
-			// Left and right properties will be zero if VerticalLayout is the first decorator however
-			// if it isn't then we need to update the width + height correctly with the padding properties in 
-			// case they were used 
-	 		width = decorated.width + left + right;
-			height = yOffset - verticalGap + bottom;
-			if ( it.length() > 1 ) height -= verticalGap;
-			
+			// Left and right properties will be zero if VerticalLayout is the first decorator
+			// however if it isn't then we need to update the width + height correctly with 
+			// the padding properties in case they were used 
+			width = decorated.width + left + right;
+			height = yOffset + bottom;
+			if ( it.length() > 1 )
+				height -= verticalGap;
+				
+			// Clean up
 			it.purge();
 			it = null;
-			child = null;			
-			
+			child = null;
 			super.arrange();
 		}
-
 	}
 }
