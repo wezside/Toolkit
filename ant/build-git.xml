@@ -61,7 +61,6 @@
 				<arg value="${version}${build.int}" />
 				<arg value="-m" />
 				<arg value="[Auto Tag ${project.name} Release ${version}${build.int}]" />
-				<arg value="--author=${author}" />
 			</args>
 		</git>
 	</target>
