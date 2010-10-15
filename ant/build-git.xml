@@ -21,7 +21,7 @@
 		<attribute name="src" />
 		<attribute name="dest" />
 		<sequential>
-			<git command="push">
+			<git command="push" dir="${basedir}">
 				<args>
 					<arg value="@{src}" />
 					<arg value="@{dest}" />
@@ -40,7 +40,7 @@
 
 		<git command="add" dir="${basedir}">
 			<args>
-				<arg value="*.as" />
+				<arg value="*.*" />
 			</args>
 		</git>
 
