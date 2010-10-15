@@ -50,7 +50,7 @@
 				<arg value="." />
 				<arg value="-m" />
 				<arg value="[Auto Build] Toolkit ${version}${build.int}" />
-				<arg value="--author=${author}" />		
+				<arg value="--author=${author}" /> 		
 			</args>
 		</git>
 	</target>
@@ -69,6 +69,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git-push path="${basedir}" branch="origin" head="master" />
+		<git-push path="${basedir}" branch="master" head="origin" />
 	</target>
 </project>
