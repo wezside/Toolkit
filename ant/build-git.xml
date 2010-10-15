@@ -30,26 +30,24 @@
 				<arg value="*.as" />
 			</args>
 		</git>
-		
+
 		<git command="commit" dir="${basedir}">
 			<args>
 				<arg value="." />
 				<arg value="-m" />
-				<arg value="[Auto Build Toolkit ${version}${build.int}]" />
+				<arg value="[Auto Build] Toolkit ${version}${build.int}" />
 			</args>
 		</git>
 	</target>
 
 	<target name="tag" if="tag.release" depends="commit">
 		<echo message="[Auto Build ] Tag Toolkit Release ${version}${build.int}] " />
-		<!--
-			<git command="tag" dir="${basedir}">
-				<args>
-					<arg value="m" />
-					<arg value="[Auto Tag Toolkit Release ${version}${build.int}]" />
-				</args>
-			</git>
-		-->
+		<git command="tag" dir="${basedir}">
+			<args>
+				<arg value="-m" />
+				<arg value="[Auto Tag Toolkit Release ${version}${build.int}]" />
+			</args>
+		</git>
 	</target>
 
 
