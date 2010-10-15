@@ -12,3 +12,4 @@ swc.base=F\:/Resources/Flash/Library/Toolkit
 swc.output.file=${swc.path}/wezside.toolkit.${version}${build.int}.swc
 swc.path=${basedir}/swc/
 version=0.1.
+author=wezside
