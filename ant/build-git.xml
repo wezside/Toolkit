@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Git Build" default="push-remote" basedir="..">
 
+	<property file="ant/.git-properties" />
 	<property file="ant/.toolkit-properties" />
-
 
 	<macrodef name="git">
 		<attribute name="command" />
@@ -11,7 +11,7 @@
 		<sequential>
 			<echo message="git @{command} " />
 			<exec executable="${GIT_HOME}/git" dir="@{dir}">
-				<env key="HOME" value="C:\Documents and Settings\WSwanepoel"/>
+				<env key="HOME" value="${git.config}"/>
 				<arg value="@{command}" />
 				<args />
 			</exec>
