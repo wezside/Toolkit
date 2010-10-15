@@ -37,7 +37,7 @@
 			<matches pattern="([0-9][0-9][0-9]0)" string="${build.int}" />
 		</condition>
 
-		<echo message="[Auto Build] Commit Toolkit Release ${version}${build.int}" />
+		<echo message="[Auto Build] Commit ${project.name} Release ${version}${build.int}" />
 
 		<git command="add" dir="${basedir}">
 			<args>
@@ -49,19 +49,19 @@
 			<args>
 				<arg value="." />
 				<arg value="-m" />
-				<arg value="[Auto Build] Toolkit ${version}${build.int}" />
+				<arg value="[Auto Build] ${project.name} ${version}${build.int}" />
 				<arg value="--author=${author}" />
 			</args>
 		</git>
 	</target>
 
 	<target name="tag" if="tag.release" depends="commit">
-		<echo message="[Auto Build ] Tag Toolkit Release ${version}${build.int}] " />
+		<echo message="[Auto Build ] Tag ${project.name} Release ${version}${build.int}] " />
 		<git command="tag" dir="${basedir}">
 			<args>
 				<arg value="${version}${build.int}" />
 				<arg value="-m" />
-				<arg value="[Auto Tag Toolkit Release ${version}${build.int}]" />
+				<arg value="[Auto Tag ${project.name} Release ${version}${build.int}]" />
 				<arg value="--author=${author}" />
 			</args>
 		</git>

@@ -5,9 +5,13 @@
 	<target name="build-all">
 		
 		<subant genericantfile="${basedir}/ant/build-toolkit.xml" buildpath="." />
-		<subant genericantfile="${basedir}/../Modulo/ant/build.xml" buildpath="${basedir}/../Modulo/" />
-		<subant genericantfile="${basedir}/../Modulo-GH-Pages/ant/build.xml" buildpath="${basedir}/../Modulo-GH-Pages/" />		
 		<subant genericantfile="${basedir}/ant/build-git.xml"  buildpath="." />
+		
+		<subant genericantfile="${basedir}/../Modulo/ant/build.xml" buildpath="${basedir}/../Modulo/" />
+		<subant genericantfile="${basedir}/../Modulo/ant/build-git.xml"  buildpath="${basedir}/../Modulo/" />
+		
+		<subant genericantfile="${basedir}/../Modulo-GH-Pages/ant/build.xml" buildpath="${basedir}/../Modulo-GH-Pages/" />		
+		<subant genericantfile="${basedir}/../Modulo-GH-Pages/ant/build-git.xml"  buildpath="${basedir}/../Modulo-GH-Pages/" />
 		
 	</target>
 	
