@@ -30,7 +30,6 @@
 		</sequential>
 	</macrodef>
 
-
 	<target name="commit">
 
 		<condition property="tag.release">
