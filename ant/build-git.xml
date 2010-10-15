@@ -17,14 +17,15 @@
 		</sequential>
 	</macrodef>
 
-	<macrodef name="git-push-remote">
-		<attribute name="src" />
-		<attribute name="dest" />
+	<macrodef name="git-push">
+		<attribute name="path" />
+		<attribute name="branch" />
+		<attribute name="head" />
 		<sequential>
-			<git command="push" dir="${basedir}">
+			<git command="push" dir="@{path}">
 				<args>
-					<arg value="@{src}" />
-					<arg value="@{dest}" />
+					<arg value="@{branch}" />
+					<arg value="@{head}" />
 				</args>
 			</git>
 		</sequential>
@@ -66,6 +67,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git-push-remote src="origin" dest="master" />
+		<git-push path="${basedir}" branch="origin" head="master" />
 	</target>
 </project>
