@@ -1,0 +1,6 @@
+#Fri Oct 15 16:15:06 BST 2010
+#Update build version
+GIT_HOME=c\:/Program Files/Git/bin
+git.config=c\:/Documents and Settings/WSwanepoel
+author=wezside
+project.name=Toolkit

@@ -41,7 +41,7 @@
 
 		<git command="add" dir="${basedir}">
 			<args>
-				<arg value="*.*" />
+				<arg value="." />
 			</args>
 		</git>
 
