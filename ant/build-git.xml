@@ -69,6 +69,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git-push path="${basedir}" branch="refs/heads/master" head="origin" />
+		<git-push path="${basedir}" branch="${basedir}" head="origin" />
 	</target>
 </project>
