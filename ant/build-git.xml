@@ -17,19 +17,19 @@
 		</sequential>
 	</macrodef>
 
-	<macrodef name="git-push">
-		<attribute name="path" />
+	<macrodef name="git-push-to-branch">
 		<attribute name="branch" />
-		<attribute name="head" />
+		<attribute name="remoteRepositoryName" />
 		<sequential>
-			<git command="push" dir="@{path}">
+			<git command="push" dir="${basedir}">
 				<args>
+					<arg value="@{remoteRepositoryName}" />
 					<arg value="@{branch}" />
-					<arg value="@{head}" />
 				</args>
 			</git>
 		</sequential>
 	</macrodef>
+
 
 	<target name="commit">
 
@@ -38,6 +38,16 @@
 		</condition>
 
 		<echo message="[Auto Build] Commit Toolkit Release ${version}${build.int}" />
+
+		<git command="config " dir="${basedir}">
+			<args>
+				<arg value="--global" />
+				<arg value="user.name" />
+				<arg value="wezside" />
+				<arg value="user.email" />
+				<arg value="wesley@wezside.co.za" />
+			</args>
+		</git>
 
 		<git command="add" dir="${basedir}">
 			<args>
@@ -69,6 +79,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git-push path="${basedir}" branch="master" head="origin" />
+		<git-push-to-branch branch="master" remoteRepositoryName="origin" />
 	</target>
 </project>
