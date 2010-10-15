@@ -36,27 +36,25 @@ package test.com.wezside.components
 		{						
 			x = 20;
 			y = 20;				
+			background = new ShapeRectangle( this );
+			background.colours = [ 0, 0 ];
+			background.alphas = [ 1, 1 ];
+			background.cornerRadius = 0;			
 			
 			layout = new PaddedLayout( this ); 
 			layout.bottom = 15;		
 			layout.left = 15;
-			layout.top = 15;
 			layout.right = 15;
+			layout.top = 15;
 			
-//			layout = new VerticalLayout( this.layout );
-//			layout.horizontalGap = 3;
+			layout = new VerticalLayout( this.layout );
+			layout.verticalGap = 3;
 
-			layout = new GridReflectionLayout( this.layout );
-			GridReflectionLayout( layout ).columns = 2;
-			GridReflectionLayout( layout ).rows = 3;
-			GridReflectionLayout( layout ).largestItemWidth = 200;
-			GridReflectionLayout( layout ).largestItemHeight = 50;
-						
-				
-			background = new ShapeRectangle( this );
-			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1 ];
-			background.cornerRadius = 20;			
+//			layout = new GridReflectionLayout( this.layout );
+//			GridReflectionLayout( layout ).columns = 2;
+//			GridReflectionLayout( layout ).rows = 3;
+//			GridReflectionLayout( layout ).largestItemWidth = 200;
+//			GridReflectionLayout( layout ).largestItemHeight = 50;
 
 			/*						
 			scroll = new ScrollHorizontal( this );

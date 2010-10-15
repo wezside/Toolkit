@@ -37,7 +37,7 @@ package com.wezside.components.decorators.layout
 			super( decorated );
 		}
 
-		override public function arrange() : void
+		override public function arrange():void
 		{
 			// Iterate over rest of the children and layout horizontally
 			yOffset = 0;
@@ -58,6 +58,7 @@ package com.wezside.components.decorators.layout
 			// the padding properties in case they were used 
 			width = decorated.width + left + right;
 			height = yOffset + bottom;
+			
 			if ( it.length() > 1 )
 				height -= verticalGap;
 				

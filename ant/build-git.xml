@@ -17,30 +17,37 @@
 		</sequential>
 	</macrodef>
 
-	<macrodef name="git-clone-pull">
-		<attribute name="repository" />
-		<attribute name="dest" />
-		<sequential>
-			<git command="clone">
-				<args>
-					<arg value="@{repository}" />
-					<arg value="@{dest}" />
-				</args>
-			</git>
-			<git command="pull" dir="@{dest}" />
-		</sequential>
-	</macrodef>
-	
 	<target name="commit">
+		<!--Test for tag -->
+	    <condition property="tag.release">
+	    	<equals arg1="${build.int}" arg2="0172" />
+	    </condition>
+		<echo message="[Auto Build] Commit Toolkit Release ${version}${build.int} ${tag.release} ${build.int}"/>
+		<!--
 		<git command="commit" dir="${basedir}">
 			<args>
 				<arg value="m" />
 				<arg value="[Auto Build Toolkit ${version}${build.int}]" />
 			</args>
 		</git>
+		-->
+
 	</target>
 	
-	<target name="push-remote" depends="commit">
-		
+	<target name="tag" if="${tag.release}" depends="commit">
+	    <echo message="[Auto Build ] Tag Toolkit Release ${version}${build.int}] "/>
+		<!--
+			<git command="tag" dir="${basedir}">
+				<args>
+					<arg value="m" />
+					<arg value="[Auto Tag Toolkit Release ${version}${build.int}]" />
+				</args>
+			</git>
+		-->		
+	</target>
+	
+	
+	<target name="push-remote" depends="tag">
+		<echo message="Pushing to remote repository" />
 	</target>
 </project>
