@@ -38,7 +38,7 @@
 
 		<echo message="[Auto Build] Commit Toolkit Release ${version}${build.int}" />
 
-		<git command="config " dir="${basedir}">
+		<git command="config" dir="${basedir}">
 			<args>
 				<arg value="--global" />
 				<arg value="user.name" />
@@ -59,7 +59,7 @@
 				<arg value="." />
 				<arg value="-m" />
 				<arg value="[Auto Build] Toolkit ${version}${build.int}" />
-				<arg value="--author=${author}" /> 		
+				<arg value="--author=${author}" />
 			</args>
 		</git>
 	</target>
@@ -71,7 +71,7 @@
 				<arg value="${version}${build.int}" />
 				<arg value="-m" />
 				<arg value="[Auto Tag Toolkit Release ${version}${build.int}]" />
-				<arg value="--author=${author}" />		
+				<arg value="--author=${author}" />
 			</args>
 		</git>
 	</target>
