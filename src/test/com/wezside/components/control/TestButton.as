@@ -135,8 +135,7 @@ package test.com.wezside.components.control
 			assertEquals( 200, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 87.5, button.icon.x );
-			assertEquals( 2.8, button.icon.y );
-			
+			assertEquals( 2.8, button.icon.y );			
 		}
 		
 		private function styleReadyWithIconCenterLeft( event:Event, object:Object ):void

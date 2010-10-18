@@ -52,9 +52,9 @@ package com.wezside.components.decorators.layout
 					child.x += left;
 					child.y += top;
 				}
-				
 				width = int( decorated.width + left + right ) | 0;
 				height = int( decorated.height + top + bottom ) | 0;
+				trace( width );
 			}
 			super.arrange();
 		}

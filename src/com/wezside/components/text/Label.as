@@ -51,7 +51,7 @@ package com.wezside.components.text
 			layout = new PaddedLayout(this.layout);
 			fmt = new TextFormat();
 			field = new TextField();
-			addChild(field);
+			addChild( field );
 		}
 
 		override public function arrange() : void

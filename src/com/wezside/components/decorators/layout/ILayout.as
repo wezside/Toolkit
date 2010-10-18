@@ -27,6 +27,12 @@ package com.wezside.components.decorators.layout
 	public interface ILayout extends IUIDecorator
 	{
 		
+		function get x():Number;
+		function set x( value:Number ):void;
+		
+		function get y():Number;
+		function set y( value:Number ):void;
+		
 		function get top():int
 		function set top( value:int ):void
 		

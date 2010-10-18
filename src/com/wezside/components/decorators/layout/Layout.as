@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.decorators.layout 
+package com.wezside.components.decorators.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
@@ -31,7 +31,7 @@ package com.wezside.components.decorators.layout
 	 * @author Wesley.Swanepoel
 	 */
 	public class Layout extends EventDispatcher implements ILayout
-	{	
+	{
 		// Top placement
 		public static const PLACEMENT_TOP_LEFT:String = "placementTopLeft";
 		public static const PLACEMENT_TOP_CENTER:String = "placementTopCenter";
@@ -45,8 +45,10 @@ package com.wezside.components.decorators.layout
 		// Bottom placement
 		public static const PLACEMENT_BOTTOM_LEFT:String = "placementBottomLeft";
 		public static const PLACEMENT_BOTTOM_CENTER:String = "placementBottomCenter";
-		public static const PLACEMENT_BOTTOM_RIGHT:String = "placementBottomRight";		
-
+		public static const PLACEMENT_BOTTOM_RIGHT:String = "placementBottomRight";
+		
+		private var _x:Number;
+		private var _y:Number;
 		private var _verticalGap:int;
 		private var _horizontalGap:int;
 		private var _top:int;
@@ -58,9 +60,9 @@ package com.wezside.components.decorators.layout
 		
 		protected var decorated:IUIDecorator;
 		protected var placementState:StateManager;
-		
-		public function Layout( decorated:IUIDecorator ) 
-		{			
+
+		public function Layout( decorated:IUIDecorator )
+		{
 			this.decorated = decorated;
 			placementState = new StateManager();
 			placementState.addState( PLACEMENT_TOP_LEFT );
@@ -71,102 +73,113 @@ package com.wezside.components.decorators.layout
 			placementState.addState( PLACEMENT_CENTER );
 			placementState.addState( PLACEMENT_BOTTOM_LEFT );
 			placementState.addState( PLACEMENT_BOTTOM_CENTER );
-			placementState.addState( PLACEMENT_BOTTOM_RIGHT );	
+			placementState.addState( PLACEMENT_BOTTOM_RIGHT );
 		}
-		
+
 		public function arrange():void
 		{
 			// Copy property values from previous ILayout decorator only if it wasn't explicitely set
 			if ( decorated is ILayout )
 			{
-				if ( left != 0 ) ILayout( decorated ).left = left;
-				if ( top != 0 ) ILayout( decorated ).top = top;
-				if ( right != 0 ) ILayout( decorated ).right = right;
-				if ( bottom != 0 ) ILayout( decorated ).bottom = bottom;
-				if ( verticalGap != 0 ) ILayout( decorated ).verticalGap = verticalGap;
-				if ( horizontalGap != 0 ) ILayout( decorated ).horizontalGap = horizontalGap;
-				
+				if ( left != 0 )
+					ILayout( decorated ).left = left;
+				if ( top != 0 )
+					ILayout( decorated ).top = top;
+				if ( right != 0 )
+					ILayout( decorated ).right = right;
+				if ( bottom != 0 )
+					ILayout( decorated ).bottom = bottom;
+				if ( verticalGap != 0 )
+					ILayout( decorated ).verticalGap = verticalGap;
+				if ( horizontalGap != 0 )
+					ILayout( decorated ).horizontalGap = horizontalGap;
 			}
 			if ( decorated is IUIElement )
 			{
-				if ( left != 0 ) IUIElement( decorated ).layout.left = left;
-				if ( top != 0 ) IUIElement( decorated ).layout.top = top;
-				if ( right != 0 ) IUIElement( decorated ).layout.right = right;
-				if ( bottom != 0 ) IUIElement( decorated ).layout.bottom = bottom;
-				if ( verticalGap != 0 ) IUIElement( decorated ).layout.verticalGap = verticalGap;
-				if ( horizontalGap != 0 ) IUIElement( decorated ).layout.horizontalGap = horizontalGap;
+				if ( left != 0 )
+					IUIElement( decorated ).layout.left = left;
+				if ( top != 0 )
+					IUIElement( decorated ).layout.top = top;
+				if ( right != 0 )
+					IUIElement( decorated ).layout.right = right;
+				if ( bottom != 0 )
+					IUIElement( decorated ).layout.bottom = bottom;
+				if ( verticalGap != 0 )
+					IUIElement( decorated ).layout.verticalGap = verticalGap;
+				if ( horizontalGap != 0 )
+					IUIElement( decorated ).layout.horizontalGap = horizontalGap;
 			}
-		
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
-			if ( decorated.iterator().hasNext( )) decorated.arrange();
+			if ( decorated.iterator().hasNext())
+				decorated.arrange();
 		}
-		
+
 		public function reset():void
 		{
 		}
-		
+
 		public function iterator( type:String = null ):IIterator
 		{
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
-		
+
 		public function get top():int
 		{
 			return _top;
 		}
-		
+
 		public function get bottom():int
 		{
 			return _bottom;
 		}
-		
+
 		public function get left():int
 		{
 			return _left;
 		}
-		
+
 		public function get right():int
 		{
 			return _right;
 		}
-		
+
 		public function get horizontalGap():int
 		{
 			return _horizontalGap;
 		}
-		
+
 		public function get verticalGap():int
 		{
 			return _verticalGap;
 		}
-		
-		public function set top(value:int):void
+
+		public function set top( value:int ):void
 		{
 			_top = value;
 		}
-		
-		public function set bottom(value:int):void
+
+		public function set bottom( value:int ):void
 		{
 			_bottom = value;
 		}
-		
-		public function set left(value:int):void
+
+		public function set left( value:int ):void
 		{
 			_left = value;
 		}
-		
-		public function set right(value:int):void
+
+		public function set right( value:int ):void
 		{
 			_right = value;
 		}
-		
-		public function set horizontalGap(value:int):void
+
+		public function set horizontalGap( value:int ):void
 		{
 			_horizontalGap = value;
 		}
 
-		public function set verticalGap(value:int):void
+		public function set verticalGap( value:int ):void
 		{
 			_verticalGap = value;
 		}
@@ -175,30 +188,50 @@ package com.wezside.components.decorators.layout
 		{
 			return _width;
 		}
-		
+
 		public function get height():Number
 		{
 			return _height;
 		}
-		
-		public function set width(value:Number):void
+
+		public function set width( value:Number ):void
 		{
 			_width = value;
 		}
-		
-		public function set height(value:Number):void
+
+		public function set height( value:Number ):void
 		{
 			_height = value;
 		}
-		
+
 		public function get placement():String
 		{
 			return placementState.stateKey;
 		}
-		
+
 		public function set placement( value:String ):void
 		{
 			placementState.stateKey = value;
+		}
+
+		public function get x():Number
+		{
+			return _x;
+		}
+
+		public function get y():Number
+		{
+			return _y;
+		}
+
+		public function set x( value:Number ):void
+		{
+			_x = value;
+		}
+
+		public function set y( value:Number ):void
+		{
+			_y = value;
 		}
 	}
 }

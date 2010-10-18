@@ -11,7 +11,6 @@ package test.com.wezside.components.control
 	import com.wezside.components.decorators.layout.Layout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
-	import com.wezside.components.decorators.shape.ShapeRectangle;
 	import com.wezside.components.text.Label;
 
 	import flash.events.Event;
@@ -34,40 +33,37 @@ package test.com.wezside.components.control
 
 		override public function build():void 
 		{	
-			label = new Label();
-			label.text = "UIElement Button Example";
-			label.styleName = "labelButton";
-			label.styleManager = styleManager;
-			label.selectable = false;
-			label.build();
-			label.setStyle();
-			label.arrange();
-			addChild( label );		
-				
-			var packageLabel:Label = new Label();
-			packageLabel.text = "com.wezside.components.control.Button";
-			packageLabel.styleName = "packageLabelButton";
-			packageLabel.styleManager = styleManager;
-			packageLabel.width = 400;
-			packageLabel.selectable = false;
-			packageLabel.build();
-			packageLabel.setStyle();
-			packageLabel.arrange();
-			addChild( label );			
+//			label = new Label();
+//			label.text = "UIElement Button Example";
+//			label.styleName = "labelButton";
+//			label.styleManager = styleManager;
+//			label.selectable = false;
+//			label.build();
+//			label.setStyle();
+//			label.arrange();
+//			addChild( label );		
+//				
+//			var packageLabel:Label = new Label();
+//			packageLabel.text = "com.wezside.components.control.Button";
+//			packageLabel.styleName = "packageLabelButton";
+//			packageLabel.styleManager = styleManager;
+//			packageLabel.width = 400;
+//			packageLabel.selectable = false;
+//			packageLabel.build();
+//			packageLabel.setStyle();
+//			packageLabel.arrange();
+//			addChild( label );			
 			
-			createPropertyButtons();
+//			createPropertyButtons();
 
 			button = new Button();
 			button.interactive = new InteractiveSelectable( button );
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.width = 250;
-//			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec, Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.Lorem ipsum dolor sit amet, nunc a nonummy nec, nulla nibh sed class, sed duis suspendisse.";
-			button.text = "Lorem ipsum dolor sit amet, nunc a nonummy nec";
-			button.layout = new PaddedLayout( button.layout );
+			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_CENTER;
+			button.iconPlacement = Layout.PLACEMENT_BOTTOM_RIGHT;
 			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();
@@ -88,18 +84,6 @@ package test.com.wezside.components.control
 			hbox.layout.horizontalGap = 10;
 			hbox.layout = new PaddedLayout( hbox.layout );
 			hbox.layout.top = 0;
-
-			autoSkinSizeButton = new Button( );
-			autoSkinSizeButton.interactive = new InteractiveSelectable( autoSkinSizeButton );
-			autoSkinSizeButton.styleName = "button";
-			autoSkinSizeButton.styleManager = styleManager;
-			autoSkinSizeButton.text = "AutoSizeSkin Off";
-			autoSkinSizeButton.build();
-			autoSkinSizeButton.setStyle();
-			autoSkinSizeButton.arrange();
-			autoSkinSizeButton.activate( );
-			autoSkinSizeButton.addEventListener( UIElementEvent.STATE_CHANGE, autoSkinSizeHandler );
-			addChild( autoSkinSizeButton );
 						
 			hbox.addChild( createAlignButton( "Top Left" ));
 			hbox.addChild( createAlignButton( "Top Center" ));
@@ -137,10 +121,11 @@ package test.com.wezside.components.control
 		private function createAlignButton( text:String ):UIElement
 		{
 			var iconAlignButton:Button = new Button( );
+			iconAlignButton.iconStyleName = "test";
 			iconAlignButton.styleName = "alignButton";
 			iconAlignButton.styleManager = styleManager;
+			iconAlignButton.autoSkinSize = true;
 			iconAlignButton.text = text;
-			iconAlignButton.width = 100;
 			iconAlignButton.build();
 			iconAlignButton.setStyle();
 			iconAlignButton.arrange();
@@ -188,14 +173,14 @@ package test.com.wezside.components.control
 		
 		private function stageInit( event:Event ):void 
 		{			
-			layout = new VerticalLayout( this );
-			layout.verticalGap = 10;
-						
-			layout = new PaddedLayout( this.layout ); 
-			layout.bottom = 15;		
-			layout.left = 15;
-			layout.top = 15;
-			layout.right = 15;			
+//			layout = new VerticalLayout( this );
+//			layout.verticalGap = 10;
+//						
+//			layout = new PaddedLayout( this.layout ); 
+//			layout.bottom = 15;		
+//			layout.left = 15;
+//			layout.top = 15;
+//			layout.right = 15;			
 			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, styleReady );
