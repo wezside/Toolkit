@@ -60,14 +60,14 @@ MockUIElement {
 	textColourSelected: #ff0000;
 	align: left;
 	autoSize: left;
-	paddingLeft: 50;
-	paddingRight: 50;
-	paddingBottom: 50;
-	paddingTop: 50;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingBottom: 0;
+	paddingTop: 0;
 	wordWrap: true;
 	multiline: true;
 	border: false;
-	borderColor: #ff0000;
+	borderColor: #cccccc;
 }
 
 .iconStylename
@@ -78,7 +78,7 @@ MockUIElement {
 	selectedSkin: IconSelected;
 	paddingTop: 0;
 	paddingBottom: 0;
-	paddingLeft: 0;
+	paddingLeft: 50;
 	paddingRight: 0;
 }
 

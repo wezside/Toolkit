@@ -31,12 +31,12 @@ package com.wezside.components.control
 		{
 			super.build( );
 			_icon.build();
-			_icon.setStyle();
+			_icon.setStyle();			
 		}
 
 		override public function arrange():void 
 		{							
-			// Apply icon decorators
+			// Apply icon layout decorators
 			_icon.arrange();
 			
 			// Set the 9-grid placement to use

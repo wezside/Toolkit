@@ -63,7 +63,7 @@ package test.com.wezside.components.control
 			button.styleName = "button";
 			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_BOTTOM_RIGHT;
+			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
 			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();

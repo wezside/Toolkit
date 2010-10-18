@@ -50,7 +50,7 @@ package com.wezside.components.decorators.layout
 					break;
 					
 				case PLACEMENT_CENTER_LEFT:
-					_target.x = left;
+					_target.x += left;
 					_anchor.y = top;					
 					_target.y = _anchor.y + ( diffH  ) * 0.5;
 					_anchor.x = _target.x + _target.width;
