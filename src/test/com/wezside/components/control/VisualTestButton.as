@@ -63,7 +63,7 @@ package test.com.wezside.components.control
 			button.styleName = "button";
 			button.text = "Lorem ipsum doler et";
 			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
+			button.iconPlacement = Layout.PLACEMENT_CENTER_RIGHT;
 			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();
@@ -190,6 +190,8 @@ package test.com.wezside.components.control
 		{
 			build();
 			arrange();
+			
+			trace( button.icon.y );
 		}		
 
 		private function stateChange( event:UIElementEvent ):void 
