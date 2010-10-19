@@ -78,7 +78,7 @@ MockUIElement {
 	selectedSkin: IconSelected;
 	paddingTop: 0;
 	paddingBottom: 0;
-	paddingLeft: 50;
+	paddingLeft: 0;
 	paddingRight: 0;
 }
 

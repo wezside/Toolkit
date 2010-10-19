@@ -148,6 +148,7 @@ package com.wezside.components
 		
 		public function setStyle():void
 		{
+			trace( this );
 			// If this has a styleName then apply the styles
 			if ( _styleName && styleManager )
 				setProperties( this, _styleName );

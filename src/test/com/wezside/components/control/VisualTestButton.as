@@ -61,7 +61,7 @@ package test.com.wezside.components.control
 			button.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			button.styleManager = styleManager;
 			button.styleName = "button";
-			button.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+			button.text = "Lorem ipsum doler et";
 			button.iconStyleName = "iconStylename";
 			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
 			button.autoSkinSize = true;

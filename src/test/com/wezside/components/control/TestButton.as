@@ -233,7 +233,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 0, button.icon.x );
-			assertEquals( 5.65, button.icon.y );			
+			assertEquals( 30.7, button.icon.y );
 		}
 		
 		private function styleReadyWithIconBottomCenter( event:Event, object:Object ):void
@@ -249,7 +249,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 87.5, button.icon.x );
-			assertEquals( 5.65, button.icon.y );			
+			assertEquals( 30.7, button.icon.y );			
 		}
 		
 		private function styleReadyWithIconBottomRight( event:Event, object:Object ):void

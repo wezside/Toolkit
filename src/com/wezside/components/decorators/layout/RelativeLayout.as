@@ -1,5 +1,6 @@
 package com.wezside.components.decorators.layout 
 {
+	import flash.geom.Rectangle;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 
@@ -34,91 +35,141 @@ package com.wezside.components.decorators.layout
 		{		
 			
 			super.arrange();
-				
-			var diffW:Number = _anchor.width - _target.width;
-			var diffH:Number = _anchor.height - _target.height;
+			
+			var targetPaddingLeft:Number = _target is IUIElement ? IUIElement( _target ).layout.left : 0;
+			var targetPaddingRight:Number = _target is IUIElement ? IUIElement( _target ).layout.right : 0;
+			var targetPaddingTop:Number = _target is IUIElement ? IUIElement( _target ).layout.top : 0;
+			var targetPaddingBottom:Number = _target is IUIElement ? IUIElement( _target ).layout.bottom : 0;
+
+			var targetRect:Rectangle = new Rectangle( 0, 0, _target.width + targetPaddingLeft + targetPaddingRight, _target.height + targetPaddingTop + targetPaddingBottom );
+			var anchorRect:Rectangle = new Rectangle( 0, 0, _anchor.width + left + right, _anchor.height + top + bottom );
+			
+			var maxW:Number = 0;
+			var maxH:Number = 0;			
 			
 			switch ( placementState.stateKey )
 			{
 				case PLACEMENT_CENTER:
-					_anchor.x = left;
-					_anchor.y = top;
-					_target.x = _anchor.x + ( diffW ) * 0.5;
-					_target.y = _anchor.y + ( diffH ) * 0.5;
-					width = _anchor.x + _anchor.width + right;
-					height = _anchor.y + _anchor.height + bottom;
-					break;
-					
 				case PLACEMENT_CENTER_LEFT:
-					_target.x += left;
-					_anchor.y = top;					
-					_target.y = _anchor.y + ( diffH  ) * 0.5;
-					_anchor.x = _target.x + _target.width;
-					width = _anchor.x + _anchor.width + right;
-					height = _anchor.y + _anchor.height + bottom;
-					break;
-					
 				case PLACEMENT_CENTER_RIGHT:
-					_anchor.x = left;
-					_anchor.y = top;
-					_target.x = _anchor.x + _anchor.width;
-					_target.y = _anchor.y + ( diffH ) * 0.5;
-					width = _anchor.x + _anchor.width + _target.width + right;
-					height = _anchor.y + _anchor.height + bottom;
+				case PLACEMENT_TOP_CENTER:
+				case PLACEMENT_BOTTOM_CENTER:
+					maxW = Math.max( targetRect.width, anchorRect.width );
+					maxH = Math.max( targetRect.height, anchorRect.height );
+					break;
+				case PLACEMENT_TOP_LEFT:
+				case PLACEMENT_TOP_RIGHT:
+				case PLACEMENT_BOTTOM_LEFT:
+				case PLACEMENT_BOTTOM_RIGHT:
+					maxW = targetRect.width + anchorRect.width;
+					maxH = targetRect.height + anchorRect.height;
+					break;
+			}
+			
+			switch ( placementState.stateKey )
+			{
+				case PLACEMENT_CENTER:
+									
+					_target.x = ( maxW - _target.width ) * 0.5;
+					_target.y = ( maxH - _target.height ) * 0.5;
+					
+					_anchor.x = ( maxW - _anchor.width ) * 0.5;
+					_anchor.y = ( maxH - _anchor.height ) * 0.5;
+					
+					width = maxW;
+					height = maxH;
 					break;
 					
 				case PLACEMENT_TOP_CENTER:
-					_target.x = _anchor.x + ( diffW ) * 0.5;
-					_target.y = top;
-					_anchor.x = left;
-					_anchor.y = _target.y + _target.height;
-					width = _anchor.x + _anchor.width + right;
-					height = _target.y +_target.height + _anchor.height + bottom;
-					break;
+				
+					_target.x = ( maxW - _target.width ) * 0.5;
+					_target.y = targetPaddingTop;
 					
-				case PLACEMENT_TOP_RIGHT:
-				    _anchor.x = left;
-				    _anchor.y = _target.y + _target.height;
-					_target.x = _anchor.x + _anchor.width;
-					_target.y = top;
-					width = _anchor.x + _anchor.width + _target.width + right;
-					height = _anchor.y + _anchor.height + bottom;
-					break;
-					
-				case PLACEMENT_TOP_LEFT:
-					_target.x = left;
-					_target.y = top;
-					_anchor.x = _target.x + _target.width;
-					_anchor.y = _target.y + _target.height;
-					width = _anchor.x + _anchor.width + right;
-					height = _anchor.y + _anchor.height + bottom;
+					_anchor.x = ( maxW - _anchor.width ) * 0.5;
+					_anchor.y = _target.y + _target.height + targetPaddingBottom + top;
+				
+					width = maxW;
+					height =  _anchor.y + _anchor.height + bottom;
 					break;
 					
 				case PLACEMENT_BOTTOM_CENTER:
-					_anchor.x = left;
+				
+					_anchor.x = ( maxW - _anchor.width ) * 0.5;
 					_anchor.y = top;
-					_target.x = _anchor.x + ( diffW ) * 0.5;
-					_target.y = _anchor.y + _anchor.height;
-					width = _anchor.x + _anchor.width + right;
-					height = _target.y + _target.height + bottom;
+					
+					_target.x = ( maxW - _target.width ) * 0.5;
+					_target.y = _anchor.y + _anchor.height + targetPaddingTop + bottom;
+				
+					width = maxW;
+					height =  _target.y + _target.height + targetPaddingBottom;
 					break;
 
-				case PLACEMENT_BOTTOM_LEFT:
-					_target.x = left;
-					_target.y = _anchor.y + _anchor.height;
-					_anchor.x = _target.x + _target.width;
-					_anchor.y = top;
+				case PLACEMENT_CENTER_LEFT:
+					_target.x = targetPaddingLeft;
+					_target.y = ( maxH - _target.height ) * 0.5;
+					_anchor.x = _target.x + _target.width + targetPaddingRight + left;
+					_anchor.y = ( maxH - _anchor.height ) * 0.5;
+					
 					width = _anchor.x + _anchor.width + right;
-					height = _target.y + _target.height + bottom;
+					height = maxH;
+
+					break;
+					
+				case PLACEMENT_CENTER_RIGHT:
+				
+					_anchor.x = left;
+					_anchor.y = ( maxH - _anchor.height ) * 0.5;
+					_target.x = _anchor.x + _anchor.width + right + targetPaddingLeft;
+					_target.y = ( maxH - _target.height ) * 0.5;
+					width = _target.x + _target.width + targetPaddingRight;
+					height = maxH;				
+				
+					break;
+					
+					
+				case PLACEMENT_TOP_RIGHT:
+				
+					_anchor.x = left;					
+					_target.x = _anchor.x + _anchor.width + right + targetPaddingLeft;
+					_target.y = targetPaddingTop;
+					_anchor.y = _target.y + _target.height + targetPaddingBottom + top;
+					
+					width = maxW;
+					height = maxH;				
+					break;
+					
+				case PLACEMENT_TOP_LEFT:
+					_target.x = targetPaddingLeft;
+					_target.y = targetPaddingTop;
+					
+					_anchor.x = _target.x + _target.width + targetPaddingRight + left;
+					_anchor.y = _target.y + _target.height + targetPaddingBottom + top;
+				
+					width = maxW;
+					height = maxH;				
+					break;
+					
+				case PLACEMENT_BOTTOM_LEFT:
+				
+					_anchor.y = top;
+					_target.x = targetPaddingLeft;
+					
+					_target.y = _anchor.y + _anchor.height + targetPaddingTop + bottom;
+					_anchor.x = _target.x + _target.width + targetPaddingRight + left;
+				
+					width = maxW;
+					height = maxH;				
 					break;
 
 				case PLACEMENT_BOTTOM_RIGHT:
+				
 					_anchor.x = left;
 					_anchor.y = top;
-					_target.x = _anchor.x + _anchor.width;
-					_target.y = _anchor.y + _anchor.height;
-					width = _target.x + _target.width + right;
-					height = _target.y + _target.height + bottom;
+					_target.x = _anchor.x + _anchor.width + right + targetPaddingLeft;
+					_target.y = _anchor.y + _anchor.height + bottom + targetPaddingTop;
+				
+					width = maxW;
+					height = maxH;				
 					break;
 			}
 			
