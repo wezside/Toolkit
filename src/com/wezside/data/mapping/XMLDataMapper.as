@@ -37,13 +37,13 @@ package com.wezside.data.mapping
 	public class XMLDataMapper 
 	{
 
-		private var item:XMLDataItem;
 		private var _data:*;
+		private var _debug:Boolean;
+		private var item:XMLDataItem;
+		private var _strUtil:StringUtil;
 		private var _collection:XMLDataCollection;
 		private var _xmlCollection:XMLListCollection;
 		private var _xmlCollectionIterator:IIterator;
-		private var _debug:Boolean;
-		private var _strUtil:StringUtil;
 		private var _namespaces:DictionaryCollection;
 
 		public function XMLDataMapper() 
