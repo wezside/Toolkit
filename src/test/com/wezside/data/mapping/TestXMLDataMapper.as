@@ -62,10 +62,9 @@ package test.com.wezside.data.mapping
 			assertEquals( .6, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData(mapper.data).layout).find()).decorators).getElementAt(0)).widthRatio);			
 		}
 		
-		[Test][Ignore]
+		[Test]
 		public function testDataMapperWithNamespace():void
 		{					
-
 			mapper.addDataMap( SurveyData );
 			mapper.addDataMap( UIData, "component", "component" );
 			mapper.addDataMap( UIItemData, "item", "items" );
@@ -75,6 +74,19 @@ package test.com.wezside.data.mapping
 			assertNotNull( SurveyData( mapper.data ));
 			assertNotNull( SurveyData( mapper.data ).component );			
 			assertEquals( 1, SurveyData( mapper.data ).component.iterator().length() );
+		}
+		
+		[Test]
+		public function testDataMapperNamespaceCollection():void
+		{
+			mapper.addDataMap( SurveyData );
+			mapper.addDataMap( UIData, "component", "component" );
+			mapper.addDataMap( UIItemData, "item", "items" );
+			mapper.debug = true;
+			mapper.deserialize( xml );
+			
+			assertNotNull( SurveyData( mapper.data ));
+			assertEquals( "com.wezside.components.survey.style", mapper.namespaces.getElement( "style" ));						
 		}
 	}
 }

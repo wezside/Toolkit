@@ -19,14 +19,15 @@
  */
 package com.wezside.data.mapping 
 {
-	import com.wezside.utilities.string.StringUtil;
 	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.DictionaryCollection;
 	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.collection.XMLDataCollection;
 	import com.wezside.data.collection.XMLListCollection;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.XMLListIterator;
 	import com.wezside.utilities.logging.Tracer;
+	import com.wezside.utilities.string.StringUtil;
 
 	import flash.utils.getQualifiedClassName;
 
@@ -43,11 +44,13 @@ package com.wezside.data.mapping
 		private var _xmlCollectionIterator:IIterator;
 		private var _debug:Boolean;
 		private var _strUtil:StringUtil;
-		
+		private var _namespaces:DictionaryCollection;
+
 		public function XMLDataMapper() 
 		{
-			_strUtil = new StringUtil();
 			_debug = false;
+			_strUtil = new StringUtil();
+			_namespaces = new DictionaryCollection();
 			_collection = new XMLDataCollection( );
 		}
 
@@ -72,9 +75,10 @@ package com.wezside.data.mapping
 				_xmlCollection.collection = xml.children();			
 				_xmlCollectionIterator = _xmlCollection.iterator( );
 				build( _xmlCollectionIterator, _data );
+				buildNamespaceCollection( xml.namespaceDeclarations());	
 			}
 			else
-				throw new Error( "Must have a root Data class assigned" );
+				throw new Error( "Must have a root Data class assigned." );
 		}
 
 		public function get debug():Boolean
@@ -95,6 +99,16 @@ package com.wezside.data.mapping
 		public function get length():int
 		{
 			return _collection.length;
+		}
+
+		public function get namespaces():DictionaryCollection
+		{
+			return _namespaces;
+		}
+		
+		public function set namespaces( value:DictionaryCollection ):void
+		{
+			_namespaces = value;
 		}
 
 		public function toString():String 
@@ -162,6 +176,12 @@ package com.wezside.data.mapping
 					if ( iterator.hasNext( )) build( _xmlCollectionIterator, parent );
 				}
 			}
+		}
+				
+		private function buildNamespaceCollection( namespaceDeclarations:Array ):void 
+		{
+			for ( var i:int = 0; i < namespaceDeclarations.length; ++i ) 
+				_namespaces.addElement( Namespace( namespaceDeclarations[i] ).prefix, Namespace( namespaceDeclarations[i] ).uri );	
 		}
 	}
 }
