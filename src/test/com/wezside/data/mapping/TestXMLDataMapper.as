@@ -86,7 +86,7 @@ package test.com.wezside.data.mapping
 			mapper.deserialize( xml );
 			
 			assertNotNull( SurveyData( mapper.data ));
-			assertEquals( "com.wezside.components.survey.style", mapper.namespaces.getElement( "style" ));						
+			assertEquals( "com.wezside.components.survey.style", mapper.namespaces.getElement( "style" ).uri );						
 		}
 	}
 }

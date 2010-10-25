@@ -181,7 +181,7 @@ package com.wezside.data.mapping
 		private function buildNamespaceCollection( namespaceDeclarations:Array ):void 
 		{
 			for ( var i:int = 0; i < namespaceDeclarations.length; ++i ) 
-				_namespaces.addElement( Namespace( namespaceDeclarations[i] ).prefix, Namespace( namespaceDeclarations[i] ).uri );	
+				_namespaces.addElement( Namespace( namespaceDeclarations[i] ).prefix, Namespace( namespaceDeclarations[i] ));	
 		}
 	}
 }
