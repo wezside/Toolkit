@@ -33,27 +33,26 @@ package test.com.wezside.components.control
 
 		override public function build():void 
 		{	
-//			label = new Label();
-//			label.text = "UIElement Button Example";
-//			label.styleName = "labelButton";
-//			label.styleManager = styleManager;
-//			label.selectable = false;
-//			label.build();
-//			label.setStyle();
-//			label.arrange();
-//			addChild( label );		
-//				
-//			var packageLabel:Label = new Label();
-//			packageLabel.text = "com.wezside.components.control.Button";
-//			packageLabel.styleName = "packageLabelButton";
-//			packageLabel.styleManager = styleManager;
-//			packageLabel.width = 400;
-//			packageLabel.selectable = false;
-//			packageLabel.build();
-//			packageLabel.setStyle();
-//			packageLabel.arrange();
-//			addChild( label );			
-			
+			label = new Label();
+			label.text = "UIElement Button Example";
+			label.styleName = "labelButton";
+			label.styleManager = styleManager;
+			label.selectable = false;
+			label.build();
+			label.setStyle();
+			label.arrange();
+			addChild( label );		
+				
+			var packageLabel:Label = new Label();
+			packageLabel.text = "com.wezside.components.control.Button";
+			packageLabel.styleName = "packageLabelButton";
+			packageLabel.styleManager = styleManager;
+			packageLabel.width = 400;
+			packageLabel.selectable = false;
+			packageLabel.build();
+			packageLabel.setStyle();
+			packageLabel.arrange();
+			addChild( label );			
 //			createPropertyButtons();
 
 			button = new Button();
@@ -63,7 +62,7 @@ package test.com.wezside.components.control
 			button.styleName = "button";
 			button.text = "Lorem ipsum doler et";
 			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_CENTER_RIGHT;
+			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
 			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();
@@ -173,14 +172,14 @@ package test.com.wezside.components.control
 		
 		private function stageInit( event:Event ):void 
 		{			
-//			layout = new VerticalLayout( this );
-//			layout.verticalGap = 10;
-//						
-//			layout = new PaddedLayout( this.layout ); 
-//			layout.bottom = 15;		
-//			layout.left = 15;
-//			layout.top = 15;
-//			layout.right = 15;			
+			layout = new VerticalLayout( this );
+			layout.verticalGap = 10;
+						
+			layout = new PaddedLayout( this.layout ); 
+			layout.bottom = 15;		
+			layout.left = 15;
+			layout.top = 15;
+			layout.right = 15;			
 			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, styleReady );
@@ -190,8 +189,6 @@ package test.com.wezside.components.control
 		{
 			build();
 			arrange();
-			
-			trace( button.icon.y );
 		}		
 
 		private function stateChange( event:UIElementEvent ):void 

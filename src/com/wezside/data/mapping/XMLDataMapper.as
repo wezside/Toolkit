@@ -65,11 +65,16 @@ package com.wezside.data.mapping
 		{
 			// Create Top Level instance
 			var root:IXMLDataItem = _collection.iterator( ).next( ) as IXMLDataItem;
-			_data = new root.clazz( );
-			_xmlCollection = new XMLListCollection();
-			_xmlCollection.collection = xml.children();			
-			_xmlCollectionIterator = _xmlCollection.iterator( );
-			build( _xmlCollectionIterator, _data );
+			if ( root )
+			{
+				_data = new root.clazz( );
+				_xmlCollection = new XMLListCollection();
+				_xmlCollection.collection = xml.children();			
+				_xmlCollectionIterator = _xmlCollection.iterator( );
+				build( _xmlCollectionIterator, _data );
+			}
+			else
+				throw new Error( "Must have a root Data class assigned" );
 		}
 
 		public function get debug():Boolean

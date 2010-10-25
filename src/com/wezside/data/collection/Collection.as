@@ -45,6 +45,7 @@ package com.wezside.data.collection
 		public function find( value:String = "" ):Object
 		{			
 			collectionIterator.reset();			
+			
 			// Returns the first item
 			if ( value == "" && collectionIterator.hasNext() ) return collectionIterator.next();
 			

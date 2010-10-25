@@ -1,5 +1,6 @@
 package com.wezside.components.decorators.scroll 
 {
+	import flash.net.URLRequest;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;

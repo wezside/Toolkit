@@ -66,8 +66,8 @@ MockUIElement {
 	paddingTop: 0;
 	wordWrap: true;
 	multiline: true;
-	border: false;
-	borderColor: #cccccc;
+	border: true;
+	borderColor: #cccccc;	
 }
 
 .iconStylename

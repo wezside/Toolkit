@@ -28,6 +28,9 @@ package com.wezside.components.gallery.transition
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.logging.Tracer;
+
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -89,6 +92,7 @@ package com.wezside.components.gallery.transition
 		
 		public function intro():void
 		{
+			
 		}
 		
 		public function outro():void

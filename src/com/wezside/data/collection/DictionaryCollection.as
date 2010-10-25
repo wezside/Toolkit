@@ -36,11 +36,10 @@ package com.wezside.data.collection
 		
 		public function getElement( key:* ):*
 		{
-			Tracer.output( true, " DictionaryCollection.getElement("+key+")", getQualifiedClassName(this) );
 			return _collection[ key ];
 		}				
 
-		public function iterator() : IIterator
+		public function iterator():IIterator
 		{
 			return null;
 		}
