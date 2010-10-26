@@ -17,8 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.components.decorators.layout
-{
+package com.wezside.components.decorators.layout {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.data.iterator.IIterator;
@@ -28,43 +27,44 @@ package com.wezside.components.decorators.layout
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class HorizontalLayout extends Layout
-	{
-		private var xOffset:int = 0;
-
-		public function HorizontalLayout( decorated:IUIDecorator )
-		{
+	public class HorizontalLayout extends Layout {
+		
+		private var xOffset : int = 0;
+		
+		
+		public function HorizontalLayout( decorated : IUIDecorator ) {
 			super( decorated );
 		}
-
-		override public function arrange() : void
-		{
+		
+		override public function arrange() : void {
+			
 			// Iterate over rest of the children and layout horizontally
+			
 			xOffset = 0;
 			xOffset += left;
-			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-			var child:DisplayObject;
-			while ( it.hasNext())
-			{
+			
+			var it : IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			var child : DisplayObject;
+			
+			while ( it.hasNext()) {
 				child = DisplayObject( it.next() );
 				child.x = xOffset;
 				xOffset += child.width;
-				if ( it.hasNext() )
-					xOffset += horizontalGap;
+				if ( it.hasNext() ) xOffset += horizontalGap;
 			}
 			
 			// Top and bottom properties will be zero if HorizontalLayout is the first decorator
 			// however if it isn't then we need to update the width + height correctly with 
 			// the padding properties in case they were used 
+			
 			width = xOffset + right;
 			height = decorated.height + top + bottom;
-			if ( it.length() > 1 )
-				width -= horizontalGap;
+			if ( it.length() > 1 ) width -= horizontalGap;
 			
-			// Clean up
 			it.purge();
 			it = null;
 			child = null;
+			
 			super.arrange();
 		}
 	}

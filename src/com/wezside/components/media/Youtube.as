@@ -33,19 +33,19 @@ package com.wezside.components.media
 		private var bar:Sprite;
 		private var indicator:Sprite;
 				
-		[Embed(source="/../assets-embed/swf/library.swf", symbol="PlayButton")]
+		[Embed(source="/../resource/swf/library.swf", symbol="PlayButton")]
 		private var PlayButtonClass:Class;
 		
-		[Embed(source="/../assets-embed/swf/library.swf", symbol="PauseButton")]
+		[Embed(source="/../resource/swf/library.swf", symbol="PauseButton")]
 		private var PauseButtonClass:Class;
 
-		[Embed(source="/../assets-embed/swf/library.swf", symbol="MuteButton")]
+		[Embed(source="/../resource/swf/library.swf", symbol="MuteButton")]
 		private var MuteButtonClass:Class;
 
-		[Embed(source="/../assets-embed/swf/library.swf", symbol="MuteButtonSelected")]
+		[Embed(source="/../resource/swf/library.swf", symbol="MuteButtonSelected")]
 		private var MuteButtonSelectedClass:Class;
 
-		[Embed(source="/../assets-embed/swf/library.swf", symbol="PopOutButton")]
+		[Embed(source="/../resource/swf/library.swf", symbol="PopOutButton")]
 		private var PopOutButtonClass:Class;
 		
 		private var playButton:SimpleButton;

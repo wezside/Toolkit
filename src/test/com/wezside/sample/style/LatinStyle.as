@@ -45,17 +45,17 @@ package test.com.wezside.sample.style
 	 */
 	public class LatinStyle extends StyleManager 
 	{
-		[Embed( source="/../assets-embed/fonts/arial.ttf", 
+		[Embed( source="/../resource/fonts/arial.ttf", 
 				fontWeight= "normal", 
 				fontName="ArialEmbed", 
 				mimeType="application/x-font-truetype",
 				unicodeRange="U+0020-U+007F, U+00A0-U+00FF, U+0100-U+017F, U+0180-U+024F")]
 		public static var ArialEmbed:Class;		
 		
-		[Embed( source="/../assets-embed/css/latin_styles.css", mimeType="application/octet-stream")]
+		[Embed( source="/../resource/css/latin_styles.css", mimeType="application/octet-stream")]
 		public static var LatinCSS:Class;				
 				
-		[Embed( source="/../assets-embed/swf/library.swf", mimeType="application/octet-stream" )]
+		[Embed( source="/../resource/swf/library.swf", mimeType="application/octet-stream" )]
 		public static var Library:Class;
 		
 		public function LatinStyle() 

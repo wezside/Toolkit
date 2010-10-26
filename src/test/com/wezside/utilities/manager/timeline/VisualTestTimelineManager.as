@@ -13,13 +13,13 @@ package test.com.wezside.utilities.manager.timeline
 	{
 
 		
-		[Embed(source="/../assets-embed/swf/timelineManager/Animation01.swf")]
+		[Embed(source="/../resource/swf/timelineManager/Animation01.swf")]
 		private var Animation01:Class;
 		
-		[Embed(source="/../assets-embed/swf/timelineManager/Animation02.swf")]
+		[Embed(source="/../resource/swf/timelineManager/Animation02.swf")]
 		private var Animation02:Class;
 		
-		[Embed(source="/../assets-embed/swf/timelineManager/Animation03.swf")]
+		[Embed(source="/../resource/swf/timelineManager/Animation03.swf")]
 		private var Animation03:Class;
 		
 		private var tm:TimelineManager;

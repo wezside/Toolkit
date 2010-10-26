@@ -1,10 +1,10 @@
 package com.wezside.components.decorators.layout 
 {
-	import flash.geom.Rectangle;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 
 	import flash.display.DisplayObject;
+	import flash.geom.Rectangle;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -68,11 +68,15 @@ package com.wezside.components.decorators.layout
 			
 			switch ( placementState.stateKey )
 			{
-				case PLACEMENT_CENTER:									
+				case PLACEMENT_CENTER:
+				
+					// align correctly relative to each other
 					_target.x = ( maxW - _target.width ) * 0.5;
 					_target.y = ( maxH - _target.height ) * 0.5;					
 					_anchor.x = ( maxW - _anchor.width ) * 0.5;
-					_anchor.y = ( maxH - _anchor.height ) * 0.5;					
+					_anchor.y = ( maxH - _anchor.height ) * 0.5;
+					
+					// set width and height
 					width = maxW;
 					height = maxH;
 					break;
@@ -86,11 +90,11 @@ package com.wezside.components.decorators.layout
 					height =  _anchor.y + _anchor.height + bottom;
 					break;
 					
-				case PLACEMENT_BOTTOM_CENTER:				
+				case PLACEMENT_BOTTOM_CENTER:
 					_anchor.x = ( maxW - _anchor.width ) * 0.5;
-					_anchor.y = top;					
+					_anchor.y = top;
 					_target.x = ( maxW - _target.width ) * 0.5;
-					_target.y = _anchor.y + _anchor.height + targetPaddingTop + bottom;				
+					_target.y = _anchor.y + _anchor.height + targetPaddingTop + bottom;
 					width = maxW;
 					height =  _target.y + _target.height + targetPaddingBottom;
 					break;
@@ -150,6 +154,21 @@ package com.wezside.components.decorators.layout
 					break;
 			}
 			
+			// enforce LEFT padding
+			if ( _anchor.x < left ) _anchor.x = left;
+			if ( _target.x < targetPaddingLeft ) _target.x = targetPaddingLeft;
+			
+			// enforce TOP padding
+			if ( _anchor.y < top ) _anchor.y = top;
+			if ( _target.y < targetPaddingTop ) _target.y = targetPaddingTop;
+			
+			// enforce RIGHT padding
+			if ( _anchor.x > width - right - _anchor.width ) _anchor.x = width - right - _anchor.width;
+			if ( _target.x > width - targetPaddingRight - _target.width ) _target.x = width - targetPaddingRight - _target.width;
+			
+			// enforce BOTTOM padding
+			if ( _anchor.y > height - bottom - _anchor.height ) _anchor.y = height - bottom - _anchor.height;
+			if ( _target.y > height - targetPaddingBottom - _target.height ) _target.y = height - targetPaddingBottom - _target.height;
 		}
 		
 		public function get target():DisplayObject

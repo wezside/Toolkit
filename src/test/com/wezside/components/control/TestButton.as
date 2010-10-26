@@ -1,6 +1,5 @@
 package test.com.wezside.components.control
 {
-	import flash.events.KeyboardEvent;
 	import flexunit.framework.Assert;
 
 	import test.com.wezside.sample.style.LatinStyle;

@@ -62,7 +62,7 @@ package test.com.wezside.components.control
 			button.styleName = "button";
 			button.text = "Lorem ipsum doler et";
 			button.iconStyleName = "iconStylename";
-			button.iconPlacement = Layout.PLACEMENT_CENTER_LEFT;
+			button.iconPlacement = Layout.PLACEMENT_CENTER_RIGHT;
 			button.autoSkinSize = true;
 			button.build();
 			button.setStyle();
@@ -173,8 +173,7 @@ package test.com.wezside.components.control
 		private function stageInit( event:Event ):void 
 		{			
 			layout = new VerticalLayout( this );
-			layout.verticalGap = 10;
-						
+			layout.verticalGap = 10;						
 			layout = new PaddedLayout( this.layout ); 
 			layout.bottom = 15;		
 			layout.left = 15;

@@ -21,7 +21,7 @@ package test.com.wezside.data.mapping
 		private var mapper:XMLDataMapper;
 		private var loader:URLLoader;
 
-		[Embed( source="/../resources/embed/xml/survey-config.xml", mimeType="application/octet-stream")]
+		[Embed( source="/../resource/xml/survey-config.xml", mimeType="application/octet-stream")]
 		public static var ConfigXMLData:Class;
 		private var data:*;
 		private var str:*;
