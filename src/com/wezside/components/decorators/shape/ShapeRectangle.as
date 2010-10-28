@@ -73,6 +73,11 @@ package com.wezside.components.decorators.shape
 			if ( UIElement( decorated ).scroll )
 			{
 				height = UIElement( decorated ).scroll.height;
+				if ( !UIElement( decorated ).scroll.scrollBarVisible )
+				{
+					height += UIElement( decorated ).layout.top;
+					height += UIElement( decorated ).layout.bottom;
+				}
 			}
 
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
@@ -82,7 +87,9 @@ package com.wezside.components.decorators.shape
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
 			
 			graphics.clear();
-			graphics.lineStyle( borderThickness, borderColor, borderAlpha );
+			if ( borderThickness > 0 )
+				graphics.lineStyle( borderThickness, borderColor, borderAlpha );
+				
 			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
 
 			if ( cornerRadius > 0 )

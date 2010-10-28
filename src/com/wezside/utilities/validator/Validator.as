@@ -101,9 +101,8 @@ package com.wezside.utilities.validator
         {
             var pattern:RegExp = /\D/g;
             var result:Object = pattern.exec( str );
-            if ( result == null )
-                return false;
-            return true;
+            if ( result == null || result == "" || result == "." ) return true;
+            return false;
         }
 	
 		public function validateString( str:String, minLength:int ):Boolean

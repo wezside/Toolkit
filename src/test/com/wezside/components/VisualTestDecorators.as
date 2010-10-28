@@ -131,7 +131,6 @@ package test.com.wezside.components
 			sp.graphics.drawRect(0, 0, 200, 50 );
 			sp.graphics.endFill();
 			addChild( sp );
-			
 		
 			super.build();
 		}

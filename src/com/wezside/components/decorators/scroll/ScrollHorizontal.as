@@ -30,6 +30,8 @@ package com.wezside.components.decorators.scroll
 			// Don't draw if height is less than scrollheight
 			if ( width > scrollWidth )
 			{			
+				scrollBarVisible = true;
+				
 				track = new UIElement();
 				track.background = new ShapeRectangle( track );
 				track.background.width = scrollWidth;
@@ -63,6 +65,8 @@ package com.wezside.components.decorators.scroll
 				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 				if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );
 			}				
+			else
+				scrollBarVisible = false;
 		}
 		
 		private function thumbUp( event:MouseEvent ):void

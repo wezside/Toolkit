@@ -70,7 +70,7 @@ package com.wezside.data.mapping
 			var root:IXMLDataItem = _collection.iterator( ).next( ) as IXMLDataItem;
 			if ( root )
 			{
-				_data = new root.clazz( );
+				if ( !_data ) _data = new root.clazz( );
 				_xmlCollection = new XMLListCollection();
 				_xmlCollection.collection = xml.children();			
 				_xmlCollectionIterator = _xmlCollection.iterator( );
@@ -141,10 +141,10 @@ package com.wezside.data.mapping
 							}
 							else if ( String( child.attributes( )[i] ).indexOf( "%" ) != -1 )
 							{
-								if ( String( child.attributes( )[i].name() == "width" ))
+								if ( String( child.attributes( )[i].name()) == "width" )
 									clazz[ "widthRatio" ] = _strUtil.getNumeric( child.attributes( )[i] ) / 100;
 									
-								if ( String( child.attributes( )[i].name() == "height" ))
+								if ( String( child.attributes( )[i].name()) == "height" )
 									clazz[ "heightRatio" ] = _strUtil.getNumeric( child.attributes( )[i] ) / 100;
 							}
 							else 

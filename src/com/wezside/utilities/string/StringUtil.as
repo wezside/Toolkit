@@ -46,15 +46,16 @@ package com.wezside.utilities.string
 			return false;;
 		}
 		
-        public function removeAllWhiteSpace( value:String ) : String
-        {
-            var pattern:RegExp = /[\s]+/g;
-            return value.replace( pattern, "" );
-        }
-        
-        public function getNumeric( value:String ):int
-        {
-            var pattern:RegExp = /[\D]+/g;            return int( value.replace( pattern, "" ) );
-        }
+		public function removeAllWhiteSpace( value:String ) : String
+		{
+		    var pattern:RegExp = /[\s]+/g;
+		    return value.replace( pattern, "" );
+		}
+		
+		public function getNumeric( value:String ):Number
+		{
+		    var pattern:RegExp = /[0-9.]+/g;
+		    return Number( value.match( pattern ));
+		}
 	}
 }

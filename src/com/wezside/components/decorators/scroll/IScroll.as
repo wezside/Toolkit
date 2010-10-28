@@ -22,6 +22,9 @@ package com.wezside.components.decorators.scroll
 		
 		function get verticalGap():int;
 		function set verticalGap( value:int ):void;
+		
+		function get scrollBarVisible():Boolean;
+		function set scrollBarVisible( value:Boolean ):void;
 
 	}
 }

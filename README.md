@@ -7,13 +7,14 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-* Build 0.1.0187
+* Build 0.1.0188
 * Compiled with Flex 4 SDK build 14159 
 
 
 Change log since build .0100
 =======
 
+* Fixed issue when height is less than Scrollheight, the padding was ignored.
 * Added namespaces collection to XMLDataMapper. Updated Unit tests to reflect this change.
 * Fixed issue with Scroll Decorator in ShapeRectangle. The width of the ShapeRectangle was incorrect.
 * FillLayout layout decorator added (still in testing phase)

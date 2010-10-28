@@ -1,6 +1,5 @@
 package com.wezside.components.decorators.scroll 
 {
-	import flash.net.URLRequest;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
@@ -31,6 +30,8 @@ package com.wezside.components.decorators.scroll
 			// Don't draw if height is less than scrollheight
 			if ( height > scrollHeight )
 			{			
+				scrollBarVisible = true;
+				
 				track = new UIElement();
 				track.background = new ShapeRectangle( track );
 				track.background.width = trackWidth;
@@ -64,6 +65,8 @@ package com.wezside.components.decorators.scroll
 				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 				if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );		
 			}		
+			else
+				scrollBarVisible = false;
 		}
 		
 		private function thumbUp( event:MouseEvent ):void

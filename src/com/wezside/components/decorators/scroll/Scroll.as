@@ -27,6 +27,7 @@ package com.wezside.components.decorators.scroll
 		private var _trackHeight:int = 20;
 		
 		protected var decorated:IUIDecorator;
+		private var _scrollBarVisible:Boolean;
 
 		public function Scroll( decorated:IUIDecorator = null )
 		{
@@ -166,5 +167,14 @@ package com.wezside.components.decorators.scroll
 		{
 		}
 
+		public function get scrollBarVisible():Boolean
+		{
+			return _scrollBarVisible;
+		}
+
+		public function set scrollBarVisible( value:Boolean ) : void
+		{
+			_scrollBarVisible = value;
+		}
 	}
 }
