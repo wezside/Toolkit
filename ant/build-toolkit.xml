@@ -26,7 +26,11 @@
 		
 	<!-- Inject version -->
 	<target name="inject-version" depends="clean">
-	
+		
+		<propertyfile file="${prop.file}" comment="Update build version">
+			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
+		</propertyfile>		
+		
 		<!-- README -->
 		<loadfile property="readme.contents" srcFile="${basedir}/README.md">
 			<filterchain>

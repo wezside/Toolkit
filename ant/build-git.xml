@@ -73,10 +73,5 @@
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
 		<git-push-to-branch branch="master" remoteRepositoryName="origin" />
-		
-
-		<propertyfile file="${prop.file}" comment="Update build version">
-			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
-		</propertyfile>				
 	</target>
 </project>
