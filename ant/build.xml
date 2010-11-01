@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Wezside Build All" default="build-all" basedir="..">
 
-
 	<target name="build-all">
 		
 		<subant genericantfile="${basedir}/ant/build-toolkit.xml" buildpath="." />

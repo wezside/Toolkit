@@ -33,15 +33,15 @@
 	</macrodef>
 
 	<target name="commit">
-
 		
 		<condition property="tag.release">
 			<matches pattern="([0-9][0-9][0-9]0)" string="${build.int}" />
 		</condition>
 
 		<propertyfile file="${prop.file}" comment="Update build version">
-			<entry key="build.int" type="int" default="0001" operation="-" pattern="0000" />
-		</propertyfile>				
+			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
+		</propertyfile>		
+		
 		<echo message="[Auto Build] Commit ${project.name} Release ${version}${build.int}" />
 
 		<git command="add" dir="${basedir}">
