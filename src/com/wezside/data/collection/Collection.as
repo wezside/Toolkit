@@ -85,8 +85,6 @@ package com.wezside.data.collection
 			while ( it.hasNext())
 			{
 				var item:* = it.next();
-				trace( item.hasOwnProperty( prop ), item[prop]);
-				
 				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
 				{
 					removeIndex = it.index() - 1;
