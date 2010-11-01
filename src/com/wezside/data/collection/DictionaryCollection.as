@@ -1,18 +1,15 @@
 package com.wezside.data.collection
 {
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.utilities.logging.Tracer;
 
 	import flash.utils.Dictionary;
-	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class DictionaryCollection implements ICollection
+	public class DictionaryCollection implements IDictionaryCollection
 	{
-		
-		
+				
 		private var _length:int;
 		private var _collection:Dictionary;
 		
@@ -22,7 +19,7 @@ package com.wezside.data.collection
 			_collection = new Dictionary();
 		}
 		
-		public function purge() : void
+		public function purge():void
 		{
 			for each ( var obj:* in _collection )
 				delete _collection[ obj ];
@@ -49,10 +46,18 @@ package com.wezside.data.collection
 			return _collection[ key ];
 		}
 
-		public function find( value:String = "" ):Object
+		public function find( prop:String = "", value:* = null ):*
 		{
-			return _collection[ value ];
+			return _collection[ prop ];
 		}
+				
+		public function removeElement( prop:String = "", value:* = null ):*
+		{
+			if ( _collection[ prop ])
+			{
+				delete _collection[ prop ];
+			}
+		}		
 
 		public function toString():String
 		{
@@ -66,5 +71,6 @@ package com.wezside.data.collection
 		{
 			return _length;
 		}
+
 	}
 }

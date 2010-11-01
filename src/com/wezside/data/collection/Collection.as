@@ -25,16 +25,14 @@ package com.wezside.data.collection
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class Collection implements ICollection 
+	public class Collection implements ICollection
 	{
 
 		private var _collection:Array;
-		private var collectionIterator:IIterator;
 
 		public function Collection() 
 		{
 			_collection = [];	
-			collectionIterator = iterator();
 		}	
 
 		public function iterator():IIterator
@@ -42,33 +40,33 @@ package com.wezside.data.collection
 			return new ArrayIterator( _collection );					
 		}
 		
-		public function find( value:String = "" ):Object
+		public function find( prop:String = "", value:* = null ):*
 		{			
-			collectionIterator.reset();			
-			
+			var it:IIterator = iterator();
+			var item:*;
+						
 			// Returns the first item
-			if ( value == "" && collectionIterator.hasNext() ) return collectionIterator.next();
-			
-			while ( collectionIterator.hasNext())
+			if ( prop == "" && !value && it.hasNext() ) 
 			{
-				var item:* = collectionIterator.next();
-				if ( item.id == value )
+				item = it.next();
+			}
+			if ( item )
+			{
+				it.purge();
+				it = null;
+				return item;
+			}		
+			
+			while ( it.hasNext())
+			{
+				item = it.next();
+				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
 					return item; 
 			}
+			it.purge();
+			it = null;
 			return null;
-		}
-		
-		public function get length():int
-		{
-			return _collection.length;
-		}
-		
-		public function purge():void
-		{
-			_collection = null;
-			collectionIterator.purge();
-			collectionIterator = null;
-		}
+		}		
 		
 		public function addElement( value:* ):void
 		{
@@ -80,31 +78,52 @@ package com.wezside.data.collection
 			return _collection[ index ];
 		}		
 		
-		public function removeElement( id:String ):*
+		public function removeElement( prop:String = "", value:* = null ):*
 		{
 			var removeIndex:int = -1;
-			collectionIterator.reset();
-			while ( collectionIterator.hasNext())
+			var it:IIterator = iterator();
+			while ( it.hasNext())
 			{
-				var item:* = collectionIterator.next();
-				if ( item.id == id )
+				var item:* = it.next();
+				trace( item.hasOwnProperty( prop ), item[prop]);
+				
+				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
 				{
-					removeIndex = collectionIterator.index() - 1;
+					removeIndex = it.index() - 1;
 					break;
 				}
-			}
+			}			
+			it.purge();
+			it = null;
 			return _collection.splice( removeIndex, 1 );
 		}
+		
+		public function removeElementByIndex( index:int ):void
+		{
+			_collection.splice( index, 1 );
+		}		
+				
+		public function get length():int
+		{
+			return _collection.length;
+		}
+		
+		public function purge():void
+		{
+			_collection = null;
+		}		
 		
 		public function toString():String
 		{
 			var str:String = "";
-			collectionIterator.reset();
-			while ( collectionIterator.hasNext())
+			var it:IIterator = iterator();
+			while ( it.hasNext())
 			{
-				var item:* = collectionIterator.next();	
+				var item:* = it.next();	
 				str += item.toString();
 			}
+			it.purge();
+			it = null;
 			return str;
 		}
 	}

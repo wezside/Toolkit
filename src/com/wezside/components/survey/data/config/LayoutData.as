@@ -14,7 +14,7 @@ package com.wezside.components.survey.data.config
 		
 		public function layoutDecorator( id:String ):LayoutDecoratorData
 		{
-			return decorators ? decorators.find( id ) as LayoutDecoratorData : null;
+			return decorators ? decorators.find( "id", id ) as LayoutDecoratorData : null;
 		}
 				
 	}

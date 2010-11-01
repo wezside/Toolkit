@@ -23,7 +23,7 @@ package com.wezside.components.survey.data
 		
 		public function getFormData( id:String ):IFormData
 		{
-			return _forms.find( id ) as IFormData;
+			return _forms.find( "id", id ) as IFormData;
 		}
 		
 		public function getFormGroupData( id:String ):IFormGroupData

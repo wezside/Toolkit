@@ -96,7 +96,7 @@ package com.wezside.utilities.manager.timeline
 		
 		public function purgeAnimation( id:String ):void
 		{
-			TimelineInstance( animations.find( id )).purge();
+			TimelineInstance( animations.find( "id", id )).purge();
 			animations.removeElement( id );
 		}
 		
@@ -113,7 +113,7 @@ package com.wezside.utilities.manager.timeline
 		private function initSequential( id:String ):void 
 		{
 			var delay:int = 0;
-			currentTMI = TimelineInstance( animations.find( id ));
+			currentTMI = TimelineInstance( animations.find( "id", id ));
 			delay = currentTMI.delay;
 			playID = currentTMI.id;
 			playIndex = currentTMI.index;

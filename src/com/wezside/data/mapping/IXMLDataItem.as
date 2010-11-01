@@ -34,6 +34,8 @@ package com.wezside.data.mapping
 		
 		function get parentCollectionProperty():String;
 		function set parentCollectionProperty( value:String ):void;
+		
+		function hasOwnProperty( V:* = undefined ):Boolean;
 	}
 	
 	

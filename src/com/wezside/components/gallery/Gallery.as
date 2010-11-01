@@ -160,11 +160,11 @@ package com.wezside.components.gallery
 			layout = new GridReflectionLayout( this );
 			
 			_classCollection = new ClassCollection();
-			_classCollection.push( new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
-			_classCollection.push( new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
-			_classCollection.push( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
-			_classCollection.push( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
-			_classCollection.push( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
+			_classCollection.addElement( new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
+			_classCollection.addElement( new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
+			_classCollection.addElement( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
+			_classCollection.addElement( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
+			_classCollection.addElement( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
 
 			currentRow = 0;
 			visible = showArrangement;
@@ -202,7 +202,7 @@ package com.wezside.components.gallery
 
 		public function addCustomItem( id:String, clazz:Class, fileAssociation:Array ):void
 		{
-			_classCollection.push( new GalleryItemClass( fileAssociation, id, clazz ));
+			_classCollection.addElement( new GalleryItemClass( fileAssociation, id, clazz ));
 		}
 
 		public function show():void
@@ -352,7 +352,7 @@ package com.wezside.components.gallery
 		
 		private function createItem( fileExtension:String = "" ):void
 		{		
-			var ItemClass:Class = _classCollection.find( fileExtension ).clazz as Class;
+			var ItemClass:Class = _classCollection.find( "fileExtension", fileExtension ).clazz as Class;
 			var item:IGalleryItem = new  ItemClass( fileExtension, _debug ) as IGalleryItem;
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );

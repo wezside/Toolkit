@@ -36,10 +36,10 @@ package test.com.wezside.data.collection
 			assertEquals( 3, collection.length );
 			assertNotNull( collection.getElementAt(0));
 			
-			assertNotNull( collection.find( "two" ));		
-			assertEquals( "two", collection.find( "two" ).id );	
-			assertEquals( "one", collection.find( "one" ).id );	
-			assertEquals( 4, collection.find( "three" ).value );	
+			assertNotNull( collection.find( "id", "two" ));		
+			assertEquals( "two", collection.find( "id", "two" ).id );	
+			assertEquals( "one", collection.find( "id", "one" ).id );	
+			assertEquals( 4, collection.find( "id", "three" ).value );	
 		}
 						
 		[Test]
@@ -52,7 +52,7 @@ package test.com.wezside.data.collection
 			
 			collection.removeElement( "three" );						
 			assertEquals( 2, collection.length );
-			assertNull( collection.find( "three" ));
+			assertNull( collection.find( "id", "three" ));
 		}
 	}
 }

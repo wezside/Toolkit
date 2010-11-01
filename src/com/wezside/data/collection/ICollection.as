@@ -24,11 +24,15 @@ package com.wezside.data.collection
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface ICollection 
+	public interface ICollection
 	{		
-		function purge():void;
+		function addElement( value:* ):void;
+		function removeElement( prop:String = "", value:* = null ):*;
+		function getElementAt( index:int ):*		
+		function get length():int;
 		function iterator():IIterator;
-		function find( value:String = "" ):Object;
-		function toString():String;
+		function find( prop:String = "", value:* = null ):*
+		function purge():void;
+		function toString():String;		
 	}
 }

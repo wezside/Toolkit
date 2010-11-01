@@ -28,6 +28,6 @@ package test
 		public var testLinkedList:TestLinkedListCollection;
 		public var testCollection:TestCollection;
 		public var testXMLDataMapper:TestXMLDataMapper;
-//		public var testRelativeLayout:TestButton;
+		public var testRelativeLayout:TestButton;
 	}
 }

@@ -31,12 +31,10 @@ package com.wezside.components.gallery.collection
 	{
 
 		private var _collection:Array;
-		private var classIterator:IIterator;
 
 		public function ClassCollection() 
 		{
 			_collection = [];	
-			classIterator = iterator();
 		}	
 
 		public function iterator():IIterator
@@ -44,24 +42,54 @@ package com.wezside.components.gallery.collection
 			return new ArrayIterator( _collection );					
 		}
 		
-		public function push( value:IGalleryItemClass ):void
+		public function find( prop:String = "", value:* = null ):*
 		{
-			_collection.push( value );
-		}
-		
-		public function find( value:String = "" ):Object
-		{
-			classIterator.reset();			
-			while( classIterator.hasNext())
+			var it:IIterator = iterator();			
+			while( it.hasNext())
 			{
-				var item:IGalleryItemClass = classIterator.next() as IGalleryItemClass;
+				var item:IGalleryItemClass = it.next() as IGalleryItemClass;
 				if ( value == "" && item.fileExtension.length == 0 ) return item; 
 				for ( var i:int = 0; i < item.fileExtension.length; ++i ) 
 					if ( value == item.fileExtension[i] )
+					{
+						it.purge();
+						it = null;
 						return item;
+					}
 			}
+			it.purge();
+			it = null;
 			return null;
 		}
+		
+		public function addElement( value:* ):void
+		{
+			_collection.push( value );
+		}		
+		
+		public function removeElement( prop:String = "", value:* = null ):*
+		{
+			var removeIndex:int = -1;
+			var it:IIterator = iterator();
+			while ( it.hasNext())
+			{
+				var item:* = it.next();
+				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
+				{
+					removeIndex = it.index() - 1;
+					break;
+				}
+			}			
+			it.purge();
+			it = null;
+			return _collection.splice( removeIndex, 1 );
+		}
+		
+		public function getElementAt( index:int ):*
+		{
+			return _collection[ index ];
+		}	
+		
 		
 		public function get length():int
 		{
@@ -71,20 +99,20 @@ package com.wezside.components.gallery.collection
 		public function purge():void
 		{
 			_collection = null;
-			classIterator.purge();
-			classIterator = null;
 		}
 		
 		public function toString():String
 		{
 			var str:String = "";
-			classIterator.reset();
-			while ( classIterator.hasNext())
+			var it:IIterator = iterator();
+			while ( it.hasNext())
 			{
-				var item:* = classIterator.next();	
+				var item:* = it.next();	
 				str += item.toString();
 			}
+			it.purge();
+			it = null;
 			return str;
-		}
+		}		
 	}
 }

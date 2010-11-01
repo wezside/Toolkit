@@ -7,7 +7,6 @@ package com.wezside.data.collection
 	public class LinkedListNode 
 	{
 		
-
 		private var _data:*;
 		private var _index:int;
 		private var _next:LinkedListNode;

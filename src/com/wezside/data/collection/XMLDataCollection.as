@@ -26,16 +26,14 @@ package com.wezside.data.collection
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class XMLDataCollection implements ICollection 
+	public class XMLDataCollection implements ICollection
 	{
 		
 		private var _collection:Array;
-		private var xmlDataIterator:IIterator;
 
 		public function XMLDataCollection() 
 		{
 			_collection = [];	
-			xmlDataIterator = iterator();
 		}
 		
 		public function iterator():IIterator
@@ -43,22 +41,66 @@ package com.wezside.data.collection
 			return new ArrayIterator( _collection );
 		}
 
-		public function addElement( value:IXMLDataItem ):void 
+		public function addElement( value:* ):void 
 		{
 			_collection.push( value );	
-		}
+		}		
+		
+		public function getElementAt( index:int ):*
+		{
+			return _collection[ index ];
+		}			
 
-		public function find( value:String = "" ):Object 
+		public function find( prop:String = "", value:* = null ):*
 		{			
-			xmlDataIterator.reset();
-			while ( xmlDataIterator.hasNext() )	
+			var it:IIterator = iterator();
+			var item:*;
+						
+			// Returns the first item
+			if ( prop == "" && !value && it.hasNext() ) 
 			{
-				var item:IXMLDataItem = IXMLDataItem( xmlDataIterator.next() );
-				if ( item.nodeName == value )
-					return item;
+				item = it.next();
 			}
+			if ( item )
+			{
+				it.purge();
+				it = null;
+				return item;
+			}				
+			
+			while ( it.hasNext() )	
+			{
+				item = it.next();
+				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
+				{
+					it.purge();
+					it = null;
+					return item;
+				}
+			}
+			it.purge();
+			it = null;
 			return null;
 		}
+				
+		public function removeElement( prop:String = "", value:* = null ):*
+		{
+			var removeIndex:int = -1;
+			var it:IIterator = iterator();
+			while ( it.hasNext())
+			{
+				var item:* = it.next();
+				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
+				{
+					removeIndex = it.index() - 1;
+					break;
+				}
+			}			
+			it.purge();
+			it = null;
+			return _collection.splice( removeIndex, 1 );			
+		}		
+		
 		
 		public function get length():int
 		{
@@ -67,21 +109,22 @@ package com.wezside.data.collection
 		
 		public function purge():void
 		{
-			xmlDataIterator.purge();
-			xmlDataIterator = null;
 			_collection = null;
 		}
 		
 		public function toString():String
 		{
 			var str:String = "";
-			xmlDataIterator.reset();
-			while ( xmlDataIterator.hasNext())
+			var it:IIterator = iterator();
+			while ( it.hasNext())
 			{
-				var item:* = xmlDataIterator.next();	
+				var item:* = it.next();	
 				str += item.toString();
 			}
+			it.purge();
+			it = null;			
 			return str;
 		}
+
 	}
 }

@@ -60,5 +60,10 @@ package com.wezside.data.mapping
 		{
 			_parentCollectionProperty = value;
 		}
+		
+		public function hasOwnProperty( V:* = undefined ):Boolean
+		{
+			return !V ? false : this[V];
+		}
 	}
 }

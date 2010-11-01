@@ -122,7 +122,7 @@ package com.wezside.data.mapping
 			while ( iterator.hasNext( ))
 			{							
 				var child:XML = XML( iterator.next() );
-				var item:IXMLDataItem = IXMLDataItem( _collection.find( child.name() ? child.name().localName : "" ));
+				var item:IXMLDataItem = IXMLDataItem( _collection.find( "nodeName", child.name() ? child.name().localName : "" ));
 
 				// Check if there is a class to map from the xml supplied
 				if ( item )

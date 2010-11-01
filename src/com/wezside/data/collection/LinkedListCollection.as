@@ -10,8 +10,7 @@ package com.wezside.data.collection
 	 */
 	public class LinkedListCollection implements ICollection 
 	{
-		
-		
+				
 		private var _length:int = 0;
 		private var _current:LinkedListNode;
 		private var _collection:Dictionary;
@@ -32,8 +31,8 @@ package com.wezside.data.collection
 			
 			if ( !_current )
 			{
-				_collection["head"] = new LinkedListNode();
-				_current = _collection["head"];
+				_collection[ "head" ] = new LinkedListNode();
+				_current = _collection[ "head" ];
 			}
 			
 			while ( _current.next )
@@ -45,12 +44,12 @@ package com.wezside.data.collection
 			node = null;
 		}
 		
-		public function getElementAt( index:int ):LinkedListNode
+		public function getElementAt( index:int ):*
 		{
 			return _collection[ index.toString() ] as LinkedListNode;
 		}
 		
-		public function removeElement( id:String ):void
+		public function removeElement( prop:String = "", value:* = null ):*
 		{
 			var selectedIndex:int = -1;
 			var iterator:IIterator = iterator();
@@ -59,7 +58,7 @@ package com.wezside.data.collection
 				var node:LinkedListNode = iterator.next() as LinkedListNode;
 				
 				// Update the pointer to move the next one in the list				
-				if ( node.next && node.next.data.id == id )
+				if ( node.next && node.next.data[ prop ] == value )
 				{
 					selectedIndex = node.next.index;
 					
@@ -68,10 +67,10 @@ package com.wezside.data.collection
 					nextNode.purge();
 					--_length;
 				}				 
-				else if ( node.data.id == id ) 
+				else if ( node.data[ prop ] == value ) 
 				{
 					// If the node is the last in the list
-					if ( _collection["head"].next.data.id == id )
+					if ( _collection["head"].next.data[ prop ] == value )
 						_collection["head"].next = null;
 						
 					selectedIndex = node.index;
@@ -93,21 +92,29 @@ package com.wezside.data.collection
 			return new LinkedListIterator( _collection );
 		}
 		
-		public function find( value:String = "" ):Object
+		public function find( prop:String = "", value:* = null ):*
 		{		
-			var iterator:IIterator = iterator();
+			var it:IIterator = iterator();
 				
 			// Returns the first item
-			if ( value == "" && iterator.hasNext() ) return iterator.next().data;
-			
-			while ( iterator.hasNext())
+			if ( value == "" && it.hasNext() )
 			{
-				var item:LinkedListNode = iterator.next() as LinkedListNode;
+				it.purge();
+				it = null;
+				return it.next().data;
+			}			
+			while ( it.hasNext())
+			{
+				var item:LinkedListNode = it.next() as LinkedListNode;
 				if ( item.data && item.data.id == value )
-					return item.data; 
+				{
+					it.purge();
+					it = null;
+					return item.data;
+				}	 
 			}
-			LinkedListIterator( iterator ).purge();			
-			iterator = null;
+			it.purge();			
+			it = null;
 			return null;
 		}
 		

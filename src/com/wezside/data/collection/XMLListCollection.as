@@ -50,26 +50,36 @@ package com.wezside.data.collection
 			return new XMLListIterator( _collection );
 		}
 
-		public function addElement( value:XML ):void 
+		public function addElement( value:* ):void 
 		{
 			_collection.appendChild( value );	
 		}
 
-		public function find( value:String = "" ):Object 
+		public function find( prop:String = "", value:* = null ):*
 		{
-			var iterator:IIterator = iterator();
-			iterator.reset();
+			var it:IIterator = iterator();
+			it.reset();
 						
 			// Returns the first item
-			if ( value == "" ) return iterator.next();			
-			
-			while ( iterator.hasNext() )	
+			if ( String( value ) == "" && String( value ) == "" && it.hasNext() )
 			{
-				var item:XML = XML( iterator.next() );
-				trace( "Looking for node " + value, "Current Node is ", item.nodeName );
-				if ( item.nodeName == value )
-					return item;
+				it.purge();
+				it = null;
+				return it.next();	
 			}
+			
+			while ( it.hasNext() )	
+			{
+				var item:XML = XML( it.next() );
+				if ( item.nodeName == value )
+				{
+					it.purge();
+					it = null;
+					return item;
+				}
+			}
+			it.purge();
+			it = null;
 			return null;
 		}
 		
@@ -78,16 +88,26 @@ package com.wezside.data.collection
 			return _collection.length();			
 		}
 		
-		public function getElementAt(index:int):*
+		public function getElementAt( index:int ):*
 		{
+			return _collection[ index ];
 		}
 		
-		public function removeElement(id:String):*
+		public function removeElement( prop:String = "", value:* = null ):*
 		{
+			for ( var i:int = 0; i < _collection.length(); ++i ) 
+			{
+				if ( _collection.contains( value ))	
+				{
+					delete _collection[i];
+					break;		
+				}
+			}	
 		}
 		
 		public function purge():void
 		{
+			_collection = null;
 		}
 		
 		public function toString():String

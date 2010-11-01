@@ -1,6 +1,7 @@
 package test.com.wezside.data.collection 
 {
 	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
@@ -12,12 +13,12 @@ package test.com.wezside.data.collection
 	public class TestCollection 
 	{
 		
-		private var collection:Collection;
-
+		private var collection:ICollection;
+ 
 		[Before]
 		public function setUp():void
 		{
-			collection = new Collection();					
+			collection = new Collection();		
 		}
 		
 		[After]
@@ -31,11 +32,11 @@ package test.com.wezside.data.collection
 		public function testStruct():void
 		{	
 			assertEquals( 0, collection.length );			
-			collection.addElement( { id: "one", value: 10 });
-			collection.addElement( { id: "three", value: 4 });			
-			collection.addElement( { id: "two", value: 1 });			
+			collection.addElement({ id: "one", value: 10 });
+			collection.addElement({ id: "three", value: 4 });			
+			collection.addElement({ id: "two", value: 1 });			
 			assertEquals( 3, collection.length );
-			assertNotNull( collection.getElementAt(0));
+			assertNotNull( collection.getElementAt( 0 ));
 		}
 						
 		[Test]
@@ -46,10 +47,10 @@ package test.com.wezside.data.collection
 			collection.addElement( { id: "three", value: 4 });			
 			collection.addElement( { id: "two", value: 1 });			
 			
-			assertNotNull( collection.find( "three" ));
-			collection.removeElement( "three" );						
+			assertNotNull( collection.find( "id", "three" ));
+			collection.removeElement( "id", "three" );					
 			assertEquals( 2, collection.length );
-			assertNull( collection.find( "three" ));
+			assertNull( collection.find( "id", "three" ));
 		}
 	}
 }
