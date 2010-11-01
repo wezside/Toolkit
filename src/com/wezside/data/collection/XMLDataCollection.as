@@ -71,7 +71,7 @@ package com.wezside.data.collection
 			while ( it.hasNext() )	
 			{
 				item = it.next();
-				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
+				if ( item[ prop ] == value )
 				{
 					it.purge();
 					it = null;

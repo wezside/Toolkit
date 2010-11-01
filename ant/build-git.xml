@@ -26,6 +26,7 @@
 				<args>
 					<arg value="@{remoteRepositoryName}" />
 					<arg value="@{branch}" />
+					<arg value="--tags" />
 				</args>
 			</git>
 		</sequential>
@@ -33,6 +34,10 @@
 
 	<target name="commit">
 
+		<propertyfile file="${prop.file}" comment="Update build version">
+			<entry key="build.int" type="int" default="0001" operation="-" pattern="0000" />
+		</propertyfile>				
+		
 		<condition property="tag.release">
 			<matches pattern="([0-9][0-9][0-9]0)" string="${build.int}" />
 		</condition>
