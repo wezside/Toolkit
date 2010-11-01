@@ -14,6 +14,8 @@ Latest release
 Change log since build .0100
 =======
 
+* ICollection updated to reflect more of a standard approach
+* New IDictionaryCollection interface for Dictionary Collections
 * Fixed issue when height is less than Scrollheight, the padding was ignored.
 * Added namespaces collection to XMLDataMapper. Updated Unit tests to reflect this change.
 * Fixed issue with Scroll Decorator in ShapeRectangle. The width of the ShapeRectangle was incorrect.
