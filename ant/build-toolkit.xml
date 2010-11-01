@@ -82,7 +82,10 @@
 	</target>		
 	
 	<!-- Build SWC -->
-	<target name="build-swc" depends="resolve-class-path">		
+	<target name="build-swc" depends="resolve-class-path">
+		
+		<loadproperties srcfile="${prop.file}" />
+		
 		<compc output="${swc.path}/wezside.toolkit.${version}${build.int}.swc" 
 			   fork="true"
 			   maxmemory="512m"
