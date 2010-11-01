@@ -49,7 +49,7 @@ package com.wezside.data.collection
 			return _collection[ index.toString() ] as LinkedListNode;
 		}
 		
-		public function removeElement( prop:String = "", value:* = null ):*
+		public function removeElement( prop:* = "", value:* = null ):*
 		{
 			var selectedIndex:int = -1;
 			var iterator:IIterator = iterator();
@@ -92,7 +92,7 @@ package com.wezside.data.collection
 			return new LinkedListIterator( _collection );
 		}
 		
-		public function find( prop:String = "", value:* = null ):*
+		public function find( prop:* = "", value:* = null ):*
 		{		
 			var it:IIterator = iterator();
 				

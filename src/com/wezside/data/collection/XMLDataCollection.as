@@ -51,7 +51,7 @@ package com.wezside.data.collection
 			return _collection[ index ];
 		}			
 
-		public function find( prop:String = "", value:* = null ):*
+		public function find( prop:* = "", value:* = null ):*
 		{			
 			var it:IIterator = iterator();
 			var item:*;
@@ -83,7 +83,7 @@ package com.wezside.data.collection
 			return null;
 		}
 				
-		public function removeElement( prop:String = "", value:* = null ):*
+		public function removeElement( prop:* = "", value:* = null ):*
 		{
 			var removeIndex:int = -1;
 			var it:IIterator = iterator();

@@ -40,7 +40,7 @@ package com.wezside.data.collection
 			return new ArrayIterator( _collection );					
 		}
 		
-		public function find( prop:String = "", value:* = null ):*
+		public function find( prop:* = "", value:* = null ):*
 		{			
 			var it:IIterator = iterator();
 			var item:*;
@@ -62,6 +62,9 @@ package com.wezside.data.collection
 				item = it.next();
 				if ( item.hasOwnProperty( prop ) && item[ prop ] == value )
 					return item; 
+
+				if (( prop || value ) && ( item == prop || item == value ))
+					return item;
 			}
 			it.purge();
 			it = null;
@@ -78,7 +81,7 @@ package com.wezside.data.collection
 			return _collection[ index ];
 		}		
 		
-		public function removeElement( prop:String = "", value:* = null ):*
+		public function removeElement( prop:* = "", value:* = null ):*
 		{
 			var removeIndex:int = -1;
 			var it:IIterator = iterator();

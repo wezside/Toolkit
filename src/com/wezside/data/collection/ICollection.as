@@ -27,11 +27,11 @@ package com.wezside.data.collection
 	public interface ICollection
 	{		
 		function addElement( value:* ):void;
-		function removeElement( prop:String = "", value:* = null ):*;
+		function removeElement( prop:* = "", value:* = null ):*;
 		function getElementAt( index:int ):*		
 		function get length():int;
 		function iterator():IIterator;
-		function find( prop:String = "", value:* = null ):*
+		function find( prop:* = "", value:* = null ):*
 		function purge():void;
 		function toString():String;		
 	}

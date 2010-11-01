@@ -52,5 +52,19 @@ package test.com.wezside.data.collection
 			assertEquals( 2, collection.length );
 			assertNull( collection.find( "id", "three" ));
 		}
+						
+		[Test]
+		public function testRemoveNativeObject():void
+		{	
+			assertEquals( 0, collection.length );			
+			collection.addElement( "one" );
+			collection.addElement( "two");			
+			collection.addElement( "three" );			
+			
+			assertNotNull( collection.find( "one" ));
+			collection.removeElement( "three" );					
+			assertEquals( 2, collection.length );
+			assertNull( collection.find( "three" ));
+		}
 	}
 }

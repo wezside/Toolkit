@@ -42,7 +42,7 @@ package com.wezside.components.gallery.collection
 			return new ArrayIterator( _collection );					
 		}
 		
-		public function find( prop:String = "", value:* = null ):*
+		public function find( prop:* = "", value:* = null ):*
 		{
 			var it:IIterator = iterator();			
 			while( it.hasNext())
@@ -67,7 +67,7 @@ package com.wezside.components.gallery.collection
 			_collection.push( value );
 		}		
 		
-		public function removeElement( prop:String = "", value:* = null ):*
+		public function removeElement( prop:* = "", value:* = null ):*
 		{
 			var removeIndex:int = -1;
 			var it:IIterator = iterator();
