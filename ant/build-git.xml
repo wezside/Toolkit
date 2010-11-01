@@ -40,7 +40,7 @@
 		</condition>
 
 		<propertyfile file="${prop.file}" comment="Update build version">
-			<entry key="build.int" type="int" default="0001" operation="+" pattern="0000" />
+			<entry key="build.int" type="int" default="0001" operation="-" pattern="0000" />
 		</propertyfile>				
 		<echo message="[Auto Build] Commit ${project.name} Release ${version}${build.int}" />
 
