@@ -277,10 +277,14 @@ package com.wezside.components
 					_childrenContainer.removeChild( child );
 			}				
 			if ( _childrenContainer && contains( _childrenContainer )) removeUIChild( _childrenContainer );
-			if ( _scroll && contains( DisplayObject( _scroll ) )) removeUIChild( DisplayObject( _scroll ));
+			if ( _scroll && contains( DisplayObject( _scroll ) ))
+			{
+				_scroll.purge();
+				removeUIChild( DisplayObject( _scroll ));
+			}
 			if ( _skin && contains( DisplayObject( _skin ) )) removeUIChild( DisplayObject( _skin ));
 			if ( _background && contains( DisplayObject( _background ) )) removeUIChild( DisplayObject( _background ));
-			iter = null;
+			iter = null;			
 			_styleManager = null;
 			_styleName = null;
 			_styleSheet = null;

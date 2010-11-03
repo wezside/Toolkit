@@ -14,6 +14,7 @@ Latest release
 Change log since build .0100
 =======
 
+* Added purge for Scroll decorators. Will be automatically purged when UIELement.purge is called
 * ICollection updated to reflect more of a standard approach
 * New IDictionaryCollection interface for Dictionary Collections
 * Fixed issue when height is less than Scrollheight, the padding was ignored.

@@ -25,6 +25,8 @@ package com.wezside.components.decorators.scroll
 		
 		function get scrollBarVisible():Boolean;
 		function set scrollBarVisible( value:Boolean ):void;
+		
+		function purge():void;
 
 	}
 }

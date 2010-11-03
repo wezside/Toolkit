@@ -25,9 +25,9 @@ package com.wezside.components.decorators.scroll
 		private var _verticalGap:int;
 		private var _trackWidth:int = 20;
 		private var _trackHeight:int = 20;
+		private var _scrollBarVisible:Boolean;
 		
 		protected var decorated:IUIDecorator;
-		private var _scrollBarVisible:Boolean;
 
 		public function Scroll( decorated:IUIDecorator = null )
 		{
@@ -46,7 +46,11 @@ package com.wezside.components.decorators.scroll
 		
 		public function draw():void
 		{
-		}				
+		}
+										
+		public function purge():void
+		{
+		}
 		
 		public function get scrollHeight():int
 		{

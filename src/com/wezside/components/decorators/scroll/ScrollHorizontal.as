@@ -69,6 +69,13 @@ package com.wezside.components.decorators.scroll
 				scrollBarVisible = false;
 		}
 		
+		override public function purge():void 
+		{
+			stage.removeEventListener( MouseEvent.MOUSE_UP, thumbUp );
+			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
+			thumb.removeEventListener( MouseEvent.MOUSE_DOWN, thumbDown );	
+		}		
+		
 		private function thumbUp( event:MouseEvent ):void
 		{
 			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
