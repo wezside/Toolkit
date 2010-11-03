@@ -78,7 +78,7 @@ package com.wezside.components.decorators.scroll
 		
 		private function thumbUp( event:MouseEvent ):void
 		{
-			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
+			if ( stage ) stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
 		}
 
 		private function thumbDown( event:MouseEvent ):void
