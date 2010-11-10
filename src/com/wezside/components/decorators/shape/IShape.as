@@ -55,6 +55,7 @@ package com.wezside.components.decorators.shape
 		function set bottomLeftRadius( value:int ):void;
 					
 		function get bottomRightRadius():int;
+		function set bottomRightRadius( value:int ):void;
 		
 		function get xOffset():int;
 		function set xOffset( value:int ):void;
