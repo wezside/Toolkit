@@ -1,8 +1,8 @@
 #Update build version
-#Wed Nov 03 16:29:40 GMT 2010
+#Wed Nov 10 10:39:36 GMT 2010
 swc.path=${basedir}/swc/
 swc.base=F\:/Resources/Flash/Library/Toolkit
-build.int=0196
+build.int=0197
 FLEX_HOME=c\:/flex4sdk_4.0.0.14159
 src.path=${basedir}/src
 version=0.1.
