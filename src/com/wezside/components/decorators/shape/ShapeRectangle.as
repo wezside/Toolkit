@@ -101,8 +101,8 @@ package com.wezside.components.decorators.shape
 			
 			// Copy the previous decorated graphics
 //			graphics.clear();
-			 
-			graphics.copyFrom( Sprite( decorated ).graphics );
+			if ( graphics.hasOwnProperty( "copyFrom" ))
+				graphics.copyFrom( Sprite( decorated ).graphics );
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
 		
