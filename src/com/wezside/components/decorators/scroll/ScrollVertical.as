@@ -4,8 +4,10 @@ package com.wezside.components.decorators.scroll
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.events.MouseEvent;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -63,12 +65,15 @@ package com.wezside.components.decorators.scroll
 				yMin = int( track.y ) + 2;
 				yMax = int( track.y + track.height - thumb.height ) - 2;
 				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
+				thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );			
+	
 				if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );		
 			}		
 			else
 				scrollBarVisible = false;
 		}
-		
+
+
 		override public function purge():void 
 		{
 			if ( stage )
@@ -77,6 +82,11 @@ package com.wezside.components.decorators.scroll
 				stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
 			}
 			if ( thumb ) thumb.removeEventListener( MouseEvent.MOUSE_DOWN, thumbDown );	
+		}
+
+		private function thumbOut( event:MouseEvent ):void 
+		{
+			thumbUp( null );
 		}
 
 		private function thumbUp( event:MouseEvent ):void

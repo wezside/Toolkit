@@ -63,6 +63,7 @@ package com.wezside.components.decorators.scroll
 				xMin = int( track.x ) + 2;
 				xMax = int( track.x + track.width - thumb.width ) - 2;
 				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
+				thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );			
 				if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );
 			}				
 			else
@@ -74,6 +75,11 @@ package com.wezside.components.decorators.scroll
 			stage.removeEventListener( MouseEvent.MOUSE_UP, thumbUp );
 			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
 			thumb.removeEventListener( MouseEvent.MOUSE_DOWN, thumbDown );	
+		}		
+
+		private function thumbOut( event:MouseEvent ):void 
+		{
+			thumbUp( null );
 		}		
 		
 		private function thumbUp( event:MouseEvent ):void

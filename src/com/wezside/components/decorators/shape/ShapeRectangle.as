@@ -23,7 +23,6 @@ package com.wezside.components.decorators.shape
 	import com.wezside.components.UIElement;
 
 	import flash.display.GradientType;
-	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
 
@@ -95,8 +94,6 @@ package com.wezside.components.decorators.shape
 					height += UIElement( decorated ).layout.bottom;
 				}
 			}
-
-			trace( decorated, decorated.width, decorated.height );
 
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
 			if ( colours.length == 1 ) colours.push( colours[ 0 ]);

@@ -115,23 +115,22 @@ package test.com.wezside.components.decorators
 			hbox.build( );
 			hbox.arrange( );					
 			addChild( hbox );
-//			
-//			hbox = new UIElement( );
-//			hbox.background = new ShapeRectangle( hbox );
-//			hbox.background.colours = [ 0xffaa56, 0xffaa56 ];
-//			hbox.background.alphas = [ 1, 1 ];			
-//			hbox.background.width = 200;
-//			hbox.background.height = 50;
-//			hbox.build( );
-//			hbox.arrange( );
-//			addChild( hbox );			
-//			
-//			
-//			var sp:Sprite = new Sprite( );
-//			sp.graphics.beginFill( 0xEEEEE );
-//			sp.graphics.drawRect( 0, 0, 200, 50 );
-//			sp.graphics.endFill( );
-//			addChild( sp );
+			
+			hbox = new UIElement( );
+			hbox.background = new ShapeRectangle( hbox );
+			hbox.background.colours = [ 0xffaa56, 0xffaa56 ];
+			hbox.background.alphas = [ 1, 1 ];			
+			hbox.background.width = 200;
+			hbox.background.height = 50;
+			hbox.build( );
+			hbox.arrange( );
+			addChild( hbox );			
+			
+			var sp:Sprite = new Sprite( );
+			sp.graphics.beginFill( 0xEEEEE );
+			sp.graphics.drawRect( 0, 0, 200, 50 );
+			sp.graphics.endFill( );
+			addChild( sp );
 		
 			super.build( );
 		}
