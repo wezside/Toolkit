@@ -23,19 +23,20 @@ package com.wezside.components.decorators.shape
 	import com.wezside.components.UIElement;
 
 	import flash.display.GradientType;
-	import flash.display.JointStyle;
-	import flash.display.LineScaleMode;
+	import flash.display.Graphics;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
-	import flash.geom.Rectangle;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
 	public class ShapeRectangle extends Shape 
 	{
+		
+		
 		private var _autoDetectWidth:Boolean;
 		private var _autoDetectHeight : Boolean;
-		private var _scale9Grid:Rectangle;
+
 		
 		public function ShapeRectangle( decorated:IUIDecorator )
 		{
@@ -53,24 +54,39 @@ package com.wezside.components.decorators.shape
 		 * 	o Explicitely set width + height properties thus ignore decorated width + height
 		 */
 		override public function draw():void
-		{		
+		{
+			super.draw();
+			
 			// If width or height has changed, i.e. resize is require, set drawable props to new resized value	
-			if ( _autoDetectWidth ) width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
-			if ( _autoDetectHeight ) height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
-						 
-			// If width wasn't explicitly set - detect it automatically
+			if ( _autoDetectWidth && decorated is UIElement )
+			{
+				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;			
+			}
+			if ( _autoDetectHeight && decorated is UIElement )
+			{
+				height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+			}
+
+			// If width of the background wasn't explicitly set - detect it automatically
 			if (  width == 0 )
 			{
 				_autoDetectWidth = true;
-				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+//				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+				width = decorated.width;
+				if ( decorated is UIElement )
+					width += UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
 			if ( height == 0 )
 			{
 				_autoDetectHeight = true;
-				height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+//				height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+				height = decorated.height;
+				if ( decorated is UIElement )
+					height += UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
 			}
+			
 			// If a scrollbar is present then override the height to the scrollheight
-			if ( UIElement( decorated ).scroll )
+			if ( decorated is UIElement && UIElement( decorated ).scroll )
 			{
 				height = UIElement( decorated ).scroll.height;
 				if ( !UIElement( decorated ).scroll.scrollBarVisible )
@@ -80,22 +96,28 @@ package com.wezside.components.decorators.shape
 				}
 			}
 
+			trace( decorated, decorated.width, decorated.height );
+
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
 			if ( colours.length == 1 ) colours.push( colours[ 0 ]);
 
+			
+			// Copy the previous decorated graphics
+//			graphics.clear();
+			 
+			graphics.copyFrom( Sprite( decorated ).graphics );
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-			
-			graphics.clear();
+		
 			if ( borderThickness > 0 )
-				graphics.lineStyle( borderThickness, borderColor, borderAlpha );
+				graphics.lineStyle( borderThickness, borderColor, borderAlpha, true );
 				
 			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
 
 			if ( cornerRadius > 0 )
-				graphics.drawRoundRect( 0, 0, width, height, cornerRadius );
+				graphics.drawRoundRect( xOffset, yOffset, width, height, cornerRadius );
 			else
-				graphics.drawRoundRectComplex( 0, 0, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
+				graphics.drawRoundRectComplex( xOffset, yOffset, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
 
 			if ( cornerRadius == 0 && borderThickness > 0 )
 			{
@@ -110,16 +132,8 @@ package com.wezside.components.decorators.shape
 				graphics.lineTo( width, height );
 				graphics.moveTo( width, height );
 				graphics.lineTo( width, 0 );
-			}		
-			graphics.endFill();			
-			if ( _scale9Grid ) super.scale9Grid = _scale9Grid;
-		}
-		
-		override public function set scale9Grid( innerRectangle:Rectangle ):void
-		{
-			_scale9Grid = innerRectangle;
-			if ( decorated.width > 0 && decorated.height > 0 )
-				super.scale9Grid = _scale9Grid;
+			}
+			
 		}
 	}
 }

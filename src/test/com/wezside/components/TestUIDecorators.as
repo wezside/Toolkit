@@ -103,7 +103,7 @@ package test.com.wezside.components
 			uiElement.background = new ShapeRectangle( uiElement );
 			assertNotNull( uiElement.background );
 			
-			uiElement.build();			
+			uiElement.build();
 			uiElement.arrange();			
 			assertEquals( 2, uiElement.numChildren );
 		}
@@ -148,6 +148,14 @@ package test.com.wezside.components
 			assertEquals( 0, uiElement.getChildAt(0).y );
 			assertEquals( 15+15+200, uiElement.width );
 			assertEquals( 15+15+50, uiElement.height );
+			
+			uiElement.arrange();
+			uiElement.arrange();
+			uiElement.arrange();
+			assertEquals( 20, uiElement.x );
+			assertEquals( 20, uiElement.y );
+			assertEquals( 15+15+200, uiElement.width );
+			assertEquals( 15+15+50, uiElement.height );
 		}
 		
 		[Test]
@@ -162,7 +170,7 @@ package test.com.wezside.components
 			
 			uiElement.layout = new PaddedLayout( uiElement );
 			uiElement.layout.top = 15;		
-			uiElement.layout.left = 15;		
+			uiElement.layout.left = 15;
 			uiElement.layout.bottom = 15;		
 			uiElement.layout.right = 15;
 					
@@ -180,8 +188,7 @@ package test.com.wezside.components
 		
 		[Test]
 		public function testPaddingWithHorizontalLayout():void	
-		{
-			
+		{			
 			uiElement.x = 20;
 			uiElement.y = 20;
 			
@@ -250,51 +257,6 @@ package test.com.wezside.components
 			uiElement.arrange();
 			assertEquals( 430, uiElement.width );
 			
-		}
-		
-		[Test]
-		public function testShapeScale9GridBefore():void
-		{
-			uiElement.background = new ShapeRectangle(uiElement);
-			uiElement.background.alphas = [1, 1];
-			uiElement.background.colours = [0, 0];
-			uiElement.background.width = 200;
-			uiElement.background.height = 200;
-			uiElement.background.cornerRadius = 40;
-			uiElement.background.scale9Grid = new Rectangle( 20, 20, 160, 160 );
-
-			uiElement.build();
-			uiElement.setStyle();
-			uiElement.arrange();
-			
-			uiElement.x = 20;
-			uiElement.y = 20;	
-			uiElement.background.height = 300;			
-			
-			assertTrue( true );	
-		}
-		
-		[Test]
-		public function testShapeScale9GridAfter():void
-		{
-			uiElement.background = new ShapeRectangle(uiElement);
-			uiElement.background.alphas = [1, 1];
-			uiElement.background.colours = [0, 0];
-			uiElement.background.width = 200;
-			uiElement.background.height = 200;
-			uiElement.background.cornerRadius = 40;
-
-			uiElement.build();
-			uiElement.setStyle();
-			uiElement.arrange();
-			
-			uiElement.x = 20;
-			uiElement.y = 20;
-				
-			uiElement.background.scale9Grid = new Rectangle( 20, 20, 160, 160 );
-			uiElement.background.height = 300;			
-			
-			assertTrue( true );	
 		}
 		
 		

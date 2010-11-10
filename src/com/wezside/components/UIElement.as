@@ -134,7 +134,7 @@ package com.wezside.components
 		{
 			return getChildByName( name );
 		}		
-				
+
 		public function build():void
 		{
 			if ( _background ) super.addChildAt( _background as DisplayObject, 0 );

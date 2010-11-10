@@ -20,8 +20,10 @@
 package com.wezside.components.decorators.shape 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Sprite;
 
@@ -30,6 +32,13 @@ package com.wezside.components.decorators.shape
 	 */
 	public class Shape extends Sprite implements IShape 
 	{
+		
+		public static const TYPE_ISHAPE:String = "TYPE_ISHAPE";
+		public static const TYPE_IUIELEMENT:String = "TYPE_IUIELEMENT";
+		public static const SCROLL:String = "SCROLL";
+		public static const AUTO_WIDTH:String = "AUTO_WIDTH";
+		public static const AUTO_HEIGHT:String = "AUTO_HEIGHT";
+
 
 		private var _cornerRadius:int = 0;
 		private var _borderColor:uint = 0xffffff;
@@ -43,14 +52,22 @@ package com.wezside.components.decorators.shape
 		private var _bottomLeftRadius:int = 0;
 		private var _topRightRadius:int = 0;
 		private var _topLeftRadius:int = 0;
+		private var _xOffset:int = 0;
+		private var _yOffset:int = 0;
 
+
+		protected var states:StateManager;
 		protected var decorated:IUIDecorator;
-
+		
+		
+		/**
+		 * Determine what properties the decorated has and update the state
+		 */
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
 			this.decorated = decorated;
 		}
-		
+
 		public function iterator( type:String = null ):IIterator
 		{
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
@@ -63,7 +80,9 @@ package com.wezside.components.decorators.shape
 		}
 				
 		public function draw():void
-		{
+		{			
+			if ( decorated.iterator().hasNext()) 
+				decorated.arrange();			
 		}		
 				
 		public function clear():void
@@ -195,5 +214,24 @@ package com.wezside.components.decorators.shape
 			_bottomRightRadius = value;
 		}
 
+		public function get xOffset():int
+		{
+			return _xOffset;
+		}
+		
+		public function get yOffset():int
+		{
+			return _yOffset;
+		}
+		
+		public function set xOffset(value:int):void
+		{
+			_xOffset = value;
+		}
+		
+		public function set yOffset(value:int):void
+		{
+			_yOffset = value;
+		}
 	}
 }

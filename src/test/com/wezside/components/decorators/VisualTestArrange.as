@@ -1,4 +1,4 @@
-package test.com.wezside.components 
+package test.com.wezside.components.decorators 
 {
 	import test.com.wezside.sample.style.LatinStyle;
 

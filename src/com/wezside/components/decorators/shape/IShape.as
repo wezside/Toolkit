@@ -19,7 +19,6 @@
  */
 package com.wezside.components.decorators.shape 
 {
-	import flash.geom.Rectangle;
 	import com.wezside.components.IUIDecorator;
 
 	/**
@@ -56,10 +55,12 @@ package com.wezside.components.decorators.shape
 		function set bottomLeftRadius( value:int ):void;
 					
 		function get bottomRightRadius():int;
-		function set bottomRightRadius( value:int ):void;
 		
-		function get scale9Grid():Rectangle;
-		function set scale9Grid( value:Rectangle ):void;
+		function get xOffset():int;
+		function set xOffset( value:int ):void;
+					
+		function get yOffset():int;
+		function set yOffset( value:int ):void;
 					
 		function draw():void
 		function clear():void

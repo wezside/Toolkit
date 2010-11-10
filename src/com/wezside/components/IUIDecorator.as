@@ -1,5 +1,6 @@
 package com.wezside.components 
 {
+	import flash.events.IEventDispatcher;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.events.Event;
@@ -7,7 +8,7 @@ package com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public interface IUIDecorator 
+	public interface IUIDecorator extends IEventDispatcher
 	{
 	
 		function get width():Number
@@ -18,11 +19,6 @@ package com.wezside.components
 				
 	 	function iterator( type:String = null ):IIterator;
 		function arrange():void;
-
-		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
-		function dispatchEvent( event:Event ):Boolean;
-		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
-		function hasEventListener( type:String ):Boolean;	
-		
+	
 	}
 }
