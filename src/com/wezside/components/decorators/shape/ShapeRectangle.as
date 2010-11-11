@@ -71,7 +71,6 @@ package com.wezside.components.decorators.shape
 			if (  width == 0 )
 			{
 				_autoDetectWidth = true;
-//				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 				width = decorated.width;
 				if ( decorated is UIElement )
 					width += UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
@@ -79,7 +78,6 @@ package com.wezside.components.decorators.shape
 			if ( height == 0 )
 			{
 				_autoDetectHeight = true;
-//				height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
 				height = decorated.height;
 				if ( decorated is UIElement )
 					height += UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;

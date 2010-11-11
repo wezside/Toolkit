@@ -50,12 +50,12 @@ package test.com.wezside.components.decorators
 			background = new ShapeRectangle( this );
 			background.alphas = [ 0.3, 0.3 ];
 			background.colours = [ 0xefefef, 0xaeaeae ];
+			background.cornerRadius = 50;
 			
 			background = new ShapeRectangle( this.background );
 			background.alphas = [ 0.3, 0.3 ];
 			background.colours = [ 0xff0000, 0xff0000 ];
 			background.yOffset = 115;
-			background.height = 50;
 			
 			build();
 			arrange();
@@ -66,14 +66,16 @@ package test.com.wezside.components.decorators
 			stage.addEventListener( Event.RESIZE, onStageResize );
 		}
 
-		private function onStageResize( event:Event ):void 
+		private function onStageResize( event:Event = null ):void 
 		{
 			if ( stage )
 			{				
 				label.width = stage.stageWidth - 50;	
-				label.height = label.textHeight;
+				label.height = label.y + label.height + 50;
+
+				background.width = label.width + layout.left + layout.right;
+				
 				background.yOffset = label.height + 1 + layout.top + layout.bottom;
-				background.width = label.width + layout.left + layout.right;				
 				background.arrange();
 			}			
 		}

@@ -158,7 +158,7 @@ package com.wezside.components.decorators.shape
 		{
 			_width = value;
 			// Update the height property if arrange was called before
-			if ( super.width > 0 ) super.width = value;
+//			if ( super.width > 0 ) super.width = value;
 		}
 		
 		override public function get width():Number 
@@ -170,7 +170,7 @@ package com.wezside.components.decorators.shape
 		{
 			_height = value;
 			// Update the height property if arrange was called before
-			if ( super.height > 0 ) super.height = value;
+//			if ( super.height > 0 ) super.height = value;
 		}
 		
 		override public function get height():Number 
