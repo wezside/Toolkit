@@ -7,13 +7,14 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-* Build 0.1.0199
+* Build 0.1.0200
 * Compiled with Flex 4 SDK build 14159 
 
 
 Change log since build .0100
 =======
 
+* New GraphicsEx class added to allow for concatenation of Graphics. Used specifically in ShapeRectangle to allow for chaining.
 * Added purge for Scroll decorators. Will be automatically purged when UIELement.purge is called
 * ICollection updated to reflect more of a standard approach
 * New IDictionaryCollection interface for Dictionary Collections
