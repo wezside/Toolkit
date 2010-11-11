@@ -19,6 +19,9 @@
  */
 package com.wezside.components.decorators.shape 
 {
+	import com.wezside.utilities.imaging.GraphicsEx;
+	import flash.display.Graphics;
+
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
@@ -55,17 +58,17 @@ package com.wezside.components.decorators.shape
 		private var _xOffset:int = 0;
 		private var _yOffset:int = 0;
 
-
 		protected var states:StateManager;
 		protected var decorated:IUIDecorator;
 		
+		public var graphicsEx:GraphicsEx;		
 		
 		/**
 		 * Determine what properties the decorated has and update the state
 		 */
 		public function Shape( decorated:IUIDecorator = null ) 
 		{					
-			this.decorated = decorated;
+			this.decorated = decorated;			
 		}
 
 		public function iterator( type:String = null ):IIterator
@@ -84,10 +87,11 @@ package com.wezside.components.decorators.shape
 			if ( decorated.iterator().hasNext()) 
 				decorated.arrange();			
 		}		
-				
+
 		public function clear():void
 		{
 			graphics.clear();
+			if ( graphicsEx ) graphicsEx.clear();
 		}		
 		
 		public function get colours():Array

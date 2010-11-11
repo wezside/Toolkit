@@ -20,10 +20,11 @@
 package com.wezside.components.decorators.shape 
 {
 	import com.wezside.components.IUIDecorator;
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
+	import com.wezside.utilities.imaging.GraphicsEx;
 
 	import flash.display.GradientType;
-	import flash.display.Sprite;
 	import flash.geom.Matrix;
 
 	/**
@@ -98,39 +99,41 @@ package com.wezside.components.decorators.shape
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
 			if ( colours.length == 1 ) colours.push( colours[ 0 ]);
 
-			
-			// Copy the previous decorated graphics
-//			graphics.clear();
-			if ( graphics.hasOwnProperty( "copyFrom" ))
-				graphics.copyFrom( Sprite( decorated ).graphics );
+			if ( decorated is IUIElement )
+				graphicsEx = new GraphicsEx( graphics );
+			else
+			{
+				graphicsEx = new GraphicsEx( graphics );
+				graphicsEx.concat( Shape( decorated ).graphicsEx );			
+			}
+				
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
-		
+
 			if ( borderThickness > 0 )
-				graphics.lineStyle( borderThickness, borderColor, borderAlpha, true );
+				graphicsEx.lineStyle( borderThickness, borderColor, borderAlpha, true );
 				
-			graphics.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
+			graphicsEx.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
 
 			if ( cornerRadius > 0 )
-				graphics.drawRoundRect( xOffset, yOffset, width, height, cornerRadius );
+				graphicsEx.drawRoundRect( xOffset, yOffset, width, height, cornerRadius );
 			else
-				graphics.drawRoundRectComplex( xOffset, yOffset, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
+				graphicsEx.drawRoundRectComplex( xOffset, yOffset, width, height, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius );
 
 			if ( cornerRadius == 0 && borderThickness > 0 )
 			{
-				graphics.lineStyle( borderThickness, borderColor, borderAlpha );
-				graphics.moveTo( 0, 0 );
-				graphics.lineTo( width, 0 );
-				graphics.moveTo( 0, 0 );
-				graphics.lineTo( 0, height );
-				graphics.endFill( );
-				graphics.lineStyle( borderThickness, borderColor, borderAlpha );
-				graphics.moveTo( 0, height );
-				graphics.lineTo( width, height );
-				graphics.moveTo( width, height );
-				graphics.lineTo( width, 0 );
+				graphicsEx.lineStyle( borderThickness, borderColor, borderAlpha );
+				graphicsEx.moveTo( 0, 0 );
+				graphicsEx.lineTo( width, 0 );
+				graphicsEx.moveTo( 0, 0 );
+				graphicsEx.lineTo( 0, height );
+				graphicsEx.endFill( );
+				graphicsEx.lineStyle( borderThickness, borderColor, borderAlpha );
+				graphicsEx.moveTo( 0, height );
+				graphicsEx.lineTo( width, height );
+				graphicsEx.moveTo( width, height );
+				graphicsEx.lineTo( width, 0 );
 			}
-			
 		}
 	}
 }
