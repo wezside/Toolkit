@@ -57,12 +57,13 @@ package com.wezside.components.decorators.shape
 		private var _topLeftRadius:int = 0;
 		private var _xOffset:int = 0;
 		private var _yOffset:int = 0;
+		private var _ratios:Array = [ 0, 255 ];
 
 		protected var states:StateManager;
 		protected var decorated:IUIDecorator;
 		
 		public var graphicsEx:GraphicsEx;		
-		
+
 		/**
 		 * Determine what properties the decorated has and update the state
 		 */
@@ -236,6 +237,16 @@ package com.wezside.components.decorators.shape
 		public function set yOffset(value:int):void
 		{
 			_yOffset = value;
+		}
+		
+		public function get ratios():Array
+		{
+			return _ratios;
+		}
+		
+		public function set ratios( value:Array ):void
+		{
+			_ratios = value;
 		}
 	}
 }

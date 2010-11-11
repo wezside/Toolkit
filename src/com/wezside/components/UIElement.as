@@ -125,9 +125,19 @@ package com.wezside.components
 			return super.removeChild( child ); 
 		}
 
+		public function removeUIChildAt( index:int ):DisplayObject
+		{
+			return super.removeChildAt( index ); 
+		}
+
 		public function addUIChild( child:DisplayObject ):DisplayObject
 		{
 			return super.addChild( child ); 
+		}
+
+		public function addUIChildAt( child:DisplayObject, index:int ):DisplayObject
+		{
+			return super.addChildAt( child, index ); 
 		}
 		
 		public function getUIChildByName( name:String ):DisplayObject 

@@ -111,7 +111,7 @@ package com.wezside.components.decorators.shape
 			if ( borderThickness > 0 )
 				graphicsEx.lineStyle( borderThickness, borderColor, borderAlpha, true );
 				
-			graphicsEx.beginGradientFill( GradientType.LINEAR, colours, alphas, [ 0,255 ], matrix );
+			graphicsEx.beginGradientFill( GradientType.LINEAR, colours, alphas, ratios, matrix );
 
 			if ( cornerRadius > 0 )
 				graphicsEx.drawRoundRect( xOffset, yOffset, width, height, cornerRadius );
