@@ -44,12 +44,13 @@ package com.wezside.components.combo
 			// Create Selected Button
 			selectedButton = new Button();
 			selectedButton.styleManager = styleManager;
+			selectedButton.styleName = _selectedStyleName;
 			selectedButton.autoSize = TextFieldAutoSize.LEFT;
 			selectedButton.addEventListener( UIElementEvent.STATE_CHANGE, stateChange );
 			selectedButton.build();
 			selectedButton.activate();
 			addChild( selectedButton );		
-			updateSelected();
+			
 			
 			// Create Dropdown Container
 			dropdown = new UIElement();
@@ -91,6 +92,8 @@ package com.wezside.components.combo
 			it = null;
 			item = null;
 			
+			
+			updateSelected();
 			super.build( );			
 		}
 
@@ -198,6 +201,17 @@ package com.wezside.components.combo
 		public function set defaultSelectedText( value:String ):void
 		{
 			_defaultSelectedText = value;
+			addItem( new ComboItem( value, _selectedStyleName ));
+		}
+
+		public function get selectedStyleName():String
+		{
+			return _selectedStyleName;
+		}
+		
+		public function set selectedStyleName( value:String ):void
+		{
+			_selectedStyleName = value;
 		}
 
 		private function stateChange( event:UIElementEvent ):void 
@@ -214,16 +228,18 @@ package com.wezside.components.combo
 			{
 				var item:ComboItem = _dataProvider.getElementAt( int( event.currentTarget.id ));
 				updateSelected( item );
-				
+				hide();
 				dispatchEvent( new ComboEvent( ComboEvent.ITEM_SELECTED, 
 											   false, 
 											   false, 
 											   item ));
+				dropdown.y = selectedButton.height;
 			}
 		}		
 
 		private function updateSelected( item:ComboItem = null ):void 
-		{						
+		{				
+			selectedButton.width = dropdown.width;		
 			selectedButton.text = item ? item.text : _defaultSelectedText;
 			selectedButton.styleName = _selectedStyleName;
 			selectedButton.setStyle();

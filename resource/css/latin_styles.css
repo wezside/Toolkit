@@ -44,6 +44,31 @@ MockUIElement {
 	borderColor: #ff0000;
 }
 
+.combo
+{
+	upSkin: ButtonUp;	
+	overSkin: ButtonOver;	
+	downSkin: ButtonDown;
+	selectedSkin: ButtonSelected;
+	font: ArialEmbed;
+	antiAliasType: advanced;
+	size: 13;
+	textColourUp: #111111;
+	textColourOver: #333333;
+	textColourDown: #111111;
+	textColourSelected: #ff0000;
+	align: left;
+	autoSize: left;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingBottom: 0;
+	paddingTop: 0;
+	wordWrap: true;
+	multiline: true;
+	border: true;
+	borderColor: #ff0000;
+}
+
 /* VisualTestButton.as */
 .button
 {

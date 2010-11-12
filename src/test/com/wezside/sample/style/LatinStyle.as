@@ -49,6 +49,7 @@ package test.com.wezside.sample.style
 				fontWeight= "normal", 
 				fontName="ArialEmbed", 
 				mimeType="application/x-font-truetype",
+				embedAsCFF="false",
 				unicodeRange="U+0020-U+007F, U+00A0-U+00FF, U+0100-U+017F, U+0180-U+024F")]
 		public static var ArialEmbed:Class;		
 		
