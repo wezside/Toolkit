@@ -110,7 +110,7 @@ package com.wezside.components
 
 		override public function get numChildren():int 
 		{
-			return _childrenContainer.numChildren;
+			return _childrenContainer ? _childrenContainer.numChildren : 0;
 		}
 
 		override public function getChildByName( name:String ):DisplayObject 
@@ -285,7 +285,8 @@ package com.wezside.components
 			while ( it.hasNext( ) )
 			{
 				var child:* = it.next( );
-				if ( child is IUIElement ) UIElement( child ).purge( );
+				
+//				if ( child is IUIElement ) UIElement( child ).purge( );
 				if ( _childrenContainer ) 
 					_childrenContainer.removeChild( child );
 			}				
@@ -348,7 +349,6 @@ package com.wezside.components
 				case ITERATOR_PROPS: 
 					return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ) );  
 				case ITERATOR_CHILDREN: 
-				if ( _childrenContainer ) 
 					return new ChildIterator( _childrenContainer );  
 			}
 			return new NullIterator( );

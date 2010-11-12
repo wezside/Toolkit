@@ -29,8 +29,7 @@ package test.com.wezside.components
 
 		[Before]
 		public function setUp():void
-		{
-			
+		{			
 			mockUIElement = new MockUIElement();
 		}
 
@@ -39,6 +38,16 @@ package test.com.wezside.components
 		{
 			styles = null;
 			mockUIElement = null;
+		}
+		
+		[Test]
+		public function testUIElementPurge():void
+		{
+			mockUIElement.purge();
+			mockUIElement = new MockUIElement();
+			assertEquals( 0, mockUIElement.numChildren );
+			mockUIElement.purge();
+			assertEquals( 0, mockUIElement.numChildren );
 		}
 		
 		[Test]

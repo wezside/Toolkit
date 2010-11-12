@@ -1,20 +1,17 @@
 package test.com.wezside.components 
 {
-	import com.wezside.data.iterator.IIterator;
-	import com.wezside.components.decorators.layout.FillLayout;
-	import org.flexunit.asserts.assertTrue;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.decorators.layout.FillLayout;
 	import com.wezside.components.decorators.layout.HorizontalLayout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
 	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
+	import com.wezside.data.iterator.IIterator;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
 	import org.flexunit.asserts.assertNull;
-
-	import flash.geom.Rectangle;
 
 	/**
 	 * @author Wesley.Swanepoel
