@@ -1,5 +1,6 @@
 package test.com.wezside.components.decorators
 {
+	import com.wezside.components.decorators.layout.VerticalLayout;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
@@ -33,6 +34,21 @@ package test.com.wezside.components.decorators
 			layout.bottom = 10;
 			layout.left = 10;
 			layout.right = 10;
+			
+			layout = new VerticalLayout( this.layout );
+						
+ 			label = new Label();
+ 			label.border = true;
+ 			label.borderColor = 0xffffff;
+ 			label.autoSize = TextFieldAutoSize.LEFT;
+ 			label.width = 180;
+ 			label.multiline = true;
+ 			label.wordWrap = true;
+ 			label.textColor = 0xffffff;
+ 			label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu nunc non risus cursus pellentesque dapibus eget elit. Duis venenatis libero tempus sapien eleifend vel placerat augue feugiat. ";
+ 			label.build();
+ 			label.arrange();
+			addChild( label );
 						
  			label = new Label();
  			label.border = true;
@@ -55,7 +71,7 @@ package test.com.wezside.components.decorators
 			background = new ShapeRectangle( this.background );
 			background.alphas = [ 0.3, 0.3 ];
 			background.colours = [ 0xff0000, 0xff0000 ];
-			background.yOffset = 115;
+			background.yOffset = 215;
 			
 			build();
 			arrange();
@@ -73,9 +89,9 @@ package test.com.wezside.components.decorators
 				label.width = stage.stageWidth - 50;	
 				label.height = label.y + label.height + 50;
 
-				background.width = label.width + layout.left + layout.right;
-				
-				background.yOffset = label.height + 1 + layout.top + layout.bottom;
+//				background.width = label.width + layout.left + layout.right;
+//				background.height = label.height;
+//				background.yOffset = label.height + 1 + layout.top + layout.bottom;
 				background.arrange();
 			}			
 		}

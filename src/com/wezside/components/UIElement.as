@@ -1,25 +1,25 @@
 /*
-	The MIT License
+The MIT License
 
-	Copyright (c) 2010 Wesley Swanepoel
+Copyright (c) 2010 Wesley Swanepoel
 	
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 	
-	The above copyright notice and this permission notice shall be included in
-	all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 	
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-	THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
  */
 package com.wezside.components 
 {
@@ -50,11 +50,14 @@ package com.wezside.components
 	 * @author Wesley.Swanepoel
 	 */
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
+
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
+
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
+
 	public class UIElement extends Sprite implements IUIElement, IInteractive
 	{
-		
+
 		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";
 		public static const ITERATOR_CHILDREN:String = "ITERATOR_CHILDREN";
 
@@ -65,7 +68,7 @@ package com.wezside.components
 		private var _stateManager:StateManager;
 		private var _currentStyleName:String;
 		private var _childrenContainer:Sprite;
-		
+
 		// Decorators
 		private var _layout:ILayout;
 		private var _scroll:IScroll;
@@ -75,11 +78,11 @@ package com.wezside.components
 
 		public function UIElement() 
 		{
-			_skin = new UIElementSkin();  
+			_skin = new UIElementSkin( );  
 			_layout = new Layout( this ); 
 			_interactive = new Interactive( this );
-			_childrenContainer = new Sprite();
-			_stateManager = new StateManager();
+			_childrenContainer = new Sprite( );
+			_stateManager = new StateManager( );
 			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_UP );
@@ -89,17 +92,17 @@ package com.wezside.components
 			_stateManager.addState( UIElementState.STATE_VISUAL_CLICK );
 			_stateManager.stateKey = UIElementState.STATE_VISUAL_UP;
 		}		
-		
+
 		override public function addChild( child:DisplayObject ):DisplayObject 
 		{
 			return _childrenContainer.addChild( child );
 		}
-			
+
 		override public function addChildAt( child:DisplayObject, index:int ):DisplayObject 
 		{
 			return _childrenContainer.addChildAt( child, index );
 		}
-		
+
 		override public function removeChild( child:DisplayObject ):DisplayObject 
 		{
 			return _childrenContainer.removeChild( child );
@@ -109,12 +112,12 @@ package com.wezside.components
 		{
 			return _childrenContainer.numChildren;
 		}
-		
+
 		override public function getChildByName( name:String ):DisplayObject 
 		{
 			return _childrenContainer.getChildByName( name );
 		}
-		
+
 		public function get numUIChildren():int
 		{
 			return super.numChildren;
@@ -139,7 +142,7 @@ package com.wezside.components
 		{
 			return super.addChildAt( child, index ); 
 		}
-		
+
 		public function getUIChildByName( name:String ):DisplayObject 
 		{
 			return getChildByName( name );
@@ -150,12 +153,12 @@ package com.wezside.components
 			if ( _background ) super.addChildAt( _background as DisplayObject, 0 );
 			if ( _scroll )
 			{
-				 super.addChild( _scroll as DisplayObject );
+				super.addChild( _scroll as DisplayObject );
 			}
-			super.addChild( DisplayObject( _skin ));	
+			super.addChild( DisplayObject( _skin ) );	
 			super.addChild( _childrenContainer );
 		}
-		
+
 		public function setStyle():void
 		{
 			// If this has a styleName then apply the styles
@@ -174,36 +177,36 @@ package com.wezside.components
 
 		public function arrange():void
 		{
-			if ( _layout ) _layout.arrange();
+			if ( _layout ) _layout.arrange( );
 			if ( _scroll )
 			{
-				_scroll.arrange();
-				drawScrollMask();
+				_scroll.arrange( );
+				drawScrollMask( );
 			}
-			if ( _background ) _background.arrange();
+			if ( _background ) _background.arrange( );
 		}
-		
+
 		public function activate():void
 		{
-			_interactive.activate();
+			_interactive.activate( );
 		}
 
 		public function deactivate():void
 		{
-			_interactive.deactivate();
+			_interactive.deactivate( );
 		}
 
 		public function get styleManager():IStyleManager
 		{
 			return _styleManager;
 		} 
-				
+
 		public function set styleManager( value:IStyleManager ):void
 		{
 			_styleManager = value;
-			dispatchEvent( new UIElementEvent( UIElementEvent.STYLEMANAGER_READY ));
+			dispatchEvent( new UIElementEvent( UIElementEvent.STYLEMANAGER_READY ) );
 		}
-		
+
 		public function get styleName():String
 		{
 			return _styleName;
@@ -213,22 +216,22 @@ package com.wezside.components
 		{
 			_styleName = value;
 		}
-		
+
 		public function get styleSheet():StyleSheet
 		{
 			return _styleSheet;
 		}
-		
+
 		public function set styleSheet( value:StyleSheet ):void
 		{
 			_styleSheet = value;
 		}		
-		
+
 		public function get skin():IUIElementSkin
 		{
 			return _skin;
 		}
-				
+
 		public function set skin( value:IUIElementSkin ):void
 		{
 			_skin = value;
@@ -238,150 +241,166 @@ package com.wezside.components
 		{
 			return _layout;
 		}
-		
+
 		public function set layout( value:ILayout ):void
 		{
 			_layout = value;
 			_layout.addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
 		}		
-		
+
 		public function get background():IShape
 		{
 			return _background;
 		}
-		
+
 		public function set background( value:IShape ):void
 		{
 			_background = value;
 		}		
-		
+
 		public function get scroll():IScroll
 		{
 			return _scroll;
 		}
-		
+
 		public function set scroll( value:IScroll ):void
 		{
 			_scroll = value;			
 			_scroll.addEventListener( ScrollEvent.CHANGE, scrollChange );
 		}
-	
+
 		public function get interactive():IInteractive
 		{
 			return _interactive;
 		}
-		
+
 		public function set interactive( value:IInteractive ):void
 		{
 			_interactive = value;
 		}
-	
+
 		public function purge():void
 		{
-			var iter:IIterator = iterator( ITERATOR_CHILDREN );
-			while ( iter.hasNext() )
+			var it:IIterator = iterator( ITERATOR_CHILDREN );
+			while ( it.hasNext( ) )
 			{
-				var child:* = iter.next();
-				if ( child is IUIElement ) UIElement( child ).purge();
+				var child:* = it.next( );
+				if ( child is IUIElement ) UIElement( child ).purge( );
 				if ( _childrenContainer ) 
 					_childrenContainer.removeChild( child );
 			}				
-			if ( _childrenContainer && contains( _childrenContainer )) removeUIChild( _childrenContainer );
-			if ( _scroll && contains( DisplayObject( _scroll ) ))
+			if ( _childrenContainer && contains( _childrenContainer )) 
 			{
-				_scroll.purge();
-				removeUIChild( DisplayObject( _scroll ));
+				_childrenContainer.mask = null;
+				removeUIChild( _childrenContainer );
 			}
-			if ( _skin && contains( DisplayObject( _skin ) )) removeUIChild( DisplayObject( _skin ));
-			if ( _background && contains( DisplayObject( _background ) )) removeUIChild( DisplayObject( _background ));
-			iter = null;			
-			_styleManager = null;
-			_styleName = null;
-			_styleSheet = null;
-			_background = null;
+			if ( _scroll && contains( DisplayObject( _scroll ) )) 
+			{
+				_scroll.removeEventListener( ScrollEvent.CHANGE, scrollChange );
+				_scroll.purge( );
+				removeUIChild( DisplayObject( _scroll ) );
+			}
+			if ( _layout ) _layout.removeEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
+			if ( _stateManager ) _stateManager.purge( );
+			if ( _skin && contains( DisplayObject( _skin ) )) removeUIChild( DisplayObject( _skin ) );
+			if ( _background && contains( DisplayObject( _background ) )) removeUIChild( DisplayObject( _background ) );
+			
+			it.purge( );
+			it = null;
+			
 			_skin = null;
+			_styleSheet = null;
+			_styleManager = null;
+			_stateManager = null;
+			_childrenContainer = null;
+			_layout = null;
 			_scroll = null;
+			_background = null;
+			_interactive = null;
 		}		
-		
+
 		public function get state():String
 		{
 			return _stateManager.stateKey;
 		}		
-		
+
 		public function set state( value:String ):void
 		{
 			_stateManager.stateKey = value;
 			_skin.setSkin( _stateManager.stateKeys );
-			dispatchEvent( new UIElementEvent( UIElementEvent.STATE_CHANGE, false, false, _stateManager.state ));
+			dispatchEvent( new UIElementEvent( UIElementEvent.STATE_CHANGE, false, false, _stateManager.state ) );
 		}
-		
+
 		public function get stateManager():StateManager
 		{
 			return _stateManager;
 		}
-		
+
 		public function set stateManager( value:StateManager ):void
 		{
 			_stateManager = value;
 		}
-		
+
 		public function iterator( type:String = null ):IIterator
 		{
 			switch ( type )
 			{				
-				case ITERATOR_PROPS: return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ));  
-				case ITERATOR_CHILDREN: return new ChildIterator( _childrenContainer );  
+				case ITERATOR_PROPS: 
+					return new ArrayIterator( styleManager.getPropertyStyles( _currentStyleName ) );  
+				case ITERATOR_CHILDREN: 
+				if ( _childrenContainer ) 
+					return new ChildIterator( _childrenContainer );  
 			}
-			return new NullIterator();
+			return new NullIterator( );
 		}		
 
 		public function hasOwnProperty( V:* = undefined ):Boolean
 		{
 			return super.hasOwnProperty( V );
 		}
-		
+
 		public function get debug():Boolean
 		{
 			return _debug;
 		}
-		
+
 		public function set debug( value:Boolean ):void
 		{
 			_debug = value;
 		}
-		
+
 		protected function arrangeComplete( event:UIElementEvent ):void 
 		{
 			dispatchEvent( event );
 		}
-				
+
 		protected function scrollChange( event:ScrollEvent ):void 
 		{			
 			var childContainerProp:String = event.prop == "y" ? "height" : "width";
-			_childrenContainer[ event.prop ] = -event.percent * ( _childrenContainer[ childContainerProp ] -  event.scrollValue );
+			_childrenContainer[ event.prop ] = -event.percent * ( _childrenContainer[ childContainerProp ] - event.scrollValue );
 		}		
-		
+
 		private function drawScrollMask():void 
 		{
 			var w:int = scroll is ScrollHorizontal ? _scroll.scrollWidth : width;
 			var h:int = scroll is ScrollVertical ? _scroll.scrollHeight : height;
-			var scrollMask:Sprite = new Sprite();
+			var scrollMask:Sprite = new Sprite( );
 			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
 			scrollMask.graphics.drawRect( layout.left, layout.top, w, h );
-			scrollMask.graphics.endFill();
+			scrollMask.graphics.endFill( );
 			super.addChild( scrollMask );
 			_childrenContainer.mask = scrollMask;
 		}		
-		
+
 		private function setProperties( target:IUIElement, currentStyleName:String = "" ):void
 		{
 			_currentStyleName = currentStyleName;
 			var iter:IIterator = iterator( ITERATOR_PROPS );
 			var strUtil:StringUtil = new StringUtil( );
 			
-			while ( iter.hasNext() )
+			while ( iter.hasNext( ) )
 			{				
-				var property:Object = iter.next();
+				var property:Object = iter.next( );
 				
 				// Set all non skin properties
 				if ( target.hasOwnProperty( property.prop ))
@@ -390,18 +409,18 @@ package com.wezside.components
 					if ( property.value == "false" || property.value == "true" )
 						value = strUtil.stringToBoolean( property.value );
 					
-					if ( String( property.value ).indexOf( "#" ) != -1 )
+					if ( property && String( property.value ).indexOf( "#" ) != -1 )
 						value = "0x" + String( property.value ).substring( 1 );
 						
 					if ( !isNaN( property.value ))
 						value = Number( property.value );
 
 					target[ property.prop ] = value;
-					Tracer.output( _debug, " " + property.prop + ": " + value, toString() );
+					Tracer.output( _debug, " " + property.prop + ": " + value, toString( ) );
 				}
 				
 				if ( _skin.hasSkinProperty( property.prop ))
-					_skin[ property.prop ] = styleManager.getAssetByName( String( property.value ));
+					_skin[ property.prop ] = styleManager.getAssetByName( String( property.value ) );
 			}
 			
 			if ( _skin.hasSkinProperty( "upSkin" ) && state == "" )
