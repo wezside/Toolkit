@@ -49,6 +49,7 @@ package com.wezside.components.decorators.layout
 				child = DisplayObject( it.next() );
 				child.y = yOffset | 0;
 				yOffset += child.height;
+
 				if ( it.hasNext() )
 					yOffset += verticalGap;
 			}
@@ -58,7 +59,7 @@ package com.wezside.components.decorators.layout
 			// the padding properties in case they were used 
 			width = decorated.width + left + right;
 			height = yOffset + bottom;
-			
+
 			if ( it.length() > 1 )
 				height -= verticalGap;
 				

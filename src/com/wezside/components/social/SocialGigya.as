@@ -37,7 +37,6 @@ package com.wezside.components.social
 			conf.APIKey = _apiKey;
 			conf.mcRoot = this.root;
 			conf.enabledProviders = "facebook";
-			conf.cid = _contextID;
 			
 			params.services = "socialize";
 			params.callback = gigyaInitialized;

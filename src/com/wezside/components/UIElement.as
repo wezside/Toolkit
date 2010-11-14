@@ -50,11 +50,8 @@ package com.wezside.components
 	 * @author Wesley.Swanepoel
 	 */
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
-
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
-
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
-
 	public class UIElement extends Sprite implements IUIElement, IInteractive
 	{
 
@@ -75,6 +72,7 @@ package com.wezside.components
 		private var _background:IShape;
 		private var _interactive:IInteractive;
 		private var _debug:Boolean;
+		private var scrollMask:Sprite;
 
 		public function UIElement() 
 		{
@@ -82,6 +80,7 @@ package com.wezside.components
 			_layout = new Layout( this ); 
 			_interactive = new Interactive( this );
 			_childrenContainer = new Sprite( );
+			
 			_stateManager = new StateManager( );
 			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
@@ -106,6 +105,11 @@ package com.wezside.components
 		override public function removeChild( child:DisplayObject ):DisplayObject 
 		{
 			return _childrenContainer.removeChild( child );
+		}
+		
+		override public function removeChildAt(index:int):DisplayObject 
+		{
+			return _childrenContainer.removeChildAt( index );
 		}
 
 		override public function get numChildren():int 
@@ -147,6 +151,16 @@ package com.wezside.components
 		{
 			return getChildByName( name );
 		}		
+		
+		override public function get width():Number 
+		{
+			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap: super.width;
+		}
+		
+		override public function get height():Number 
+		{
+			return _scroll && super.height > _childrenContainer.height ? _childrenContainer.height : super.height;
+		}
 
 		public function build():void
 		{
@@ -177,7 +191,7 @@ package com.wezside.components
 
 		public function arrange():void
 		{
-			if ( _layout ) _layout.arrange( );
+			if ( _layout ) _layout.arrange();
 			if ( _scroll )
 			{
 				_scroll.arrange( );
@@ -384,8 +398,13 @@ package com.wezside.components
 		{
 			var w:int = scroll is ScrollHorizontal ? _scroll.scrollWidth : width;
 			var h:int = scroll is ScrollVertical ? _scroll.scrollHeight : height;
-			var scrollMask:Sprite = new Sprite( );
-			scrollMask.graphics.beginFill( 0xefefef, 0.5 );
+			
+			if ( scrollMask )
+				super.removeChild( scrollMask );
+			else
+				scrollMask = new Sprite( );			
+
+			scrollMask.graphics.beginFill( 0xff0000, 0.5 );
 			scrollMask.graphics.drawRect( layout.left, layout.top, w, h );
 			scrollMask.graphics.endFill( );
 			super.addChild( scrollMask );
