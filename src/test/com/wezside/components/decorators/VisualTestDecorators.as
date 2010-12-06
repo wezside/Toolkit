@@ -1,7 +1,5 @@
 package test.com.wezside.components.decorators 
 {
-	import flash.display.StageScaleMode;
-	import flash.display.StageAlign;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
@@ -12,6 +10,8 @@ package test.com.wezside.components.decorators
 	import com.wezside.components.text.Label;
 
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.text.TextFieldAutoSize;
 
@@ -46,7 +46,7 @@ package test.com.wezside.components.decorators
 			layout.top = 20;
 			
 			layout = new VerticalLayout( this.layout );
-			layout.verticalGap = 1;
+			layout.verticalGap = 5;
 			
 			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 200;
@@ -77,6 +77,11 @@ package test.com.wezside.components.decorators
 		{
 			removeEventListener( Event.ENTER_FRAME, enterFrame );
 			build( );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
+			removeChildAt( 0 );
 			arrange( );
 		}
 

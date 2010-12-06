@@ -35,7 +35,7 @@ package com.wezside.components.decorators.shape
 		
 		
 		private var _autoDetectWidth:Boolean;
-		private var _autoDetectHeight : Boolean;
+		private var _autoDetectHeight:Boolean;
 
 		
 		public function ShapeRectangle( decorated:IUIDecorator )
@@ -59,39 +59,39 @@ package com.wezside.components.decorators.shape
 			
 			// If width or height has changed, i.e. resize is require, set drawable props to new resized value	
 			if ( _autoDetectWidth && decorated is UIElement )
-			{
-				width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;			
+			{			
+				width = decorated.width;
+				if ( decorated is UIElement )
+					width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
 			if ( _autoDetectHeight && decorated is UIElement )
 			{
-				height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+				height = decorated.height;
+				if ( decorated is UIElement )
+					height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
 			}
 
-			// If width of the background wasn't explicitly set - detect it automatically
+			// First Time Round: If width of the background wasn't explicitly set - detect it automatically
+			// Need to add padding as Shape decorator doesn't know anything about Layout property chain
 			if (  width == 0 )
 			{
 				_autoDetectWidth = true;
 				width = decorated.width;
 				if ( decorated is UIElement )
-					width += UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+					width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
 			if ( height == 0 )
 			{
 				_autoDetectHeight = true;
 				height = decorated.height;
 				if ( decorated is UIElement )
-					height += UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+					height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
 			}
 			
 			// If a scrollbar is present then override the height to the scrollheight
 			if ( decorated is UIElement && UIElement( decorated ).scroll )
 			{
-				height = UIElement( decorated ).scroll.height;
-				if ( !UIElement( decorated ).scroll.scrollBarVisible )
-				{
-					height += UIElement( decorated ).layout.top;
-					height += UIElement( decorated ).layout.bottom;
-				}
+				height = UIElement( decorated ).scroll.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
 			}
 
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
@@ -132,6 +132,7 @@ package com.wezside.components.decorators.shape
 				graphicsEx.moveTo( width, height );
 				graphicsEx.lineTo( width, 0 );
 			}
+
 		}
 	}
 }

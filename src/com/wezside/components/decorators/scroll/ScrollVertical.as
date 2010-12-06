@@ -4,10 +4,8 @@ package com.wezside.components.decorators.scroll
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
-	import com.wezside.utilities.logging.Tracer;
 
 	import flash.events.MouseEvent;
-	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -21,33 +19,38 @@ package com.wezside.components.decorators.scroll
 		public function ScrollVertical( decorated:IUIDecorator ) 
 		{
 			super( decorated );
+
 		}
 		
 		override public function draw():void
 		{	
-			// Because a Scroll decorator updates the width and height properties
-			if ( width == 0 ) width = decorated.width;
-			if ( height == 0 ) height = decorated.height;
-			
+
 			// Don't draw if height is less than scrollheight
-			if ( height > scrollHeight )
+			if ( decorated.height > scrollHeight )
 			{			
-				scrollBarVisible = true;
-				
-				track = new UIElement();
+				scrollBarVisible = true;				
+				if ( !track )
+				{
+					track = new UIElement();				
+					addChild( track as UIElement );
+				}
 				track.background = new ShapeRectangle( track );
 				track.background.width = trackWidth;
 				track.background.height = scrollHeight;
 				track.background.alphas = [ 1, 1 ];
 				track.background.colours = [ 0xffffff, 0xffffff ];
-				track.x = width + IUIElement( decorated ).layout.left + horizontalGap;
+				track.x = decorated.width + horizontalGap + ( width == 0 ? UIElement( decorated ).layout.left : 0 );
 				track.y = IUIElement( decorated ).layout.top;
 				track.build();
 				track.arrange();
-				addChild( track as UIElement );
 				
-				var thumbHeight:int = int( scrollHeight / height * scrollHeight );
-				thumb = new UIElement();
+				var thumbHeight:int = int( scrollHeight / decorated.height * scrollHeight );
+				if ( !thumb )
+				{
+					thumb = new UIElement();
+					addChild( thumb as UIElement );
+				}
+				
 				thumb.background = new ShapeRectangle( thumb );
 				thumb.background.alphas = [ 1, 1 ];
 				thumb.background.colours = [ 0x666666, 0x666666 ];
@@ -57,10 +60,9 @@ package com.wezside.components.decorators.scroll
 				thumb.y = track.y + 2;
 				thumb.build();
 				thumb.arrange();
-				addChild( thumb as UIElement );
 				
-				width = track.background.width + horizontalGap;
-				height = IUIElement( decorated ).layout.top + track.background.height + IUIElement( decorated ).layout.bottom;
+				width = track.background.width;
+				height = track.background.height;
 	
 				yMin = int( track.y ) + 2;
 				yMax = int( track.y + track.height - thumb.height ) - 2;
@@ -70,7 +72,14 @@ package com.wezside.components.decorators.scroll
 				if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );		
 			}		
 			else
+			{
 				scrollBarVisible = false;
+				width = 0;
+				height = track.background.height;
+				
+				if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
+				if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );
+			}
 		}
 
 
@@ -105,7 +114,6 @@ package com.wezside.components.decorators.scroll
 			thumb.y = mouseY - yOffset;
 			if ( thumb.y <= yMin ) thumb.y = yMin;
 			if ( thumb.y >= yMax ) thumb.y = yMax;
-
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 
 											int( thumb.y - track.y - 2  ) / int( yMax - track.y - 2 ), 
 											scrollHeight,

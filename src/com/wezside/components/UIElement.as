@@ -50,11 +50,8 @@ package com.wezside.components
 	 * @author Wesley.Swanepoel
 	 */
 	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
-
 	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
-
 	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
-
 	public class UIElement extends Sprite implements IUIElement, IInteractive
 	{
 
@@ -88,6 +85,7 @@ package com.wezside.components
 			_layout = new Layout( this ); 
 			_interactive = new Interactive( this );
 			_childrenContainer = new Sprite( );
+			
 			_stateManager = new StateManager( );
 			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
@@ -113,7 +111,7 @@ package com.wezside.components
 		{
 			return _childrenContainer.removeChild( child );
 		}
-
+		
 		override public function removeChildAt(index:int):DisplayObject 
 		{
 			return _childrenContainer.removeChildAt( index );
@@ -163,22 +161,16 @@ package com.wezside.components
 		{
 			return getChildByName( name );
 		}		
+		
+		override public function get width():Number 
+		{
+			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap: super.width;
+		}
 
 		public function getUIChildAt( index:int ):DisplayObject 
 		{
 			return super.getChildAt( index );
 		}
-
-		override public function get width():Number 
-		{
-			return _scroll ? _childrenContainer.width + scroll.horizontalGap : super.width;
-		}
-
-		override public function get height():Number 
-		{
-			return _scroll && super.height > _childrenContainer.height ? _childrenContainer.height : super.height;
-		}
-
 
 		public function build():void
 		{
@@ -209,7 +201,7 @@ package com.wezside.components
 
 		public function arrange():void
 		{
-			if ( _layout ) _layout.arrange( );
+			if ( _layout ) _layout.arrange();
 			if ( _scroll )
 			{
 				_scroll.arrange( );

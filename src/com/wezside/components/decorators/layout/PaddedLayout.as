@@ -39,6 +39,9 @@ package com.wezside.components.decorators.layout
 			super( decorated );
 		}
 		
+		/**
+		 * If decorated.width == 0 then it means the decorated is an ILayout
+		 */
 		override public function arrange():void
 		{						
 			// Avoid set of padding if arrange has been called before for this decorator
@@ -54,7 +57,7 @@ package com.wezside.components.decorators.layout
 				}
 				width = int( decorated.width + left + right ) | 0;
 				height = int( decorated.height + top + bottom ) | 0;
-			}
+			}			
 			super.arrange();
 		}
 	}
