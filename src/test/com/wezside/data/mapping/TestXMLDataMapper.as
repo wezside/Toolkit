@@ -1,11 +1,12 @@
 package test.com.wezside.data.mapping 
 {
+	import test.com.wezside.data.Node;
+	import test.com.wezside.data.Nested;
 	import com.wezside.components.survey.data.SurveyData;
 	import com.wezside.components.survey.data.config.LayoutData;
 	import com.wezside.components.survey.data.config.LayoutDecoratorData;
 	import com.wezside.components.survey.data.ui.UIData;
 	import com.wezside.components.survey.data.ui.UIItemData;
-	import com.wezside.data.collection.Collection;
 	import com.wezside.data.mapping.XMLDataMapper;
 
 	import org.flexunit.asserts.assertEquals;
@@ -59,9 +60,7 @@ package test.com.wezside.data.mapping
 			assertEquals(1, SurveyData( mapper.data ).layout.iterator().length());
 			assertNotNull( SurveyData( mapper.data ).layout );
 			assertNotNull( SurveyData( mapper.data ).layout.find());
-//			assertEquals( 0, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).width );
-//			assertEquals( 0, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).height );
-//			assertEquals( .6, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).widthRatio);			
+	
 		}
 		
 		[Test]
@@ -89,6 +88,20 @@ package test.com.wezside.data.mapping
 			
 			assertNotNull( SurveyData( mapper.data ));
 			assertEquals( "com.wezside.components.survey.style", mapper.namespaces.getElement( "style" ).uri );						
+		}
+		
+		[Test]
+		public function testAutoLeafNodeMapping():void
+		{
+			mapper.addDataMap( SurveyData );
+			mapper.addDataMap( Nested, "nested", "nested" );
+			mapper.addDataMap( Node, "node", "nodes" );
+			mapper.debug = true;
+			mapper.deserialize( xml );			
+			
+			assertNotNull( SurveyData( mapper.data ));
+			assertEquals( "Test leaf nodes level 1", SurveyData( mapper.data ).nested.getElementAt( 0 ).singleLeafNode );
+			assertEquals( "Test leaf nodes level 2", SurveyData( mapper.data ).nested.getElementAt( 0 ).nodes.getElementAt( 0 ).singleLeafNode );
 		}
 	}
 }

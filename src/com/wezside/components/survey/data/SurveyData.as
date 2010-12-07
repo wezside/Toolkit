@@ -17,7 +17,8 @@ package com.wezside.components.survey.data
 		public var layout:ICollection;
 		public var customCSS:ICollection;
 		public var component:ICollection;
-		public var customForm:ICollection;
+		public var customForm:ICollection;		
+		public var nested:ICollection;		
 		
 		private var _forms:Collection = new Collection();
 		

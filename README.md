@@ -7,9 +7,14 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-* Build 0.1.0205
+* Build 0.1.0206
 * Compiled with Flex 4 SDK build 14159 
 
+Change log since build .0200
+=======
+
+* XMLDataMapper Automatic leaf node mapping to parent variable typed String.
+* Fixed XMLDatamapper recursion breaking when leaf node mapping is encountered.
 
 Change log since build .0100
 =======
