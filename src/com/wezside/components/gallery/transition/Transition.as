@@ -87,15 +87,15 @@ package com.wezside.components.gallery.transition
 		
 		override public function iterator( type:String = null ):IIterator
 		{
-			return new ChildIterator( this );  
+			return new ChildIterator( decorated as UIElement );  
 		}
 		
-		public function intro():void
+		public function transitionIn():void
 		{
 			
 		}
 		
-		public function outro():void
+		public function transitionOut():void
 		{
 		}
 		

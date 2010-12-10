@@ -44,7 +44,7 @@ package com.wezside.components.gallery.transition
 		function get reflectionHeightInRows():int;
 		function set reflectionHeightInRows( value:int ):void;
 		
-		function intro():void;		
-		function outro():void;						
+		function transitionIn():void;		
+		function transitionOut():void;						
 	}
 }

@@ -23,20 +23,25 @@
  */
 package com.wezside.components.gallery.transition 
 {
-	import com.wezside.data.iterator.ChildIterator;
-	import com.wezside.data.iterator.IIterator;
+	import gs.TweenLite;
+	import gs.easing.Cubic;
+
 	import com.wezside.components.gallery.Gallery;
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.components.gallery.item.IGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
+	import com.wezside.data.iterator.ChildIterator;
+	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class DefaultTransition extends Sprite implements IGalleryTransition 
+	public class OriginalTransition extends Sprite implements IGalleryTransition 
 	{
 
 
@@ -52,11 +57,12 @@ package com.wezside.components.gallery.transition
 		private var _columns:Number;
 
 		
-		public function DefaultTransition( columns:int, rows:int ) 
+		public function OriginalTransition( gallery:Gallery, columns:int, rows:int ) 
 		{
 			this.columns = columns;
 			this.rows = rows;
 			this.total = columns * rows;
+			this.galleryInstance = gallery;
 		}
 
 		public function intro():void
@@ -69,20 +75,17 @@ package com.wezside.components.gallery.transition
 		{
 			transition( "outro", _direction );
 		}		
-		
-		
+				
 		public function get direction():String
 		{
 			return _direction;
 		}
-		
-		
+				
 		public function set direction( value:String ):void
 		{
 			_direction = value;
 		}
-		
-		
+				
 		public function get stageWidth():Number
 		{
 			return _stageWidth;
@@ -135,8 +138,9 @@ package com.wezside.components.gallery.transition
 			var item:DisplayObject;
 			var reflection:DisplayObject;
 
-//			Tweener.removeAllTweens();
-			
+			// TODO: Remove all Tween
+
+			Tracer.output( true, " DefaultTransition.transition(type, direction)", getQualifiedClassName( this ));
 			for ( var k : int = 0; k < columns; k++ ) 
 			{
 				
@@ -170,9 +174,11 @@ package com.wezside.components.gallery.transition
 						if ( direction == "left" ) lastItem =  k + 1 == columns;
 						if ( direction == "right" ) lastItem =  k == 0;
 						
-//						if ( lastItem && i + 1 == arr.length )
+						if ( lastItem && i + 1 == arr.length )
+							TweenLite.to( item, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut, onComplete: transitionComplete });
 //							Tweener.addTween( item, { x: endPos, time: 0.7, delay: delay, transition: Equations.easeInOutCubic, onComplete: transitionComplete });
-//						else
+						else
+							TweenLite.to( item, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut });
 //							Tweener.addTween( item, { x: endPos, time: 0.7, delay: delay, transition: Equations.easeInOutCubic });
 					}
 						
@@ -196,7 +202,7 @@ package com.wezside.components.gallery.transition
 							if ( direction == "left" ) endPos = -item.width - _stageWidth - 100;
 							if ( direction == "right" ) endPos = _stageWidth + 100;
 						}
-						
+						TweenLite.to( reflection, 0.7, { x: endPos, delay: delay, ease: Cubic.easeInOut });
 //						Tweener.addTween( reflection, { x: endPos, time: 0.7, delay: delay, transition: Equations.easeInOutCubic });
 					}
 				}

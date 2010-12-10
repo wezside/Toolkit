@@ -21,7 +21,6 @@ package com.wezside.components.decorators.layout
 		private var _columns:int;
 		private var _largestItemHeight:int;
 		private var _largestItemWidth:int;
-		private var _reflectionHeightInRows:int = 0;
 
 		
 		public function GridReflectionLayout( decorated:IUIDecorator )
@@ -41,6 +40,7 @@ package com.wezside.components.decorators.layout
 			var item:DisplayObject;
 			var reflection:DisplayObject;
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			var counter:int = 0;
 						
 			startX = 0;
 			currentRow = 0;
@@ -52,16 +52,14 @@ package com.wezside.components.decorators.layout
 				item = iterator.next() as DisplayObject;
 				item.x += xOffset; 
 				item.y += yOffset;
-				
-				if ( reflectionHeightInRows > 0 )
-				{
-					reflection = iterator.next() as DisplayObject;
-					reflection.x += xOffset;
-					var posY:int = ( _rows - currentRow ) * ( item.height + verticalGap ) * 2 - item.height;
-					reflection.y += posY + yOffset - verticalGap;
-				}
+				++counter;
+
+				reflection = iterator.next() as DisplayObject;
+				reflection.x += xOffset;
+				var posY:int = ( _rows - currentRow ) * ( item.height + verticalGap ) * 2 - item.height;
+				reflection.y += posY + yOffset - verticalGap;
 								
-				if (( iterator.index() ) % ( _columns ) == 0  )
+				if ( counter % _columns == 0  )
 				{
 					++currentRow;
 					yOffset += _largestItemHeight + verticalGap;
@@ -72,6 +70,9 @@ package com.wezside.components.decorators.layout
 					xOffset += _largestItemWidth + horizontalGap;
 				}
 			}
+			
+			iterator.purge();
+			iterator = null;
 			
 	 		width = decorated.width + left + right;
 			height = decorated.height + top + bottom;
@@ -117,16 +118,6 @@ package com.wezside.components.decorators.layout
 		public function set largestItemWidth( value:int ):void
 		{
 			_largestItemWidth = value;
-		}
-		
-		public function get reflectionHeightInRows():int
-		{
-			return _reflectionHeightInRows;
-		}
-		
-		public function set reflectionHeightInRows( value:int ):void
-		{
-			_reflectionHeightInRows = value;
 		}
 	}
 }

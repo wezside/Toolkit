@@ -165,7 +165,7 @@ package com.wezside.components.gallery
 			_classCollection.addElement( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
 			_classCollection.addElement( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
 			_classCollection.addElement( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
-
+			
 			currentRow = 0;
 			visible = showArrangement;
 			totalpages = Math.ceil( items.length / ( columns * rows )); 
@@ -176,7 +176,7 @@ package com.wezside.components.gallery
 			if ( items.length < ( columns * rows * totalpages ))
 				for ( var i:int = 0; i < remainingItems ; i++ )
 					items.push( { id: "blank_" + i, url: "", livedate: new Date() });
-						
+
 			total = items.length;			
 			original = original.concat( items );
 			
@@ -207,11 +207,12 @@ package com.wezside.components.gallery
 
 		public function show():void
 		{
-			visible = true;			
+			visible = true;
 			if ( _transition )
 			{
+				Tracer.output( true, " Gallery.show()", getQualifiedClassName( this ));
 				_transition.addEventListener( GalleryEvent.INTRO_COMPLETE, transitionComplete );
-				_transition.intro();
+				_transition.transitionIn();
 			}
 			else
 			{
@@ -225,7 +226,7 @@ package com.wezside.components.gallery
 			if ( _transition )
 			{
 				_transition.addEventListener( GalleryEvent.OUTRO_COMPLETE, transitionComplete );
-				_transition.outro();
+				_transition.transitionOut();
 			}
 			else
 			{
@@ -269,15 +270,13 @@ package com.wezside.components.gallery
 		public function set stageWidth( value:Number ):void
 		{
 			_stageWidth = value;
-		}
-		
+		}		
 		
 		public function get stageHeight():Number
 		{
 			return _stageHeight;
 		}
-		
-		
+				
 		public function set stageHeight( value:Number ):void
 		{
 			_stageHeight = value;
@@ -334,8 +333,9 @@ package com.wezside.components.gallery
 		 * the difference between the server time and the livedate attribute specified in the XML node
 		 * for each video within the football hd module. The format is [seconds, minutes, hours, days ]. 
 		 */
-		public function create( event:Event = null ):void
+		override public function build():void
 		{
+			super.build();
 			if ( items.length != 0 )
 			{
 				var date:Date = original[ int( total - items.length ) ].livedate;
@@ -404,7 +404,7 @@ package com.wezside.components.gallery
 				item.addEventListener( MouseEvent.ROLL_OVER, itemRollOver );		
 				item.addEventListener( MouseEvent.CLICK, itemClick );
 			}		
-			item.visible = true;
+			item.visible = false;
 			item.name = String( index );
 			
 			// Draw bitmap at original size before resizing happens
@@ -445,12 +445,11 @@ package com.wezside.components.gallery
 			}
 						
 			if (( index + 1 ) % columns == 0 ) currentRow++;
-			
 			addChild( item );
 			if ( reflectionHeightInRows > 0 ) addChild( ref );
 			
 			items.shift();
-			items.length > 0 ?  create() : complete( );
+			items.length > 0 ?  build() : complete( );
 		}
 		
 		
@@ -469,7 +468,6 @@ package com.wezside.components.gallery
 		
 		protected function itemClick( event:MouseEvent ):void
 		{
-			
 			var iterator:IIterator = iterator( UIElement.ITERATOR_CHILDREN );			
 			while( iterator.hasNext())
 			{
@@ -546,13 +544,13 @@ package com.wezside.components.gallery
 		
 		private function complete():void
 		{
+			layout = new GridReflectionLayout( this );
 			GridReflectionLayout( layout ).horizontalGap = horizontalGap;
 			GridReflectionLayout( layout ).verticalGap = verticalgap;
 			GridReflectionLayout( layout ).largestItemWidth = largestItemWidth;
 			GridReflectionLayout( layout ).largestItemHeight = largestItemHeight;
 			GridReflectionLayout( layout ).rows = rows;
 			GridReflectionLayout( layout ).columns = columns;
-			GridReflectionLayout( layout ).reflectionHeightInRows = reflectionHeightInRows;
 			dispatchEvent( new GalleryEvent( GalleryEvent.LOAD_COMPLETE ));
 			arrange();
 			Tracer.output( _debug, " Gallery.complete()", toString() );
