@@ -151,6 +151,8 @@ package com.wezside.components.gallery
 			// Duplicate the dataprovider
 			original = new Collection();
 			original = items.clone();
+						
+			// TODO: If creation policy is JIT then we need a cap on items created to be equal to columns * rows
 			
 			Tracer.output( _debug, " Total gallery items " + total, toString() );
 			if ( items.length == 0 )
