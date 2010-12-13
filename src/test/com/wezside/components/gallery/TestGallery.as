@@ -4,6 +4,8 @@ package test.com.wezside.components.gallery
 
 	import com.wezside.components.gallery.Gallery;
 	import com.wezside.components.gallery.GalleryEvent;
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
 
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.async.Async;
@@ -14,18 +16,28 @@ package test.com.wezside.components.gallery
 	public class TestGallery 
 	{
 
-		private var items:Array;
+		private var items:ICollection;
 		private var gallery:Gallery;
 
 
 		[Before]
 		public function setUp():void
 		{			
-			items = [{ id: "0",	
-					   url: "",
-					   livedate: new Date() }];
+			items = new Collection();
+			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 					   
-			gallery = new Gallery( items, 4, 2, 2, 2, "left", "custom", 0, 0.3, Gallery.RESIZE_HEIGHT, 80, Gallery.DISTRIBUTE_H, false, 550, 500, true, true );
+			gallery = new Gallery();
+			gallery.debug = false;
+			gallery.reflectionRowHeight = 1;
+			gallery.columns = 4;
+			gallery.rows = 3;
+			gallery.resizeValue = 80;			
+			gallery.horizontalGap = 1;
+			gallery.verticalGap = 1;
+			gallery.init( items );
+			gallery.create();		
+			gallery.x = 30;
+			gallery.y = 30;
 			gallery.x = 50;
 			gallery.y = 30;			
 		}
@@ -47,7 +59,7 @@ package test.com.wezside.components.gallery
 
 		protected function galleryArranged( event:GalleryEvent, object:Object ):void
 		{
-			assertEquals( 8, gallery.numChildren );
+			assertEquals( 24, gallery.numChildren );
 		}
 		
 		protected function timeout( object:Object ):void
