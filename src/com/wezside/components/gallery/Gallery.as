@@ -77,9 +77,8 @@ package com.wezside.components.gallery
 		public static const CENTER:String = "center";
 		
 		public static const BLANK:String = "";
-		public static const OVERLAY:String = "overlay";
 		public static const LIGHTBOX:String = "lightbox";
-		public static const VERSION:String = "0.2.0020";		
+		public static const VERSION:String = "0.5.0001";		
 
 		public static const STATE_ROLLOVER:String = "stateRollover";
 		public static const STATE_ROLLOUT:String = "stateRollout";
@@ -522,7 +521,6 @@ package com.wezside.components.gallery
 			switch ( _target )
 			{
 				case BLANK   : navigateToURL( new URLRequest( "" ), "_blank");	break;
-				case OVERLAY : break;
 				case LIGHTBOX: break;
 				default		 : dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_CLICK, false, false, int( event.currentTarget.name )));
 			}
