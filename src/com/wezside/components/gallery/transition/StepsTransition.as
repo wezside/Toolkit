@@ -18,15 +18,15 @@ package com.wezside.components.gallery.transition
 	 */
 	public class StepsTransition extends Transition 
 	{
-		private var _direction:String = "left";
 		private var _stageWidth:Number;
-		private var eventType:String;
+		private var _stageHeight:Number;
+		private var _direction:String = "left";
 
 		public function StepsTransition( decorated:Gallery )
 		{
 			super( decorated );
 			_stageWidth = decorated.stageWidth;
-			_stageWidth = decorated.stageHeight;
+			_stageHeight = decorated.stageHeight;
 		}
 
 		
@@ -151,32 +151,22 @@ package com.wezside.components.gallery.transition
 			var reflection:ReflectionItem;
 			var arr:Array = [];			
 			var it:IIterator = iterator();
+
 			while ( it.hasNext() )
 			{
 				item = it.next() as IGalleryItem;
 				reflection = it.next() as ReflectionItem;
 				
 				if (( ( columns - index ) + itemIndex ) % columns == 0 )
+				{
 					arr.push({ item: item, reflection: reflection });
-
+					trace( arr[ arr.length - 1 ].item.name );
+				}
 				if ( item.name.indexOf( "reflection_" ) == -1 ) itemIndex++;				
 			}
 			it.purge();
 			it = null;
 			item = null;
-			
-			/*
-			var total:int = ( rows *  columns );
-			for ( i = 0; i < total; ++i )
-			{
-				item = decorated.getChildByName( i.toString() ) as IGalleryItem;
-				reflection = decorated.getChildByName( "reflection_" + i.toString()) as ReflectionItem;
-				
-				if (( ( columns - index ) + itemIndex ) % columns == 0 )
-					arr.push( { item: item, reflection: reflection });
-
-				if ( item.name.indexOf("reflection_") == -1 ) itemIndex++;
-			}*/
 			return arr;
 		}		
 	}

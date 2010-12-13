@@ -28,9 +28,6 @@ package com.wezside.components.gallery.transition
 	import com.wezside.components.gallery.GalleryEvent;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.utilities.logging.Tracer;
-
-	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -38,20 +35,23 @@ package com.wezside.components.gallery.transition
 	public class Transition extends UIElement implements IGalleryTransition 
 	{
 		
+		private var _total:uint;
+		private var _totalPages:Number;
 		private var _stageWidth:Number;
 		private var _stageHeight:Number;		
-		private var _columns:Number;
-		private var _rows:Number;
+		private var _columns:Number = 4;
+		private var _rows:Number = 3;
 		private var _reflectionHeightInRows:int;
+		private var _pageIndex:int = 0;
 		
+		protected var eventType:String;
 		protected var decorated:IUIDecorator;
-		protected var transEvent:GalleryEvent;
 
 		
 		public function Transition( decorated:IUIDecorator ) 
 		{
 			this.decorated = decorated;
-			transEvent = new GalleryEvent( GalleryEvent.INTRO_COMPLETE );
+			eventType = GalleryEvent.INTRO_COMPLETE;
 		}
 		
 		public function get stageWidth():Number
@@ -74,15 +74,43 @@ package com.wezside.components.gallery.transition
 			_stageHeight = value;
 		}
 		
-		/**
-		 */
+		public function get totalPages():Number
+		{
+			return _totalPages;
+		}
+		
+		public function set totalPages( value:Number ):void
+		{
+			_totalPages = value;
+		}
+		
+		public function get total():uint
+		{
+			return _total;
+		}
+		
+		public function set total( value:uint ):void
+		{
+			_total = value;
+		}
+		
+		public function get pageIndex():int
+		{
+			return _pageIndex;
+		}
+		
+		public function set pageIndex( value:int ):void
+		{
+			_pageIndex = value;
+		}
+		
 		override public function arrange():void
 		{
 		}
 				
 		protected function transitionComplete():void
 		{
-			dispatchEvent( transEvent );
+			dispatchEvent( new GalleryEvent( eventType ));
 		}		
 		
 		override public function iterator( type:String = null ):IIterator
@@ -112,11 +140,13 @@ package com.wezside.components.gallery.transition
 		public function set rows(value:Number):void
 		{
 			_rows = value;
+			_total = _columns * _rows;						
 		}
 		
 		public function set columns(value:Number):void
 		{
 			_columns = value;
+			_total = _columns * _rows;						
 		}
 		
 		public function get reflectionHeightInRows():int

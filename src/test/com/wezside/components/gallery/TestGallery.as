@@ -42,7 +42,7 @@ package test.com.wezside.components.gallery
 		public function testGalleryCreate():void
 		{
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, Async.asyncHandler( this, galleryArranged, 3000, null, timeout ), false, 0, true );
-			gallery.create();	
+			gallery.build();	
 		}
 
 		protected function galleryArranged( event:GalleryEvent, object:Object ):void

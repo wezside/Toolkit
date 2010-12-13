@@ -99,7 +99,7 @@ package com.wezside.data.collection
 			return _collection.splice( removeIndex, 1 );
 		}
 		
-		public function removeElementByIndex( index:int ):void
+		public function removeElementAt( index:int ):void
 		{
 			_collection.splice( index, 1 );
 		}		
@@ -107,6 +107,20 @@ package com.wezside.data.collection
 		public function get length():int
 		{
 			return _collection.length;
+		}
+		
+		public function clone():ICollection
+		{
+			var copy:ICollection = new Collection();
+			var it:IIterator = iterator();
+			var object:*;
+			while ( it.hasNext() )
+				copy.addElement( it.next() );
+
+			it.purge();
+			it = null;
+			object = null;
+			return copy;
 		}
 		
 		public function purge():void
