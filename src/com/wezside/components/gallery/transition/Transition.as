@@ -43,6 +43,7 @@ package com.wezside.components.gallery.transition
 		private var _rows:Number = 3;
 		private var _reflectionHeightInRows:int;
 		private var _pageIndex:int = 0;
+		private var _direction:String = "left";
 		
 		protected var eventType:String;
 		protected var decorated:IUIDecorator;
@@ -52,6 +53,11 @@ package com.wezside.components.gallery.transition
 		{
 			this.decorated = decorated;
 			eventType = GalleryEvent.INTRO_COMPLETE;
+		}
+		
+		public function perform( type:String = "intro" ):void
+		{
+			
 		}
 		
 		public function get stageWidth():Number
@@ -103,6 +109,16 @@ package com.wezside.components.gallery.transition
 		{
 			_pageIndex = value;
 		}
+				
+		public function get direction():String
+		{
+			return _direction;
+		}
+		
+		public function set direction( value:String ):void
+		{
+			_direction = value;
+		}		
 		
 		override public function arrange():void
 		{
@@ -120,11 +136,12 @@ package com.wezside.components.gallery.transition
 		
 		public function transitionIn():void
 		{
-			
+			perform( "intro" );
 		}
 		
 		public function transitionOut():void
 		{
+			perform( "outro" );
 		}
 		
 		public function get rows():Number

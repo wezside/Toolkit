@@ -18,39 +18,15 @@ package com.wezside.components.gallery.transition
 	 */
 	public class StepsTransition extends Transition 
 	{
+		
 		private var _stageWidth:Number;
 		private var _stageHeight:Number;
-		private var _direction:String = "left";
-
+		
 		public function StepsTransition( decorated:Gallery )
 		{
 			super( decorated );
 			_stageWidth = decorated.stageWidth;
 			_stageHeight = decorated.stageHeight;
-		}
-
-		
-		override public function transitionIn():void 
-		{
-			super.transitionIn( );
-			perform( "intro" );
-		}
-
-		
-		override public function transitionOut():void 
-		{
-			super.transitionOut( );
-			perform( "outro" );
-		}
-		
-		public function get direction():String
-		{
-			return _direction;
-		}
-		
-		public function set direction( value:String ):void
-		{
-			_direction = value;
 		}
 		
 		/**
@@ -66,7 +42,7 @@ package com.wezside.components.gallery.transition
 		 * @param type Type of transition. Similar calculations are required for this transition so one method is used.  
 		 * @param direction Indicates the direction of the animation
 		 */
-		private function perform( type:String = "intro" ):void
+		override public function perform( type:String = "intro" ):void
 		{
 			
 			var i:int;

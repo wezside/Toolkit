@@ -25,8 +25,6 @@ package com.wezside.components.gallery.transition
 {
 	import com.wezside.components.IUIDecorator;
 
-	import flash.events.Event;
-
 	/**
 	 * @author Wesley.Swanepoel
 	 */
@@ -50,6 +48,7 @@ package com.wezside.components.gallery.transition
 		function set totalPages( value:Number ):void;
 		
 		function transitionIn():void;		
-		function transitionOut():void;						
+		function transitionOut():void;		
+		function perform( type:String = "intro" ):void;				
 	}
 }
