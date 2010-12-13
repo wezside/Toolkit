@@ -13,6 +13,8 @@ Latest release
 Change log since build .0200
 =======
 
+* Gallery component refactored to UIElement standard. Use of GridReflectionLayout and DistributeLayout decorator added.
+* ICollection clone() and removeElementAt() methods added 
 * XMLDataMapper Automatic leaf node mapping to parent variable typed String.
 * Fixed XMLDatamapper recursion breaking when leaf node mapping is encountered.
 

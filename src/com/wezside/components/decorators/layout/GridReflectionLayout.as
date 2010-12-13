@@ -4,8 +4,10 @@ package com.wezside.components.decorators.layout
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.DisplayObject;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -42,9 +44,9 @@ package com.wezside.components.decorators.layout
 			var counter:int = 0;
 						
 			startX = 0;
-			currentRow = 0;
 			xOffset = 0;
 			yOffset = 0;
+			currentRow = 0;
 			
 			while ( iterator.hasNext() )
 			{

@@ -104,7 +104,6 @@ package com.wezside.components.gallery
 		private var _thumbEnabled:Boolean = true;
 		private var _classCollection:ICollection;
 		private var _transition:IGalleryTransition;
-		private var _showArrangement:Boolean = false;
 
 		private var _target:String = "";
 		private var _resizePolicy:String = RESIZE_HEIGHT;
@@ -135,7 +134,7 @@ package com.wezside.components.gallery
 		{			
 			this.items = items;
 			currentRow = 0;
-			visible = _showArrangement;
+			visible = false;
 			totalpages = Math.ceil( items.length / ( columns * rows )); 
 						
 			Tracer.output( _debug, " Total pages " + totalpages, toString() );
@@ -149,7 +148,6 @@ package com.wezside.components.gallery
 			
 			// Get the total items with blank items included
 			total = items.length;
-			trace( "Total items", total );
 			
 			// Duplicate the dataprovider
 			original = new Collection();
@@ -268,17 +266,6 @@ package com.wezside.components.gallery
 			return _thumbEnabled;
 		}
 		
-		public function get showArrangement():Boolean
-		{
-			return _showArrangement;
-		}
-		
-		public function set showArrangement( value:Boolean ):void
-		{
-			visible = value;
-			_showArrangement = value;
-		}
-		
 		public function get rows():int
 		{
 			return GridReflectionLayout( layout ).rows;
@@ -337,6 +324,16 @@ package com.wezside.components.gallery
 		public function set reflectionRowHeight( value:int ):void
 		{
 			_reflectionRowHeight = value;
+		}
+		
+		public function get resizeValue():int
+		{
+			return _resizeValue;
+		}
+		
+		public function set resizeValue( value:int ):void
+		{
+			_resizeValue = value;
 		}
 		
 		override public function set debug( value:Boolean ):void

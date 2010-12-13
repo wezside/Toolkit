@@ -158,10 +158,8 @@ package com.wezside.components.gallery.transition
 				reflection = it.next() as ReflectionItem;
 				
 				if (( ( columns - index ) + itemIndex ) % columns == 0 )
-				{
 					arr.push({ item: item, reflection: reflection });
-					trace( arr[ arr.length - 1 ].item.name );
-				}
+
 				if ( item.name.indexOf( "reflection_" ) == -1 ) itemIndex++;				
 			}
 			it.purge();
