@@ -131,7 +131,9 @@ package com.wezside.components.gallery.transition
 			while ( it.hasNext() )
 			{
 				item = it.next() as IGalleryItem;
-				reflection = it.next() as ReflectionItem;
+				
+				if ( reflectionHeightInRows > 0 )
+					reflection = it.next() as ReflectionItem;
 				
 				if (( ( columns - index ) + itemIndex ) % columns == 0 )
 					arr.push({ item: item, reflection: reflection });

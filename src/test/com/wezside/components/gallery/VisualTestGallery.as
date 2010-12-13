@@ -47,14 +47,14 @@ package test.com.wezside.components.gallery
 			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 
 			gallery = new Gallery();
 			gallery.debug = false;
@@ -62,7 +62,7 @@ package test.com.wezside.components.gallery
 			gallery.stageHeight = stage.stageHeight;
 			gallery.reflectionRowHeight = 1;
 			gallery.columns = 4;
-			gallery.rows = 3;
+			gallery.rows = 1;
 			gallery.resizeValue = 80;			
 			gallery.horizontalGap = 1;
 			gallery.verticalGap = 1;

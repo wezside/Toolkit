@@ -47,6 +47,7 @@ package com.wezside.components.decorators.layout
 			xOffset = 0;
 			yOffset = 0;
 			currentRow = 0;
+//			Tracer.output( true, " GridReflectionLayout.arrange()", getQualifiedClassName( this ));
 			
 			while ( iterator.hasNext() )
 			{
