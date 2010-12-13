@@ -35,11 +35,8 @@ package test.com.wezside.components.gallery
 			gallery.horizontalGap = 1;
 			gallery.verticalGap = 1;
 			gallery.init( items );
-			gallery.create();		
 			gallery.x = 30;
-			gallery.y = 30;
-			gallery.x = 50;
-			gallery.y = 30;			
+			gallery.y = 30;	
 		}
 		
 		[After]
@@ -54,7 +51,7 @@ package test.com.wezside.components.gallery
 		public function testGalleryCreate():void
 		{
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, Async.asyncHandler( this, galleryArranged, 3000, null, timeout ), false, 0, true );
-			gallery.build();	
+			gallery.create();		
 		}
 
 		protected function galleryArranged( event:GalleryEvent, object:Object ):void
