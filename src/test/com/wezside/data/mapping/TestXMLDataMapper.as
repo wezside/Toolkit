@@ -56,9 +56,10 @@ package test.com.wezside.data.mapping
 			mapper.debug = true;
 			mapper.deserialize( xml );
 						
-			assertEquals(1, SurveyData( mapper.data ).layout.iterator().length());
+			assertEquals( 2, SurveyData( mapper.data ).layout.iterator().length());
 			assertNotNull( SurveyData( mapper.data ).layout );
 			assertNotNull( SurveyData( mapper.data ).layout.find());
+			assertEquals( 4, LayoutData( SurveyData( mapper.data ).layout.find( ) ).decorators.length );
 //			assertEquals( 0, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).width );
 //			assertEquals( 0, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).height );
 //			assertEquals( .6, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).widthRatio);			

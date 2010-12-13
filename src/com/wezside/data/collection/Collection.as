@@ -33,7 +33,12 @@ package com.wezside.data.collection
 		public function Collection() 
 		{
 			_collection = [];	
-		}	
+		}
+			
+		public function reverse():void
+		{
+			_collection = _collection.reverse();
+		}
 
 		public function iterator():IIterator
 		{
