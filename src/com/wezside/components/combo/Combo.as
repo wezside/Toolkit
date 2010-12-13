@@ -67,6 +67,7 @@ package com.wezside.components.combo
 			dropdown.layout.verticalGap = _verticalGap;	
 			dropdown.scroll = new ScrollVertical( dropdown );
 			dropdown.scroll.scrollHeight = _dropdownHeight;
+			
 			dropdown.styleManager = styleManager;
 			dropdown.styleName = _dropdownStyleName;
 			dropdown.build();

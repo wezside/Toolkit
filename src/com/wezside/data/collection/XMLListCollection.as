@@ -88,6 +88,20 @@ package com.wezside.data.collection
 			return _collection.length();			
 		}
 		
+		public function clone():ICollection
+		{
+			var copy:ICollection = new Collection();
+			var it:IIterator = iterator();
+			var object:*;
+			while ( it.hasNext() )
+				copy.addElement( it.next() );
+
+			it.purge();
+			it = null;
+			object = null;
+			return copy;
+		}		
+		
 		public function getElementAt( index:int ):*
 		{
 			return _collection[ index ];
@@ -104,6 +118,11 @@ package com.wezside.data.collection
 				}
 			}	
 		}
+		
+		public function removeElementAt( index:int ):void
+		{
+			delete _collection[ index ];
+		}		
 		
 		public function purge():void
 		{

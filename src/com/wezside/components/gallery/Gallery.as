@@ -25,7 +25,8 @@ package com.wezside.components.gallery
 {
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
-	import com.wezside.components.gallery.collection.ClassCollection;
+	import com.wezside.components.decorators.layout.DistributeLayout;
+	import com.wezside.components.decorators.layout.GridReflectionLayout;
 	import com.wezside.components.gallery.item.BlankGalleryItem;
 	import com.wezside.components.gallery.item.CountdownGalleryItem;
 	import com.wezside.components.gallery.item.FLVGalleryItem;
@@ -34,8 +35,9 @@ package com.wezside.components.gallery
 	import com.wezside.components.gallery.item.ImageGalleryItem;
 	import com.wezside.components.gallery.item.MovieClipGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
-	import com.wezside.components.decorators.layout.GridReflectionLayout;
 	import com.wezside.components.gallery.transition.IGalleryTransition;
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.date.DateUtil;
 	import com.wezside.utilities.file.FileUtil;
@@ -60,37 +62,6 @@ package com.wezside.components.gallery
 	{
 
 		
-		private var rows:int;
-		private var columns:int;
-		private var items:Array = [];
-		private var original:Array = [];
-		private var currentRow:int;
-		private var totalpages:Number;
-		private var total:uint;
-		private var dateUtils:DateUtil;
-		private var largestItemWidth:Number = 0;
-		private var largestItemHeight:Number = 0;
-		
-		// Constructor values
-		private var horizontalGap:int;
-		private var verticalgap:int;
-		private var resizePolicy:String;
-		private var resizeValue:Number;
-
-		private var reflectionAlpha:Number;
-		private var distributePolicy:String;
-		private var target:String;
-		private var horizontalAlign:String;
-		private var showArrangement:Boolean;
-		private var reflectionHeightInRows:int;
-		
-		// Getters and setters 
-		private var _debug:Boolean;
-		private var _stageWidth:Number;
-		private var _stageHeight:Number;
-		private var _selectedIndex:int;
-		private var _thumbEnabled:Boolean;
-		private var _classCollection:ClassCollection;
 
 
 		public static const ITEM_SWF:String = "itemSWF";
@@ -102,90 +73,92 @@ package com.wezside.components.gallery
 		
 		public static const RESIZE_WIDTH:String = "resizeToWidth";
 		public static const RESIZE_HEIGHT:String = "resizeToHeight";
-		public static const DISTRIBUTE_H:String = "distributeHorizontally";
-		public static const DISTRIBUTE_V:String = "distributeVertically";
 		public static const LEFT:String = "left";
 		public static const CENTER:String = "center";
 		
 		public static const BLANK:String = "";
-		public static const OVERLAY:String = "overlay";
 		public static const LIGHTBOX:String = "lightbox";
-		public static const VERSION:String = "0.2.0020";		
+		public static const VERSION:String = "0.5.0001";		
 
 		public static const STATE_ROLLOVER:String = "stateRollover";
 		public static const STATE_ROLLOUT:String = "stateRollout";
 		public static const STATE_SELECTED:String = "stateSelected";		
+		
+		private var items:ICollection;
+		private var original:ICollection;
+		private var currentRow:int;
+		private var totalpages:Number;
+		private var total:uint;
+		private var dateUtils:DateUtil;
+		private var largestItemWidth:Number = 0;
+		private var largestItemHeight:Number = 0;
+		
+		// Getters and setters 
+		private var _debug:Boolean = false;
+		private var _stageWidth:Number = 550;
+		private var _stageHeight:Number = 400;
+		private var _selectedIndex:int;
+		private var _resizeValue:Number = 80;
+		private var _reflectionRowHeight:int = 0;
+		private var _thumbEnabled:Boolean = true;
+		private var _classCollection:ICollection;
 		private var _transition:IGalleryTransition;
 
+		private var _target:String = "";
+		private var _resizePolicy:String = RESIZE_HEIGHT;
+		private var _reflectionAlpha:Number = 0.3;
 		
-		public function Gallery( dataprovider:Array, 
-								 columns:int = 4, 
-								 rows:int = 3, 
-								 horizontalGap:int = 0, 
-								 verticalgap:int = 0,
-								 horizontalAlign:String = "left",
-								 target:String = "",
-								 reflectionHeightInRows:int = 0,
-								 reflectionAlpha:Number = 0.3,
-								 resizePolicy:String = "",
-								 resizeValue:Number = -1,
-								 distributePolicy:String = "",
-								 showArrangement:Boolean = false,
-								 stageWidth:Number = 550,
-								 stageHeight:Number = 500,
-								 thumbEnabled:Boolean = true,
-								 debug:Boolean = false ) 
+		
+		public function Gallery() 
 		{
+			// Default Layout decorator
+			layout = new GridReflectionLayout( this );		
+			GridReflectionLayout( layout ).columns = 4;
+			GridReflectionLayout( layout ).rows = 3;
+			GridReflectionLayout( layout ).horizontalGap = 0;
+			GridReflectionLayout( layout ).verticalGap = 0;
 			
-			items = [];
-			items = items.concat( dataprovider );	
-			this.rows = rows;
-			this.columns = columns;			
-			this.target = target;			
-			this.horizontalAlign = horizontalAlign;
-			this.horizontalGap = horizontalGap;
-			this.verticalgap = verticalgap; 
-			this.resizePolicy = resizePolicy;
-			this.resizeValue = resizeValue;
-			this.distributePolicy = distributePolicy;
-			this.reflectionHeightInRows = reflectionHeightInRows;
-			this.reflectionAlpha = reflectionAlpha;
-			this.showArrangement = showArrangement;
-			
-			_debug = debug;
-			_stageWidth = stageWidth;
-			_stageHeight = stageHeight;
-			_thumbEnabled = thumbEnabled;
-			
-			layout = new GridReflectionLayout( this );
-			
-			_classCollection = new ClassCollection();
+			// Initialize Classes that will represent the different type of IGalleryItems	
+			_classCollection = new Collection();
 			_classCollection.addElement( new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
 			_classCollection.addElement( new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
 			_classCollection.addElement( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
 			_classCollection.addElement( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
 			_classCollection.addElement( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
-
+			dateUtils = new DateUtil();
+		}
+		
+		
+		public function init( items:ICollection ):void
+		{			
+			this.items = items;
 			currentRow = 0;
-			visible = showArrangement;
+			visible = false;
 			totalpages = Math.ceil( items.length / ( columns * rows )); 
-			
+						
 			Tracer.output( _debug, " Total pages " + totalpages, toString() );
 			
-			var remainingItems:Number = (( columns * rows * totalpages ) - ( items.length ));		
+			// Determine how many Blank Items to create 
+			var remainingItems:Number = (( columns * rows * totalpages ) - ( items.length ));
+				
 			if ( items.length < ( columns * rows * totalpages ))
 				for ( var i:int = 0; i < remainingItems ; i++ )
-					items.push( { id: "blank_" + i, url: "", livedate: new Date() });
+					items.addElement({ id: "blank_" + i, url: "", livedate: new Date() });
+			
+			// Get the total items with blank items included
+			total = items.length;
+			
+			// Duplicate the dataprovider
+			original = new Collection();
+			original = items.clone();
 						
-			total = items.length;			
-			original = original.concat( items );
+			// TODO: If creation policy is JIT then we need a cap on items created to be equal to columns * rows
 			
 			Tracer.output( _debug, " Total gallery items " + total, toString() );
 			if ( items.length == 0 )
-				throw new Error( "Error: No items in dataprovider." );
-			
-			dateUtils = new DateUtil();
+				throw new Error( "Error: No items in dataprovider." );			
 		}
+		
 						
 		override public function purge():void
 		{
@@ -207,14 +180,16 @@ package com.wezside.components.gallery
 
 		public function show():void
 		{
-			visible = true;			
+			visible = true;
 			if ( _transition )
 			{
+				Tracer.output( _debug, " Gallery.show()", getQualifiedClassName( this ));
 				_transition.addEventListener( GalleryEvent.INTRO_COMPLETE, transitionComplete );
-				_transition.intro();
+				_transition.transitionIn();
 			}
 			else
 			{
+					
 				transitionComplete( new GalleryEvent( GalleryEvent.INTRO_COMPLETE ));
 			}
 		}
@@ -225,7 +200,7 @@ package com.wezside.components.gallery
 			if ( _transition )
 			{
 				_transition.addEventListener( GalleryEvent.OUTRO_COMPLETE, transitionComplete );
-				_transition.outro();
+				_transition.transitionOut();
 			}
 			else
 			{
@@ -242,10 +217,12 @@ package com.wezside.components.gallery
 		{
 			_transition = value;
 			_transition.rows = rows;
-			_transition.reflectionHeightInRows = reflectionHeightInRows;
+			_transition.reflectionHeightInRows = _reflectionRowHeight;
 			_transition.columns = columns;
 			_transition.stageWidth = _stageWidth;
 			_transition.stageHeight = _stageHeight;
+			_transition.totalPages = totalpages;
+			_transition.total = total;
 		}
 
 		public function get selectedIndex():int
@@ -263,21 +240,18 @@ package com.wezside.components.gallery
 		public function get stageWidth():Number
 		{
 			return _stageWidth;
-		}
-		
+		}		
 		
 		public function set stageWidth( value:Number ):void
 		{
 			_stageWidth = value;
-		}
-		
+		}		
 		
 		public function get stageHeight():Number
 		{
 			return _stageHeight;
 		}
-		
-		
+				
 		public function set stageHeight( value:Number ):void
 		{
 			_stageHeight = value;
@@ -285,12 +259,88 @@ package com.wezside.components.gallery
 		
 		public function getRowHeight( row:uint ):Number
 		{
-			return ( row * verticalgap ) * largestItemHeight * 0.5;
+			return ( row * verticalGap ) * largestItemHeight * 0.5;
 		}
 
 		public function get thumbEnabled():Boolean
 		{
 			return _thumbEnabled;
+		}
+		
+		public function get rows():int
+		{
+			return GridReflectionLayout( layout ).rows;
+		}
+		
+		public function set rows( value:int ):void
+		{
+			GridReflectionLayout( layout ).rows = value;
+		}
+		
+		public function get columns():int
+		{
+			return GridReflectionLayout( layout ).columns;
+		}
+		
+		public function set columns( value:int ):void
+		{
+			GridReflectionLayout( layout ).columns = value;
+		}
+		
+		public function get verticalGap():int
+		{
+			return GridReflectionLayout( layout ).verticalGap;
+		}
+		
+		public function set verticalGap( value:int ):void
+		{
+			GridReflectionLayout( layout ).verticalGap = value;
+		}
+		
+		public function get horizontalGap():int
+		{
+			return GridReflectionLayout( layout ).horizontalGap;
+		}
+		
+		public function set horizontalGap( value:int ):void
+		{
+			GridReflectionLayout( layout ).horizontalGap = value;
+		}
+		
+		public function get resizePolicy():String
+		{
+			return _resizePolicy;
+		}
+		
+		public function set resizePolicy( value:String ):void
+		{
+			_resizePolicy = value;
+		}
+		
+		public function get reflectionRowHeight():int
+		{
+			return _reflectionRowHeight;
+		}
+		
+		public function set reflectionRowHeight( value:int ):void
+		{
+			_reflectionRowHeight = value;
+		}
+		
+		public function get resizeValue():int
+		{
+			return _resizeValue;
+		}
+		
+		public function set resizeValue( value:int ):void
+		{
+			_resizeValue = value;
+		}
+		
+		override public function set debug( value:Boolean ):void
+		{
+			_debug = value;
+			super.debug = value;
 		}
 		
 		/**
@@ -334,12 +384,12 @@ package com.wezside.components.gallery
 		 * the difference between the server time and the livedate attribute specified in the XML node
 		 * for each video within the football hd module. The format is [seconds, minutes, hours, days ]. 
 		 */
-		public function create( event:Event = null ):void
+		public function create():void
 		{
 			if ( items.length != 0 )
 			{
-				var date:Date = original[ int( total - items.length ) ].livedate;
-				var extension:String = FileUtil.getFileExtension( items[0].url );
+				var date:Date = original.getElementAt( int( total - items.length )).livedate;
+				var extension:String = FileUtil.getFileExtension( items.getElementAt( 0 ).url );
 				dateUtils.testLiveDate( date ) ? createItem( extension ) : createItem( "countdown" );
 			}
 		}
@@ -348,16 +398,15 @@ package com.wezside.components.gallery
 		{
 			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
 		}
-				
 		
 		private function createItem( fileExtension:String = "" ):void
 		{		
-			var ItemClass:Class = _classCollection.find( "fileExtension", fileExtension ).clazz as Class;
+			var ItemClass:Class = _classCollection.find( "id", parseType( fileExtension )).clazz as Class;
 			var item:IGalleryItem = new  ItemClass( fileExtension, _debug ) as IGalleryItem;
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );
 			item.addEventListener( GalleryEvent.ITEM_LOAD_COMPLETE, itemLoaded );
-			item.load( items[0].url, items[0].livedate, items[0].linkageID );
+			item.load( items.getElementAt( 0 ).url, items.getElementAt( 0 ).livedate, items.getElementAt( 0 ).linkageID );
 		}
 
 		
@@ -383,7 +432,7 @@ package com.wezside.components.gallery
 		 * <li>the default properties for each item is set</li>
 		 * <li>The item is resized to what the resize policy might be</li>
 		 * <li>Distribution alignment is done</li>
-		 * <li>Reflection is created depending on reflactionAlpha and reflectionHeightnRows values</li>
+		 * <li>Reflection is created depending on reflactionAlpha and reflectionHeightn_rows values</li>
 		 * <li>Item is added to stage</li>
 		 * <li>Creation is continued if more items are left in dataprovider</li>
 		 * </ul>
@@ -410,30 +459,24 @@ package com.wezside.components.gallery
 			// Draw bitmap at original size before resizing happens
 			var bmp:BitmapData = new BitmapData( item.width, item.height, true, 0x000000FF );
 			bmp.draw( item );
-
+					
 			// Resize item if policy is set	
-			item = resize( item, resizePolicy, resizeValue ) as Sprite;
-
+			item = resize( item, _resizePolicy, _resizeValue ) as Sprite;
+			
 			// Used for distribution layout - to determine the width or height to distribute to
 			largestItemWidth = item.width > largestItemWidth ? item.width : largestItemWidth;
 			largestItemHeight = item.height > largestItemHeight ? item.height : largestItemHeight;
-						
-			// Distribute item			
-			item = resize( item, distributePolicy, distributePolicy == DISTRIBUTE_H ? largestItemWidth : largestItemHeight ) as Sprite;
-									
+
 			// Create Reflection
-			if ( reflectionHeightInRows > 0 )
+			if ( _reflectionRowHeight > 0 )
 			{
-				var ratioA:int = rows - reflectionHeightInRows == currentRow ? 0 : 255;
+				var ratioA:int = rows - _reflectionRowHeight == currentRow ? 0 : 255;
 				var ref:ReflectionItem = new ReflectionItem( ITEM_REFLECTION,  new Bitmap( bmp ), [ ratioA, 255 ], bmp.height, _debug );			
 				ref.name = "reflection_" + index;				
-				ref.alpha = (( rows - currentRow ) <= reflectionHeightInRows ) ? reflectionAlpha : 0;
+				ref.alpha = (( rows - currentRow ) <= _reflectionRowHeight ) ? _reflectionAlpha : 0;
 				
 				// Resize reflection
-				ref = resize( ref, resizePolicy, resizeValue ) as ReflectionItem;
-				
-				// Distribute reflection
-				ref = resize( ref, distributePolicy, largestItemWidth ) as ReflectionItem;
+				ref = resize( ref, _resizePolicy, _resizeValue ) as ReflectionItem;
 			}
 			
 			// Determine updates required for reflections
@@ -445,11 +488,9 @@ package com.wezside.components.gallery
 			}
 						
 			if (( index + 1 ) % columns == 0 ) currentRow++;
-			
 			addChild( item );
-			if ( reflectionHeightInRows > 0 ) addChild( ref );
-			
-			items.shift();
+			if ( _reflectionRowHeight > 0 ) addChild( ref );
+			items.removeElementAt( 0 );
 			items.length > 0 ?  create() : complete( );
 		}
 		
@@ -469,7 +510,6 @@ package com.wezside.components.gallery
 		
 		protected function itemClick( event:MouseEvent ):void
 		{
-			
 			var iterator:IIterator = iterator( UIElement.ITERATOR_CHILDREN );			
 			while( iterator.hasNext())
 			{
@@ -480,10 +520,9 @@ package com.wezside.components.gallery
 
 			IGalleryItem( event.currentTarget ).state = STATE_SELECTED;
 			
-			switch ( target )
+			switch ( _target )
 			{
 				case BLANK   : navigateToURL( new URLRequest( "" ), "_blank");	break;
-				case OVERLAY : break;
 				case LIGHTBOX: break;
 				default		 : dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_CLICK, false, false, int( event.currentTarget.name )));
 			}
@@ -504,7 +543,7 @@ package com.wezside.components.gallery
 					if ( item.name == event.currentTarget.name  )
 					{
 						item.state = STATE_ROLLOVER;
-						if ( reflectionHeightInRows > 0 )
+						if ( _reflectionRowHeight > 0 )
 						{
 							reflection = iterator.next() as IGalleryItem;
 							reflection = getChildByName( "reflection_" + item.name.toString() ) as IGalleryItem;
@@ -534,7 +573,7 @@ package com.wezside.components.gallery
 				item = iterator.next() as IGalleryItem;	
 				item.state = STATE_ROLLOUT;
 				
-				if  ( reflectionHeightInRows > 0 )
+				if  ( _reflectionRowHeight > 0 )
 				{
 					reflection = iterator.next() as IGalleryItem;
 					reflection = getChildByName( "reflection_" + item.name.toString() ) as IGalleryItem;
@@ -545,27 +584,56 @@ package com.wezside.components.gallery
 
 		
 		private function complete():void
-		{
-			GridReflectionLayout( layout ).horizontalGap = horizontalGap;
-			GridReflectionLayout( layout ).verticalGap = verticalgap;
-			GridReflectionLayout( layout ).largestItemWidth = largestItemWidth;
-			GridReflectionLayout( layout ).largestItemHeight = largestItemHeight;
-			GridReflectionLayout( layout ).rows = rows;
-			GridReflectionLayout( layout ).columns = columns;
-			GridReflectionLayout( layout ).reflectionHeightInRows = reflectionHeightInRows;
+		{		
+			GridReflectionLayout( layout ).width = largestItemWidth;
+			GridReflectionLayout( layout ).height = largestItemHeight;
+			GridReflectionLayout( layout ).hasReflections = _reflectionRowHeight > 0;
+			
+			layout = new DistributeLayout( this.layout );
+			DistributeLayout( layout ).width = largestItemWidth;
+			DistributeLayout( layout ).height = largestItemHeight;
+
 			dispatchEvent( new GalleryEvent( GalleryEvent.LOAD_COMPLETE ));
+			build();
+			setStyle();
 			arrange();
 			Tracer.output( _debug, " Gallery.complete()", toString() );
 		}		
-		
+				
+		private function parseType( fileExtension:String ):String
+		{
+			var type:String;
+			switch ( fileExtension )
+			{
+				case "bmp":  
+				case "jpg": 
+				case "jpeg": 
+				case "gif":
+				case "png":
+					type = Gallery.ITEM_IMAGE;
+					break;
+				case "flv":
+				case "mov":
+					type = Gallery.ITEM_VIDEO;
+					break;
+				case "swf":
+					type = Gallery.ITEM_SWF;
+					break;
+				case "countdown":
+					type = Gallery.ITEM_COUNTDOWN;
+					break;
+				default:
+					type = Gallery.ITEM_BLANK; 
+					break;
+			}
+			return type;
+		}		
 		
 		private function resize( object:DisplayObject, policy:String, value:Number ):DisplayObject
 		{
 			var resizeUtil:ImageResize = new ImageResize();
 			if ( policy == RESIZE_HEIGHT && value != -1 ) object = resizeUtil.resizeToHeight( object, value );
 			if ( policy == RESIZE_WIDTH && value != -1 ) object = resizeUtil.resizeToWidth( object, value );
-			if ( policy == DISTRIBUTE_H && value != -1 ) object = resizeUtil.distribute( object, value );
-			if ( policy == DISTRIBUTE_V && value != -1 ) object = resizeUtil.distribute( object, value, ImageResize.DISTRIBUTE_TO_HEIGHT );
 			resizeUtil = null;		 
 			return object;	
 		}

@@ -141,8 +141,8 @@ package test.com.wezside.components
 			assertEquals( 2, uiElement.numChildren );
 			assertEquals( 20, uiElement.x );
 			assertEquals( 20, uiElement.y );
-			assertEquals( 0, uiElement.getChildAt(0).x );
-			assertEquals( 0, uiElement.getChildAt(0).y );
+			assertEquals( 15, uiElement.getChildAt(0).x );
+			assertEquals( 15, uiElement.getChildAt(0).y );
 			assertEquals( 15+15+200, uiElement.width );
 			assertEquals( 15+15+50, uiElement.height );
 			

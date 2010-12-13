@@ -94,8 +94,7 @@ package com.wezside.data.collection
 		
 		public function find( prop:* = "", value:* = null ):*
 		{		
-			var it:IIterator = iterator();
-				
+			var it:IIterator = iterator();				
 			// Returns the first item
 			if ( value == "" && it.hasNext() )
 			{
@@ -118,6 +117,11 @@ package com.wezside.data.collection
 			return null;
 		}
 		
+		public function removeElementAt( index:int ):void
+		{
+			_collection.splice( index, 1 );
+		}				
+		
 		public function purge():void
 		{			
 			for each ( var i:LinkedListNode in _collection )
@@ -129,7 +133,7 @@ package com.wezside.data.collection
 			_current.purge();
 			_current = null;
 		}
-		
+				
 		public function get length():int
 		{
 			return _length;
@@ -146,6 +150,12 @@ package com.wezside.data.collection
 			}
 			iterator.purge();
 			return str;
+		}
+		
+		public function clone():ICollection
+		{
+			throw new Error( "The clone() method is not yet supported for LinkedListCollection");
+			return null;
 		}	
 	}
 }

@@ -28,10 +28,12 @@ package com.wezside.data.collection
 	{		
 		function addElement( value:* ):void;
 		function removeElement( prop:* = "", value:* = null ):*;
+		function removeElementAt( index:int ):void;
 		function getElementAt( index:int ):*		
 		function get length():int;
 		function iterator():IIterator;
 		function find( prop:* = "", value:* = null ):*
+		function clone():ICollection;
 		function purge():void;
 		function toString():String;		
 	}

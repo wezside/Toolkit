@@ -122,13 +122,13 @@ package com.wezside.data.mapping
 			while ( iterator.hasNext( ))
 			{							
 				var child:XML = XML( iterator.next() );
-				var item:IXMLDataItem = IXMLDataItem( _collection.find( "nodeName", child.name() ? child.name().localName : "" ));
-
+				var item:IXMLDataItem = IXMLDataItem( _collection.find( "nodeName", child.name() ? child.name().localName : "" ));	
+				
 				// Check if there is a class to map from the xml supplied
 				if ( item )
 				{
 					var clazz:Object = new item.clazz( );
-					Tracer.output( _debug, " Adding " + item.clazz, toString( ) );		
+							
 			
 					// Map attributes to single properties
 					for ( var i:int = 0; i < child.attributes( ).length( ); ++i ) 
@@ -158,26 +158,39 @@ package com.wezside.data.mapping
 					if ( clazz.hasOwnProperty( "text" ))
 						clazz["text"] = child.text();
 					
-					// Add the new data instance to mapped parent's collection
+					// Add the new data instance to collection in parent
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && !parent[ item.parentCollectionProperty ])
 						parent[ item.parentCollectionProperty ] = new Collection( );
-	
+						
 					if ( parent.hasOwnProperty( item.parentCollectionProperty ) && parent[ item.parentCollectionProperty ] is ICollection )
+					{
 						parent[ item.parentCollectionProperty ].addElement( clazz );
-										
+						Tracer.output( _debug, " Adding " + item.clazz, toString( ) );
+					}			
+			
+					// Get the child's children										
 					var xmlList:XMLListCollection = new XMLListCollection( );
 					xmlList.collection = child.children();
-					Tracer.output( _debug, " '" + child.name() + "' has " + xmlList.length + " child(ren)", toString( ) );		 
+					
+					if ( child.name() )
+						Tracer.output( _debug, " Trying to map " + xmlList.length + " child(ren) of '" + child.name() + "'", toString( ) );		 
+						
 					build( xmlList.iterator( ), clazz );
 				}
 				else
 				{
+					// Single leaf node text value 
+					if ( parent.hasOwnProperty( child.name()) && child.text().length() == 1 )
+					{
+						parent[ child.name() ] = child.text();
+						Tracer.output( _debug, " Mapping single leaf node '" + child.name() + "' with text value '" + child.text() + "' on data class " + parent, toString() );
+					}
 					Tracer.output( _debug, " No mapping for '" + child.name( ) + "' moving on. Iterator index is " + XMLListIterator( _xmlCollectionIterator ).index( ) + " ", toString( ) );		 
-					if ( iterator.hasNext( )) build( _xmlCollectionIterator, parent );
+					if ( iterator.hasNext( )) build( _xmlCollectionIterator, _data );
 				}
 			}
 		}
-				
+
 		private function buildNamespaceCollection( namespaceDeclarations:Array ):void 
 		{
 			for ( var i:int = 0; i < namespaceDeclarations.length; ++i ) 

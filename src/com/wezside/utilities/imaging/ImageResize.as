@@ -92,6 +92,7 @@ package com.wezside.utilities.imaging
 
 		private function position( displayObject:DisplayObject, prop:String, value:Number ):void
 		{
+			trace( value, displayObject.width );
 			displayObject[prop] = ( prop == "x" ? value - displayObject.width : value - displayObject.height ) * 0.5;
 		}
 	}

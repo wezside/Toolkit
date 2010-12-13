@@ -37,8 +37,7 @@ package com.wezside.components.gallery.item
 		}
 		
 		public function reset():void
-		{
-			
+		{			
 			if ( _selected )
 			{				
 				state = "";

@@ -65,6 +65,7 @@ package com.wezside.components
 		private var _stateManager:StateManager;
 		private var _currentStyleName:String;
 		private var _childrenContainer:Sprite;
+		private var scrollMask:Sprite;
 
 		// Decorators
 		private var _layout:ILayout;
@@ -72,9 +73,13 @@ package com.wezside.components
 		private var _background:IShape;
 		private var _interactive:IInteractive;
 		private var _debug:Boolean;
-		private var scrollMask:Sprite;
 
-		public function UIElement() 
+		public function UIElement()
+		{ 
+			construct( );
+		}
+
+		public function construct():void
 		{
 			_skin = new UIElementSkin( );  
 			_layout = new Layout( this ); 
@@ -122,6 +127,11 @@ package com.wezside.components
 			return _childrenContainer.getChildByName( name );
 		}
 
+		override public function getChildAt( index:int ):DisplayObject 
+		{
+			return _childrenContainer.getChildAt( index );
+		}
+
 		public function get numUIChildren():int
 		{
 			return super.numChildren;
@@ -156,10 +166,10 @@ package com.wezside.components
 		{
 			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap: super.width;
 		}
-		
-		override public function get height():Number 
+
+		public function getUIChildAt( index:int ):DisplayObject 
 		{
-			return _scroll && super.height > _childrenContainer.height ? _childrenContainer.height : super.height;
+			return super.getChildAt( index );
 		}
 
 		public function build():void
@@ -299,8 +309,6 @@ package com.wezside.components
 			while ( it.hasNext( ) )
 			{
 				var child:* = it.next( );
-				
-//				if ( child is IUIElement ) UIElement( child ).purge( );
 				if ( _childrenContainer ) 
 					_childrenContainer.removeChild( child );
 			}				
@@ -311,6 +319,8 @@ package com.wezside.components
 			}
 			if ( _scroll && contains( DisplayObject( _scroll ) )) 
 			{
+				_childrenContainer.mask = null;
+				super.removeChild( scrollMask );		
 				_scroll.removeEventListener( ScrollEvent.CHANGE, scrollChange );
 				_scroll.purge( );
 				removeUIChild( DisplayObject( _scroll ) );
@@ -399,7 +409,7 @@ package com.wezside.components
 			var w:int = scroll is ScrollHorizontal ? _scroll.scrollWidth : width;
 			var h:int = scroll is ScrollVertical ? _scroll.scrollHeight : height;
 			
-			if ( scrollMask )
+			if ( scrollMask && super.contains( scrollMask ))
 				super.removeChild( scrollMask );
 			else
 				scrollMask = new Sprite( );			

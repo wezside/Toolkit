@@ -50,6 +50,7 @@ package com.wezside.components.gallery.item
 		{
 			super( type, debug );
 			dateUtils = new DateUtil();
+			dateUtils.serverTime = new Date();
 		}
 
 		override public function load( url:String, livedate:Date, linkageID:String = "" ):void

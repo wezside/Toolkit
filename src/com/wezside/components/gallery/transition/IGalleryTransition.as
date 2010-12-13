@@ -25,8 +25,6 @@ package com.wezside.components.gallery.transition
 {
 	import com.wezside.components.IUIDecorator;
 
-	import flash.events.Event;
-
 	/**
 	 * @author Wesley.Swanepoel
 	 */
@@ -44,7 +42,13 @@ package com.wezside.components.gallery.transition
 		function get reflectionHeightInRows():int;
 		function set reflectionHeightInRows( value:int ):void;
 		
-		function intro():void;		
-		function outro():void;						
+		function get total():uint;
+		function set total( value:uint ):void;
+		function get totalPages():Number;
+		function set totalPages( value:Number ):void;
+		
+		function transitionIn():void;		
+		function transitionOut():void;		
+		function perform( type:String = "intro" ):void;				
 	}
 }

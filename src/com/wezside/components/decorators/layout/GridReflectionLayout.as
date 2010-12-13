@@ -4,8 +4,10 @@ package com.wezside.components.decorators.layout
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.DisplayObject;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -19,9 +21,7 @@ package com.wezside.components.decorators.layout
 
 		private var _rows:int;
 		private var _columns:int;
-		private var _largestItemHeight:int;
-		private var _largestItemWidth:int;
-		private var _reflectionHeightInRows:int = 0;
+		private var _hasReflections:Boolean = false;
 
 		
 		public function GridReflectionLayout( decorated:IUIDecorator )
@@ -41,37 +41,42 @@ package com.wezside.components.decorators.layout
 			var item:DisplayObject;
 			var reflection:DisplayObject;
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			var counter:int = 0;
 						
 			startX = 0;
-			currentRow = 0;
 			xOffset = 0;
 			yOffset = 0;
+			currentRow = 0;
 			
 			while ( iterator.hasNext() )
 			{
-				item = iterator.next() as DisplayObject;
+				item = iterator.next() as DisplayObject;				
 				item.x += xOffset; 
 				item.y += yOffset;
-				
-				if ( reflectionHeightInRows > 0 )
+				++counter;
+
+				if ( _hasReflections )
 				{
 					reflection = iterator.next() as DisplayObject;
 					reflection.x += xOffset;
 					var posY:int = ( _rows - currentRow ) * ( item.height + verticalGap ) * 2 - item.height;
 					reflection.y += posY + yOffset - verticalGap;
 				}
-								
-				if (( iterator.index() ) % ( _columns ) == 0  )
+
+				if ( counter % _columns == 0  )
 				{
 					++currentRow;
-					yOffset += _largestItemHeight + verticalGap;
+					yOffset += height + verticalGap;
 					xOffset = startX;
 				}
 				else
 				{
-					xOffset += _largestItemWidth + horizontalGap;
+					xOffset += width + horizontalGap;
 				}
 			}
+			
+			iterator.purge();
+			iterator = null;
 			
 	 		width = decorated.width + left + right;
 			height = decorated.height + top + bottom;
@@ -99,34 +104,14 @@ package com.wezside.components.decorators.layout
 			_columns = value;
 		}
 		
-		public function get largestItemHeight():int
+		public function get hasReflections():Boolean
 		{
-			return _largestItemHeight;
+			return _hasReflections;
 		}
 		
-		public function set largestItemHeight( value:int ):void
+		public function set hasReflections( value:Boolean ):void
 		{
-			_largestItemHeight = value;
-		} 		
-		
-		public function get largestItemWidth():int
-		{
-			return _largestItemWidth;
-		}
-		
-		public function set largestItemWidth( value:int ):void
-		{
-			_largestItemWidth = value;
-		}
-		
-		public function get reflectionHeightInRows():int
-		{
-			return _reflectionHeightInRows;
-		}
-		
-		public function set reflectionHeightInRows( value:int ):void
-		{
-			_reflectionHeightInRows = value;
+			_hasReflections = value;
 		}
 	}
 }
