@@ -4,6 +4,26 @@
 	<property file="ant/.git-properties" />
 	<property file="ant/.toolkit-properties" />
 
+	<condition property="isLinux">
+	  <os family="unix" />
+	</condition>
+	
+	<condition property="isWin">
+	    <os family="windows" />		
+	</condition>	
+	
+	<target name="linux" if="isLinux">
+	    <echo message="OS is Linux" />
+		<property name="GIT_HOME" value="${GIT_HOME_LINUX}"/>
+		<property name="git.config" value="${git.config.linux}"/>
+	</target>
+	
+	<target name="win" if="isWin">
+	    <echo message="OS is Windows" />
+		<property name="GIT_HOME" value="${GIT_HOME_PC}"/>
+		<property name="git.config" value="${git.config.pc}"/>
+	</target>		
+	
 	<macrodef name="git">
 		<attribute name="command" />
 		<attribute name="dir" default="" />
@@ -32,7 +52,7 @@
 		</sequential>
 	</macrodef>
 
-	<target name="commit">
+	<target name="commit" depends="win,linux">
 		
 		<condition property="tag.release">
 			<matches pattern="([0-9][0-9][0-9]0)" string="${build.int}" />

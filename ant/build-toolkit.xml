@@ -2,10 +2,31 @@
 <project name="Toolkit Build" default="release" basedir="..">
 
 	<property file="ant/.toolkit-properties" />
-	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
-
+	
+	<condition property="isLinux">
+	  <os family="unix" />
+	</condition>
+	
+	<condition property="isWin">
+	    <os family="windows" />		
+	</condition>	
+	
+	<target name="linux" if="isLinux">
+	    <echo message="OS is Linux" />
+		<property name="FLEX_HOME" value="${FLEX_HOME_LINUX}"/>
+		<property name="swc.base" value="${swc.base.linux}"/>
+	</target>
+	
+	<target name="win" if="isWin">
+	    <echo message="OS is Windows" />
+		<property name="FLEX_HOME" value="${FLEX_HOME_PC}"/>
+		<property name="swc.base" value="${swc.base.pc}"/>
+	</target>	
+	
+	
 	<!-- Clean project dirs -->
-	<target name="clean">
+	<target name="clean" depends="win,linux">
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 		<delete>
 			<fileset dir="${swc.base}">
 			    <include name="wezside.toolkit.*"/>
