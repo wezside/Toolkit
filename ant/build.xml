@@ -7,6 +7,7 @@
 		<subant genericantfile="${basedir}/../Modulo/ant/build.xml" buildpath="${basedir}/../Modulo/" />
 		
 		<subant genericantfile="${basedir}/ant/build-git.xml"  buildpath="." />
+		<subant genericantfile="${basedir}/../Modulo-Sample/ant/build-git.xml"  buildpath="${basedir}/../Modulo-Sample/" />
 		<subant genericantfile="${basedir}/../Modulo/ant/build-git.xml"  buildpath="${basedir}/../Modulo/" />		
 		
 	</target>
