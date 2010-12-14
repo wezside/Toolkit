@@ -72,6 +72,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git-push-to-branch branch="master" remoteRepositoryName="factory" />
+		<git-push-to-branch branch="factory" remoteRepositoryName="origin" />
 	</target>
 </project>
