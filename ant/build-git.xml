@@ -10,7 +10,7 @@
 		<element name="args" optional="true" />
 		<sequential>
 			<echo message="git @{command} " />
-			<exec executable="${GIT_HOME}/git" dir="@{dir}">
+			<exec executable="${GIT_HOME}git" dir="@{dir}">
 				<env key="HOME" value="${git.config}"/>
 				<arg value="@{command}" />
 				<args />
@@ -72,6 +72,6 @@
 
 	<target name="push-remote" depends="tag">
 		<echo message="Pushing to remote repository" />
-		<git-push-to-branch branch="master" remoteRepositoryName="origin" />
+		<git-push-to-branch branch="master" remoteRepositoryName="factory" />
 	</target>
 </project>

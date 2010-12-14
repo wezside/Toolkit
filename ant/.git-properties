@@ -1,6 +1,8 @@
 #Fri Oct 15 16:15:06 BST 2010
 #Update build version
-GIT_HOME=c\:/Program Files/Git/bin
-git.config=c\:/Documents and Settings/WSwanepoel
+GIT_HOME_PC=c\:/Program Files/Git/bin
+GIT_HOME=
+git.config.pc=c\:/Documents and Settings/WSwanepoel/
+git.config=~/
 author=wezside
 project.name=Toolkit
