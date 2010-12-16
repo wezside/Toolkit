@@ -24,15 +24,17 @@ package com.wezside.utilities.business.rpc
 		function set contentType( value:String ):void;
 		function get loaded():Boolean;
 		function set loaded( value:Boolean ):void;
-		function get requestHeaders():Array;
-		function set requestHeaders( value:Array ):void;		
+		function get headers():Array;
+		function set headers( value:Array ):void;
+		function get asyncToken():Number;
+		function set asyncToken( value:Number ):void;
 
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 		function dispatchEvent( event:Event ):Boolean;
 		function removeEventListener(type : String, listener : Function, useCapture : Boolean = false) : void;
 		function hasEventListener(type : String) : Boolean;		
 
-		function loadWSDL(uri:String = null):void;
+		function loadWSDL( uri:String = null ):void;
 		function kill():void;
 		function send( params:Object = null, operationID:String = "" ):Boolean;
 		function toString():String;

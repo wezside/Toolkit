@@ -45,7 +45,8 @@ package com.wezside.utilities.business.rpc
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
 		private var _debug:Boolean;
-		
+		private var _asyncToken:Number;
+
 		public function HTTPService() 
 		{
 			_loaded = true;
@@ -99,12 +100,12 @@ package com.wezside.utilities.business.rpc
 			_responder = value;
 		}
 		
-		public function get requestHeaders():Array
+		public function get headers():Array
 		{
 			return _requestHeaders;
 		}
 		
-		public function set requestHeaders( value:Array ):void
+		public function set headers( value:Array ):void
 		{
 			_requestHeaders = value;
 		}		
@@ -168,6 +169,16 @@ package com.wezside.utilities.business.rpc
 			_debug = value;
 		}
 		
+		public function get asyncToken():Number
+		{
+			return _asyncToken;
+		}
+		
+		public function set asyncToken(value:Number):void
+		{
+			_asyncToken = value;
+		}			
+		
 		override public function toString() : String 
 		{
 			return getQualifiedClassName( this );
@@ -200,6 +211,8 @@ package com.wezside.utilities.business.rpc
 			{
 				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, _loader.data ));
 			}				
-		}		
+		}
+		
+	
 	}
 }

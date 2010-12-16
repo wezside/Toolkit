@@ -23,7 +23,8 @@ package com.wezside.utilities.business.rpc
 		private var _responder:IResponder;
 
 		private static const DEBUG:Boolean = false;
-				
+		private var _asyncToken:Number;
+
 		
 		public function Webservice( destination:String = null, rootURL:String = null )
 		{
@@ -118,6 +119,27 @@ package com.wezside.utilities.business.rpc
 			initializeOperation( operation );	
 		}
 		
+		override public function get headers():Array 
+		{
+			return super.headers;
+		}
+		
+		public function set headers( value:Array ):void
+		{
+			for ( var i:int = 0; i < value.length; ++i ) 
+				addHeader( value[i] );	
+		}
+		
+		public function get asyncToken():Number
+		{
+			return _asyncToken;
+		}
+		
+		public function set asyncToken(value:Number):void
+		{
+			_asyncToken = value;
+		}				
+
 		private function wsdlLoaded( event:LoadEvent ):void
 		{
 			Tracer.output( DEBUG, " Webservice.wsdlLoaded(event)", toString() );
@@ -130,11 +152,11 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( DEBUG, " Webservice.fault(event)", toString() );			
 			if ( _responder != null )			
 			{				
-				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false,  event.messageId, event.messageId, event.message, event.statusCode, event.fault ));
+				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, null, event.messageId, event.message.body.toString(), event.statusCode, asyncToken ));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, event.messageId, event.messageId, event.message, event.statusCode, event.fault ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, null, event.messageId, event.message.body.toString(), event.statusCode, asyncToken ));
 			}			
 		}
 	
@@ -142,12 +164,12 @@ package com.wezside.utilities.business.rpc
 		{
 			if ( _responder != null )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result ));
+				_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result, "", "", 0, _asyncToken ));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result, "", "", 0, _asyncToken ));
 			}	
-		}		
+		}
 	}
 }
