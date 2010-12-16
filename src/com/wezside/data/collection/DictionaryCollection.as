@@ -1,5 +1,6 @@
 package com.wezside.data.collection
 {
+	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.utils.Dictionary;
@@ -12,10 +13,11 @@ package com.wezside.data.collection
 				
 		private var _length:int;
 		private var _collection:Dictionary;
-		
+		private var _keys:Array;
 		
 		public function DictionaryCollection() 
 		{
+			_keys = [];
 			_collection = new Dictionary();
 		}
 		
@@ -27,18 +29,19 @@ package com.wezside.data.collection
 		
 		public function addElement( key:*, value:* ):void
 		{
-			_collection[ key ] = value;
+			_collection[ key ] = {index: _keys.length, value: value};
+			_keys.push( key );
 			_length++;
 		}		
 		
 		public function getElement( key:* ):*
 		{
-			return _collection[ key ];
+			return _collection[ key ].value;
 		}				
 
 		public function iterator():IIterator
 		{
-			return null;
+			return new ArrayIterator( _keys );
 		}
 		
 		public function hasElement( key:* ):Boolean
@@ -48,13 +51,14 @@ package com.wezside.data.collection
 
 		public function find( prop:String = "", value:* = null ):*
 		{
-			return _collection[ prop ];
+			return _collection[ prop ].value;
 		}
 				
 		public function removeElement( prop:String = "", value:* = null ):*
 		{
 			if ( _collection[ prop ])
 			{
+				_keys.splice( [ _collection[ prop ].index ], 1 );
 				delete _collection[ prop ];
 			}
 		}		
