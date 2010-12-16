@@ -19,8 +19,9 @@ package com.wezside.utilities.business
 		public var messageID:String;
 		public var statusCode:int;
 		public var fault:Fault;
+		public var asyncToken:Number;
 
-		public function ResponderEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false, data:* = null, messageID:String = "", message:IMessage = null, statusCode:int = 0, fault:Fault = null )
+		public function ResponderEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false, data:* = null, messageID:String = "", message:IMessage = null, statusCode:int = 0, fault:Fault = null, asyncToken:Number = 0 )
 		{
 			super( type, bubbles, cancelable );
 			this.data = data;
@@ -28,11 +29,12 @@ package com.wezside.utilities.business
 			this.messageID = messageID;
 			this.statusCode = statusCode;
 			this.fault = fault;
+			this.asyncToken = asyncToken;
 		}
 		
 		override public function clone():Event 
 		{ 
-			return new ResponderEvent( type, bubbles, cancelable, data, messageID, message, statusCode, fault );
+			return new ResponderEvent( type, bubbles, cancelable, data, messageID, message, statusCode, fault, asyncToken );
 		}
 	}
 }

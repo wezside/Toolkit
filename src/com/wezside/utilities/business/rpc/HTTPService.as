@@ -40,30 +40,28 @@ package com.wezside.utilities.business.rpc
 		private var _request:URLRequest;
 		private var _resultFormat:String;
 		private var _responder:IResponder;
-		private var _requestHeaders:Array = new Array();    	
+		private var _requestHeaders:Array = [];    	
 		private var _method:String = POST_METHOD;
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
 		private var _debug:Boolean;
-
 		
 		public function HTTPService() 
 		{
 			_loaded = true;
 		}
-		
 
 		public function send( params:Object = null, operationID:String = "" ):Boolean
 		{
 			_request = new URLRequest( _url );
 			_loader = new URLLoader( _request );
 			_request.contentType = _contentType;
-			_request.url = _url; 
+			_request.url = _url;
 			_request.data = params;
 			_request.requestHeaders = _requestHeaders;
 			_loader.addEventListener( Event.COMPLETE, result );
-			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault);
-			_loader.load( _request);
+			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault );
+			_loader.load( _request );
 			return true;
 		}
 	

@@ -24,6 +24,8 @@ package com.wezside.utilities.business.rpc
 		function set contentType( value:String ):void;
 		function get loaded():Boolean;
 		function set loaded( value:Boolean ):void;
+		function get requestHeaders():Array;
+		function set requestHeaders( value:Array ):void;		
 
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 		function dispatchEvent( event:Event ):Boolean;
