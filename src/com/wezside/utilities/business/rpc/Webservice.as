@@ -24,6 +24,7 @@ package com.wezside.utilities.business.rpc
 
 		private static const DEBUG:Boolean = false;
 		private var _asyncToken:Number;
+		private var _id:String;
 
 		
 		public function Webservice( destination:String = null, rootURL:String = null )
@@ -75,6 +76,16 @@ package com.wezside.utilities.business.rpc
 		{
 			return getQualifiedClassName( this );
 		}
+				
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function set id(value:String):void
+		{
+			_id = value;
+		}		
 		
 		public function get responder():IResponder
 		{
@@ -171,5 +182,6 @@ package com.wezside.utilities.business.rpc
 				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result, "", "", 0, _asyncToken ));
 			}	
 		}
+
 	}
 }

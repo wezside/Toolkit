@@ -46,6 +46,7 @@ package com.wezside.utilities.business.rpc
 		private var _loaded:Boolean;
 		private var _debug:Boolean;
 		private var _asyncToken:Number;
+		private var _id:String;
 
 		public function HTTPService() 
 		{
@@ -78,7 +79,17 @@ package com.wezside.utilities.business.rpc
 			_responder = null;
 			_request = null;
 			_loader = null;								
-		}				
+		}
+		
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function set id(value:String):void
+		{
+			_id = value;
+		}		
 		
 		public function get loaded():Boolean
 		{
@@ -190,11 +201,11 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( _debug, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
-				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, event.text ));
+				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, event.text ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text }));
 			}				
 		}
 
@@ -205,14 +216,12 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( _debug, " HTTPService.ResultEvent(event)", toString() );
 			if ( _responder != null )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, _loader.data ));
+				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: _loader.data }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, _loader.data ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, { id: id, content: _loader.data }));
 			}				
 		}
-		
-	
 	}
 }

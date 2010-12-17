@@ -12,6 +12,8 @@ package com.wezside.utilities.business.rpc
    public interface IService
    {
 
+		function get id():String;
+		function set id( value:String ):void;
 		function get wsdl():String;
 		function set wsdl( value:String ):void;
 		function get responder():IResponder;
