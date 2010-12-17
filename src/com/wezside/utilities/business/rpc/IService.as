@@ -37,7 +37,8 @@ package com.wezside.utilities.business.rpc
 		function hasEventListener(type : String) : Boolean;		
 
 		function loadWSDL( uri:String = null ):void;
-		function kill():void;
+		function willTrigger( type:String ):Boolean;
+		function purge():void;
 		function send( params:Object = null, operationID:String = "" ):Boolean;
 		function toString():String;
  	

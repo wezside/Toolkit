@@ -26,6 +26,9 @@ package com.wezside.data.mapping
 	public interface IXMLDataItem 
 	{
 		
+		function get id():String;
+		function set id( value:String ):void;
+		
 		function get clazz():Class;
 		function set clazz( value:Class ):void;
 		

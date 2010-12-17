@@ -36,7 +36,7 @@ package com.wezside.data.collection
 		
 		public function getElement( key:* ):*
 		{
-			return _collection[ key ].value;
+			return _collection[ key ] ? _collection[ key ].value : null;
 		}				
 
 		public function iterator():IIterator
@@ -51,7 +51,7 @@ package com.wezside.data.collection
 
 		public function find( prop:String = "", value:* = null ):*
 		{
-			return _collection[ prop ].value;
+			return _collection[ prop ] ? _collection[ prop ].value : null;
 		}
 				
 		public function removeElement( prop:String = "", value:* = null ):*
