@@ -7,11 +7,7 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-<<<<<<< HEAD
 * Build 0.1.0222
-=======
-* Build 0.1.0216
->>>>>>> e0224b1... [Auto Build] Toolkit 0.1.0216
 * Compiled with Flex 4 SDK build 14159 
 
 Change log since build .0200
