@@ -1,5 +1,15 @@
 #Tue Dec 14 23:11:38 GMT 2010
 #Update build version
+<<<<<<< HEAD
+=======
+#Tue Dec 14 22:44:01 GMT 2010
+swc.path=${basedir}/swc/
+build.int=0217
+src.path=${basedir}/src
+version=0.1.
+swc.base.pc=F\:/Resources/Flash/Library/Toolkit
+lib.path=${basedir}/lib
+>>>>>>> e0224b1... [Auto Build] Toolkit 0.1.0216
 FLEX_HOME_LINUX=/home/wesley/bin/packages/flexsdk4.0.0.10485
 FLEX_HOME_PC=c\:/flex4sdk_4.0.0.14159
 build.int=0222
