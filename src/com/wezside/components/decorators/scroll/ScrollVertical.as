@@ -75,8 +75,8 @@ package com.wezside.components.decorators.scroll
 			{
 				scrollBarVisible = false;
 				width = 0;
-				height = track.background.height;
-				
+				if ( track ) height = track.background.height;
+				else height = decorated.height;				
 				if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
 				if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );
 			}

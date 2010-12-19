@@ -7,12 +7,14 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
-* Build 0.1.0221
+* Build 0.1.0222
 * Compiled with Flex 4 SDK build 14159 
 
 Change log since build .0200
 =======
 
+* Switched XMLDatamapper's collection to DictionaryCollection to avoid issues surrounding duplicate node names. If the same parser is used for different XML the same node should be allowed but mapped to different Data Classes. This is now possible.
+* Fixed single leaf node mapping in XMLDatamapper to use localName() instead of namespaced name()
 * Gallery component refactored to UIElement standard. Use of GridReflectionLayout and DistributeLayout decorator added.
 * ICollection clone() and removeElementAt() methods added 
 * XMLDataMapper Automatic leaf node mapping to parent variable typed String.

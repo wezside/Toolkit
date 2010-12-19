@@ -24,6 +24,7 @@ package test.com.wezside.data.mapping
 
 		[Embed( source="/../resource/xml/survey-config.xml", mimeType="application/octet-stream")]
 		public static var ConfigXMLData:Class;
+				
 		private var data:*;
 		private var str:*;
 		private var xml:XML;
@@ -54,7 +55,7 @@ package test.com.wezside.data.mapping
 			mapper.addDataMap( SurveyData );
 			mapper.addDataMap( LayoutData, "layout", "layout" );
 			mapper.addDataMap( LayoutDecoratorData, "decorator", "decorators" );
-			mapper.debug = true;
+			mapper.debug = false;
 			mapper.deserialize( xml );
 						
 			assertEquals( 1, SurveyData( mapper.data ).layout.iterator().length());
@@ -72,7 +73,7 @@ package test.com.wezside.data.mapping
 			mapper.addDataMap( SurveyData );
 			mapper.addDataMap( UIData, "component", "component" );
 			mapper.addDataMap( UIItemData, "item", "items" );
-			mapper.debug = true;
+			mapper.debug = false;
 			mapper.deserialize( xml );
 			
 			assertNotNull( SurveyData( mapper.data ));
@@ -86,7 +87,7 @@ package test.com.wezside.data.mapping
 			mapper.addDataMap( SurveyData );
 			mapper.addDataMap( UIData, "component", "component" );
 			mapper.addDataMap( UIItemData, "item", "items" );
-			mapper.debug = true;
+			mapper.debug = false;
 			mapper.deserialize( xml );
 			
 			assertNotNull( SurveyData( mapper.data ));
@@ -99,7 +100,7 @@ package test.com.wezside.data.mapping
 			mapper.addDataMap( SurveyData );
 			mapper.addDataMap( Nested, "nested", "nested" );
 			mapper.addDataMap( Node, "node", "nodes" );
-			mapper.debug = true;
+			mapper.debug = false;
 			mapper.deserialize( xml );			
 			
 			assertNotNull( SurveyData( mapper.data ));

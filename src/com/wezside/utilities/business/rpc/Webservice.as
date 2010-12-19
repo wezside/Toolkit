@@ -22,13 +22,16 @@ package com.wezside.utilities.business.rpc
 		private var _method:String;
 		private var _responder:IResponder;
 
-		private static const DEBUG:Boolean = false;
-				
+		private var _asyncToken:Number;
+		private var _id:String;
+		private var debug:Boolean;
+
 		
-		public function Webservice( destination:String = null, rootURL:String = null )
+		public function Webservice( destination:String = null, rootURL:String = null, debug:Boolean = false )
 		{
 			super( destination, rootURL );
-			Tracer.output( DEBUG, " Webservice.Webservice(destination, rootURL)", toString() );			
+			this.debug = debug;
+			Tracer.output( debug, " Webservice.Webservice(destination, rootURL)", toString() );			
 			addEventListener( LoadEvent.LOAD, wsdlLoaded );
 			addEventListener( FaultEvent.FAULT, fault );
 			addEventListener( ResultEvent.RESULT, result );			
@@ -46,7 +49,7 @@ package com.wezside.utilities.business.rpc
 		
 		public function send( params:Object = null, operation:String = "" ):Boolean
 		{
-			Tracer.output( DEBUG, " Webservice.send(args, operation) " + _loaded, toString() );	
+			Tracer.output( debug, " Webservice.send(args, operation) " + _loaded, toString() );	
 			if ( _loaded )
 			{
 				getOperation( operation ).arguments = params;
@@ -54,14 +57,14 @@ package com.wezside.utilities.business.rpc
 			}
 			else
 			{
-				Tracer.output( DEBUG, " Webservice WSDL not loaded.", toString(), Tracer.ERROR );
+				Tracer.output( debug, " Webservice WSDL not loaded.", toString(), Tracer.ERROR );
 				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, " Webservice WSDL not loaded." ));
 			}
 			return _loaded;
 		}
 		
 		
-		public function kill():void
+		public function purge():void
 		{
 			removeEventListener( LoadEvent.LOAD, wsdlLoaded );
 			removeEventListener( FaultEvent.FAULT, fault );
@@ -74,6 +77,16 @@ package com.wezside.utilities.business.rpc
 		{
 			return getQualifiedClassName( this );
 		}
+				
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function set id(value:String):void
+		{
+			_id = value;
+		}		
 		
 		public function get responder():IResponder
 		{
@@ -118,23 +131,44 @@ package com.wezside.utilities.business.rpc
 			initializeOperation( operation );	
 		}
 		
+		override public function get headers():Array 
+		{
+			return super.headers;
+		}
+		
+		public function set headers( value:Array ):void
+		{
+			for ( var i:int = 0; i < value.length; ++i ) 
+				addHeader( value[i] );	
+		}
+		
+		public function get asyncToken():Number
+		{
+			return _asyncToken;
+		}
+		
+		public function set asyncToken(value:Number):void
+		{
+			_asyncToken = value;
+		}				
+
 		private function wsdlLoaded( event:LoadEvent ):void
 		{
-			Tracer.output( DEBUG, " Webservice.wsdlLoaded(event)", toString() );
+			Tracer.output( debug, " Webservice.wsdlLoaded(event)", toString() );
 			_loaded = true;
 			removeEventListener( LoadEvent.LOAD, wsdlLoaded );
 		}
 
 		private function fault( event:FaultEvent ):void
 		{
-			Tracer.output( DEBUG, " Webservice.fault(event)", toString() );			
+			Tracer.output( debug, " Webservice.fault(event)", toString() );			
 			if ( _responder != null )			
 			{				
-				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false,  event.messageId, event.messageId, event.message, event.statusCode, event.fault ));
+				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, null, event.messageId, event.message.body.toString(), event.statusCode, asyncToken ));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, event.messageId, event.messageId, event.message, event.statusCode, event.fault ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, null, event.messageId, event.message.body.toString(), event.statusCode, asyncToken ));
 			}			
 		}
 	
@@ -142,12 +176,13 @@ package com.wezside.utilities.business.rpc
 		{
 			if ( _responder != null )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result ));
+				_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result, "", "", 0, _asyncToken ));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, event.result, "", "", 0, _asyncToken ));
 			}	
-		}		
+		}
+
 	}
 }

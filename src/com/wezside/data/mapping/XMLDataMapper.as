@@ -41,33 +41,38 @@ package com.wezside.data.mapping
 		private var _debug:Boolean;
 		private var item:XMLDataItem;
 		private var _strUtil:StringUtil;
-		private var _collection:XMLDataCollection;
+		private var _collection:DictionaryCollection;
 		private var _xmlCollection:XMLListCollection;
 		private var _xmlCollectionIterator:IIterator;
 		private var _namespaces:DictionaryCollection;
+		private var _id:String;
 
 		public function XMLDataMapper() 
 		{
 			_debug = false;
+			_id = "";
 			_strUtil = new StringUtil();
 			_namespaces = new DictionaryCollection();
-			_collection = new XMLDataCollection( );
+			_collection = new DictionaryCollection( );
 		}
 
 		public function addDataMap( clazz:Class, nodeName:String = "", parentCollectionProperty:String = "" ):void
 		{
 			Tracer.output( _debug, " XMLDataMapper.addDataMap(" + clazz + ", " + nodeName + " , " + parentCollectionProperty + ")", "" );
 			item = new XMLDataItem( );
+			item.id = _id != "" ? _id + "-" + nodeName : nodeName;
 			item.clazz = clazz;
 			item.nodeName = nodeName;
 			item.parentCollectionProperty = parentCollectionProperty;
-			_collection.addElement( item );
+			_collection.addElement( item.id, item );
 		}
 
 		public function deserialize( xml:XML ):void 
 		{
 			// Create Top Level instance
-			var root:IXMLDataItem = _collection.iterator( ).next( ) as IXMLDataItem;
+			var it:IIterator = _collection.iterator( );
+			
+			var root:IXMLDataItem = _collection.getElement( String( it.next() )) as IXMLDataItem;
 			if ( root )
 			{
 				if ( !_data ) _data = new root.clazz( );
@@ -79,6 +84,19 @@ package com.wezside.data.mapping
 			}
 			else
 				throw new Error( "Must have a root Data class assigned." );
+				
+			it.purge();
+			it = null;
+		}
+
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function set id( value:String ):void
+		{
+			_id = value;
 		}
 
 		public function get debug():Boolean
@@ -121,15 +139,17 @@ package com.wezside.data.mapping
 			// Loop through collection using iterator
 			while ( iterator.hasNext( ))
 			{							
+				
 				var child:XML = XML( iterator.next() );
-				var item:IXMLDataItem = IXMLDataItem( _collection.find( "nodeName", child.name() ? child.name().localName : "" ));	
+				var childName:String = child.name() ? child.name().localName : "";
+				var uniqueID:String = _id ? _id + "-" + childName : childName;
+				var item:IXMLDataItem = IXMLDataItem( _collection.getElement( uniqueID ));	
 				
 				// Check if there is a class to map from the xml supplied
 				if ( item )
 				{
 					var clazz:Object = new item.clazz( );
-							
-			
+										
 					// Map attributes to single properties
 					for ( var i:int = 0; i < child.attributes( ).length( ); ++i ) 
 					{
@@ -180,10 +200,10 @@ package com.wezside.data.mapping
 				else
 				{
 					// Single leaf node text value 
-					if ( parent.hasOwnProperty( child.name()) && child.text().length() == 1 )
+					if ( parent.hasOwnProperty( child.localName()) && child.text().length() == 1 )
 					{
-						parent[ child.name() ] = child.text();
-						Tracer.output( _debug, " Mapping single leaf node '" + child.name() + "' with text value '" + child.text() + "' on data class " + parent, toString() );
+						parent[ child.localName() ] = child.text();
+						Tracer.output( _debug, " Mapping single leaf node '" + child.localName() + "' with text value '" + child.text() + "' on data class " + parent, toString() );
 					}
 					Tracer.output( _debug, " No mapping for '" + child.name( ) + "' moving on. Iterator index is " + XMLListIterator( _xmlCollectionIterator ).index( ) + " ", toString( ) );		 
 					if ( iterator.hasNext( )) build( _xmlCollectionIterator, _data );

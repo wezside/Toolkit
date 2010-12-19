@@ -36,7 +36,7 @@ package com.wezside.utilities.business
 		
 		public function kill():void
 		{
-			service.kill();
+			service.purge();
 			service = null;
 		}
 	}

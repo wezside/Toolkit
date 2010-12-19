@@ -29,8 +29,9 @@ package com.wezside.data.mapping
 		private var _clazz:Class;
 		private var _nodeName:String;
 		private var _parentCollectionProperty:String;
-		
+		private var _id:String;
 
+		
 		public function get clazz():Class
 		{
 			return _clazz;
@@ -64,6 +65,16 @@ package com.wezside.data.mapping
 		public function hasOwnProperty( V:* = undefined ):Boolean
 		{
 			return !V ? false : this[V];
+		}
+		
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function set id(value:String):void
+		{
+			_id = value;
 		}
 	}
 }

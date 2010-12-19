@@ -40,13 +40,14 @@ package com.wezside.utilities.business.rpc
 		private var _request:URLRequest;
 		private var _resultFormat:String;
 		private var _responder:IResponder;
-		private var _requestHeaders:Array = new Array();    	
+		private var _requestHeaders:Array = [];    	
 		private var _method:String = POST_METHOD;
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
 		private var _debug:Boolean;
+		private var _asyncToken:Number;
+		private var _id:String;
 
-		
 		public function HTTPService() 
 		{
 			_loaded = true;
@@ -57,18 +58,18 @@ package com.wezside.utilities.business.rpc
 			_request = new URLRequest( _url );
 			_loader = new URLLoader( _request );
 			_request.contentType = _contentType;
-			_request.url = _url; 
+			_request.url = _url;
 			_request.data = params;
 			_request.requestHeaders = _requestHeaders;
 			_loader.addEventListener( Event.COMPLETE, result );
-			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault);
-			_loader.load( _request);
+			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault );
+			_loader.load( _request );
 			return true;
 		}
 	
 		public function loadWSDL(uri:String = null):void {}
 		
-		public function kill():void
+		public function purge():void
 		{
 			if ( _loader )
 			{
@@ -78,7 +79,17 @@ package com.wezside.utilities.business.rpc
 			_responder = null;
 			_request = null;
 			_loader = null;								
-		}				
+		}
+		
+		public function get id():String
+		{
+			return _id;
+		}
+		
+		public function set id(value:String):void
+		{
+			_id = value;
+		}		
 		
 		public function get loaded():Boolean
 		{
@@ -100,12 +111,12 @@ package com.wezside.utilities.business.rpc
 			_responder = value;
 		}
 		
-		public function get requestHeaders():Array
+		public function get headers():Array
 		{
 			return _requestHeaders;
 		}
 		
-		public function set requestHeaders( value:Array ):void
+		public function set headers( value:Array ):void
 		{
 			_requestHeaders = value;
 		}		
@@ -169,6 +180,16 @@ package com.wezside.utilities.business.rpc
 			_debug = value;
 		}
 		
+		public function get asyncToken():Number
+		{
+			return _asyncToken;
+		}
+		
+		public function set asyncToken(value:Number):void
+		{
+			_asyncToken = value;
+		}			
+		
 		override public function toString() : String 
 		{
 			return getQualifiedClassName( this );
@@ -180,11 +201,11 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( _debug, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
-				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, event.text ));
+				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, event.text ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text }));
 			}				
 		}
 
@@ -195,12 +216,12 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( _debug, " HTTPService.ResultEvent(event)", toString() );
 			if ( _responder != null )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, _loader.data ));
+				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: _loader.data }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, _loader.data ));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, { id: id, content: _loader.data }));
 			}				
-		}		
+		}
 	}
 }
