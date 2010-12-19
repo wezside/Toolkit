@@ -51,7 +51,6 @@ package com.wezside.utilities.business.rpc
 		{
 			_loaded = true;
 		}
-		
 
 		public function send( params:Object = null, operationID:String = "" ):Boolean
 		{
