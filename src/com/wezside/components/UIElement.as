@@ -270,7 +270,7 @@ package com.wezside.components
 		public function set layout( value:ILayout ):void
 		{
 			_layout = value;
-			addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
+			_layout.addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
 		}		
 
 		public function get background():IShape
