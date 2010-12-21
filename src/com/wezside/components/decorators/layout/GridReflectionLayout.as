@@ -45,7 +45,6 @@ package com.wezside.components.decorators.layout
 			xOffset = 0;
 			yOffset = 0;
 			currentRow = 0;
-			trace( columns, rows );
 			
 			while ( iterator.hasNext() )
 			{

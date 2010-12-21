@@ -50,6 +50,8 @@ package com.wezside.components.decorators.layout
 			it = null;
 			object = null;
 			
+	 		width = decorated.width + left + right;
+			height = decorated.height + top + bottom;			
 			super.arrange();	
 		}
 		
