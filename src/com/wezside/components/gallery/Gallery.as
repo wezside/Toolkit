@@ -597,6 +597,7 @@ package com.wezside.components.gallery
 			build();
 			setStyle();
 			arrange();
+			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
 			Tracer.output( _debug, " Gallery.complete()", toString() );
 		}		
 				
