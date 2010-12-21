@@ -57,6 +57,8 @@ package com.wezside.components.decorators.layout
 		private var _right:int;
 		private var _width:int;
 		private var _height:int;
+		private var _rows:int;
+		private var _columns:int;
 		
 		protected var decorated:IUIDecorator;
 		protected var placementState:StateManager;
@@ -93,6 +95,10 @@ package com.wezside.components.decorators.layout
 					ILayout( decorated ).verticalGap = verticalGap;
 				if ( horizontalGap != 0 )
 					ILayout( decorated ).horizontalGap = horizontalGap;
+				if ( rows != 0 )
+					ILayout( decorated ).rows = rows;
+				if ( columns != 0 )
+					ILayout( decorated ).columns = columns;
 			}
 			if ( decorated is IUIElement )
 			{
@@ -108,6 +114,10 @@ package com.wezside.components.decorators.layout
 					IUIElement( decorated ).layout.verticalGap = verticalGap;
 				if ( horizontalGap != 0 )
 					IUIElement( decorated ).layout.horizontalGap = horizontalGap;
+				if ( rows != 0 )
+					IUIElement( decorated ).layout.rows = rows;
+				if ( columns != 0 )
+					IUIElement( decorated ).layout.columns = columns;
 			}
 			// Test for children
 			// ILayout won't have any children because it doesn't extend DisplayObjectContainer
@@ -232,6 +242,26 @@ package com.wezside.components.decorators.layout
 		public function set y( value:Number ):void
 		{
 			_y = value;
+		}
+		
+		public function get columns():int
+		{
+			return _columns;
+		}
+		
+		public function set columns( value:int ):void
+		{
+			_columns = value;
+		}
+		
+		public function get rows():int
+		{
+			return _rows;
+		}
+		
+		public function set rows( value:int ):void
+		{
+			_rows = value;
 		}
 	}
 }

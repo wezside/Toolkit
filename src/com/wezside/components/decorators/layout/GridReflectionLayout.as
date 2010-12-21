@@ -84,26 +84,6 @@ package com.wezside.components.decorators.layout
 			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));			
 		}
 		
-		public function get rows():int
-		{
-			return _rows;
-		}
-		
-		public function set rows( value:int ):void
-		{
-			_rows = value;
-		}
-		
-		public function get columns():int
-		{
-			return _columns;
-		}
-		
-		public function set columns( value:int ):void
-		{
-			_columns = value;
-		}
-		
 		public function get hasReflections():Boolean
 		{
 			return _hasReflections;

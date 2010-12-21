@@ -269,42 +269,42 @@ package com.wezside.components.gallery
 		
 		public function get rows():int
 		{
-			return GridReflectionLayout( layout ).rows;
+			return layout.rows;
 		}
 		
 		public function set rows( value:int ):void
 		{
-			GridReflectionLayout( layout ).rows = value;
+			layout.rows = value;
 		}
 		
 		public function get columns():int
 		{
-			return GridReflectionLayout( layout ).columns;
+			return layout.columns;
 		}
 		
 		public function set columns( value:int ):void
 		{
-			GridReflectionLayout( layout ).columns = value;
+			layout.columns = value;
 		}
 		
 		public function get verticalGap():int
 		{
-			return GridReflectionLayout( layout ).verticalGap;
+			return layout.verticalGap;
 		}
 		
 		public function set verticalGap( value:int ):void
 		{
-			GridReflectionLayout( layout ).verticalGap = value;
+			layout.verticalGap = value;
 		}
 		
 		public function get horizontalGap():int
 		{
-			return GridReflectionLayout( layout ).horizontalGap;
+			return layout.horizontalGap;
 		}
 		
 		public function set horizontalGap( value:int ):void
 		{
-			GridReflectionLayout( layout ).horizontalGap = value;
+			layout.horizontalGap = value;
 		}
 		
 		public function get resizePolicy():String
