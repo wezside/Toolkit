@@ -208,6 +208,7 @@ package com.wezside.components
 				drawScrollMask( );
 			}
 			if ( _background ) _background.arrange( );
+			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));
 		}
 
 		public function activate():void
@@ -269,7 +270,7 @@ package com.wezside.components
 		public function set layout( value:ILayout ):void
 		{
 			_layout = value;
-			_layout.addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
+			addEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
 		}		
 
 		public function get background():IShape

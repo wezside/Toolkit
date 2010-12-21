@@ -46,7 +46,7 @@ package test.com.wezside.components.gallery
 			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
-			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
+//			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 //			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 //			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 //			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
@@ -57,18 +57,18 @@ package test.com.wezside.components.gallery
 //			items.addElement({ url: "gallery/images/001.jpg", livedate: new Date() });
 
 			gallery = new Gallery();
+			gallery.columns = 3;
+			gallery.rows = 2;
 			gallery.debug = false;
 			gallery.stageWidth = stage.stageWidth;
 			gallery.stageHeight = stage.stageHeight;
 			gallery.reflectionRowHeight = 1;
-			gallery.columns = 4;
-			gallery.rows = 1;
 			gallery.resizeValue = 80;			
 			gallery.horizontalGap = 1;
 			gallery.verticalGap = 1;
 			gallery.init( items );
 			gallery.create();
-			gallery.transition = new StepsTransition( gallery );			
+//			gallery.transition = new StepsTransition( gallery );
 			gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, arrangeComplete );
 			gallery.addEventListener( GalleryEvent.INTRO_COMPLETE, introComplete );
 			gallery.x = 30;
@@ -76,7 +76,7 @@ package test.com.wezside.components.gallery
 			addChild( gallery );
 		}
 
-		private function arrangeComplete(event:GalleryEvent):void 
+		private function arrangeComplete( event:GalleryEvent ):void 
 		{
 			gallery.show();
 			Tracer.output( true, " VisualTestGallery.arrangeComplete(event)", getQualifiedClassName( this ));

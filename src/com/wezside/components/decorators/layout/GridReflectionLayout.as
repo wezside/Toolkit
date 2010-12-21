@@ -19,8 +19,6 @@ package com.wezside.components.decorators.layout
 		private var currentRow:int;
 		private var startX:Number;
 
-		private var _rows:int;
-		private var _columns:int;
 		private var _hasReflections:Boolean = false;
 
 		
@@ -37,7 +35,7 @@ package com.wezside.components.decorators.layout
 		*/
 		override public function arrange():void
 		{
-			
+		
 			var item:DisplayObject;
 			var reflection:DisplayObject;
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
@@ -47,6 +45,7 @@ package com.wezside.components.decorators.layout
 			xOffset = 0;
 			yOffset = 0;
 			currentRow = 0;
+			trace( columns, rows );
 			
 			while ( iterator.hasNext() )
 			{
@@ -59,11 +58,11 @@ package com.wezside.components.decorators.layout
 				{
 					reflection = iterator.next() as DisplayObject;
 					reflection.x += xOffset;
-					var posY:int = ( _rows - currentRow ) * ( item.height + verticalGap ) * 2 - item.height;
+					var posY:int = ( rows - currentRow ) * ( item.height + verticalGap ) * 2 - item.height;
 					reflection.y += posY + yOffset - verticalGap;
 				}
 
-				if ( counter % _columns == 0  )
+				if ( counter % columns == 0  )
 				{
 					++currentRow;
 					yOffset += height + verticalGap;
@@ -81,7 +80,6 @@ package com.wezside.components.decorators.layout
 	 		width = decorated.width + left + right;
 			height = decorated.height + top + bottom;
 			super.arrange();
-			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));			
 		}
 		
 		public function get hasReflections():Boolean
