@@ -159,17 +159,22 @@ package com.wezside.components
 
 		public function getUIChildByName( name:String ):DisplayObject 
 		{
-			return getChildByName( name );
-		}		
-		
-		override public function get width():Number 
-		{
-			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap: super.width;
+			return super.getChildByName( name );
 		}
 
 		public function getUIChildAt( index:int ):DisplayObject 
 		{
 			return super.getChildAt( index );
+		}
+		
+		override public function get width():Number 
+		{
+			return _scroll ? _childrenContainer.width + scroll.horizontalGap: super.width;
+		}
+		
+		override public function get height():Number 
+		{
+			return _scroll && super.height > _childrenContainer.height ? _childrenContainer.height : super.height;
 		}
 
 		public function build():void
@@ -421,7 +426,7 @@ package com.wezside.components
 			super.addChild( scrollMask );
 			_childrenContainer.mask = scrollMask;
 		}		
-
+		
 		private function setProperties( target:IUIElement, currentStyleName:String = "" ):void
 		{
 			_currentStyleName = currentStyleName;

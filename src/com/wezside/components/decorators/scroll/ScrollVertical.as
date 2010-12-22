@@ -19,12 +19,10 @@ package com.wezside.components.decorators.scroll
 		public function ScrollVertical( decorated:IUIDecorator ) 
 		{
 			super( decorated );
-
 		}
 		
 		override public function draw():void
 		{	
-
 			// Don't draw if height is less than scrollheight
 			if ( decorated.height > scrollHeight )
 			{			
@@ -76,7 +74,7 @@ package com.wezside.components.decorators.scroll
 				scrollBarVisible = false;
 				width = 0;
 				if ( track ) height = track.background.height;
-				else height = UIElement( decorated ).layout.height;				
+				else height = UIElement( decorated ).height;
 				if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
 				if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );
 			}
