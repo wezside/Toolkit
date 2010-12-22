@@ -19,6 +19,7 @@
  */
 package com.wezside.components.decorators.layout 
 {
+	import com.wezside.data.collection.Collection;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.IShape;
@@ -34,9 +35,12 @@ package com.wezside.components.decorators.layout
 	 */
 	public class PaddedLayout extends Layout 
 	{		
+		private var originalPos:Collection;
+
 		public function PaddedLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
+			originalPos = new Collection();
 		}
 		
 		/**
@@ -44,20 +48,38 @@ package com.wezside.components.decorators.layout
 		 */
 		override public function arrange():void
 		{						
-			// Avoid set of padding if arrange has been called before for this decorator
+			var child:DisplayObject;
+			var it:IIterator;
 			if ( width == 0 && height == 0 )
 			{	
-				var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-				while ( iterator.hasNext())
+				it = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+				while ( it.hasNext())
 				{
-					var child:DisplayObject = iterator.next() as DisplayObject;
-					if ( child is IShape ) child = iterator.next() as DisplayObject;
+					child = it.next() as DisplayObject;
+					if ( child is IShape ) child = it.next() as DisplayObject;
+					originalPos.addElement({ x: child.x, y:child.y });
 					child.x += left;
 					child.y += top;
+					
 				}
+				it.purge();			
 				width = int( decorated.width + left + right ) | 0;
 				height = int( decorated.height + top + bottom ) | 0;
+			}		
+			else
+			{				
+				it = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+				while ( it.hasNext())
+				{
+					child = it.next() as DisplayObject;
+					if ( child is IShape ) child = it.next() as DisplayObject;
+					child.x = originalPos.getElementAt( it.index() - 1 ).x + left;
+					child.y = originalPos.getElementAt( it.index() - 1 ).y + top;
+				}
+				it.purge();
 			}			
+			it = null;
+			child = null;
 			super.arrange();
 		}
 	}
