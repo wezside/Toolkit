@@ -62,7 +62,7 @@ package com.wezside.components.decorators.layout
 					child.y += top;
 					
 				}
-				it.purge();			
+				it.purge();
 				width = int( decorated.width + left + right ) | 0;
 				height = int( decorated.height + top + bottom ) | 0;
 			}		
@@ -73,8 +73,9 @@ package com.wezside.components.decorators.layout
 				{
 					child = it.next() as DisplayObject;
 					if ( child is IShape ) child = it.next() as DisplayObject;
-					child.x = originalPos.getElementAt( it.index() - 1 ).x + left;
-					child.y = originalPos.getElementAt( it.index() - 1 ).y + top;
+					var element:* = originalPos.getElementAt( it.index() - 1 );
+					child.x = element ? element.x + left : left;
+					child.y = element ? element.y + top : top;
 				}
 				it.purge();
 			}			
