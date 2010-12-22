@@ -169,7 +169,7 @@ package com.wezside.components
 		
 		override public function get width():Number 
 		{
-			return _scroll ? _childrenContainer.width + scroll.horizontalGap: super.width;
+			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap : super.width;
 		}
 		
 		override public function get height():Number 
@@ -424,6 +424,7 @@ package com.wezside.components
 			scrollMask.graphics.drawRect( layout.left, layout.top, w, h );
 			scrollMask.graphics.endFill( );
 			super.addChild( scrollMask );
+			_childrenContainer.mask = null;
 			_childrenContainer.mask = scrollMask;
 		}		
 		

@@ -1,7 +1,7 @@
 #Update build version
-#Wed Dec 22 11:39:25 GMT 2010
+#Wed Dec 22 13:13:04 GMT 2010
 swc.path=${basedir}/swc/
-build.int=0232
+build.int=0233
 src.path=${basedir}/src
 version=0.1.
 swc.base.pc=F\:/Resources/Flash/Library/Toolkit
