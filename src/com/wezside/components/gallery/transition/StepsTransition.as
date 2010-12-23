@@ -51,7 +51,6 @@ package com.wezside.components.gallery.transition
 			var item:DisplayObject;
 			var reflection:DisplayObject;
 
-			Tracer.output( true, " StepsTransition.perform( "+type+", "+direction+" )", getQualifiedClassName( this ));
 			for ( var k : int = 0; k < columns; k++ ) 
 			{
 				
