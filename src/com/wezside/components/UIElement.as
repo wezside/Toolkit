@@ -169,7 +169,7 @@ package com.wezside.components
 		
 		override public function get width():Number 
 		{
-			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap : super.width;
+			return _scroll && super.width > _childrenContainer.width ? _childrenContainer.width + _scroll.width + scroll.horizontalGap : super.width;
 		}
 		
 		override public function get height():Number 
