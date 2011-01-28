@@ -34,7 +34,6 @@ package com.wezside.components.gallery.item
 	public class BlankGalleryItem extends AbstractGalleryItem
 	{
 
-
 		
 		public function BlankGalleryItem( type:String, debug:Boolean ) 
 		{

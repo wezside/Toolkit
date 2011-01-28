@@ -125,6 +125,23 @@ package com.wezside.data.collection
 			return copy;
 		}		
 		
+		public function cloneFromIndex( index:int, end:int = -1 ):ICollection
+		{
+			var copy:ICollection = new Collection();
+			var it:IIterator = iterator();
+			var object:*;
+			while ( it.hasNext() && ( end == -1 || it.index() - 1 < end - 1 ))
+			{
+				object = it.next();
+				if ( it.index() - 1 >= index )
+					copy.addElement( object );
+			}
+			it.purge();
+			it = null;
+			object = null;
+			return copy;			
+		}
+		
 		public function purge():void
 		{
 			_collection = null;
@@ -143,6 +160,7 @@ package com.wezside.data.collection
 			it = null;			
 			return str;
 		}
+
 
 	}
 }

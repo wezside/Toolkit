@@ -57,7 +57,6 @@ package com.wezside.utilities.imaging
 				// Portrait
 				ratio = originalHeight / originalWidth;
 				targetWidth = targetHeight / ratio;
-				targetHeight = originalWidth * ratio;
 				dislpayObject.width = targetWidth;
 				dislpayObject.height = targetHeight;				
 			}
@@ -92,6 +91,7 @@ package com.wezside.utilities.imaging
 
 		private function position( displayObject:DisplayObject, prop:String, value:Number ):void
 		{
+			trace( value, displayObject.width );
 			displayObject[prop] = ( prop == "x" ? value - displayObject.width : value - displayObject.height ) * 0.5;
 		}
 	}

@@ -585,6 +585,7 @@ package com.wezside.components.gallery
 		
 		private function complete():void
 		{		
+			Tracer.output( _debug, " Gallery.complete()", toString() );
 			GridReflectionLayout( layout ).width = largestItemWidth;
 			GridReflectionLayout( layout ).height = largestItemHeight;
 			GridReflectionLayout( layout ).hasReflections = _reflectionRowHeight > 0;
@@ -598,7 +599,6 @@ package com.wezside.components.gallery
 			setStyle();
 			arrange();
 			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
-			Tracer.output( _debug, " Gallery.complete()", toString() );
 		}		
 				
 		private function parseType( fileExtension:String ):String

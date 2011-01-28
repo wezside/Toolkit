@@ -1,40 +1,19 @@
-/**
- * Copyright (c) 2010 Wesley Swanepoel
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-package com.wezside.data.collection 
+package com.wezside.data.collection
 {
 	import com.wezside.data.iterator.IIterator;
 
-	/**
-	 * @author Wesley.Swanepoel
-	 */
 	public interface ICollection
-	{		
+	{
 		function addElement( value:* ):void;
+		function clone():ICollection;		
+		function cloneFromIndex( index:int, end:int = -1 ):ICollection;
+		function find( prop:* = "", value:* = null ):*;
+		function getElementAt( index:int ):*;
+		function iterator():IIterator;
+		function get length():int;
+		function purge():void;
 		function removeElement( prop:* = "", value:* = null ):*;
 		function removeElementAt( index:int ):void;
-		function getElementAt( index:int ):*		
-		function get length():int;
-		function iterator():IIterator;
-		function find( prop:* = "", value:* = null ):*
-		function clone():ICollection;
-		function purge():void;
-		function toString():String;		
+		function toString():String;
 	}
 }
