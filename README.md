@@ -13,6 +13,8 @@ Latest release
 Change log since build .0200
 =======
 
+* Changed Gallery ClassCollection to Dictionary to allow overwriting of custom classes. This wasn't working.
+* Removed resizeValue property and replaced with thumbWidth and thumbHeight which will be passed to all IGalleryItems 
 * Switched XMLDatamapper's collection to DictionaryCollection to avoid issues surrounding duplicate node names. If the same parser is used for different XML the same node should be allowed but mapped to different Data Classes. This is now possible.
 * Fixed single leaf node mapping in XMLDatamapper to use localName() instead of namespaced name()
 * Gallery component refactored to UIElement standard. Use of GridReflectionLayout and DistributeLayout decorator added.
@@ -114,27 +116,16 @@ transitions where it is required to have the next items visible on screen before
 
 [Example](http://www.sony.com/football/#/cfcfootballhd/ "Gallery Example")
 
-		gallery = new Gallery( items, 
-							   COLUMNS, 
-							   ROWS,
-							   0, 						// xOffset
-							   0, 						// yOffset
-							   2, 						// Horizontal Gap
-							   2, 						// Vertical Gap
-							   "left", 					// Horizontal Align
-							   "custom",				// Click through target
-							   1,   					// Reflection Height In Rows
-							   0.3, 					// Reflection Alpha
-							   Gallery.RESIZE_HEIGHT,	// Resize Policy 
-							   80, 						// Resize Value
-							   Gallery.DISTRIBUTE_H, 	// Distribute Policy
-							   false, 					// Show Arrangement
-							   550,  					// Stage width
-							   500,  					// Stage height
-							   true, 					// Disable CTA for all thumbnails
-							   false );					// Debug
-		gallery.x = 50;
-		gallery.y = 30;
+		gallery = new Gallery();
+		gallery.debug = false;
+		gallery.reflectionRowHeight = 1;
+		gallery.columns = 4;
+		gallery.rows = 3;
+		gallery.horizontalGap = 1;
+		gallery.verticalGap = 1;
+		gallery.init( items );
+		gallery.x = 30;
+		gallery.y = 30;	
 		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
 		addChildAt( gallery, 0 );
 

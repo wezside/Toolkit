@@ -14,9 +14,9 @@ package com.wezside.components.media
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	[Event(name="loadInit", type="com.ogilvy.unilever.omo.tangplus.event.MediaEvent")]
-	[Event(name="loadComplete", type="com.ogilvy.unilever.omo.tangplus.event.MediaEvent")]
-	[Event(name="popoutVideo", type="com.ogilvy.unilever.omo.tangplus.event.MediaEvent")]
+	[Event(name="loadInit", type="com.wezside.components.media.MediaEvent")]
+	[Event(name="loadComplete", type="com.wezside.components.media.MediaEvent")]
+	[Event(name="popoutVideo", type="com.wezside.components.media.MediaEvent")]
 	public class MediaPlayer extends Sprite 
 	{
 		

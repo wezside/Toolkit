@@ -23,6 +23,7 @@
  */
 package com.wezside.components.gallery 
 {
+	import com.wezside.data.collection.DictionaryCollection;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.decorators.layout.DistributeLayout;
@@ -38,6 +39,7 @@ package com.wezside.components.gallery
 	import com.wezside.components.gallery.transition.IGalleryTransition;
 	import com.wezside.data.collection.Collection;
 	import com.wezside.data.collection.ICollection;
+	import com.wezside.data.collection.IDictionaryCollection;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.date.DateUtil;
 	import com.wezside.utilities.file.FileUtil;
@@ -60,9 +62,6 @@ package com.wezside.components.gallery
 	 */
 	public class Gallery extends UIElement 
 	{
-
-		
-
 
 		public static const ITEM_SWF:String = "itemSWF";
 		public static const ITEM_BLANK:String = "itemBlank";
@@ -98,10 +97,11 @@ package com.wezside.components.gallery
 		private var _stageWidth:Number = 550;
 		private var _stageHeight:Number = 400;
 		private var _selectedIndex:int;
-		private var _resizeValue:Number = 80;
+		private var _thumbWidth:Number = 80;
+		private var _thumbHeight:Number = 80;
 		private var _reflectionRowHeight:int = 0;
 		private var _thumbEnabled:Boolean = true;
-		private var _classCollection:ICollection;
+		private var _classCollection:IDictionaryCollection;
 		private var _transition:IGalleryTransition;
 
 		private var _target:String = "";
@@ -119,12 +119,12 @@ package com.wezside.components.gallery
 			GridReflectionLayout( layout ).verticalGap = 0;
 			
 			// Initialize Classes that will represent the different type of IGalleryItems	
-			_classCollection = new Collection();
-			_classCollection.addElement( new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
-			_classCollection.addElement( new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
-			_classCollection.addElement( new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
-			_classCollection.addElement( new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
-			_classCollection.addElement( new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
+			_classCollection = new DictionaryCollection();
+			_classCollection.addElement( ITEM_BLANK, new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
+			_classCollection.addElement( ITEM_SWF, new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
+			_classCollection.addElement( ITEM_VIDEO, new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
+			_classCollection.addElement( ITEM_IMAGE, new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
+			_classCollection.addElement( ITEM_COUNTDOWN, new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
 			dateUtils = new DateUtil();
 		}
 		
@@ -175,7 +175,7 @@ package com.wezside.components.gallery
 
 		public function addCustomItem( id:String, clazz:Class, fileAssociation:Array ):void
 		{
-			_classCollection.addElement( new GalleryItemClass( fileAssociation, id, clazz ));
+			_classCollection.addElement( id, new GalleryItemClass( fileAssociation, id, clazz ));
 		}
 
 		public function show():void
@@ -327,14 +327,24 @@ package com.wezside.components.gallery
 			_reflectionRowHeight = value;
 		}
 		
-		public function get resizeValue():int
+		public function get thumbHeight():int
 		{
-			return _resizeValue;
+			return _thumbHeight;
 		}
 		
-		public function set resizeValue( value:int ):void
+		public function set thumbHeight( value:int ):void
 		{
-			_resizeValue = value;
+			_thumbHeight = value;
+		}
+		
+		public function get thumbWidth():int
+		{
+			return _thumbWidth;
+		}
+		
+		public function set thumbWidth( value:int ):void
+		{
+			_thumbWidth = value;
 		}
 		
 		override public function set debug( value:Boolean ):void
@@ -352,7 +362,6 @@ package com.wezside.components.gallery
 			var item:Sprite;			
 			if ( !_thumbEnabled )
 			{
-			
 				var i:int;
 				for ( i = 0; i < total; ++i )
 				{
@@ -401,21 +410,19 @@ package com.wezside.components.gallery
 		
 		private function createItem( fileExtension:String = "" ):void
 		{		
-			var ItemClass:Class = _classCollection.find( "id", parseType( fileExtension )).clazz as Class;
+			var ItemClass:Class = _classCollection.getElement( parseType( fileExtension ) ).clazz as Class;
 			var item:IGalleryItem = new  ItemClass( fileExtension, _debug ) as IGalleryItem;
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );
 			item.addEventListener( GalleryEvent.ITEM_LOAD_COMPLETE, itemLoaded );
-			item.load( items.getElementAt( 0 ).url, items.getElementAt( 0 ).livedate, items.getElementAt( 0 ).linkageID );
+			item.load( items.getElementAt( 0 ).url, items.getElementAt( 0 ).livedate, items.getElementAt( 0 ).linkageID, _thumbWidth, _thumbHeight );
 		}
-
 		
 		private function itemError( event:GalleryEvent ):void
 		{
 			Tracer.output( _debug, " Gallery.itemError(event) " + event.data, toString(), Tracer.ERROR );
 			createItem( ITEM_BLANK );	
-		}
-		
+		}		
 		
 		private function itemProgress( event:GalleryEvent ):void
 		{
@@ -424,7 +431,6 @@ package com.wezside.components.gallery
 			if ( int( event.data ) == 100 ) 
 				IGalleryItem( event.currentTarget ).removeEventListener( GalleryEvent.ITEM_PROGRESS, itemLoaded );
 		}
-
 		
 		/**
 		 * <p>The gallery item was successfully loaded. A few things happens here:
@@ -461,7 +467,7 @@ package com.wezside.components.gallery
 			bmp.draw( item );
 					
 			// Resize item if policy is set	
-			item = resize( item, _resizePolicy, _resizeValue ) as Sprite;
+			item = resize( item, _resizePolicy ) as Sprite;
 			
 			// Used for distribution layout - to determine the width or height to distribute to
 			largestItemWidth = item.width > largestItemWidth ? item.width : largestItemWidth;
@@ -476,7 +482,7 @@ package com.wezside.components.gallery
 				ref.alpha = (( rows - currentRow ) <= _reflectionRowHeight ) ? _reflectionAlpha : 0;
 				
 				// Resize reflection
-				ref = resize( ref, _resizePolicy, _resizeValue ) as ReflectionItem;
+				ref = resize( ref, _resizePolicy ) as ReflectionItem;
 			}
 			
 			// Determine updates required for reflections
@@ -629,8 +635,9 @@ package com.wezside.components.gallery
 			return type;
 		}		
 		
-		private function resize( object:DisplayObject, policy:String, value:Number ):DisplayObject
+		private function resize( object:DisplayObject, policy:String ):DisplayObject
 		{
+			var value:int = _resizePolicy == Gallery.RESIZE_HEIGHT ? _thumbHeight : _thumbWidth;			
 			var resizeUtil:ImageResize = new ImageResize();
 			if ( policy == RESIZE_HEIGHT && value != -1 ) object = resizeUtil.resizeToHeight( object, value );
 			if ( policy == RESIZE_WIDTH && value != -1 ) object = resizeUtil.resizeToWidth( object, value );

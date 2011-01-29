@@ -31,7 +31,6 @@ package test.com.wezside.components.gallery
 			gallery.reflectionRowHeight = 1;
 			gallery.columns = 4;
 			gallery.rows = 3;
-			gallery.resizeValue = 80;			
 			gallery.horizontalGap = 1;
 			gallery.verticalGap = 1;
 			gallery.init( items );

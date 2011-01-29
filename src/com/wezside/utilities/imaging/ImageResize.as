@@ -57,7 +57,6 @@ package com.wezside.utilities.imaging
 				// Portrait
 				ratio = originalHeight / originalWidth;
 				targetWidth = targetHeight / ratio;
-				targetHeight = originalWidth * ratio;
 				dislpayObject.width = targetWidth;
 				dislpayObject.height = targetHeight;				
 			}

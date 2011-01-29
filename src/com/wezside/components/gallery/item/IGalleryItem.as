@@ -31,7 +31,7 @@ package com.wezside.components.gallery.item
 	public interface IGalleryItem
 	{
 		
-		function load( url:String, livedate:Date, linkage:String = "" ):void;		
+		function load( url:String, livedate:Date, linkage:String = "", thumbWidth:int = 80, thumbHeight:int = 80 ):void;		
 		function rollOver():void;		
 		function rollOut():void;		
 		function play():void;		

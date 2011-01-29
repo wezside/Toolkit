@@ -62,8 +62,7 @@ package test.com.wezside.components.gallery
 			gallery.stageHeight = stage.stageHeight;
 			gallery.reflectionRowHeight = 1;
 			gallery.columns = 4;
-			gallery.rows = 1;
-			gallery.resizeValue = 80;			
+			gallery.rows = 3;
 			gallery.horizontalGap = 1;
 			gallery.verticalGap = 1;
 			gallery.init( items );

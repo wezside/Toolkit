@@ -53,7 +53,7 @@ package com.wezside.components.gallery.item
 			dateUtils.serverTime = new Date();
 		}
 
-		override public function load( url:String, livedate:Date, linkageID:String = "" ):void
+		override public function load( url:String, livedate:Date, linkage:String = "", thumbWidth:int = 80, thumbHeight:int = 80 ):void
 		{
 			this.livedate = livedate;
 			
@@ -69,7 +69,7 @@ package com.wezside.components.gallery.item
 			field.mouseEnabled = false;
 			field.setTextFormat( fmt );
 			
-			bmpdata = new BitmapData( 760, 510, false, 0x222222 );
+			bmpdata = new BitmapData( thumbWidth, thumbHeight, false, 0x222222 );
 			bitmap = new Bitmap( bmpdata );
 			addChildAt( bitmap, 0 );
 			addChildAt( field, 1 );
