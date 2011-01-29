@@ -54,6 +54,12 @@ package com.wezside.components.decorators.layout
 		function get placement():String;
 		function set placement( value:String ):void;
 		
+		function get columns():int;
+		function set columns( value:int ):void;
+		
+		function get rows():int;
+		function set rows( value:int ):void;
+		
 		function reset():void;
 	}
 }

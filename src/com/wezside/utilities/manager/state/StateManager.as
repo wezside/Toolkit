@@ -176,6 +176,14 @@ package com.wezside.utilities.manager.state
 						return true;
 			return false;					
 		}
+		
+		public function hasState( key:String ):Boolean
+		{
+			for ( var i:int = 0; i < _states.length; ++i ) 
+				if ( _states[i].key == key )
+					return true;
+			return false;
+		}
 
 		public function purge():void
 		{

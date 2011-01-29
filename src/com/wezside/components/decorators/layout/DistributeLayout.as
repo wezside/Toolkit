@@ -2,6 +2,7 @@ package com.wezside.components.decorators.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
@@ -25,6 +26,7 @@ package com.wezside.components.decorators.layout
 		
 		override public function arrange():void 
 		{			
+			
 			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			var object:DisplayObject;
 			while ( it.hasNext() )
@@ -48,7 +50,9 @@ package com.wezside.components.decorators.layout
 			it = null;
 			object = null;
 			
-			super.arrange( );
+	 		width = decorated.width + left + right;
+			height = decorated.height + top + bottom;			
+			super.arrange();	
 		}
 		
 		public function get distribute():int

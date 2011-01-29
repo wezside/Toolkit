@@ -132,7 +132,26 @@ package com.wezside.components.decorators.shape
 				graphicsEx.moveTo( width, height );
 				graphicsEx.lineTo( width, 0 );
 			}
-
+		}
+		
+		public function get autoDetectWidth():Boolean
+		{
+			return _autoDetectWidth;
+		}
+		
+		public function set autoDetectWidth( value:Boolean ):void
+		{
+			_autoDetectWidth = value;
+		}
+		
+		public function get autoDetectHeight():Boolean
+		{
+			return _autoDetectHeight;
+		}
+		
+		public function set autoDetectHeight( value:Boolean ):void
+		{
+			_autoDetectHeight = value;
 		}
 	}
 }

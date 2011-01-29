@@ -81,8 +81,8 @@ package test.com.wezside.components.decorators
 			arrange( );
 			arrange( );
 			arrange( );
-			removeChildAt( 0 );
-			arrange( );
+//			removeChildAt( 0 );
+//			arrange( );
 		}
 
 		override public function build():void

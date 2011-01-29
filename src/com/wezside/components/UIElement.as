@@ -159,17 +159,22 @@ package com.wezside.components
 
 		public function getUIChildByName( name:String ):DisplayObject 
 		{
-			return getChildByName( name );
-		}		
-		
-		override public function get width():Number 
-		{
-			return _scroll ? _childrenContainer.width + _scroll.width + scroll.horizontalGap: super.width;
+			return super.getChildByName( name );
 		}
 
 		public function getUIChildAt( index:int ):DisplayObject 
 		{
 			return super.getChildAt( index );
+		}
+		
+		override public function get width():Number 
+		{
+			return _scroll && super.width > _childrenContainer.width ? _childrenContainer.width + _scroll.width + scroll.horizontalGap : super.width;
+		}
+		
+		override public function get height():Number 
+		{
+			return _scroll && super.height > _childrenContainer.height ? _childrenContainer.height : super.height;
 		}
 
 		public function build():void
@@ -208,6 +213,7 @@ package com.wezside.components
 				drawScrollMask( );
 			}
 			if ( _background ) _background.arrange( );
+			dispatchEvent( new UIElementEvent( UIElementEvent.ARRANGE_COMPLETE ));
 		}
 
 		public function activate():void
@@ -418,9 +424,10 @@ package com.wezside.components
 			scrollMask.graphics.drawRect( layout.left, layout.top, w, h );
 			scrollMask.graphics.endFill( );
 			super.addChild( scrollMask );
+			_childrenContainer.mask = null;
 			_childrenContainer.mask = scrollMask;
 		}		
-
+		
 		private function setProperties( target:IUIElement, currentStyleName:String = "" ):void
 		{
 			_currentStyleName = currentStyleName;

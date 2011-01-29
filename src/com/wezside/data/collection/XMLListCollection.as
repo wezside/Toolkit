@@ -140,6 +140,11 @@ package com.wezside.data.collection
 			}
 			iterator.purge();
 			return str;
-		}		
+		}
+
+		public function cloneFromIndex( index:int, end:int = -1 ):ICollection
+		{
+			return null;
+		}
 	}
 }

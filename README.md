@@ -7,14 +7,22 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 Latest release 
 =======
 
+<<<<<<< HEAD
 * Build 0.1.0226
+=======
+* Build 0.1.0238
+>>>>>>> 71c856551dcf9a557cd71bc99746d8f2b17278fa
 * Compiled with Flex 4 SDK build 14159 
 
 Change log since build .0200
 =======
 
+<<<<<<< HEAD
 * Changed Gallery ClassCollection to Dictionary to allow overwriting of custom classes. This wasn't working.
 * Removed resizeValue property and replaced with thumbWidth and thumbHeight which will be passed to all IGalleryItems 
+=======
+* Fixed ScrollVertical to update the width correctly
+>>>>>>> 71c856551dcf9a557cd71bc99746d8f2b17278fa
 * Switched XMLDatamapper's collection to DictionaryCollection to avoid issues surrounding duplicate node names. If the same parser is used for different XML the same node should be allowed but mapped to different Data Classes. This is now possible.
 * Fixed single leaf node mapping in XMLDatamapper to use localName() instead of namespaced name()
 * Gallery component refactored to UIElement standard. Use of GridReflectionLayout and DistributeLayout decorator added.

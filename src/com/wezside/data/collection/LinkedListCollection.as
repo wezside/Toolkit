@@ -157,5 +157,11 @@ package com.wezside.data.collection
 			throw new Error( "The clone() method is not yet supported for LinkedListCollection");
 			return null;
 		}	
+		
+		public function cloneFromIndex( index:int, end:int = -1 ):ICollection
+		{
+			throw new Error( "The cloneFromIndex() method is not yet supported for LinkedListCollection");
+			return null;
+		}
 	}
 }
