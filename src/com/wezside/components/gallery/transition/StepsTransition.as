@@ -8,10 +8,8 @@ package com.wezside.components.gallery.transition
 	import com.wezside.components.gallery.item.IGalleryItem;
 	import com.wezside.components.gallery.item.ReflectionItem;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.utilities.logging.Tracer;
 
 	import flash.display.DisplayObject;
-	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel

@@ -76,12 +76,13 @@ package com.wezside.components.gallery
 		public static const CENTER:String = "center";
 		
 		public static const BLANK:String = "";
+		public static const HREF:String = "HREF";
 		public static const LIGHTBOX:String = "lightbox";
-		public static const VERSION:String = "0.5.0001";		
+		public static const VERSION:String = "0.5.0002";		
 
 		public static const STATE_ROLLOVER:String = "stateRollover";
 		public static const STATE_ROLLOUT:String = "stateRollout";
-		public static const STATE_SELECTED:String = "stateSelected";		
+		public static const STATE_SELECTED:String = "stateSelected";
 		
 		private var items:ICollection;
 		private var original:ICollection;
@@ -524,12 +525,14 @@ package com.wezside.components.gallery
 					item.reset();
 			}
 
+			IGalleryItem( event.currentTarget ).state = "";
 			IGalleryItem( event.currentTarget ).state = STATE_SELECTED;
 			
 			switch ( _target )
 			{
-				case BLANK   : navigateToURL( new URLRequest( "" ), "_blank");	break;
+				case HREF	 : navigateToURL( new URLRequest( "" ), "_blank");	break;
 				case LIGHTBOX: break;
+				case BLANK   :
 				default		 : dispatchEvent( new GalleryEvent( GalleryEvent.ITEM_CLICK, false, false, int( event.currentTarget.name )));
 			}
 		}		

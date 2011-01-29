@@ -61,12 +61,10 @@ package com.wezside.components.gallery.item
 		
 		public function rollOver():void
 		{
-			alpha = 1;
 		}
 		
 		public function rollOut():void
 		{
-			alpha = 0.5;
 		}
 		
 		public function get selected():Boolean
@@ -77,7 +75,6 @@ package com.wezside.components.gallery.item
 		public function set selected( value:Boolean ):void
 		{
 			_selected = value;
-			_selected ? alpha = 1 : alpha = 0.5;
 			mouseEnabled = !_selected;
 		}
 
