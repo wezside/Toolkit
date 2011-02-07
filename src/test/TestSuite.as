@@ -12,22 +12,28 @@ package test
 	import test.com.wezside.utilities.manager.state.TestStateManager;
 	import test.com.wezside.utilities.manager.timeline.TestTimelineManager;
 	import test.com.wezside.utilities.string.TestURLUtil;
-
+	/**
+	 * Project type: Flex 4
+	 *  -target-player={playerVersion}
+		-library-path+="{flexSDK}/frameworks/locale/en_US"
+		-default-size=1000,600
+		-static-link-runtime-shared-libraries
+	 */
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]
 	public class TestSuite
 	{
 		public var testCommandMapper:TestCommandMapper;
-//		public var testUIElement:TestUIElement;
-//		public var testDateUtil:TestDateUtil;
-//		public var testGallery:TestGallery;
-//		public var testStateManager:TestStateManager;
-//		public var testURLUtil:TestURLUtil;
-//		public var testUIDecorators:TestUIDecorators;
-//		public var testTimelineManager:TestTimelineManager;
-//		public var testLinkedList:TestLinkedListCollection;
-//		public var testCollection:TestCollection;
-//		public var testXMLDataMapper:TestXMLDataMapper;
-//		public var testRelativeLayout:TestButton;
+		public var testUIElement:TestUIElement;
+		public var testDateUtil:TestDateUtil;
+		public var testGallery:TestGallery;
+		public var testStateManager:TestStateManager;
+		public var testURLUtil:TestURLUtil;
+		public var testUIDecorators:TestUIDecorators;
+		public var testTimelineManager:TestTimelineManager;
+		public var testLinkedList:TestLinkedListCollection;
+		public var testCollection:TestCollection;
+		public var testXMLDataMapper:TestXMLDataMapper;
+		public var testRelativeLayout:TestButton;
 	}
 }
