@@ -57,7 +57,7 @@ package com.wezside.utilities.date
 									  Number(result[2]), 
 									  Number(result[3]),
 									  Number(result[4]), 
-									  Number(result[5]) );			
+									  Number(result[5]) );
 			Tracer.output( debug, " DateUtils.convertDate(" + str + ") " + date , toString() );	
 			return date;
 		}	

@@ -25,7 +25,13 @@ package com.wezside.components.decorators.scroll
 		private var _verticalGap:int;
 		private var _trackWidth:int = 20;
 		private var _trackHeight:int = 20;
-		private var _scrollBarVisible:Boolean;
+		private var _scrollBarVisible:Boolean;		
+		private var _thumbWidth:int = 16;
+		private var _trackColors:Array = [ 0xffffff, 0xffffff ];
+		private var _thumbColors:Array = [ 0x666666, 0x666666 ];
+		private var _thumbXOffset:Number = 2;
+		private var _trackMinY:Number = 2;
+		private var _trackMaxY:Number = 2;		
 		
 		protected var decorated:IUIDecorator;
 
@@ -180,5 +186,66 @@ package com.wezside.components.decorators.scroll
 		{
 			_scrollBarVisible = value;
 		}
+		
+
+		public function get thumbWidth():int
+		{
+			return _thumbWidth;
+		}
+		
+		public function set thumbWidth( value:int ):void
+		{
+			_thumbWidth = value;
+		}
+
+		public function get trackColors():Array
+		{
+			return _trackColors;
+		}
+		
+		public function set trackColors( value:Array ):void
+		{
+			_trackColors = value;
+		}
+		
+		public function get thumbColors():Array
+		{
+			return _thumbColors;
+		}
+		
+		public function set thumbColors( value:Array ):void
+		{
+			_thumbColors = value;
+		}
+
+		public function get thumbXOffset():Number
+		{
+			return _thumbXOffset;
+		}
+		
+		public function set thumbXOffset( value:Number ):void
+		{
+			_thumbXOffset = value;
+		}
+
+		public function get trackMinY():Number
+		{
+			return _trackMinY;
+		}
+		
+		public function set trackMinY( value:Number ):void
+		{
+			_trackMinY = value;
+		}
+
+		public function get trackMaxY():Number
+		{
+			return _trackMaxY;
+		}
+		
+		public function set trackMaxY( value:Number ):void
+		{
+			_trackMaxY = value;
+		}		
 	}
 }

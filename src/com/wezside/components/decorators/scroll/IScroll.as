@@ -1,5 +1,6 @@
 package com.wezside.components.decorators.scroll 
 {
+	import com.wezside.components.IUIElement;
 	import com.wezside.components.IUIDecorator;
 
 	/**
@@ -25,6 +26,36 @@ package com.wezside.components.decorators.scroll
 		
 		function get scrollBarVisible():Boolean;
 		function set scrollBarVisible( value:Boolean ):void;
+		
+		function get trackWidth():int
+		function set trackWidth( value:int ):void
+		
+		function get trackHeight():int
+		function set trackHeight( value:int ):void
+		
+		function get thumbWidth():int
+		function set thumbWidth( value:int ):void
+	
+		function get thumbColors():Array
+		function set thumbColors( value:Array ):void
+		
+		function get trackColors():Array
+		function set trackColors( value:Array ):void
+		
+		function get thumbXOffset():Number
+		function set thumbXOffset( value:Number ):void 
+		
+		function get trackMinY():Number
+		function set trackMinY( value:Number ):void
+		
+		function get trackMaxY():Number
+		function set trackMaxY( value:Number ):void
+		
+		function get thumb():IUIElement
+		function set thumb( value:IUIElement ):void
+		
+		function get track():IUIElement
+		function set track( value:IUIElement ):void
 		
 		function purge():void;
 

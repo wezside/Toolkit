@@ -16,6 +16,7 @@ package com.wezside.components.decorators.scroll
 		private var yMin:int;
 		private var yMax:int;
 
+
 		public function ScrollVertical( decorated:IUIDecorator ) 
 		{
 			super( decorated );
@@ -36,7 +37,7 @@ package com.wezside.components.decorators.scroll
 				track.background.width = trackWidth;
 				track.background.height = scrollHeight;
 				track.background.alphas = [ 1, 1 ];
-				track.background.colours = [ 0xffffff, 0xffffff ];
+				track.background.colours = trackColors;
 				track.x = decorated.width + horizontalGap + ( width == 0 ? UIElement( decorated ).layout.left : 0 );
 				track.y = IUIElement( decorated ).layout.top;
 				track.build();
@@ -51,22 +52,21 @@ package com.wezside.components.decorators.scroll
 				
 				thumb.background = new ShapeRectangle( thumb );
 				thumb.background.alphas = [ 1, 1 ];
-				thumb.background.colours = [ 0x666666, 0x666666 ];
-				thumb.background.width = 16;
+				thumb.background.colours = thumbColors;
+				thumb.background.width = thumbWidth;
 				thumb.background.height = thumbHeight > 20 ? thumbHeight : 20;
-				thumb.x = track.x + 2;
-				thumb.y = track.y + 2;
+				thumb.x = track.x + thumbXOffset;
+				thumb.y = track.y + thumbXOffset;
 				thumb.build();
 				thumb.arrange();
 				
 				width = track.background.width;
 				height = track.background.height;
 	
-				yMin = int( track.y ) + 2;
-				yMax = int( track.y + track.height - thumb.height ) - 2;
+				yMin = int( track.y ) + trackMinY;
+				yMax = int( track.y + track.height - thumb.height ) - trackMaxY;
 				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );			
 				thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );			
-	
 				if ( stage ) stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );		
 			}		
 			else
@@ -80,7 +80,6 @@ package com.wezside.components.decorators.scroll
 			}
 		}
 
-
 		override public function purge():void 
 		{
 			if ( stage )
@@ -91,14 +90,15 @@ package com.wezside.components.decorators.scroll
 			if ( thumb ) thumb.removeEventListener( MouseEvent.MOUSE_DOWN, thumbDown );	
 		}
 
+
 		private function thumbOut( event:MouseEvent ):void 
 		{
-			thumbUp( null );
+			stage.addEventListener( MouseEvent.MOUSE_UP, thumbUp );
 		}
 
 		private function thumbUp( event:MouseEvent ):void
 		{
-			if ( stage ) stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
+			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
 		}
 
 		private function thumbDown( event:MouseEvent ):void
@@ -113,7 +113,7 @@ package com.wezside.components.decorators.scroll
 			if ( thumb.y <= yMin ) thumb.y = yMin;
 			if ( thumb.y >= yMax ) thumb.y = yMax;
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 
-											int( thumb.y - track.y - 2  ) / int( yMax - track.y - 2 ), 
+											int( thumb.y - track.y - trackMinY  ) / int( yMax - track.y - trackMaxY ), 
 											scrollHeight,
 											"y" ));
 			event.updateAfterEvent();
