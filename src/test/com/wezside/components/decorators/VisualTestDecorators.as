@@ -1,5 +1,7 @@
 package test.com.wezside.components.decorators 
 {
+	import com.wezside.components.decorators.layout.HorizontalLayout;
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
@@ -47,10 +49,15 @@ package test.com.wezside.components.decorators
 			
 			layout = new VerticalLayout( this.layout );
 			layout.verticalGap = 5;
-			
 			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 200;
 			scroll.horizontalGap = 2;
+
+//			layout = new HorizontalLayout( this.layout );			
+//			layout.horizontalGap = 5;
+//			scroll = new ScrollHorizontal( this );
+//			scroll.scrollWidth = 300;
+//			scroll.verticalGap = 5;
 																	
 			background = new ShapeRectangle( this );
 			background.colours = [ 0, 0 ];
@@ -68,7 +75,7 @@ package test.com.wezside.components.decorators
  			label.build();
  			label.setStyle();
  			label.arrange();
-			addChild( label );
+//			addChild( label );
 
 			addEventListener( Event.ENTER_FRAME, enterFrame );
 		}
@@ -77,9 +84,6 @@ package test.com.wezside.components.decorators
 		{
 			removeEventListener( Event.ENTER_FRAME, enterFrame );
 			build( );
-			arrange( );
-			arrange( );
-			arrange( );
 			arrange( );
 //			removeChildAt( 0 );
 //			arrange( );

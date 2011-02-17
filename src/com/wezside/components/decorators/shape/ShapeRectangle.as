@@ -19,6 +19,8 @@
  */
 package com.wezside.components.decorators.shape 
 {
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
+	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
@@ -91,7 +93,11 @@ package com.wezside.components.decorators.shape
 			// If a scrollbar is present then override the height to the scrollheight
 			if ( decorated is UIElement && UIElement( decorated ).scroll )
 			{
-				height = UIElement( decorated ).scroll.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+				if ( UIElement( decorated ).scroll is ScrollVertical )
+					height = UIElement( decorated ).scroll.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+					
+				if ( UIElement( decorated ).scroll is ScrollHorizontal )
+					width = UIElement( decorated ).scroll.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
 
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);

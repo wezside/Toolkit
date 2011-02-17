@@ -151,7 +151,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 0, button.icon.x );
-			assertEquals( -10, button.icon.y );
+			assertEquals( button.icon.y - 10, button.icon.y );
 			
 		}
 		

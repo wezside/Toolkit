@@ -51,6 +51,12 @@ package com.wezside.components.decorators.scroll
 		function get trackMaxY():Number
 		function set trackMaxY( value:Number ):void
 		
+		function get trackMinX():Number
+		function set trackMinX( value:Number ):void
+		
+		function get trackMaxX():Number
+		function set trackMaxX( value:Number ):void
+		
 		function get thumb():IUIElement
 		function set thumb( value:IUIElement ):void
 		

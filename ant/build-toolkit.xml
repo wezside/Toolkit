@@ -106,7 +106,7 @@
 			   maxmemory="512m"
 			   include-classes="${project_classes_property}">
 
-		        <source-path path-element="${basedir}/src/"/>
+		       <!--<source-path path-element="${basedir}/src/"/>-->
 		</compc>
 	</target>		
 
