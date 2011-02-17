@@ -11,6 +11,9 @@ Latest release
 
 Change log since build .0200
 =======
+* New FlowLayout added. Needs testing though. Use at own risk.
+* Updated HorizontalScroll decorator to function properly
+* Applied Sean Lailvaux patch to UIElement 
 * Changed Gallery ClassCollection to Dictionary to allow overwriting of custom classes. This wasn't working.
 * Removed resizeValue property and replaced with thumbWidth and thumbHeight which will be passed to all IGalleryItems 
 * Fixed ScrollVertical to update the width correctly
