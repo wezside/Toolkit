@@ -2,7 +2,6 @@ package test.com.wezside.components.gallery
 {
 	import com.wezside.components.gallery.Gallery;
 	import com.wezside.components.gallery.GalleryEvent;
-	import com.wezside.components.gallery.transition.StepsTransition;
 	import com.wezside.data.collection.Collection;
 	import com.wezside.data.collection.ICollection;
 	import com.wezside.utilities.logging.Tracer;

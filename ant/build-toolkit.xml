@@ -77,9 +77,7 @@
 	<target name="resolve-class-path" depends="inject-version">
 		<path id="list_1">
 			<fileset dir="${basedir}/src">
-				<include name="com/wezside/data/**" />
-				<include name="com/wezside/utilities/**" />
-				<include name="com/wezside/components/**" />
+				<include name="com/wezside/**" />
 				<exclude name="**/test/**" />
 				<exclude name="**/gs/**" />
 				<exclude name="**/Animation/**" />
@@ -106,7 +104,7 @@
 			   maxmemory="512m"
 			   include-classes="${project_classes_property}">
 
-		       <!--<source-path path-element="${basedir}/src/"/>-->
+		       <source-path path-element="${basedir}/src"/>
 		</compc>
 	</target>		
 
