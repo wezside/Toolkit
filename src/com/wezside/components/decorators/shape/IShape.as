@@ -63,6 +63,12 @@ package com.wezside.components.decorators.shape
 		function get yOffset():int;
 		function set yOffset( value:int ):void;
 					
+		function get autoDetectWidth():Boolean;
+		function set autoDetectWidth( value:Boolean ):void;
+					
+		function get autoDetectHeight():Boolean;
+		function set autoDetectHeight( value:Boolean ):void;
+					
 		function draw():void
 		function clear():void
 	}

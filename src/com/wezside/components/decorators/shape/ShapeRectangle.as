@@ -19,11 +19,11 @@
  */
 package com.wezside.components.decorators.shape 
 {
-	import com.wezside.components.decorators.scroll.ScrollHorizontal;
-	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
+	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.utilities.imaging.GraphicsEx;
 
 	import flash.display.GradientType;
@@ -35,11 +35,7 @@ package com.wezside.components.decorators.shape
 	public class ShapeRectangle extends Shape 
 	{
 		
-		
-		private var _autoDetectWidth:Boolean;
-		private var _autoDetectHeight:Boolean;
-
-		
+	
 		public function ShapeRectangle( decorated:IUIDecorator )
 		{
 			super( decorated );
@@ -60,13 +56,13 @@ package com.wezside.components.decorators.shape
 			super.draw();
 			
 			// If width or height has changed, i.e. resize is require, set drawable props to new resized value	
-			if ( _autoDetectWidth && decorated is UIElement )
+			if ( autoDetectWidth && decorated is UIElement )
 			{			
 				width = decorated.width;
 				if ( decorated is UIElement )
 					width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
-			if ( _autoDetectHeight && decorated is UIElement )
+			if ( autoDetectHeight && decorated is UIElement )
 			{
 				height = decorated.height;
 				if ( decorated is UIElement )
@@ -77,14 +73,14 @@ package com.wezside.components.decorators.shape
 			// Need to add padding as Shape decorator doesn't know anything about Layout property chain
 			if (  width == 0 )
 			{
-				_autoDetectWidth = true;
+				autoDetectWidth = true;
 				width = decorated.width;
 				if ( decorated is UIElement )
 					width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
 			if ( height == 0 )
 			{
-				_autoDetectHeight = true;
+				autoDetectHeight = true;
 				height = decorated.height;
 				if ( decorated is UIElement )
 					height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
@@ -138,26 +134,6 @@ package com.wezside.components.decorators.shape
 				graphicsEx.moveTo( width, height );
 				graphicsEx.lineTo( width, 0 );
 			}
-		}
-		
-		public function get autoDetectWidth():Boolean
-		{
-			return _autoDetectWidth;
-		}
-		
-		public function set autoDetectWidth( value:Boolean ):void
-		{
-			_autoDetectWidth = value;
-		}
-		
-		public function get autoDetectHeight():Boolean
-		{
-			return _autoDetectHeight;
-		}
-		
-		public function set autoDetectHeight( value:Boolean ):void
-		{
-			_autoDetectHeight = value;
 		}
 	}
 }

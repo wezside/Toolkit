@@ -62,7 +62,9 @@ package com.wezside.components.decorators.shape
 		protected var states:StateManager;
 		protected var decorated:IUIDecorator;
 		
-		public var graphicsEx:GraphicsEx;		
+		public var graphicsEx:GraphicsEx;
+		private var _autoDetectHeight:Boolean;
+		private var _autoDetectWidth:Boolean;
 
 		/**
 		 * Determine what properties the decorated has and update the state
@@ -247,6 +249,26 @@ package com.wezside.components.decorators.shape
 		public function set ratios( value:Array ):void
 		{
 			_ratios = value;
+		}
+
+		public function get autoDetectWidth():Boolean
+		{
+			return _autoDetectWidth;
+		}
+
+		public function get autoDetectHeight():Boolean
+		{
+			return _autoDetectHeight;
+		}
+
+		public function set autoDetectWidth( value:Boolean ):void
+		{
+			_autoDetectWidth = value;
+		}
+
+		public function set autoDetectHeight( value:Boolean ):void
+		{
+			_autoDetectHeight = value;
 		}
 	}
 }
