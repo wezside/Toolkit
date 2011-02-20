@@ -74,6 +74,7 @@ package com.wezside.components.decorators.scroll
 					thumb.background.colours = thumbColors;
 
 					if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = trackWidth - thumbXOffset * 2;
+					else thumb.background.width = thumbWidth;
 					if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = int( scrollHeight / h * scrollHeight );					
 					thumb.background.height = thumbHeight > 20 ? thumbHeight : 20;
 					UIElement( thumb ).mouseChildren = false;
@@ -139,7 +140,8 @@ package com.wezside.components.decorators.scroll
 
 		private function thumbUp( event:MouseEvent ):void
 		{
-			stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
+			if ( stage )
+				stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
 		}
 
 		private function thumbDown( event:MouseEvent ):void
