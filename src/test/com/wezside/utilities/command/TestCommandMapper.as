@@ -1,7 +1,5 @@
 package test.com.wezside.utilities.command 
 {
-	import org.flexunit.asserts.assertFalse;
-	import org.flexunit.asserts.assertTrue;
 	import flexunit.framework.Assert;
 
 	import test.com.wezside.utilities.command.event.SampleEvent;
@@ -10,6 +8,7 @@ package test.com.wezside.utilities.command
 	import com.wezside.utilities.command.CommandMapper;
 
 	import org.flexunit.asserts.assertEquals;
+	import org.flexunit.asserts.assertFalse;
 	import org.flexunit.async.Async;
 
 	/**
@@ -39,8 +38,24 @@ package test.com.wezside.utilities.command
 			commandMapper.addCommand( SampleEvent.SAMPLE_4_EVENT, AsyncCommand, "mySequence" );
 			
 			// remove an event from the mapper
+			commandMapper.debug = true;
 			commandMapper.purgeCommand( SampleEvent.SAMPLE_3_EVENT );	
 			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_3_EVENT ));			
+		}
+		
+		[Test]
+		public function testPurgeAll():void
+		{
+			commandMapper.addCommand( SampleEvent.SAMPLE_2_EVENT, AsyncCommand, "mySequence" );
+			commandMapper.addCommand( SampleEvent.SAMPLE_3_EVENT, AsyncCommand, "mySequence" );
+			commandMapper.addCommand( SampleEvent.SAMPLE_4_EVENT, AsyncCommand, "mySequence" );
+			
+			// remove an event from the mapper
+			commandMapper.debug = true;
+			commandMapper.purge();	
+			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_2_EVENT ));			
+			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_3_EVENT ));			
+			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_4_EVENT ));			
 		}
 		
 		[Test(async)]
@@ -50,15 +65,15 @@ package test.com.wezside.utilities.command
 			commandMapper.addCommand( SampleEvent.SAMPLE_3_EVENT, AsyncCommand, "mySequence" );
 			commandMapper.addCommand( SampleEvent.SAMPLE_4_EVENT, AsyncCommand, "mySequence" );
 			
-			commandMapper.addEventListener( CommandEvent.COMPLETE, Async.asyncHandler( this, ready, 15000, null, timeout ), false, 0, true );
+			commandMapper.addEventListener( CommandEvent.SEQUENCE_COMPLETE, Async.asyncHandler( this, ready, 15000, null, timeout ), false, 0, true );
 			
 			// dispatch a sequence of command
-			commandMapper.dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE, "mySequence", false ) );
+			commandMapper.dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE, false, false, "mySequence", false ) );
 		}
 		
 		protected function ready( event:CommandEvent, object:Object ):void
 		{
-			assertEquals( SampleEvent.SAMPLE_4_EVENT, event.commandEventType  );
+			assertEquals( "mySequence", event.groupID  );
 		}		
 		
 		protected function timeout( object:Object ):void

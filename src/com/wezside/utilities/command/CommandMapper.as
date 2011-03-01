@@ -16,6 +16,7 @@ package com.wezside.utilities.command
 		private var commandsList:LinkedListCollection;
 		private var currentGroupID:String;
 		private var currentElement:CommandElement;
+		private var _debug:Boolean = false;
 
 		public function CommandMapper()
 		{
@@ -90,12 +91,12 @@ package com.wezside.utilities.command
 			var element:CommandElement = commandsList.find( "id", id ) as CommandElement;
 			if ( !element ) return;
 			else commandsList.removeElement( "id", id );
-			trace( "Trying to purge command", id, element, element.instance );
+			log( "Trying to purge command", id, element, element.instance );
 								
 			var command:ICommand = element.instance;
 			if ( command )
 			{
-				trace( "Purging command instance", id );
+				log( "Purging command instance", id );
 				removeEventListener( element.eventType, element.callback, false );				
 				element.callback = null;
 				if ( element.callbackEvents )
@@ -113,15 +114,32 @@ package com.wezside.utilities.command
 			}			 
 			else
 				element = null;			 
-			
-		}		
+		}
+		
+		public function log( ...args ):void
+		{
+			var str:String = "";
+			for ( var i:int = 0; i < args.length; ++i ) 
+				str += args[i] + " ";
+			if ( _debug ) trace( str );
+		}							
+
+		public function get debug():Boolean
+		{
+			return _debug;
+		}
+		
+		public function set debug( value:Boolean ):void
+		{
+			_debug = value;
+		}
 
 		private function execute( event:Event, commandClass:Class, groupID:String ):void
 		{
 			switch ( event.type )
 			{
 				case CommandEvent.SEQUENCE :
-					sequenceEvents( CommandEvent( event ) );
+					sequenceEvents( event );
 					break;
 				default :
 //					purgeCommand( event.type );
@@ -150,20 +168,18 @@ package com.wezside.utilities.command
 			}
 		}
 
-
-		private function sequenceEvents( event:CommandEvent ):void
+		private function sequenceEvents( event:Event ):void
 		{
-			sequencedEvents = new Array();
+			sequencedEvents = [];
 			currentGroupID = "";
 
-			var events:Array = eventTypesFromGroupID( event.groupID );
-
+			var events:Array = eventTypesFromGroupID( CommandEvent( event ).groupID );
 			if ( events && events.length > 0 )
 			{
-				if ( event.asynchronous )
+				if ( CommandEvent( event ).asynchronous )
 				{
 					sequencedEvents = events;
-					currentGroupID = event.groupID;
+					currentGroupID = CommandEvent( event ).groupID;
 					dispatchEvent( new Event( events[0] ) );
 				}
 				else
@@ -171,11 +187,9 @@ package com.wezside.utilities.command
 					var i:int;
 					var len:int = events.length;
 					for ( i = 0; i < len; ++i )
-					{
-						dispatchEvent( new Event( events[i] ) );
-					}
+						dispatchEvent( new Event( events[i] ));
 
-					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, event.groupID ) );
+					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, false, false, CommandEvent( event ).groupID ));
 				}
 			}
 		}
@@ -203,7 +217,7 @@ package com.wezside.utilities.command
 		{
 			super.dispatchEvent( event );
 
-			if ( sequencedEvents && sequencedEvents[0] == event.commandEventType )
+			if ( sequencedEvents && sequencedEvents[0] == event.type )
 			{
 				sequencedEvents.shift();
 
@@ -213,7 +227,7 @@ package com.wezside.utilities.command
 				}
 				else
 				{
-					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, currentGroupID ) );
+					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, false, false, currentGroupID ));
 				}
 			}
 		}

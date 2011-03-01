@@ -51,10 +51,6 @@ package test.com.wezside.components.control
 			styleManager.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleReady, 5000, null, timeout ), false, 0, true );
 		}		
 		
-		// TODO: Test Button width & height with No Icon but with padding added
-		// TODO: Test Button width + height with Icon padding
-		// TODO: Test Button width + height with Icon and with button padding
-		
 		[Test(async)]
 		public function testButtonWithIconCenter():void
 		{			
@@ -70,7 +66,7 @@ package test.com.wezside.components.control
 		}		
 				
 		[Test(async)]
-		public function testButtonWithIconCenterLeftRight():void
+		public function testButtonWithIconCenterRight():void
 		{			
 			styleManager = new LatinStyle();
 			styleManager.addEventListener( Event.COMPLETE, Async.asyncHandler( this, styleReadyWithIconCenterRight, 5000, null, timeout ), false, 0, true );
@@ -134,7 +130,7 @@ package test.com.wezside.components.control
 			assertEquals( 200, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 87.5, button.icon.x );
-			assertEquals( -10, button.icon.y );			
+			assertEquals( Math.round((( button.height - button.icon.height ) * 0.5 ) * 10 ) / 10, button.icon.y );			
 		}
 		
 		private function styleReadyWithIconCenterLeft( event:Event, object:Object ):void
@@ -151,7 +147,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 0, button.icon.x );
-			assertEquals( button.icon.y - 10, button.icon.y );
+			assertEquals( Math.round((( button.height - button.icon.height ) * 0.5 ) * 10 ) / 10, button.icon.y );
 			
 		}
 		
@@ -165,10 +161,13 @@ package test.com.wezside.components.control
 			button.setStyle();
 			button.arrange();
 			
+			trace( button.height, button.icon.height );
+			
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
+			assertEquals( 25, button.icon.height );
 			assertEquals( 200, button.icon.x );
-			assertEquals( -10, button.icon.y );			
+			assertEquals( Math.round((( button.height - button.icon.height ) * 0.5 ) * 10 ) / 10, button.icon.y );			
 		}
 		
 		private function styleReadyWithIconTopRight( event:Event, object:Object ):void
@@ -184,7 +183,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 200, button.icon.x );
-			assertEquals( -10, button.icon.y );			
+			assertEquals( 0, button.icon.y );			
 		}
 		
 		private function styleReadyWithIconTopCenter( event:Event, object:Object ):void
@@ -200,7 +199,7 @@ package test.com.wezside.components.control
 			assertEquals( 200, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 87.5, button.icon.x );
-			assertEquals( -10, button.icon.y );			
+			assertEquals( 0, button.icon.y );			
 		}
 		
 		private function styleReadyWithIconTopLeft( event:Event, object:Object ):void
@@ -216,7 +215,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 0, button.icon.x );
-			assertEquals( -10 , button.icon.y );
+			assertEquals( 0 , button.icon.y );
 		}
 		
 		private function styleReadyWithIconBottomLeft( event:Event, object:Object ):void
@@ -232,7 +231,7 @@ package test.com.wezside.components.control
 			assertEquals( 225, button.width );
 			assertEquals( 25, button.icon.width );
 			assertEquals( 0, button.icon.x );
-			assertEquals( -6, button.icon.y );
+			assertEquals( 30, button.icon.y );
 		}
 		
 		private function styleReadyWithIconBottomCenter( event:Event, object:Object ):void
