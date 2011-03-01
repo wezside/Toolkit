@@ -36,8 +36,8 @@ package com.wezside.components.decorators.shape
 		function get cornerRadius():int
 		function set cornerRadius( value:int ):void
 		
-		function get borderAlpha():int
-		function set borderAlpha( value:int ):void
+		function get borderAlpha():Number
+		function set borderAlpha( value:Number ):void
 		
 		function get borderColor():uint;
 		function set borderColor( value:uint ):void;

@@ -39,7 +39,7 @@ package test.com.wezside.utilities.command
 			commandMapper.addCommand( SampleEvent.SAMPLE_4_EVENT, AsyncCommand, "mySequence" );
 			
 			// remove an event from the mapper
-			commandMapper.removeCommand( SampleEvent.SAMPLE_3_EVENT );	
+			commandMapper.purgeCommand( SampleEvent.SAMPLE_3_EVENT );	
 			assertFalse( commandMapper.hasCommand( SampleEvent.SAMPLE_3_EVENT ));			
 		}
 		

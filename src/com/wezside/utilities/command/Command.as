@@ -6,14 +6,16 @@ package com.wezside.utilities.command {
 	 * @author Sean Lailvaux
 	 */
 	public class Command extends EventDispatcher implements ICommand {
-		
-		
+
+
 		public function execute( event : Event ) : void {
 			//
 		}
-		
+
 		public function purge() : void {
 			//
 		}
+		
+		public function cancel() : void {}
 	}
 }

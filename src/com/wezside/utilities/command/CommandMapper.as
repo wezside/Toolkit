@@ -1,206 +1,235 @@
-package com.wezside.utilities.command 
+package com.wezside.utilities.command
 {
+	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.collection.LinkedListCollection;
 	import com.wezside.data.collection.LinkedListNode;
 	import com.wezside.data.iterator.IIterator;
 
+	import mx.core.EventPriority;
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
-	public class CommandMapper extends EventDispatcher implements ICommandMapper 
+	public class CommandMapper extends EventDispatcher implements ICommandMapper
 	{
-
 		private var sequencedEvents:Array;
-		private var commandsList:LinkedListCollection;		private var currentCommand:ICommand;		private var currentGroupID:String;
+		private var commandsList:LinkedListCollection;
+		private var currentGroupID:String;
+		private var currentElement:CommandElement;
 
-		
-		public function CommandMapper() 
+		public function CommandMapper()
 		{
-			commandsList = new LinkedListCollection( );
+			commandsList = new LinkedListCollection();
 			addCommand( CommandEvent.SEQUENCE, CommandMapper );
 		}
 
-		public function hasCommand( eventType:String ):Boolean 
+		public function hasCommand( id:String ):Boolean
 		{
 			if ( commandsList == null ) return false;
-			return commandsList.find( "eventType", eventType ) ? true : false;
+			return commandsList.find( "eventType", id ) ? true : false;
 		}
 
-		public function addCommand( eventType:String, commandClass:Class, groupID:String = "" ):void 
-		{			
-			if ( commandsList.length > 0 && commandsList.find( "eventType", eventType ) ) 
+		public function addCommand( id:String, commandClass:Class, groupID:String = "", callbackEvents:ICollection = null ):void
+		{
+			if ( commandsList.length > 0 && commandsList.find( "eventType", id ) )
 			{
-				throw new Error( eventType + " already mapped to " + commandClass );
+				throw new Error( id + " already mapped to " + commandClass );
 			}
-			
-			var element:CommandElement = new CommandElement( );
-			element.id = eventType;			element.eventType = eventType;			element.commandClass = commandClass;			element.groupID = groupID;
-			element.callback = function( event:Event ) : void 
+
+			var element:CommandElement = new CommandElement();
+			element.id = id;
+			element.eventType = id;
+			element.callbackEvents = callbackEvents;
+			element.commandClass = commandClass;
+			element.groupID = groupID;
+			element.callback = function( event:Event ):void
 			{
 				execute( event, commandClass, groupID );
 			};
-			
+
 			// add command
-			commandsList.addElement( element );			
+			commandsList.addElement( element );
 			addEventListener( element.eventType, element.callback, false, 0, true );
 		}
 
-		public function removeCommand( eventType:String ):void 
+		public function purge():void
 		{
-			
-			if ( commandsList ) 
+			if ( commandsList )
 			{
-				
-				var it:IIterator = commandsList.iterator( );
-				
+				var it:IIterator = commandsList.iterator();
 				var element:CommandElement;
-				while ( it.hasNext( ) ) 
+				while ( it.hasNext() )
 				{
-					element = CommandElement( LinkedListNode( it.next( ) ).data );
-					if ( element && element.callback && element.eventType == eventType ) 
+					element = CommandElement( LinkedListNode( it.next() ).data );
+					if ( element && element.callback && element.eventType )
 					{
 						removeEventListener( element.eventType, element.callback, false );
-						commandsList.removeElement( "id", element.id );
-						element.eventType = "";						element.callback = null;
+						element.callback = null;
+						if ( element.callbackEvents )
+							element.callbackEvents.purge();
+						element.callbackEvents = null;
 						element.commandClass = null;
+						element.eventType = null;
+						element.groupID = null;
+						element = null;						
 					}
+					
 				}
-				element = null;
-				it.reset( );
-				it.purge( );
+				it.reset();
+				it.purge();
 				it = null;
-			}
-		}
-
-		public function purge():void 
-		{
-			
-			purgeCurrentCommand( );
-			
-			if ( commandsList ) 
-			{
-				var it:IIterator = commandsList.iterator( );
-				var element:CommandElement;
-				while ( it.hasNext( ) ) 
-				{
-					element = CommandElement( LinkedListNode( it.next( ) ).data );
-					if ( element && element.callback && element.eventType ) 
-					{
-						removeEventListener( element.eventType, element.callback, false );
-					}
-				}
-				it.reset( );
-				it.purge( );
-				it = null;
-				commandsList.purge( );
+				commandsList.purge();
 				commandsList = null;
 			}
-			
-			sequencedEvents = new Array( );
+			sequencedEvents = new Array();
 			sequencedEvents = null;
 		}
-
-		private function execute( event:Event, commandClass:Class, groupID:String ):void 
-		{
-			
-			switch ( event.type ) 
+		
+		public function purgeCommand( id:String ):void
+		{ 
+			var element:CommandElement = commandsList.find( "id", id ) as CommandElement;
+			if ( !element ) return;
+			else commandsList.removeElement( "id", id );
+			trace( "Trying to purge command", id, element, element.instance );
+								
+			var command:ICommand = element.instance;
+			if ( command )
 			{
-				
-				case CommandEvent.SEQUENCE : 
+				trace( "Purging command instance", id );
+				removeEventListener( element.eventType, element.callback, false );				
+				element.callback = null;
+				if ( element.callbackEvents )
+				{
+					element.callbackEvents.purge();
+					element.callbackEvents = null;
+				}
+				element.commandClass = null;
+				element.eventType = null;
+				element.groupID = null;
+				element = null;
+				command.cancel();
+				command.purge();
+				command = null;
+			}			 
+			else
+				element = null;			 
+			
+		}		
+
+		private function execute( event:Event, commandClass:Class, groupID:String ):void
+		{
+			switch ( event.type )
+			{
+				case CommandEvent.SEQUENCE :
 					sequenceEvents( CommandEvent( event ) );
 					break;
+				default :
+//					purgeCommand( event.type );
 					
-				default : 
+					var command:ICommand = ICommand( new commandClass() );
+					command.addEventListener( CommandEvent.COMPLETE, commandComplete );
 					
-					purgeCurrentCommand( );
-					currentCommand = ICommand( new commandClass( ) );
-					currentCommand.addEventListener( CommandEvent.COMPLETE, commandComplete );
-					currentCommand.execute( event );
+					// Add custom callback event listeners
+					var commandElement:CommandElement = commandsList.find( "id", event.type ) as CommandElement;
+					if ( commandElement && commandElement.callbackEvents )
+					{
+						var it:IIterator = commandElement.callbackEvents.iterator();
+						while ( it.hasNext() )
+						{
+							var object:Object = it.next();
+							command.addEventListener( object.type, object.listener, false, EventPriority.DEFAULT_HANDLER );
+						}
+						it.purge();
+						it = null;
+						commandElement.instance = command;
+						currentElement = commandsList.find( "id", event.type ) as CommandElement;
+					}
+					else if ( commandElement ) commandElement.instance = command;
+					command.execute( event );
 					break;
 			}
 		}
 
-		private function purgeCurrentCommand():void 
-		{
-			if ( currentCommand ) 
-			{
-				currentCommand.removeEventListener( CommandEvent.COMPLETE, commandComplete );
-				currentCommand.purge( );
-				currentCommand = null;
-			}
-		}
 
-		private function sequenceEvents( event:CommandEvent ):void 
+		private function sequenceEvents( event:CommandEvent ):void
 		{
-			
-			sequencedEvents = new Array( );
+			sequencedEvents = new Array();
 			currentGroupID = "";
-			
+
 			var events:Array = eventTypesFromGroupID( event.groupID );
-			
-			if ( events && events.length > 0 ) 
+
+			if ( events && events.length > 0 )
 			{
-				
-				if ( event.asynchronous ) 
+				if ( event.asynchronous )
 				{
 					sequencedEvents = events;
 					currentGroupID = event.groupID;
 					dispatchEvent( new Event( events[0] ) );
 				}
-				else 
+				else
 				{
-					
 					var i:int;
 					var len:int = events.length;
-					for ( i = 0; i < len; ++i ) 
+					for ( i = 0; i < len; ++i )
 					{
 						dispatchEvent( new Event( events[i] ) );
 					}
-					
+
 					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, event.groupID ) );
 				}
 			}
 		}
 
-		private function eventTypesFromGroupID( groupID:String ):Array 
+		private function eventTypesFromGroupID( groupID:String ):Array
 		{
-			var it:IIterator = commandsList.iterator( );
+			var it:IIterator = commandsList.iterator();
 			var element:CommandElement;
-			var events:Array = new Array( );
-			while ( it.hasNext( ) ) 
+			var events:Array = new Array();
+			while ( it.hasNext() )
 			{
-				element = CommandElement( LinkedListNode( it.next( ) ).data );
-				if ( element && element.groupID == groupID ) 
+				element = CommandElement( LinkedListNode( it.next() ).data );
+				if ( element && element.groupID == groupID )
 				{
 					events.push( element.eventType );
 				}
 			}
-			it.reset( );
-			it.purge( );
+			it.reset();
+			it.purge();
 			it = null;
 			return events;
 		}
 
-		private function commandComplete( event:CommandEvent ):void 
+		private function commandComplete( event:CommandEvent ):void
 		{
-			
-			purgeCurrentCommand( );
 			super.dispatchEvent( event );
-			
-			if ( sequencedEvents && sequencedEvents[0] == event.commandEventType ) 
+
+			if ( sequencedEvents && sequencedEvents[0] == event.commandEventType )
 			{
-				
-				sequencedEvents.shift( );
-				
-				if ( sequencedEvents.length > 0 ) 
+				sequencedEvents.shift();
+
+				if ( sequencedEvents.length > 0 )
 				{
 					dispatchEvent( new Event( sequencedEvents[0] ) );
 				}
-				else 
+				else
 				{
 					dispatchEvent( new CommandEvent( CommandEvent.SEQUENCE_COMPLETE, currentGroupID ) );
 				}
 			}
+		}
+
+		public function willTriggerCallback( id:String, callbackEventID:String ):Boolean
+		{
+			var element:CommandElement = commandsList.find( "id", id ) as CommandElement;
+			if ( element && element.callbackEvents )
+			{
+				var command:ICommand = element.instance as ICommand;
+				if ( command )
+				{
+					return command.willTrigger( callbackEventID );
+				}
+			}
+			return false;
 		}
 	}
 }

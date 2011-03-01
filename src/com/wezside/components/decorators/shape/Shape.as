@@ -127,7 +127,7 @@ package com.wezside.components.decorators.shape
 			_cornerRadius = value;
 		}
 		
-		public function get borderAlpha():int
+		public function get borderAlpha():Number
 		{
 			return _borderAlpha;
 		}
@@ -137,7 +137,7 @@ package com.wezside.components.decorators.shape
 			return _borderThickness;
 		}
 		
-		public function set borderAlpha(value:int):void
+		public function set borderAlpha(value:Number):void
 		{
 			_borderAlpha = value;
 		}
