@@ -28,7 +28,7 @@ package com.wezside.components.decorators.scroll
 			{
 				track.x = IUIElement( decorated ).layout.left;
 				track.y = IUIElement( decorated ).layout.top;
-				height = track.background.height;
+				height = track && track.background ? track.background.height : ( track ? track.height : trackHeight );
 
 			}
 			else height = UIElement( decorated ).height;
@@ -87,8 +87,8 @@ package com.wezside.components.decorators.scroll
 					thumb.y = track.y + trackMinY;				
 				}
 
-				width = track.background.width;
-				height = track.background.height;
+				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );
+				height = track && track.background ? track.background.height : ( track ? track.height : trackHeight );
 
 				yMin = int( track.y ) + trackMinY;				
 				yMax = int( track.y + scrollHeight - thumb.height ) - trackMaxY;
