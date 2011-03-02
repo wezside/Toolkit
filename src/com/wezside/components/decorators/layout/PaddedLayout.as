@@ -50,37 +50,49 @@ package com.wezside.components.decorators.layout
 		{						
 			var child:DisplayObject;
 			var it:IIterator;
-			if ( width == 0 && height == 0 )
-			{	
-				it = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-				while ( it.hasNext())
+			var element:*;
+			it = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			while ( it.hasNext())
+			{
+				child = it.next() as DisplayObject;
+				
+				// Skip the background 
+				if ( child is IShape ) child = it.next() as DisplayObject;				
+				element = originalPos.getElementAt( it.index() - 1 );				
+				if ( element )
 				{
-					child = it.next() as DisplayObject;
-					if ( child is IShape ) child = it.next() as DisplayObject;
-					originalPos.addElement({ x: child.x, y:child.y });
-					child.x += left;
-					child.y += top;
-					
+					child.x = element.x;
+					child.y = element.y;
+					trace( "PaddedLayout", "Already exists", child, child.x, child.y );		
 				}
-				it.purge();
-				width = int( decorated.width + left + right ) | 0;
-				height = int( decorated.height + top + bottom ) | 0;
-			}		
-			else
-			{				
-				it = decorated.iterator( UIElement.ITERATOR_CHILDREN );
-				while ( it.hasNext())
+				else
 				{
-					child = it.next() as DisplayObject;
-					if ( child is IShape ) child = it.next() as DisplayObject;
-					var element:* = originalPos.getElementAt( it.index() - 1 );
-					child.x = element ? element.x + left : left;
-					child.y = element ? element.y + top : top;
+					if ( child.x == 0 && child.y == 0 )
+					{						
+						child.x = left;
+						child.y = top;
+						trace( "PaddedLayout", "Before any other decorators", child, child.x, child.y );
+					}
+					else
+					{
+						// Child's X & Y position were changed by other decorators or 
+						// system
+						child.x += left;
+						child.y += top;
+						trace( "PaddedLayout", "After other decorators", child, child.x, child.y )
+					}				
+					originalPos.addElement({ x: child.x, y: child.y });
+//					width = int( decorated.width ) | 0;
+//					height = int( decorated.height ) | 0;
 				}
-				it.purge();
-			}			
+			}
+			it.purge();
+			
+			trace( "PaddedLayout", "DIMENSIONS", width, "x", height );
+			
 			it = null;
 			child = null;
+			element = null;
 			super.arrange();
 		}
 	}

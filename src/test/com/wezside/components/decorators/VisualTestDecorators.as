@@ -49,6 +49,7 @@ package test.com.wezside.components.decorators
 			
 			layout = new VerticalLayout( this.layout );
 			layout.verticalGap = 5;
+			
 			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 200;
 			scroll.horizontalGap = 2;
@@ -85,6 +86,13 @@ package test.com.wezside.components.decorators
 			removeEventListener( Event.ENTER_FRAME, enterFrame );
 			build( );
 			arrange( );
+			arrange( );
+			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
 //			removeChildAt( 0 );
 //			arrange( );
 		}

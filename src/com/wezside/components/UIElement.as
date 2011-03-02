@@ -23,7 +23,6 @@ THE SOFTWARE.
  */
 package com.wezside.components
 {
-	import spark.layouts.HorizontalAlign;
 	import com.wezside.components.decorators.interactive.IInteractive;
 	import com.wezside.components.decorators.interactive.Interactive;
 	import com.wezside.components.decorators.layout.ILayout;
@@ -179,10 +178,11 @@ package com.wezside.components
 
 		override public function get width():Number
 		{
-			return super.width > _childrenContainer.width ? super.width : _childrenContainer.width; 
+			trace( "UIElement", super.width, _childrenContainer.width );
+			return super.width > _childrenContainer.width ? super.width : _childrenContainer.width;
 		}
 
-		override public function get height():Number	
+		override public function get height():Number
 		{			
 			return super.height > _childrenContainer.height ? super.height : _childrenContainer.height;
 		}

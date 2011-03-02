@@ -87,7 +87,7 @@ package com.wezside.components.decorators.scroll
 					thumb.y = track.y + trackMinY;				
 				}
 
-				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );
+				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );;
 				height = track && track.background ? track.background.height : ( track ? track.height : trackHeight );
 
 				yMin = int( track.y ) + trackMinY;				

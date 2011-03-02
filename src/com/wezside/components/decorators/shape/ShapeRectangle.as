@@ -58,9 +58,13 @@ package com.wezside.components.decorators.shape
 			// If width or height has changed, i.e. resize is require, set drawable props to new resized value	
 			if ( autoDetectWidth && decorated is UIElement )
 			{			
-				width = decorated.width;
-				if ( decorated is UIElement )
-					width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+				/**
+				 *  FIXME: Issue relating to this line of code				 
+				 *  		o Paddedlayout + VerticalLayout = working as designed
+				 *  		o PaddedLayout + VerticalLayout + VerticalScroll = padding values are added to the width when already included
+				 */
+				width = UIElement( decorated ).width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+				trace( "2", width );
 			}
 			if ( autoDetectHeight && decorated is UIElement )
 			{
@@ -74,9 +78,12 @@ package com.wezside.components.decorators.shape
 			if (  width == 0 )
 			{
 				autoDetectWidth = true;
-				width = decorated.width;
+				width = UIElement( decorated ).layout.width;
 				if ( decorated is UIElement )
-					width = decorated.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+				{
+					width = UIElement( decorated ).width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+					trace( "1", width );
+				}
 			}
 			if ( height == 0 )
 			{
@@ -95,7 +102,7 @@ package com.wezside.components.decorators.shape
 				if ( UIElement( decorated ).scroll is ScrollHorizontal )
 					width = UIElement( decorated ).scroll.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
 			}
-
+			
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
 			if ( colours.length == 1 ) colours.push( colours[ 0 ]);
 
