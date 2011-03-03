@@ -11,6 +11,8 @@ Latest release
 
 Change log since build .0200
 =======
+* Added support for when a UIElement is resized and arrange is called again. 
+* Fixed issue regarding the shape decorator not receiving the correct width and height from the UIElement. This was due to different values at different stages when arrange is called more than once. This is now fixed.
 * New FlowLayout added. Needs testing though. Use at own risk.
 * Updated HorizontalScroll decorator to function properly
 * Applied Sean Lailvaux patch to UIElement 
