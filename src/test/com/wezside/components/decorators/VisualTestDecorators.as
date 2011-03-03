@@ -97,7 +97,10 @@ package test.com.wezside.components.decorators
 			arrange( );
 			arrange( );
 			arrange( );
+			removeChildAt( 0 );
 			arrange( );
+			removeChildAt( 1 );
+			removeChildAt( 2 );
 			arrange( );
 //			arrange( );
 		}
