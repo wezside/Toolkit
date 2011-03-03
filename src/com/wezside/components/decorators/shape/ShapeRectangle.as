@@ -58,19 +58,15 @@ package com.wezside.components.decorators.shape
 			// If width or height has changed, i.e. resize is require, set drawable props to new resized value	
 			if ( autoDetectWidth && decorated is UIElement )
 			{			
-				/**
-				 *  FIXME: Issue relating to this line of code				 
-				 *  		o Paddedlayout + VerticalLayout = working as designed
-				 *  		o PaddedLayout + VerticalLayout + VerticalScroll = padding values are added to the width when already included
-				 */
-				width = UIElement( decorated ).width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
-				trace( "2", width );
+				width = UIElement( decorated ).bareWidth + 
+						UIElement( decorated ).layout.left + 
+						UIElement( decorated ).layout.right;
 			}
 			if ( autoDetectHeight && decorated is UIElement )
 			{
-				height = decorated.height;
-				if ( decorated is UIElement )
-					height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+				height = UIElement( decorated ).bareHeight + 
+						UIElement( decorated ).layout.top + 
+						UIElement( decorated ).layout.bottom;
 			}
 
 			// First Time Round: If width of the background wasn't explicitly set - detect it automatically
@@ -78,30 +74,40 @@ package com.wezside.components.decorators.shape
 			if (  width == 0 )
 			{
 				autoDetectWidth = true;
-				width = UIElement( decorated ).layout.width;
 				if ( decorated is UIElement )
-				{
 					width = UIElement( decorated ).width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
-					trace( "1", width );
-				}
+				else width = decorated.width;
 			}
 			if ( height == 0 )
 			{
 				autoDetectHeight = true;
-				height = decorated.height;
 				if ( decorated is UIElement )
 					height = decorated.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
+				else height = decorated.height;
 			}
-			
-			// If a scrollbar is present then override the height to the scrollheight
+
+			// If a scrollbar is present then override the height to the scrollheight			
 			if ( decorated is UIElement && UIElement( decorated ).scroll )
 			{
 				if ( UIElement( decorated ).scroll is ScrollVertical )
-					height = UIElement( decorated ).scroll.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;
-					
+				{
+					height = UIElement( decorated ).scroll.height + UIElement( decorated ).layout.top + UIElement( decorated ).layout.bottom;		
+					width = UIElement( decorated ).bareWidth + 
+							UIElement( decorated ).layout.left + 
+							UIElement( decorated ).layout.right + 
+							UIElement( decorated ).scroll.width;
+				}					
 				if ( UIElement( decorated ).scroll is ScrollHorizontal )
+				{
 					width = UIElement( decorated ).scroll.width + UIElement( decorated ).layout.left + UIElement( decorated ).layout.right;
+					height = UIElement( decorated ).bareHeight + 
+							UIElement( decorated ).layout.top + 
+							UIElement( decorated ).layout.bottom + 
+							UIElement( decorated ).scroll.height;
+				}
 			}
+			
+			
 			
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
 			if ( colours.length == 1 ) colours.push( colours[ 0 ]);

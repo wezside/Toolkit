@@ -46,7 +46,7 @@ package com.wezside.components.decorators.scroll
 		override public function draw():void
 		{
 			// Don't draw if height is less than scrollheight
-			var h:int = int( IUIElement( decorated ).height );
+			var h:int = int( UIElement( decorated ).bareHeight );
 
 			if ( h - 4 > scrollHeight )
 			{
@@ -59,8 +59,7 @@ package com.wezside.components.decorators.scroll
 					track.background.height = scrollHeight;
 					track.background.alphas = [ 1, 1 ];
 					track.background.colours = trackColors;
-					track.x = decorated.width + horizontalGap + ( width == 0 ? UIElement( decorated ).layout.left : 0 );
-					track.y = IUIElement( decorated ).layout.top;
+
 					track.build();
 					track.arrange();
 				}
@@ -72,7 +71,6 @@ package com.wezside.components.decorators.scroll
 					thumb.background = new ShapeRectangle( thumb );
 					thumb.background.alphas = [ 1, 1 ];
 					thumb.background.colours = thumbColors;
-
 					if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = trackWidth - thumbXOffset * 2;
 					else thumb.background.width = thumbWidth;
 					if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = int( scrollHeight / h * scrollHeight );					
@@ -83,11 +81,17 @@ package com.wezside.components.decorators.scroll
 					thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );
 					thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );
 				
-					thumb.x = track.x + thumbXOffset;
-					thumb.y = track.y + trackMinY;				
 				}
 
-				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );;
+				track.x = UIElement( decorated ).bareWidth + 
+						  UIElement( decorated ).layout.left + 
+						  horizontalGap;
+						  
+				track.y = IUIElement( decorated ).layout.top;
+				thumb.x = track.x + thumbXOffset;
+				thumb.y = track.y + trackMinY;
+
+				width = track && track.background ? track.background.width + horizontalGap: ( track ? track.width : trackWidth ) + horizontalGap;
 				height = track && track.background ? track.background.height : ( track ? track.height : trackHeight );
 
 				yMin = int( track.y ) + trackMinY;				

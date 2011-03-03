@@ -1,7 +1,5 @@
 package test.com.wezside.components.decorators 
 {
-	import com.wezside.components.decorators.layout.HorizontalLayout;
-	import com.wezside.components.decorators.scroll.ScrollHorizontal;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
@@ -10,7 +8,9 @@ package test.com.wezside.components.decorators
 	import com.wezside.components.decorators.scroll.ScrollVertical;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
 	import com.wezside.components.text.Label;
+	import com.wezside.data.iterator.IIterator;
 
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -35,27 +35,29 @@ package test.com.wezside.components.decorators
 
 		private function initStage( event:Event ):void 
 		{						
+			stage.addEventListener( Event.RESIZE, stageResize );
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 		
 			x = 20;
 			y = 20;
 						
-			layout = new PaddedLayout( this ); 
-			layout.bottom = 20;		
-			layout.left = 20;
-			layout.right = 20;
-			layout.top = 20;
-			
-			layout = new VerticalLayout( this.layout );
+			layout = new VerticalLayout( this );
 			layout.verticalGap = 5;
+			
+			layout = new PaddedLayout( this.layout ); 
+			layout.bottom = 5;		
+			layout.left = 5;
+			layout.right = 5;
+			layout.top = 5;
 			
 			scroll = new ScrollVertical( this );
 			scroll.scrollHeight = 200;
-			scroll.horizontalGap = 2;
+			scroll.horizontalGap = 5;
 
 //			layout = new HorizontalLayout( this.layout );			
 //			layout.horizontalGap = 5;
+////			
 //			scroll = new ScrollHorizontal( this );
 //			scroll.scrollWidth = 300;
 //			scroll.verticalGap = 5;
@@ -75,7 +77,7 @@ package test.com.wezside.components.decorators
  			label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu nunc non risus cursus pellentesque dapibus eget elit. Duis venenatis libero tempus sapien eleifend vel placerat augue feugiat. ";
  			label.build();
  			label.setStyle();
- 			label.arrange();
+// 			label.arrange();
 //			addChild( label );
 
 			addEventListener( Event.ENTER_FRAME, enterFrame );
@@ -88,18 +90,36 @@ package test.com.wezside.components.decorators
 			arrange( );
 			arrange( );
 			arrange( );
-//			arrange( );
-//			arrange( );
-//			arrange( );
-//			arrange( );
-//			arrange( );
-//			removeChildAt( 0 );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
+			arrange( );
 //			arrange( );
 		}
 
+		private function stageResize( event:Event ):void
+		{
+			var it:IIterator = iterator( UIElement.ITERATOR_CHILDREN );
+			var object:DisplayObject;
+			while ( it.hasNext() )
+			{
+				object = it.next() as DisplayObject;
+				object.width = object.width + 5;
+				object.height = object.height - 1;
+			}
+			it.purge();
+			it = null;
+			object = null;
+			arrange( );
+		}
+
 		override public function build():void
-		{			
-						
+		{		
 			hbox = new UIElement( );
 			hbox.background = new ShapeRectangle( hbox );
 			hbox.background.colours = [ 0xff0000 ];
@@ -142,13 +162,44 @@ package test.com.wezside.components.decorators
 			hbox.build( );
 			hbox.arrange( );
 			addChild( hbox );			
-			
+	
 			var sp:Sprite = new Sprite( );
 			sp.graphics.beginFill( 0xEEEEE );
 			sp.graphics.drawRect( 0, 0, 200, 50 );
 			sp.graphics.endFill( );
 			addChild( sp );
-		
+	
+	/*		
+			sp = new Sprite( );
+			sp.graphics.beginFill( 0xEEEEE );
+			sp.graphics.drawRect( 0, 0, 200, 50 );
+			sp.graphics.endFill( );
+			addChild( sp );
+			
+			sp = new Sprite( );
+			sp.graphics.beginFill( 0xEEEEE );
+			sp.graphics.drawRect( 0, 0, 200, 50 );
+			sp.graphics.endFill( );
+			addChild( sp );
+			
+			sp = new Sprite( );
+			sp.graphics.beginFill( 0xEEEEE );
+			sp.graphics.drawRect( 0, 0, 200, 50 );
+			sp.graphics.endFill( );
+			addChild( sp );
+			
+			sp = new Sprite( );
+			sp.graphics.beginFill( 0xEEEEE );
+			sp.graphics.drawRect( 0, 0, 200, 50 );
+			sp.graphics.endFill( );
+			addChild( sp );
+			
+			sp = new Sprite( );
+			sp.graphics.beginFill( 0xEEEEE );
+			sp.graphics.drawRect( 0, 0, 200, 50 );
+			sp.graphics.endFill( );
+			addChild( sp );
+		*/
 			super.build( );
 		}
 

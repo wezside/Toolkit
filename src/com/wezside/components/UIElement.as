@@ -176,15 +176,14 @@ package com.wezside.components
 			return super.numChildren;
 		}
 
-		override public function get width():Number
+		public function get bareWidth():Number
 		{
-			trace( "UIElement", super.width, _childrenContainer.width );
-			return super.width > _childrenContainer.width ? super.width : _childrenContainer.width;
+			return _childrenContainer.width;
 		}
-
-		override public function get height():Number
-		{			
-			return super.height > _childrenContainer.height ? super.height : _childrenContainer.height;
+		
+		public function get bareHeight():Number
+		{
+			return _childrenContainer.height;
 		}
 
 		public function build():void

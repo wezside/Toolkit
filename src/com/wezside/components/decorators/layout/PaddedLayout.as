@@ -40,6 +40,7 @@ package com.wezside.components.decorators.layout
 		public function PaddedLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
+			// TODO: Purge
 			originalPos = new Collection();
 		}
 		
@@ -48,6 +49,7 @@ package com.wezside.components.decorators.layout
 		 */
 		override public function arrange():void
 		{						
+
 			var child:DisplayObject;
 			var it:IIterator;
 			var element:*;
@@ -55,7 +57,7 @@ package com.wezside.components.decorators.layout
 			while ( it.hasNext())
 			{
 				child = it.next() as DisplayObject;
-				
+
 				// Skip the background 
 				if ( child is IShape ) child = it.next() as DisplayObject;				
 				element = originalPos.getElementAt( it.index() - 1 );				
@@ -63,7 +65,6 @@ package com.wezside.components.decorators.layout
 				{
 					child.x = element.x;
 					child.y = element.y;
-					trace( "PaddedLayout", "Already exists", child, child.x, child.y );		
 				}
 				else
 				{
@@ -71,7 +72,6 @@ package com.wezside.components.decorators.layout
 					{						
 						child.x = left;
 						child.y = top;
-						trace( "PaddedLayout", "Before any other decorators", child, child.x, child.y );
 					}
 					else
 					{
@@ -79,17 +79,17 @@ package com.wezside.components.decorators.layout
 						// system
 						child.x += left;
 						child.y += top;
-						trace( "PaddedLayout", "After other decorators", child, child.x, child.y )
-					}				
-					originalPos.addElement({ x: child.x, y: child.y });
-//					width = int( decorated.width ) | 0;
-//					height = int( decorated.height ) | 0;
+					}
+					originalPos.addElement({ x: child.x, y: child.y });					
 				}
 			}
-			it.purge();
-			
-			trace( "PaddedLayout", "DIMENSIONS", width, "x", height );
-			
+
+			if ( width == 0 && height == 0 )
+			{
+				width = int( decorated.width + left + right );
+				height = int( decorated.height + top + bottom );
+			}
+			it.purge();			
 			it = null;
 			child = null;
 			element = null;

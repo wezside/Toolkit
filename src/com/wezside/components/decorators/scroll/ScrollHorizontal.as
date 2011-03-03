@@ -46,7 +46,7 @@ package com.wezside.components.decorators.scroll
 		override public function draw():void
 		{
 			// Don't draw if width is less than scrollWidth
-			var w:int = int( IUIElement( decorated ).width );
+			var w:int = int( UIElement( decorated ).bareWidth );
 	
 			if ( w - 4 > scrollWidth )
 			{
@@ -59,8 +59,7 @@ package com.wezside.components.decorators.scroll
 					track.background.height = trackHeight;
 					track.background.alphas = [ 1, 1 ];
 					track.background.colours = trackColors;
-					track.x = IUIElement( decorated ).layout.left;
-					track.y = decorated.height + verticalGap + ( height == 0 ? UIElement( decorated ).layout.top : 0 );
+
 					track.build();
 					track.arrange();					
 				}
@@ -83,13 +82,18 @@ package com.wezside.components.decorators.scroll
 					
 					thumb.build();
 					thumb.arrange();					
-				
-					thumb.x = track.x + trackMinX;
-					thumb.y = track.y + thumbYOffset;
 				}
 				
+				track.x = UIElement( decorated ).layout.left;
+				track.y = UIElement( decorated ).bareHeight + 
+						  UIElement( decorated ).layout.top + 
+						  verticalGap;
+						
+				thumb.x = track.x + trackMinX;
+				thumb.y = track.y + thumbYOffset;
+				
 				width = track.background.width;
-				height = track.background.height;
+				height = track && track.background ? track.background.height + verticalGap : ( track ? track.height : trackHeight ) + verticalGap;
 
 				xMin = int( track.x ) + trackMinX;				
 				xMax = int( track.x + scrollWidth - thumb.width ) - trackMaxX;				

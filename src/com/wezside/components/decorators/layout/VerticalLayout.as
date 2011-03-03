@@ -39,6 +39,7 @@ package com.wezside.components.decorators.layout
 
 		override public function arrange():void
 		{
+			
 			// Iterate over rest of the children and layout horizontally
 			yOffset = 0;
 			yOffset += top;
@@ -62,7 +63,7 @@ package com.wezside.components.decorators.layout
 
 			if ( it.length() > 1 )
 				height -= verticalGap;
-				
+		
 			// Clean up
 			it.purge();
 			it = null;

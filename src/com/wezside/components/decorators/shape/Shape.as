@@ -19,13 +19,10 @@
  */
 package com.wezside.components.decorators.shape 
 {
-	import com.wezside.utilities.imaging.GraphicsEx;
-	import flash.display.Graphics;
-
 	import com.wezside.components.IUIDecorator;
-	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.utilities.imaging.GraphicsEx;
 	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.display.Sprite;
