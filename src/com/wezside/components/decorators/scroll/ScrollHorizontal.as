@@ -1,7 +1,6 @@
 package com.wezside.components.decorators.scroll
 {
 	import com.wezside.components.IUIDecorator;
-	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
 
@@ -52,7 +51,6 @@ package com.wezside.components.decorators.scroll
 				
 				// Update the thumb size and position 
 				resetThumb();				
-				trace( track.background.width );
 				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );
 				height = track && track.background ? track.background.height + verticalGap : ( track ? track.height : trackHeight ) + verticalGap;
 
