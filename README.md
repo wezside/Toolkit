@@ -12,6 +12,7 @@ Latest release
 Change log since build .0200
 =======
 
+* ScrollHorizontal updated to reflect change sin ScrollVertical
 * Fixed small issue regarding reset in ScrollVertical. ScrollVertical now has resetTrack() and resetThumb() methods 
 * Added support for when a UIElement is resized and arrange is called again. 
 * Fixed issue regarding the shape decorator not receiving the correct width and height from the UIElement. This was due to different values at different stages when arrange is called more than once. This is now fixed.

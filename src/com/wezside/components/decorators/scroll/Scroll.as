@@ -58,6 +58,18 @@ package com.wezside.components.decorators.scroll
 			//
 		}
 
+		public function reset():void
+		{
+		}
+
+		public function resetTrack():void
+		{
+		}
+
+		public function resetThumb():void
+		{
+		}
+
 		public function purge():void
 		{
 			_thumb = null;
@@ -284,5 +296,6 @@ package com.wezside.components.decorators.scroll
 		{
 			_trackMinX = value;
 		}
+
 	}
 }

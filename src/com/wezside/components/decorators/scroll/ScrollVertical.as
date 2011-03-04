@@ -98,7 +98,7 @@ package com.wezside.components.decorators.scroll
 			super.purge();
 		}
 
-		public function reset():void
+		override public function reset():void
 		{
 			width = 0;
 			resetTrack();
@@ -107,7 +107,7 @@ package com.wezside.components.decorators.scroll
 			if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );			
 		}
 
-		public function resetTrack():void
+		override public function resetTrack():void
 		{
 			track.background.width = trackWidth;
 			track.background.height = scrollHeight;			
@@ -119,7 +119,7 @@ package com.wezside.components.decorators.scroll
 			addChild( track as UIElement );					
 		}
 
-		public function resetThumb():void
+		override public function resetThumb():void
 		{
 			if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = trackWidth - thumbXOffset * 2;
 			else thumb.background.width = thumbWidth;

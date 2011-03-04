@@ -45,11 +45,11 @@ package test.com.wezside.components.decorators
 //			layout = new VerticalLayout( this );
 //			layout.verticalGap = 5;
 			
-//			layout = new PaddedLayout( this.layout ); 
-//			layout.bottom = 5;		
-//			layout.left = 5;
-//			layout.right = 5;
-//			layout.top = 5;
+			layout = new PaddedLayout( this.layout ); 
+			layout.bottom = 5;		
+			layout.left = 5;
+			layout.right = 5;
+			layout.top = 5;
 ////			
 //			scroll = new ScrollVertical( this );
 //			scroll.scrollHeight = 200;
