@@ -4,6 +4,7 @@ package com.wezside.components.decorators.scroll
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
+	
 	import flash.events.MouseEvent;
 
 	/**
@@ -30,8 +31,6 @@ package com.wezside.components.decorators.scroll
 				{
 					track = new UIElement();					
 					track.background = new ShapeRectangle( track );
-					track.background.width = trackWidth;
-					track.background.height = scrollHeight;
 					track.background.alphas = [ 1, 1 ];
 					track.background.colours = trackColors;
 					track.build();
@@ -110,6 +109,8 @@ package com.wezside.components.decorators.scroll
 
 		public function resetTrack():void
 		{
+			track.background.width = trackWidth;
+			track.background.height = scrollHeight;			
 			track.x = UIElement( decorated ).bareWidth + 
 					  UIElement( decorated ).layout.left + 
 					  horizontalGap;						

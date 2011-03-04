@@ -22,77 +22,38 @@ package com.wezside.components.decorators.scroll
 			super( decorated );
 		}
 		
-		public function reset():void
-		{
-			height = 0;
-			if ( track )
-			{
-				track.x = IUIElement( decorated ).layout.left;
-				track.y = IUIElement( decorated ).layout.top;
-				width = track.background.width;
-			}
-			else width = UIElement( decorated ).width;
-				
-			if ( thumb )
-			{
-				thumb.x = IUIElement( decorated ).layout.left;
-				thumb.y = IUIElement( decorated ).layout.top;
-			}
-				
-			if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
-			if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );			
-		}		
-
 		override public function draw():void
 		{
 			// Don't draw if width is less than scrollWidth
-			var w:int = int( UIElement( decorated ).bareWidth );
-	
-			if ( w - 4 > scrollWidth )
+			if ( int( UIElement( decorated ).bareWidth ) - 4 > scrollWidth )
 			{
 				if ( !track )
 				{
-					track = new UIElement();				
-					addChild( track as UIElement );
+					track = new UIElement();					
 					track.background = new ShapeRectangle( track );
-					track.background.width = scrollWidth;
-					track.background.height = trackHeight;
 					track.background.alphas = [ 1, 1 ];
 					track.background.colours = trackColors;
-
-					track.build();
-					track.arrange();					
+					track.build();					
 				}
 
 				if ( !thumb )
 				{
-					thumb = new UIElement();
-					addChild( thumb as UIElement );
+					thumb = new UIElement();					
 					thumb.background = new ShapeRectangle( thumb );
 					thumb.background.alphas = [ 1, 1 ];
 					thumb.background.colours = thumbColors;
-					
-					if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = int( scrollWidth / w * scrollWidth );
-					if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = trackHeight - thumbYOffset * 2;
-					thumb.background.width = thumbWidth > 20 ? thumbWidth : 20;					
-					
-					UIElement( thumb ).mouseChildren = false;
 					thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );
 					thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );
-					
-					thumb.build();
-					thumb.arrange();					
+					thumb.build();		
 				}
 				
-				track.x = UIElement( decorated ).layout.left;
-				track.y = UIElement( decorated ).bareHeight + 
-						  UIElement( decorated ).layout.top + 
-						  verticalGap;
-						
-				thumb.x = track.x + trackMinX;
-				thumb.y = track.y + thumbYOffset;
+				// Update the x + y position for the track everytime this conditional is met
+				resetTrack();
 				
-				width = track.background.width;
+				// Update the thumb size and position 
+				resetThumb();				
+				trace( track.background.width );
+				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );
 				height = track && track.background ? track.background.height + verticalGap : ( track ? track.height : trackHeight ) + verticalGap;
 
 				xMin = int( track.x ) + trackMinX;				
@@ -135,6 +96,40 @@ package com.wezside.components.decorators.scroll
 				stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
 			}
 			super.purge();
+		}
+		
+		public function reset():void
+		{
+			height = 0;
+			resetTrack();
+			resetThumb();	
+			if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
+			if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );			
+		}
+
+		public function resetTrack():void
+		{
+			track.background.width = scrollWidth;
+			track.background.height = trackHeight;			
+			track.x = UIElement( decorated ).layout.left;
+			track.y = UIElement( decorated ).bareHeight + 
+					  UIElement( decorated ).layout.top + 
+					  verticalGap;
+			track.arrange();
+			addChild( track as UIElement );					
+		}
+
+		public function resetThumb():void
+		{
+			if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = int( scrollWidth / UIElement( decorated ).bareWidth * scrollWidth );
+			else thumb.background.width = thumbWidth;
+			if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = trackHeight - thumbYOffset * 2;
+			thumb.background.width = thumbWidth > 20 ? thumbWidth : 20;					
+			UIElement( thumb ).mouseChildren = false;
+			thumb.arrange();					
+			thumb.x = track.x + trackMinX;
+			thumb.y = track.y + thumbYOffset;
+			addChild( thumb as UIElement );			
 		}
 
 		private function thumbOut( event:MouseEvent ):void

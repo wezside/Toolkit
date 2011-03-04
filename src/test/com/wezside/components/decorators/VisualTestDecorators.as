@@ -3,9 +3,9 @@ package test.com.wezside.components.decorators
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
+	import com.wezside.components.decorators.layout.HorizontalLayout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
-	import com.wezside.components.decorators.layout.VerticalLayout;
-	import com.wezside.components.decorators.scroll.ScrollVertical;
+	import com.wezside.components.decorators.scroll.ScrollHorizontal;
 	import com.wezside.components.decorators.shape.ShapeRectangle;
 	import com.wezside.components.text.Label;
 	import com.wezside.data.iterator.IIterator;
@@ -42,25 +42,25 @@ package test.com.wezside.components.decorators
 			x = 20;
 			y = 20;
 						
-			layout = new VerticalLayout( this );
-			layout.verticalGap = 5;
+//			layout = new VerticalLayout( this );
+//			layout.verticalGap = 5;
 			
-			layout = new PaddedLayout( this.layout ); 
-			layout.bottom = 5;		
-			layout.left = 5;
-			layout.right = 5;
-			layout.top = 5;
-			
-			scroll = new ScrollVertical( this );
-			scroll.scrollHeight = 200;
-			scroll.horizontalGap = 5;
-
-//			layout = new HorizontalLayout( this.layout );			
-//			layout.horizontalGap = 5;
+//			layout = new PaddedLayout( this.layout ); 
+//			layout.bottom = 5;		
+//			layout.left = 5;
+//			layout.right = 5;
+//			layout.top = 5;
 ////			
-//			scroll = new ScrollHorizontal( this );
-//			scroll.scrollWidth = 300;
-//			scroll.verticalGap = 5;
+//			scroll = new ScrollVertical( this );
+//			scroll.scrollHeight = 200;
+//			scroll.horizontalGap = 5;
+
+			layout = new HorizontalLayout( this.layout );			
+			layout.horizontalGap = 5;
+			
+			scroll = new ScrollHorizontal( this );
+			scroll.scrollWidth = 300;
+			scroll.verticalGap = 2;
 																	
 			background = new ShapeRectangle( this );
 			background.colours = [ 0, 0 ];
