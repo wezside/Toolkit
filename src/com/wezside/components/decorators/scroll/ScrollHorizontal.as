@@ -50,7 +50,8 @@ package com.wezside.components.decorators.scroll
 				resetTrack();
 				
 				// Update the thumb size and position 
-				resetThumb();				
+				resetThumb();	
+							
 				width = track && track.background ? track.background.width : ( track ? track.width : trackWidth );
 				height = track && track.background ? track.background.height + verticalGap : ( track ? track.height : trackHeight ) + verticalGap;
 
@@ -107,8 +108,11 @@ package com.wezside.components.decorators.scroll
 
 		override public function resetTrack():void
 		{
-			track.background.width = scrollWidth;
-			track.background.height = trackHeight;			
+			if ( track.background )
+			{
+				track.background.width = scrollWidth;
+				track.background.height = trackHeight;
+			}			
 			track.x = UIElement( decorated ).layout.left;
 			track.y = UIElement( decorated ).bareHeight + 
 					  UIElement( decorated ).layout.top + 
@@ -119,10 +123,13 @@ package com.wezside.components.decorators.scroll
 
 		override public function resetThumb():void
 		{
-			if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = int( scrollWidth / UIElement( decorated ).bareWidth * scrollWidth );
-			else thumb.background.width = thumbWidth;
-			if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = trackHeight - thumbYOffset * 2;
-			thumb.background.width = thumbWidth > 20 ? thumbWidth : 20;					
+			if ( thumb.background )
+			{
+				if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = int( scrollWidth / UIElement( decorated ).bareWidth * scrollWidth );
+				else thumb.background.width = thumbWidth;
+				if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = trackHeight - thumbYOffset * 2;
+				thumb.background.width = thumbWidth > 20 ? thumbWidth : 20;
+			}					
 			UIElement( thumb ).mouseChildren = false;
 			thumb.arrange();					
 			thumb.x = track.x + trackMinX;
