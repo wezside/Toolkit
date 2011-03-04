@@ -106,8 +106,7 @@ package com.wezside.components.decorators.shape
 							UIElement( decorated ).scroll.height;
 				}
 			}
-			
-			
+						
 			
 			if ( alphas.length == 1 ) alphas.push( colours[ 0 ]);
 			if ( colours.length == 1 ) colours.push( colours[ 0 ]);
@@ -125,7 +124,7 @@ package com.wezside.components.decorators.shape
 
 			if ( borderThickness > 0 )
 				graphicsEx.lineStyle( borderThickness, borderColor, borderAlpha, true );
-				
+
 			graphicsEx.beginGradientFill( GradientType.LINEAR, colours, alphas, ratios, matrix );
 
 			if ( cornerRadius > 0 )

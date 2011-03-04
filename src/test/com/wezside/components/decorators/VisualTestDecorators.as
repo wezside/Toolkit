@@ -97,10 +97,10 @@ package test.com.wezside.components.decorators
 			arrange( );
 			arrange( );
 			arrange( );
-			removeChildAt( 0 );
+//			removeChildAt( 0 );
 			arrange( );
-			removeChildAt( 1 );
-			removeChildAt( 2 );
+//			removeChildAt( 1 );
+//			removeChildAt( 2 );
 			arrange( );
 //			arrange( );
 		}
@@ -112,12 +112,13 @@ package test.com.wezside.components.decorators
 			while ( it.hasNext() )
 			{
 				object = it.next() as DisplayObject;
-				object.width = object.width + 5;
-				object.height = object.height - 1;
+				object.width = stage.stageWidth * 0.5;
+				object.height = stage.stageHeight * 0.1;
 			}
 			it.purge();
 			it = null;
 			object = null;
+			
 			arrange( );
 		}
 
