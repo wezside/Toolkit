@@ -23,6 +23,7 @@
  */
 package com.wezside.components 
 {
+	import com.wezside.components.decorators.scroll.IScroll;
 	import com.wezside.components.decorators.layout.ILayout;
 	import com.wezside.components.decorators.shape.IShape;
 	import com.wezside.utilities.manager.style.IStyleManager;
@@ -51,6 +52,10 @@ package com.wezside.components
 		 function set background( value:IShape ):void;
 		 function get layout():ILayout;
 		 function set layout( value:ILayout ):void;
+		 function get scroll():IScroll;
+		 function set scroll( value:IScroll ):void;
+		 function get state():String;
+		 function set state( value:String ):void;
 		 function hasOwnProperty( V:* = undefined ):Boolean;
 		 
 		 function build():void;

@@ -33,11 +33,11 @@ package com.wezside.components
 	public class UIElementEvent extends Event 
 	{
 		
-		public static const INIT:String = "initUIElement";
-		public static const CREATION_COMPLETE:String = "uiCreationComplete";			
-		public static const STYLEMANAGER_READY:String = "uiStyleManagerReady";			
-		public static const ARRANGE_COMPLETE:String = "uiArrangeComplete";
-		public static const STATE_CHANGE:String = "uiStateChange";
+		public static const INIT:String = "INIT";
+		public static const CREATION_COMPLETE:String = "CREATION_COMPLETE";			
+		public static const STYLEMANAGER_READY:String = "STYLEMANAGER_READY";			
+		public static const ARRANGE_COMPLETE:String = "ARRANGE_COMPLETE";
+		public static const STATE_CHANGE:String = "STATE_CHANGE";
 		
 		private var _state:IState;
 

@@ -19,10 +19,10 @@
  */
 package com.wezside.components.decorators.layout 
 {
-	import com.wezside.data.collection.Collection;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.decorators.shape.IShape;
+	import com.wezside.data.collection.DictionaryCollection;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;
@@ -35,34 +35,41 @@ package com.wezside.components.decorators.layout
 	 */
 	public class PaddedLayout extends Layout 
 	{		
-		private var originalPos:Collection;
+		private var originalPos:DictionaryCollection;
 
 		public function PaddedLayout( decorated:IUIDecorator )
 		{
 			super( decorated );
 			// TODO: Purge
-			originalPos = new Collection();
+			originalPos = new DictionaryCollection();
 		}
 		
 		/**
 		 * If decorated.width == 0 then it means the decorated is an ILayout
 		 */
 		override public function arrange():void
-		{						
-
+		{				
 			var child:DisplayObject;
 			var it:IIterator;
 			var element:*;
+			var index:int = 0;
 			it = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			while ( it.hasNext())
 			{
 				child = it.next() as DisplayObject;
-
+				index = it.index() - 1;
+				
 				// Skip the background 
-				if ( child is IShape ) child = it.next() as DisplayObject;				
-				element = originalPos.getElementAt( it.index() - 1 );				
+				if ( child is IShape ) child = it.next() as DisplayObject;
+				element = originalPos.getElement( index );				
+			
 				if ( element )
 				{
+					if ( element.width != child.width )
+						break;
+					if ( element.height != child.height )
+						break;
+
 					child.x = element.x;
 					child.y = element.y;
 				}
@@ -79,9 +86,9 @@ package com.wezside.components.decorators.layout
 						// system
 						child.x += left;
 						child.y += top;
-					}
-					originalPos.addElement({ x: child.x, y: child.y });					
+					}	
 				}
+				originalPos.addElement( index, { x: child.x, y: child.y, width: child.width, height: child.height });
 			}
 
 			if ( width == 0 && height == 0 )
@@ -89,11 +96,28 @@ package com.wezside.components.decorators.layout
 				width = int( decorated.width + left + right );
 				height = int( decorated.height + top + bottom );
 			}
+			
 			it.purge();			
 			it = null;
 			child = null;
 			element = null;
 			super.arrange();
+		}
+			
+		override public function reset():void
+		{
+			var it:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
+			var child:DisplayObject;
+			while ( it.hasNext() )
+			{
+				child = it.next() as DisplayObject;
+				if ( child is IShape ) child = it.next() as DisplayObject;		
+				child.x = 0;
+				child.y = 0;
+			}
+			it.purge();
+			it = null;
+			child = null;
 		}
 	}
 }

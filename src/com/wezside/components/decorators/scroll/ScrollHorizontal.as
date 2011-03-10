@@ -41,8 +41,6 @@ package com.wezside.components.decorators.scroll
 					thumb.background = new ShapeRectangle( thumb );
 					thumb.background.alphas = [ 1, 1 ];
 					thumb.background.colours = thumbColors;
-					thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );
-					thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );
 					thumb.build();		
 				}
 				
@@ -130,6 +128,11 @@ package com.wezside.components.decorators.scroll
 				if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = trackHeight - thumbYOffset * 2;
 				thumb.background.width = thumbWidth > 20 ? thumbWidth : 20;
 			}					
+			if ( !thumb.hasEventListener( MouseEvent.MOUSE_DOWN ))
+				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );
+				
+			if ( !thumb.hasEventListener( MouseEvent.MOUSE_OUT ))
+				thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );				
 			UIElement( thumb ).mouseChildren = false;
 			thumb.arrange();					
 			thumb.x = track.x + trackMinX;

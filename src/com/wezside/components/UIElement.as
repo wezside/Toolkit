@@ -49,23 +49,24 @@ package com.wezside.components
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	[Event( name="initUIElement", type="com.wezside.components.UIElementEvent" )]
-	[Event( name="uiCreationComplete", type="com.wezside.components.UIElementEvent" )]
-	[Event( name="uiStyleManagerReady", type="com.wezside.components.UIElementEvent" )]
-	[Event( name="uiArrangeComplete", type="com.wezside.components.UIElementEvent" )]
-	[Event( name="uiStateChange", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="INIT", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="CREATION_COMPLETE", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="STYLEMANAGER_READY", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="ARRANGE_COMPLETE", type="com.wezside.components.UIElementEvent" )]
+	[Event( name="STATE_CHANGE", type="com.wezside.components.UIElementEvent" )]
 	public class UIElement extends Sprite implements IUIElement, IInteractive
 	{
+		
 		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";
 		public static const ITERATOR_CHILDREN:String = "ITERATOR_CHILDREN";
+		
 		private var _styleName:String;
 		private var _skin:IUIElementSkin;
 		private var _styleSheet:StyleSheet;
 		private var _styleManager:IStyleManager;
 		private var _stateManager:StateManager;
 		private var _currentStyleName:String;
-		private var _childrenContainer:Sprite;
-		// Decorators
+		private var _childrenContainer:Sprite;		
 		private var _layout:ILayout;
 		private var _scroll:IScroll;
 		private var _background:IShape;
@@ -178,12 +179,12 @@ package com.wezside.components
 
 		public function get bareWidth():Number
 		{
-			return _childrenContainer.width;
+			return _childrenContainer.width == 0 ? super.width : _childrenContainer.width;
 		}
 		
 		public function get bareHeight():Number
 		{
-			return _childrenContainer.height;
+			return _childrenContainer.height ==0 ? super.height : _childrenContainer.height;
 		}
 
 		public function build():void
