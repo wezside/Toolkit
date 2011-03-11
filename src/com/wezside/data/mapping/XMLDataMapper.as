@@ -22,7 +22,6 @@ package com.wezside.data.mapping
 	import com.wezside.data.collection.Collection;
 	import com.wezside.data.collection.DictionaryCollection;
 	import com.wezside.data.collection.ICollection;
-	import com.wezside.data.collection.XMLDataCollection;
 	import com.wezside.data.collection.XMLListCollection;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.data.iterator.XMLListIterator;

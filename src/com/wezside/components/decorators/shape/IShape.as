@@ -33,6 +33,9 @@ package com.wezside.components.decorators.shape
 		function get alphas():Array
 		function set alphas( value:Array ):void
 		
+		function get ratios():Array;
+		function set ratios( value:Array ):void;
+		
 		function get cornerRadius():int
 		function set cornerRadius( value:int ):void
 		
