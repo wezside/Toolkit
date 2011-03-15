@@ -44,7 +44,7 @@ package com.wezside.utilities.business.rpc
 		private var _method:String = POST_METHOD;
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
-		private var _debug:Boolean;
+		private var _debug:Boolean = true;
 		private var _asyncToken:Number;
 		private var _id:String;
 
@@ -213,14 +213,14 @@ package com.wezside.utilities.business.rpc
 		private function result( event:Event ):void
 		{
 			_loader.removeEventListener( Event.COMPLETE, result );
-			Tracer.output( _debug, " HTTPService.ResultEvent(event)", toString() );
+			Tracer.output( _debug, " HTTPService.ResultEvent(event) " + _asyncToken, toString() );
 			if ( _responder != null )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: _loader.data, token: _asyncToken }));
+				_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, {id: id, content: _loader.data, token: _asyncToken }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, { id: id, content: _loader.data, token: _asyncToken }));
+				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, { id: id, content: _loader.data, token: _asyncToken }));
 			}				
 		}
 	}
