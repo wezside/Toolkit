@@ -1,13 +1,13 @@
-#Update build version
 #Thu Mar 10 14:41:42 GMT 2011
-swc.path=${basedir}/swc/
-build.int=0247
-src.path=${basedir}/src
-version=0.1.
-swc.base.pc=F\:/Resources/Flash/Library/Toolkit
-lib.path=${basedir}/lib
+#Update build version
 FLEX_HOME_LINUX=/home/wesley/bin/packages/flexsdk4.0.0.10485
-prop.file=${basedir}/ant/.toolkit-properties
-swc.output.file=${swc.path}/wezside.toolkit.${version}${build.int}.swc
-swc.base.linux=/home/wesley/Resources/Flash/Toolkit/
 FLEX_HOME_PC=c\:/flex4sdk_4.0.0.14159
+build.int=0247
+lib.path=${basedir}/lib
+prop.file=${basedir}/ant/.toolkit-properties
+src.path=${basedir}/src
+swc.base.linux=/home/wesley/Resources/Flash/Toolkit/
+swc.base.pc=F\:/Resources/Flash/Library/Toolkit
+swc.output.file=${swc.path}/wezside.toolkit.${version}${build.int}.swc
+swc.path=${basedir}/swc/
+version=0.1.

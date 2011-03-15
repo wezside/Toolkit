@@ -6,7 +6,7 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below.
 
 Latest release 
 =======
-* Build 0.1.0246
+* Build 0.1.0247
 * Compiled with Flex 4 SDK build 14159 
 
 Change log since build .0200
