@@ -201,11 +201,11 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( _debug, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
-				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text }));
+				_responder.fault( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text, token: _asyncToken }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text }));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text, token: _asyncToken }));
 			}				
 		}
 
@@ -216,11 +216,11 @@ package com.wezside.utilities.business.rpc
 			Tracer.output( _debug, " HTTPService.ResultEvent(event)", toString() );
 			if ( _responder != null )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: _loader.data }));
+				_responder.result( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: _loader.data, token: _asyncToken }));
 			}
 			else
 			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, { id: id, content: _loader.data }));
+				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, { id: id, content: _loader.data, token: _asyncToken }));
 			}				
 		}
 	}
