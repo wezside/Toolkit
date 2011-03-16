@@ -12,6 +12,7 @@ Latest release
 Change log since build .0200
 =======
 
+* Collection now supports constructor injection for array provider. Easily convert any array into a Collection.
 * ScrollHorizontal updated to reflect change sin ScrollVertical
 * Fixed small issue regarding reset in ScrollVertical. ScrollVertical now has resetTrack() and resetThumb() methods 
 * Added support for when a UIElement is resized and arrange is called again. 
