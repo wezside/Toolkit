@@ -188,8 +188,7 @@ package com.wezside.components.gallery
 				_transition.transitionIn();
 			}
 			else
-			{
-					
+			{					
 				transitionComplete( new GalleryEvent( GalleryEvent.INTRO_COMPLETE ));
 			}
 		}
@@ -397,9 +396,10 @@ package com.wezside.components.gallery
 		{
 			if ( items.length != 0 )
 			{
+				var data:* = original.getElementAt( int( total - items.length )).data;
 				var date:Date = original.getElementAt( int( total - items.length )).livedate;
 				var extension:String = FileUtil.getFileExtension( items.getElementAt( 0 ).url );
-				dateUtils.testLiveDate( date ) ? createItem( extension ) : createItem( "countdown" );
+				dateUtils.testLiveDate( date ) ? createItem( extension, data ) : createItem( "countdown", data );
 			}
 		}
 		
@@ -408,12 +408,12 @@ package com.wezside.components.gallery
 			dispatchEvent( new GalleryEvent( GalleryEvent.ARRANGE_COMPLETE ));
 		}
 		
-		private function createItem( fileExtension:String = "" ):void
+		private function createItem( fileExtension:String = "", data:* = null ):void
 		{		
 			var clazzItem:GalleryItemClass = _classCollection.getElement( parseType( fileExtension ));
 			var ItemClass:Class = clazzItem.clazz as Class;
 			var item:IGalleryItem = new  ItemClass( fileExtension, _debug ) as IGalleryItem;
-			item.data = clazzItem.data;
+			item.data = data ? data : clazzItem.data;
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );
 			item.addEventListener( GalleryEvent.ITEM_LOAD_COMPLETE, itemLoaded );
