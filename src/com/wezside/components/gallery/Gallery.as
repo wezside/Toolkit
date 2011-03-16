@@ -121,11 +121,11 @@ package com.wezside.components.gallery
 			
 			// Initialize Classes that will represent the different type of IGalleryItems	
 			_classCollection = new DictionaryCollection();
-			_classCollection.addElement( ITEM_BLANK, new GalleryItemClass( [], ITEM_BLANK, BlankGalleryItem ));
-			_classCollection.addElement( ITEM_SWF, new GalleryItemClass( ["swf"], ITEM_SWF, MovieClipGalleryItem ));
-			_classCollection.addElement( ITEM_VIDEO, new GalleryItemClass( ["flv"], ITEM_VIDEO, FLVGalleryItem ));
-			_classCollection.addElement( ITEM_IMAGE, new GalleryItemClass( ["jpg", "gif", "png", "bmp"], ITEM_IMAGE, ImageGalleryItem ));
-			_classCollection.addElement( ITEM_COUNTDOWN, new GalleryItemClass( ["countdown"], ITEM_COUNTDOWN, CountdownGalleryItem  ));
+			addCustomItem( ITEM_BLANK, BlankGalleryItem, [] );
+			addCustomItem( ITEM_SWF, MovieClipGalleryItem, ["swf"] );
+			addCustomItem( ITEM_VIDEO, FLVGalleryItem, ["flv"] );
+			addCustomItem( ITEM_IMAGE, ImageGalleryItem, ["jpg", "gif", "png", "bmp"] );
+			addCustomItem( ITEM_COUNTDOWN, CountdownGalleryItem, ["countdown"] );
 			dateUtils = new DateUtil();
 		}
 		
@@ -176,7 +176,7 @@ package com.wezside.components.gallery
 
 		public function addCustomItem( id:String, clazz:Class, fileAssociation:Array ):void
 		{
-			_classCollection.addElement( id, new GalleryItemClass( fileAssociation, id, clazz ));
+			_classCollection.addElement( id, new GalleryItemClass( fileAssociation, id, clazz ));	
 		}
 
 		public function show():void
@@ -612,30 +612,33 @@ package com.wezside.components.gallery
 				
 		private function parseType( fileExtension:String ):String
 		{
-			var type:String;
-			switch ( fileExtension )
+			if ( fileExtension == ITEM_BLANK ) return ITEM_BLANK;
+			var type:String = ITEM_BLANK;			
+			var key:String;
+			var clazzItem:GalleryItemClass;
+			var it:IIterator = _classCollection.iterator();
+			while ( it.hasNext() )
 			{
-				case "bmp":  
-				case "jpg": 
-				case "jpeg": 
-				case "gif":
-				case "png":
-					type = Gallery.ITEM_IMAGE;
-					break;
-				case "flv":
-				case "mov":
-					type = Gallery.ITEM_VIDEO;
-					break;
-				case "swf":
-					type = Gallery.ITEM_SWF;
-					break;
-				case "countdown":
-					type = Gallery.ITEM_COUNTDOWN;
-					break;
-				default:
-					type = Gallery.ITEM_BLANK; 
-					break;
-			}
+				key = it.next() as String;
+				clazzItem = _classCollection.getElement( key ) as GalleryItemClass;
+			
+				var classIt:IIterator = clazzItem.fileExtension.iterator();
+				var ext:String;
+				while ( classIt.hasNext() )
+				{
+					ext = classIt.next() as String;
+					if ( fileExtension == ext )
+						type = clazzItem.id;
+				}
+				classIt.purge();
+				classIt = null;
+				ext = null;
+			
+				if ( type != "" && type != ITEM_BLANK )	break; 
+			}			
+			it.purge();
+			it = null;
+			clazzItem = null;
 			return type;
 		}		
 		

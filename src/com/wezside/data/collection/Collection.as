@@ -30,9 +30,9 @@ package com.wezside.data.collection
 
 		private var _collection:Array;
 
-		public function Collection() 
+		public function Collection( arr:Array = null ) 
 		{
-			_collection = [];	
+			_collection = arr ? arr: [];	
 		}
 			
 		public function reverse():void

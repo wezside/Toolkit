@@ -1,5 +1,7 @@
 package com.wezside.components.gallery.item 
 {
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -8,14 +10,14 @@ package com.wezside.components.gallery.item
 	{
 		private var _id:String;
 		private var _clazz:Class;
-		private var _fileExtension:Array = [];
+		private var _fileExtension:ICollection;
 
 		
 		public function GalleryItemClass( fileExtension:Array, id:String = "", clazz:Class = null ) 
 		{
 			_id = id;
 			_clazz = clazz;
-			_fileExtension = fileExtension;
+			_fileExtension = new Collection( fileExtension );
 		}
 		
 
@@ -39,12 +41,12 @@ package com.wezside.components.gallery.item
 			_clazz = value;
 		}
 		
-		public function get fileExtension():Array
+		public function get fileExtension():ICollection
 		{
 			return _fileExtension;
 		}
 		
-		public function set fileExtension( value:Array ):void
+		public function set fileExtension( value:ICollection ):void
 		{
 			_fileExtension = value;
 		}
