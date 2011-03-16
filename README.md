@@ -12,6 +12,7 @@ Latest release
 Change log since build .0200
 =======
 
+* GalleryComponent: If a data object is set in the individual item then the component will use this data object and pass it to the IGalleryItem. However, if the individual data object for a IGalleryItem is not set, the GalleryClassItem's data object will be used. 
 * Collection now supports constructor injection for array provider. Easily convert any array into a Collection.
 * ScrollHorizontal updated to reflect change sin ScrollVertical
 * Fixed small issue regarding reset in ScrollVertical. ScrollVertical now has resetTrack() and resetThumb() methods 
