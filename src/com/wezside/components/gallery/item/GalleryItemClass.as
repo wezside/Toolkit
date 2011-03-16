@@ -11,13 +11,15 @@ package com.wezside.components.gallery.item
 		private var _id:String;
 		private var _clazz:Class;
 		private var _fileExtension:ICollection;
+		private var _data:*;
 
 		
-		public function GalleryItemClass( fileExtension:Array, id:String = "", clazz:Class = null ) 
+		public function GalleryItemClass( fileExtension:Array, id:String = "", clazz:Class = null, data:* = null ) 
 		{
 			_id = id;
 			_clazz = clazz;
 			_fileExtension = new Collection( fileExtension );
+			_data = data;
 		}
 		
 
@@ -49,6 +51,16 @@ package com.wezside.components.gallery.item
 		public function set fileExtension( value:ICollection ):void
 		{
 			_fileExtension = value;
+		}
+		
+		public function get data():*
+		{
+			return _data;
+		}
+		
+		public function set data( value:* ):void
+		{
+			_data = value;
 		}
 	}
 }

@@ -18,9 +18,10 @@ package com.wezside.components.gallery.item
 
 		private var _type:String;
 		private var _sm:StateManager;
-		private var _selected:Boolean;		
-
-
+		private var _selected:Boolean;
+		private var _data:*;
+		
+		
 		public function AbstractGalleryItem( type:String, debug:Boolean )
 		{
 			this.debug = debug;
@@ -115,6 +116,16 @@ package com.wezside.components.gallery.item
 				removeChildAt( 0 );
 
 			livedate = null;
-		}			
+		}
+
+		public function get data():*
+		{
+			return _data;
+		}
+
+		public function set data( value:* ):void
+		{
+			_data = value;
+		}
 	}
 }

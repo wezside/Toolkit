@@ -54,6 +54,8 @@ package com.wezside.components.gallery.item
 		function get y():Number;		
 		function set visible( value:Boolean ):void;		
 		function get visible():Boolean;
+		function get data():*;
+		function set data( value:* ):void;
 				
 		function reset():void;
 		function update( dob:IGalleryItem ):void;		

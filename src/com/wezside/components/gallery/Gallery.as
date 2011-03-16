@@ -158,8 +158,7 @@ package com.wezside.components.gallery
 			Tracer.output( _debug, " Total gallery items " + total, toString() );
 			if ( items.length == 0 )
 				throw new Error( "Error: No items in dataprovider." );			
-		}
-		
+		}	
 						
 		override public function purge():void
 		{
@@ -174,9 +173,9 @@ package com.wezside.components.gallery
 			}
 		}
 
-		public function addCustomItem( id:String, clazz:Class, fileAssociation:Array ):void
+		public function addCustomItem( id:String, clazz:Class, fileAssociation:Array, data:* = null ):void
 		{
-			_classCollection.addElement( id, new GalleryItemClass( fileAssociation, id, clazz ));	
+			_classCollection.addElement( id, new GalleryItemClass( fileAssociation, id, clazz, data ));	
 		}
 
 		public function show():void
@@ -411,8 +410,10 @@ package com.wezside.components.gallery
 		
 		private function createItem( fileExtension:String = "" ):void
 		{		
-			var ItemClass:Class = _classCollection.getElement( parseType( fileExtension ) ).clazz as Class;
+			var clazzItem:GalleryItemClass = _classCollection.getElement( parseType( fileExtension ));
+			var ItemClass:Class = clazzItem.clazz as Class;
 			var item:IGalleryItem = new  ItemClass( fileExtension, _debug ) as IGalleryItem;
+			item.data = clazzItem.data;
 			item.addEventListener( GalleryEvent.ITEM_ERROR, itemError );
 			item.addEventListener( GalleryEvent.ITEM_PROGRESS, itemProgress );
 			item.addEventListener( GalleryEvent.ITEM_LOAD_COMPLETE, itemLoaded );
