@@ -1,5 +1,6 @@
 package test.com.wezside.components.decorators 
 {
+	import flash.events.TimerEvent;
 	import com.wezside.components.UIElement;
 	import com.wezside.components.UIElementEvent;
 	import com.wezside.components.UIElementState;
@@ -16,6 +17,7 @@ package test.com.wezside.components.decorators
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.text.TextFieldAutoSize;
+	import flash.utils.Timer;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -88,21 +90,31 @@ package test.com.wezside.components.decorators
 			removeEventListener( Event.ENTER_FRAME, enterFrame );
 			build( );
 			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
-			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
+//			arrange( );
 //			removeChildAt( 0 );
-			arrange( );
+//			arrange( );
 //			removeChildAt( 1 );
 //			removeChildAt( 2 );
-			arrange( );
 //			arrange( );
+//			arrange( );
+
+
+			var timer:Timer = new Timer( 3000, 1  );
+			timer.addEventListener( TimerEvent.TIMER_COMPLETE, timerCompelte );
+			timer.start();
+		}
+
+		private function timerCompelte( event:TimerEvent ):void
+		{
+			scroll.reset();
 		}
 
 		private function stageResize( event:Event ):void

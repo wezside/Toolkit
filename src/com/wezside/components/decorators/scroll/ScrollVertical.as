@@ -65,6 +65,8 @@ package com.wezside.components.decorators.scroll
 			else
 			{
 				reset();
+				if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
+				if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );				
 				scrollBarVisible = false;
 			}
 
@@ -101,8 +103,7 @@ package com.wezside.components.decorators.scroll
 			width = 0;
 			resetTrack();
 			resetThumb();				
-			if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
-			if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );			
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 0, scrollHeight, "y" ));
 		}
 
 		override public function resetTrack():void
@@ -169,7 +170,7 @@ package com.wezside.components.decorators.scroll
 			if ( thumb.y < yMin ) thumb.y = yMin;
 			if ( thumb.y > yMax ) thumb.y = yMax;
 			_percent = int( thumb.y - track.y - trackMinY ) / int( yMax - track.y - trackMaxY );
-			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, _percent, scrollHeight, "y" ) );
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, _percent, scrollHeight, "y" ));
 			event.updateAfterEvent();
 			
 			if ( !event.buttonDown ) thumbUp( null );
