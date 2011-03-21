@@ -37,7 +37,7 @@ package com.wezside.components.decorators.layout
 			var reflection:DisplayObject;
 			var iterator:IIterator = decorated.iterator( UIElement.ITERATOR_CHILDREN );
 			var counter:int = 0;
-						
+
 			startX = 0;
 			xOffset = 0;
 			yOffset = 0;
@@ -61,12 +61,12 @@ package com.wezside.components.decorators.layout
 				if ( counter % columns == 0  )
 				{
 					++currentRow;
-					yOffset += height + verticalGap;
+					yOffset += ( height == 0 ? item.height : height ) + verticalGap;
 					xOffset = startX;
 				}
 				else
 				{
-					xOffset += width + horizontalGap;
+					xOffset += ( width == 0 ? item.width : width ) + horizontalGap;
 				}
 			}
 			
