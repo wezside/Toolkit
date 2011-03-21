@@ -9,6 +9,7 @@ package com.wezside.components.text
 	 */
 	public class InputField extends Label
 	{
+		private var _defaultText:String = "";
 
 		public function InputField()
 		{
@@ -18,7 +19,6 @@ package com.wezside.components.text
 	
 		override public function activate():void 
 		{
-			super.activate( );
 			field.addEventListener( Event.CHANGE, changeHandler );			
 			field.addEventListener( FocusEvent.FOCUS_IN, focusIn );
 			field.addEventListener( FocusEvent.FOCUS_OUT, focusOut );			
@@ -26,7 +26,6 @@ package com.wezside.components.text
 
 		override public function deactivate():void 
 		{
-			super.deactivate( );
 			field.removeEventListener( Event.CHANGE, changeHandler );			
 			field.removeEventListener( FocusEvent.FOCUS_IN, focusIn );			
 			field.removeEventListener( FocusEvent.FOCUS_OUT, focusOut );
@@ -41,6 +40,21 @@ package com.wezside.components.text
 				field.stage.focus = field;	
 			}
 		}		
+			
+		override public function get text():String
+		{
+			return field.text;
+		}
+		
+		public function get defaultText():String
+		{
+			return _defaultText;
+		}
+		
+		public function set defaultText( value:String ):void
+		{
+			_defaultText = value;
+		}
 		
 		public function get editable():Boolean
 		{
@@ -54,20 +68,17 @@ package com.wezside.components.text
 
 		protected function changeHandler( event:Event = null ):void 
 		{
-			dispatchEvent( event );
 		}
 
 		protected function focusIn( event:Event = null ):void 
 		{
-			dispatchEvent( event );
-			setFocus();
+			if ( field.text == _defaultText ) field.text = " ";
+			setFocus();			
 		}	
 		
 		protected function focusOut(event:FocusEvent):void 
 		{
-			dispatchEvent( event );
-		}
-		
-		
+			if ( field.text == "" || field.text == " " ) field.text = _defaultText;
+		}		
 	}
 }
