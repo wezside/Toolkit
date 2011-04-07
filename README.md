@@ -4,7 +4,7 @@ Wezside Toolkit
 This is a hub for components I've written and re-use quite often. All components are based on a component architecture with the core being 
 UIElement. Read more on <a href="#uielement">UIElement</a> below. For Toolkit Components please go to the [Toolkit-Components](https://github.com/wezside/Toolkit-Components) repo. 
 
-Latest release 
+[Latest release](https://github.com/wezside/Toolkit/wiki/Latest-Release) 
 =======
 * Build 0.1.0250
 * Compiled with Flex 4 SDK build 14159 
