@@ -21,7 +21,6 @@ package com.wezside.data.collection
 {
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.data.mapping.IXMLDataItem;
 
 	/**
 	 * @author Wesley.Swanepoel

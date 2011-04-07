@@ -2,7 +2,6 @@ package com.wezside.components.decorators.layout
 {
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
-	import com.wezside.components.UIElementEvent;
 	import com.wezside.data.iterator.IIterator;
 
 	import flash.display.DisplayObject;

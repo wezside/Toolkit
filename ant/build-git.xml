@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Git Build" default="push-remote" basedir="..">
+<project name="Toolkit Build Git" default="push-remote" basedir="..">
 
 	<property file="ant/.git-properties" />
 	<property file="ant/.toolkit-properties" />
