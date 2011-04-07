@@ -45,9 +45,10 @@ package com.wezside.components.text
 		private var _textColorDisabled:uint;
 		private var _textColorInvalid:uint;
 
-		public function Label()
+		
+		override public function construct():void
 		{
-			super();
+			super.construct();
 			layout = new PaddedLayout( this.layout );
 			fmt = new TextFormat();
 			field = new TextField();
