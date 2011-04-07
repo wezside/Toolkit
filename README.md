@@ -9,6 +9,11 @@ Latest release
 * Build 0.1.0247
 * Compiled with Flex 4 SDK build 14159 
 
+Documentation
+=============
+
+See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
+
 Change log since build .0200
 =======
 
@@ -76,147 +81,6 @@ inheritance of the parent styleName
 * Added setSize( w, h ) method for UIElementSkin 
 * Expose StateManager property in UIElement
 
-
-
-Utilities
-=======
-
-* [DateUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/date/DateUtil.as "DateUtil") 
-* [FileUpload](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/file/FileUpload.as "FileUpload") 
-* [FileUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/file/FileUtil.as "FileUtil") 
-* [FlashVars](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/flashvars/FlashVars.as "FlashVars") 
-* [ImageResize](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/imaging/ImageResize.as "ImageResize") 
-* [Reflection](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/imaging/Reflection.as "Reflection") 
-* [SharedObjUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/sharedobj/SharedObjUtil.as "SharedObjUtil") 
-* [StateManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/state/StateManager.as "StateManager") 
-* [StringUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/string/StringUtil.as "StringUtil") 
-* [StyleManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/style/StyleManager.as "StyleManager") 
-* [TimelineManager](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/manager/timeline/TimelineSample.as "TimelineManager")
-* [Tracer](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/logging/Tracer.as "Tracer")
-* [TrackingUtil](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/tracking/TrackingUtil.as "TrackingUtil")
-* [Validator](http://github.com/wezside/Toolkit/blob/master/src/com/wezside/utilities/validator/Validator.as "Validator")
-
-
-
-Accordion
----------
-
-A bare-bones Accordion component. Extend Accordion and AccordionItem to customise this component and add animations when 
-state changes.
-
-		var itemA:IAccordionItem = new AccordionItem();
-		itemA.header = headerDisplayObject;
-		itemA.content = contentDisplayObject; 
-			
-		var acc:Accordion = new Accordion();
-		acc.addItem( itemA );
-		addChild( acc );
-		
-Gallery
--------
-
-A framework for building advanced Gallery components. Supports grid layouts and custom transitions. Useful just as is or with extended functionality. 
-The creation policy for this component is to construct and purge a gallery per page. This allows for only loading the images required on screen. This impacts
-transitions where it is required to have the next items visible on screen before the current gallery items have been removed. 
-
-[Example](http://www.sony.com/football/#/cfcfootballhd/ "Gallery Example")
-
-		gallery = new Gallery();
-		gallery.debug = false;
-		gallery.reflectionRowHeight = 1;
-		gallery.columns = 4;
-		gallery.rows = 3;
-		gallery.horizontalGap = 1;
-		gallery.verticalGap = 1;
-		gallery.init( items );
-		gallery.x = 30;
-		gallery.y = 30;	
-		gallery.addEventListener( GalleryEvent.ARRANGE_COMPLETE, galleryArrangeComplete );
-		addChildAt( gallery, 0 );
-
-		
-StateManager
-------------
-
-A useful class to manage application state. The reserved property on an IState instance is used for 
-application state that will only affect itself. Reserved states are not mutually exclusive, they are allowed to co-exist 
-with non-reserved and other reserved states. 
-
-		var sm:StateManager = new StateManager();
-		sm.addState( "Credentials", true );
-		sm.addState( "Register" );
-		sm.addState( "List" );
-		sm.addState( "Search" );
-		sm.addState( "Results" );
-		
-		sm.state = "Credentials";				// State == 1
-		sm.state = "Credentials";				// State == 0
-		sm.state = "Credentials";				// State == 1
-		sm.state = "Register";					// State == 3
-		sm.previousState().key					// Result is "Credentials"	
-		sm.state = "Credentials";				// State == 2
-
-
-TimelineManager
----------------
-
-A simple class to deal with timeline animations. Manage timeline animations playback, removal and 
-end frame behaviour. A play policy exist to allow for playing back multiple animations at once or 
-in sequence starting at a specific animation or simply play a single (default) animation.
-
-
-		public function VisualTestTimelineManager()
-		{
-			tm = new TimelineManager();			
-			mc1 = new Animation01();
-			mc2 = new Animation02();		
-			mc3 = new Animation03();
-			tm.addEventListener( TimelineEvent.READY, ready );
-			tm.addEventListener( TimelineEvent.COMPLETE, complete );
-			tm.addEventListener( TimelineEvent.SEQUENTIAL_COMPLETE, sequenceComplete );
-			tm.addElement( "1", mc1, 0, -1, false,  TimelineManager.CHILD_POLICY_RECURSIVE );
-			tm.addElement( "2", mc2, 0, 30, false, TimelineManager.CHILD_POLICY_RECURSIVE );
-			tm.addElement( "3", mc3, 0, -1, false, TimelineManager.CHILD_POLICY_RECURSIVE );
-												
-			addChild( mc3 );
-			addChild( mc2 );			
-			addChild( mc1 );				
-		}
-
-		private function complete( event:TimelineEvent ):void 
-		{
-			trace( "End Frame reached " + event.index );
-		}
-
-		private function ready( event:TimelineEvent ):void 
-		{
-			if ( event.total == 3 )
-			{
-				tm.play();
-			}
-		}
-
-		protected function sequenceComplete( event:TimelineEvent):void
-		{
-			trace( "Sequence complete ");					
-			mc1.removeChildAt(0);
-			mc2.removeChildAt(0);
-			mc3.removeChildAt(0);
-			removeChild( mc3 );
-			removeChild( mc2 );			
-			removeChild( mc1 );
-			
-			Animation01 = null;
-			Animation02 = null;
-			Animation03 = null;
-			
-			tm.purge();
-			tm = null;				
-			mc1 = null;
-			mc2 = null;		
-			mc3 = null;			
-		}		
-		
 <a name="uielement"></a>
 UIElement
 ---------
