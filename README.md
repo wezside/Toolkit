@@ -6,7 +6,7 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below. For Toolkit Co
 
 Latest release 
 =======
-* Build 0.1.0247
+* Build 0.1.0248
 * Compiled with Flex 4 SDK build 14159 
 
 Documentation

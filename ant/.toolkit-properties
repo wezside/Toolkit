@@ -1,5 +1,5 @@
 #Update build version
-#Thu Apr 07 15:12:31 BST 2011
+#Thu Apr 07 15:17:37 BST 2011
 swc.path=${basedir}/swc/
 build.int=0249
 src.path=${basedir}/src
