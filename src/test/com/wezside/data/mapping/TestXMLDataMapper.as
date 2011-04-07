@@ -1,6 +1,16 @@
 package test.com.wezside.data.mapping 
 {
+	import sample.data.ContentData;
+	import sample.data.Data;
+	import sample.data.ItemData;
+
+	import test.com.wezside.data.Nested;
+	import test.com.wezside.data.Node;
+
 	import com.wezside.data.mapping.XMLDataMapper;
+
+	import org.flexunit.asserts.assertEquals;
+	import org.flexunit.asserts.assertNotNull;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -30,65 +40,60 @@ package test.com.wezside.data.mapping
 			xml = null;
 		}		
 		
-		/*
-		 * TODO: Test should use other data objects. Not survey engine.
 		[Test]
 		public function testDataMapper():void
 		{						
-			mapper.addDataMap( SurveyData );
-			mapper.addDataMap( LayoutData, "layout", "layout" );
-			mapper.addDataMap( LayoutDecoratorData, "decorator", "decorators" );
+			mapper.addDataMap( Data );
+			mapper.addDataMap( ContentData, "content", "content" );
+			mapper.addDataMap( ItemData, "item", "items" );
 			mapper.debug = false;
 			mapper.deserialize( xml );
 						
-			assertEquals( 1, SurveyData( mapper.data ).layout.iterator().length());
-			assertNotNull( SurveyData( mapper.data ).layout );
-			assertNotNull( SurveyData( mapper.data ).layout.find());
-			assertEquals( 2, LayoutData( SurveyData( mapper.data ).layout.find( ) ).decorators.length );
-//			assertEquals( 0, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).width );
-//			assertEquals( 0, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).height );
-//			assertEquals( .6, LayoutDecoratorData(Collection(LayoutData(Collection(SurveyData( mapper.data ).layout).find()).decorators).getElementAt(0)).widthRatio);			
+			assertNotNull( Data( mapper.data ).content );
+			assertNotNull( Data( mapper.data ).content.find());
+			assertEquals( 3, Data( mapper.data ).content.iterator().length() );
+			assertEquals( "show all", ContentData( Data( mapper.data ).content.find( "id", "filter" )).item( "all" ).text );
 		}
 		
 		[Test]
 		public function testDataMapperWithNamespace():void
 		{					
-			mapper.addDataMap( SurveyData );
-			mapper.addDataMap( UIData, "component", "component" );
-			mapper.addDataMap( UIItemData, "item", "items" );
+			mapper.addDataMap( Data );
+			mapper.addDataMap( ContentData, "content", "content" );
+			mapper.addDataMap( ItemData, "item", "items" );
 			mapper.debug = false;
 			mapper.deserialize( xml );
 			
-			assertNotNull( SurveyData( mapper.data ));
-			assertNotNull( SurveyData( mapper.data ).component );			
-			assertEquals( 1, SurveyData( mapper.data ).component.iterator().length() );
+			assertNotNull( Data( mapper.data ).content );
+			assertNotNull( Data( mapper.data ).content.find());
+			assertEquals( 3, Data( mapper.data ).content.iterator().length() );
+			assertEquals( "show all", ContentData( Data( mapper.data ).content.find( "id", "filter" )).item( "all" ).text );
 		}
 		
 		[Test]
 		public function testDataMapperNamespaceCollection():void
 		{
-			mapper.addDataMap( SurveyData );
-			mapper.addDataMap( UIData, "component", "component" );
-			mapper.addDataMap( UIItemData, "item", "items" );
+			mapper.addDataMap( Data );
+			mapper.addDataMap( ContentData, "content", "content" );
+			mapper.addDataMap( ItemData, "item", "items" );
 			mapper.debug = false;
 			mapper.deserialize( xml );
 			
-			assertNotNull( SurveyData( mapper.data ));
-			assertEquals( "com.wezside.components.survey.style", mapper.namespaces.getElement( "style" ).uri );						
+			assertNotNull( Data( mapper.data ));
+			assertEquals( "com.wezside.sample", mapper.namespaces.getElement( "article" ).uri );						
 		}
 		
 		[Test]
 		public function testAutoLeafNodeMapping():void
 		{
-			mapper.addDataMap( SurveyData );
-			mapper.addDataMap( Nested, "nested", "nested" );
-			mapper.addDataMap( Node, "node", "nodes" );
+			mapper.addDataMap( Data );
+			mapper.addDataMap( ContentData, "content", "content" );
+			mapper.addDataMap( ItemData, "item", "items" );
 			mapper.debug = false;
-			mapper.deserialize( xml );			
-			
-			assertNotNull( SurveyData( mapper.data ));
-			assertEquals( "Test leaf nodes level 1", SurveyData( mapper.data ).nested.getElementAt( 0 ).singleLeafNode );
-			assertEquals( "Test leaf nodes level 2", SurveyData( mapper.data ).nested.getElementAt( 0 ).nodes.getElementAt( 0 ).singleLeafNode );
-		}*/
+			mapper.deserialize( xml );		
+
+			assertNotNull( Data( mapper.data ));
+			assertEquals( "This is a single leaf node.", ContentData( Data( mapper.data ).content.find( "id", "entries" )).leaf );						
+		}
 	}
 }

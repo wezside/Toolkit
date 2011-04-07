@@ -1,4 +1,3 @@
-/**
  * Copyright (c) 2011 Wesley Swanepoel
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -16,31 +15,3 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-package com.wezside.data.mapping 
-{
-
-	/**
-	 * @author Wesley.Swanepoel
-	 */
-	public interface IXMLDataItem 
-	{
-		
-		function get id():String;
-		function set id( value:String ):void;
-		
-		function get clazz():Class;
-		function set clazz( value:Class ):void;
-		
-		function get nodeName():String;
-		function set nodeName( value:String ):void;
-		
-		function get parentCollectionProperty():String;
-		function set parentCollectionProperty( value:String ):void;
-		
-		function hasOwnProperty( V:* = undefined ):Boolean;
-	}
-	
-	
-	
-}

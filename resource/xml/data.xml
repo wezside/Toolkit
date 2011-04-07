@@ -1,3 +1,21 @@
-<data>
-
-</data>
+<?xml version="1.0" encoding="UTF-8"?>
+<locale xmlns:article="com.wezside.sample">
+	<content id="entries">
+		<item id="next"><![CDATA[NEXT]]></item>	
+		<item id="prev"><![CDATA[PREVIOUS]]></item>
+		<item id="change"><![CDATA[CHANGE ALL]]></item>
+		<leaf><![CDATA[This is a single leaf node.]]></leaf>
+	</content>
+	<content id="filter">
+		<item id="all"><![CDATA[show all]]></item>	
+		<item id="removed"><![CDATA[removed]]></item>		
+		<item id="updated"><![CDATA[updated]]></item>
+		<item id="change"><![CDATA[marked]]></item>
+	</content>
+	<article:content id="filter">
+		<item id="all"><![CDATA[show all]]></item>	
+		<item id="removed"><![CDATA[removed]]></item>		
+		<item id="updated"><![CDATA[updated]]></item>
+		<item id="change"><![CDATA[marked]]></item>
+	</article:content>
+</locale>
