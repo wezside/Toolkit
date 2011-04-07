@@ -2,8 +2,6 @@ package test
 {
 	import test.com.wezside.components.TestUIDecorators;
 	import test.com.wezside.components.TestUIElement;
-	import test.com.wezside.components.control.TestButton;
-	import test.com.wezside.components.gallery.TestGallery;
 	import test.com.wezside.data.collection.TestCollection;
 	import test.com.wezside.data.collection.TestLinkedListCollection;
 	import test.com.wezside.data.mapping.TestXMLDataMapper;
@@ -26,7 +24,6 @@ package test
 		public var testCommandMapper:TestCommandMapper;
 		public var testUIElement:TestUIElement;
 		public var testDateUtil:TestDateUtil;
-		public var testGallery:TestGallery;
 		public var testStateManager:TestStateManager;
 		public var testURLUtil:TestURLUtil;
 		public var testUIDecorators:TestUIDecorators;
@@ -34,6 +31,5 @@ package test
 		public var testLinkedList:TestLinkedListCollection;
 		public var testCollection:TestCollection;
 		public var testXMLDataMapper:TestXMLDataMapper;
-		public var testRelativeLayout:TestButton;
 	}
 }

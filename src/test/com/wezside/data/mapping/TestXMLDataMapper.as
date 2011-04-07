@@ -1,40 +1,25 @@
 package test.com.wezside.data.mapping 
 {
-	import test.com.wezside.data.Node;
-	import test.com.wezside.data.Nested;
-	import com.wezside.components.survey.data.SurveyData;
-	import com.wezside.components.survey.data.config.LayoutData;
-	import com.wezside.components.survey.data.config.LayoutDecoratorData;
-	import com.wezside.components.survey.data.ui.UIData;
-	import com.wezside.components.survey.data.ui.UIItemData;
 	import com.wezside.data.mapping.XMLDataMapper;
-
-	import org.flexunit.asserts.assertEquals;
-	import org.flexunit.asserts.assertNotNull;
-
-	import flash.net.URLLoader;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
 	public class TestXMLDataMapper 
 	{
+		private var xml:XML;
 		private var mapper:XMLDataMapper;
-		private var loader:URLLoader;
-
-		[Embed( source="/../resource/xml/survey-config.xml", mimeType="application/octet-stream")]
-		public static var ConfigXMLData:Class;
-				
+		
+		[Embed( source="/../resource/xml/data.xml", mimeType="application/octet-stream")]
+		public static var XMLData:Class;
 		private var data:*;
 		private var str:*;
-		private var xml:XML;
 
 		[Before]
 		public function setUp():void
 		{
 			mapper = new XMLDataMapper();
-			loader = new URLLoader();
-			data = new ConfigXMLData();
+			data = new XMLData();
 			str = data.readUTFBytes( data.length );
 			xml = new XML( str );			
 		}
@@ -42,13 +27,11 @@ package test.com.wezside.data.mapping
 		[After]
 		public function tearDown():void
 		{
-			mapper = null;
-			loader = null;
 			xml = null;
-			str = null;
-			data = null;
 		}		
-				
+		
+		/*
+		 * TODO: Test should use other data objects. Not survey engine.
 		[Test]
 		public function testDataMapper():void
 		{						
@@ -106,6 +89,6 @@ package test.com.wezside.data.mapping
 			assertNotNull( SurveyData( mapper.data ));
 			assertEquals( "Test leaf nodes level 1", SurveyData( mapper.data ).nested.getElementAt( 0 ).singleLeafNode );
 			assertEquals( "Test leaf nodes level 2", SurveyData( mapper.data ).nested.getElementAt( 0 ).nodes.getElementAt( 0 ).singleLeafNode );
-		}
+		}*/
 	}
 }

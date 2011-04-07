@@ -1,21 +1,21 @@
 package test.com.wezside.components 
 {
-	import flexunit.framework.Assert;
-
-	import test.com.wezside.sample.style.LatinStyle;
-
 	import com.wezside.components.IUIElement;
 	import com.wezside.components.UIElementState;
 	import com.wezside.components.decorators.layout.HorizontalLayout;
 	import com.wezside.components.decorators.layout.PaddedLayout;
 	import com.wezside.components.decorators.layout.VerticalLayout;
-
+	import flash.events.Event;
+	import flexunit.framework.Assert;
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
 	import org.flexunit.asserts.assertNull;
 	import org.flexunit.async.Async;
+	import sample.style.LatinStyle;
 
-	import flash.events.Event;
+
+
+
 
 	/**
 	 * @author Wesley.Swanepoel

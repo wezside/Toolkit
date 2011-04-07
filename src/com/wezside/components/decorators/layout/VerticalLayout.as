@@ -19,7 +19,6 @@
  */
 package com.wezside.components.decorators.layout
 {
-	import com.wezside.components.text.Label;
 	import com.wezside.components.IUIDecorator;
 	import com.wezside.components.UIElement;
 	import com.wezside.data.iterator.IIterator;
@@ -50,7 +49,7 @@ package com.wezside.components.decorators.layout
 			{
 				child = DisplayObject( it.next() );
 				child.y = yOffset | 0;
-				yOffset += child is Label ? Label( child ).textHeight : child.height;
+				yOffset += child.height;
 				if ( it.hasNext() )
 					yOffset += verticalGap;
 			}
