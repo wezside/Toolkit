@@ -14,13 +14,11 @@
 	<target name="linux" if="isLinux">
 	    <echo message="OS is Linux" />
 		<property name="FLEX_HOME" value="${FLEX_HOME_LINUX}"/>
-		<property name="swc.base" value="${swc.base.linux}"/>
 	</target>
 	
 	<target name="win" if="isWin">
 	    <echo message="OS is Windows" />
 		<property name="FLEX_HOME" value="${FLEX_HOME_PC}"/>
-		<property name="swc.base" value="${swc.base.pc}"/>
 	</target>	
 	
 	
@@ -28,19 +26,8 @@
 	<target name="clean" depends="win,linux">
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
 		<delete>
-			<fileset dir="${swc.base}">
-			    <include name="wezside.toolkit.*"/>
-			</fileset>
 			<fileset dir="${swc.path}">
 			    <include name="wezside.toolkit.*"/>
-			</fileset>
-			<fileset dir="${basedir}/../Modulo/lib">
-			    <exclude name="ActionSource.swc"/>
-			    <exclude name="FlexUnit1Lib.swc"/>
-			    <exclude name="FlexUnit4.swc"/>
-			    <exclude name="FlexUnit4UIListener.swc"/>
-			    <exclude name="hamcrest-1.0.2.swc"/>
-			    <exclude name="SWFAddress.swc"/>
 			</fileset>
 		</delete>
 	</target>
@@ -112,11 +99,6 @@
 
 	<!-- Copy swc -->
 	<target name="release" depends="build-swc">
-		<copy todir="${swc.base}" verbose="false">
-			<fileset dir="${swc.path}" defaultexcludes="true">
-				<include name="**/*" />
-			</fileset>
-		</copy>
 		<copy todir="${basedir}/../Modulo/lib/" verbose="false">
 			<fileset dir="${swc.path}" defaultexcludes="true">
 				<include name="wezside.toolkit.*" />
