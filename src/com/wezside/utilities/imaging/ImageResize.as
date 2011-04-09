@@ -43,10 +43,10 @@ package com.wezside.utilities.imaging
 		public static const DISTRIBUTE_TO_HEIGHT:String = "DISTRIBUTE_TO_HEIGHT";
 
 		
-		public function resizeToHeight( dislpayObject:DisplayObject, h:int ):DisplayObject
+		public function resizeToHeight( displayObject:DisplayObject, h:int ):DisplayObject
 		{
-			originalWidth = dislpayObject.width;
-			originalHeight = dislpayObject.height;
+			originalWidth = displayObject.width;
+			originalHeight = displayObject.height;
 
 			targetWidth = originalWidth;
 			targetHeight = h;		
@@ -57,23 +57,46 @@ package com.wezside.utilities.imaging
 				// Portrait
 				ratio = originalHeight / originalWidth;
 				targetWidth = targetHeight / ratio;
-				dislpayObject.width = targetWidth;
-				dislpayObject.height = targetHeight;				
+				displayObject.width = targetWidth;
+				displayObject.height = targetHeight;				
 			}
 			else
 			{
 				// Landscape			
 				ratio = originalWidth / originalHeight;
 				targetWidth = targetHeight * ratio;
-				dislpayObject.width = targetWidth;
-				dislpayObject.height = targetHeight;
+				displayObject.width = targetWidth;
+				displayObject.height = targetHeight;
 			}
 			
-			return dislpayObject;
+			return displayObject;
 		}
 
 		public function resizeToWidth( displayObject:DisplayObject, w:int ):DisplayObject
 		{
+			originalWidth = displayObject.width;
+			originalHeight = displayObject.height;
+
+			targetWidth = w;
+			targetHeight = originalHeight;		
+
+			// Determine Landscape or portrait
+			if ( targetWidth < targetHeight )
+			{
+				// Portrait
+				ratio = originalHeight / originalWidth;
+				targetHeight = targetWidth * ratio;
+				displayObject.width = targetWidth;
+				displayObject.height = targetHeight;				
+			}
+			else
+			{
+				// Landscape			
+				ratio = originalWidth / originalHeight;
+				targetHeight = targetWidth / ratio;
+				displayObject.width = targetWidth;
+				displayObject.height = targetHeight;
+			}			
 			return displayObject;
 		}
 
@@ -91,7 +114,6 @@ package com.wezside.utilities.imaging
 
 		private function position( displayObject:DisplayObject, prop:String, value:Number ):void
 		{
-			trace( value, displayObject.width );
 			displayObject[prop] = ( prop == "x" ? value - displayObject.width : value - displayObject.height ) * 0.5;
 		}
 	}
