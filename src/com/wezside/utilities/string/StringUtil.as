@@ -57,5 +57,21 @@ package com.wezside.utilities.string
 		    var pattern:RegExp = /[0-9.]+/g;
 		    return Number( value.match( pattern ));
 		}
+
+		/**
+		 * Will return the trailing string after the segement index specified. Useful for retrieving
+		 * segments from paths or namespaces.
+		 */
+		public function segementFrom( value:String, index:int, delimiter:String = "/" ):String
+		{
+			var str:String = "";
+			var arr:Array = value.split( delimiter );
+			for ( var i:int = 0; i < arr.length; ++i ) 
+			{
+				if ( arr[i] && i >= index )
+					str += arr[i] + delimiter;
+			} 
+			return str;
+		}
 	}
 }

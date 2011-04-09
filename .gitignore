@@ -1,0 +1,6 @@
+.project
+.as3_classpath
+.settings/
+bin/
+bin-debug/
+bin-release/
