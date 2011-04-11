@@ -19,6 +19,8 @@
  */
 package com.wezside.utilities.manager.style
 {
+	import flash.display.BitmapData;
+	import flash.display.Bitmap;
 	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -56,7 +58,7 @@ package com.wezside.utilities.manager.style
 			addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 		}
 
-		public function parseCSSByteArray( clazz:Class ) : void
+		public function parseCSSByteArray( clazz:Class ):void
 		{
 			var ba:ByteArray = new clazz() as ByteArray;
 			_css = ba.readUTFBytes( ba.length );
@@ -64,7 +66,7 @@ package com.wezside.utilities.manager.style
 			_sheet.parseCSS( _css );
 		}
 
-		public function parseLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ) : void
+		public function parseLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ):void
 		{
 			var context:LoaderContext = new LoaderContext();
 			context.applicationDomain = appDomain;
@@ -75,7 +77,7 @@ package com.wezside.utilities.manager.style
 			_libraryLoader.loadBytes( library, context );
 		}
 
-		public function parseFontLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ) : void
+		public function parseFontLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ):void
 		{
 			var context:LoaderContext = new LoaderContext();
 			context.applicationDomain = appDomain;
@@ -86,21 +88,21 @@ package com.wezside.utilities.manager.style
 			_fontLoader.loadBytes( library, context );
 		}
 
-		private function onLibraryLoadComplete( event:Event ) : void
+		private function onLibraryLoadComplete( event:Event ):void
 		{
 			_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
 			_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
 			Tracer.output( false, "onLibraryLoadComplete", getQualifiedClassName( this ), Tracer.INFO );
 		}
 
-		private function onFontLoadComplete( event:Event ) : void
+		private function onFontLoadComplete( event:Event ):void
 		{
 			_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
 			_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
 			Tracer.output( false, "onFontLoadComplete", getQualifiedClassName( this ), Tracer.INFO );
 		}
 
-		private function onSecurityError( event:SecurityErrorEvent ) : void
+		private function onSecurityError( event:SecurityErrorEvent ):void
 		{
 			if ( _libraryLoader )
 			{
@@ -115,7 +117,7 @@ package com.wezside.utilities.manager.style
 			Tracer.output( false, "onSecurityError: " + event.text, getQualifiedClassName( this ), Tracer.ERROR );
 		}
 
-		public function hasAssetByName( linkageClassName:String ) : Boolean
+		public function hasAssetByName( linkageClassName:String ):Boolean
 		{
 			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
 			{
@@ -124,27 +126,36 @@ package com.wezside.utilities.manager.style
 			return false;
 		}
 
-		public function getAssetByName( linkageClassName:String ) : DisplayObject
+		public function getAssetByName( linkageClassName:String ):DisplayObject
 		{
 			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
 			{
 				var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
-				return new SymbolClass() as DisplayObject;
+				try
+				{ 
+					return new SymbolClass() as DisplayObject;;
+				}
+				catch ( error:Error )
+				{
+					var bmp:Bitmap = new Bitmap( new SymbolClass( 0, 0 ) as BitmapData );
+					bmp.smoothing = true;
+					return bmp;
+				}
 			}
 			throw new Error( "Unable to find library asset " + linkageClassName );
 		}
 
-		public function getStyleSheet( styleName:String ) : StyleSheet
+		public function getStyleSheet( styleName:String ):StyleSheet
 		{
 			return _sheet;
 		}
 
-		public function getLibraryItems( styleName:String ) : Object
+		public function getLibraryItems( styleName:String ):Object
 		{
 			return {};
 		}
 
-		public function getPropertyStyles( styleName:String ) : Array
+		public function getPropertyStyles( styleName:String ):Array
 		{
 			var strUtil:StringUtil = new StringUtil();
 			var cssObj:Object = _sheet.getStyle( strUtil.isFirstLetterLowerCase( styleName ) ? "." + styleName : styleName );
@@ -152,7 +163,7 @@ package com.wezside.utilities.manager.style
 			var orderedReserved:Array = [];
 			for ( var k:int = 0; k < _reserved.length; ++k )
 				if ( cssObj.hasOwnProperty( _reserved[k] ))
-					orderedReserved.push( { prop:_reserved[k], value:cssObj[ _reserved[ k ]] } );
+					orderedReserved.push( {prop:_reserved[k], value:cssObj[ _reserved[ k ]]} );
 			for ( var i:String in cssObj )
 			{
 				var result:Boolean;
@@ -160,23 +171,23 @@ package com.wezside.utilities.manager.style
 					if ( i != _reserved[j])
 						result = true;
 				if ( result )
-					props.push( { prop:i, value:cssObj[i] } );
+					props.push( {prop:i, value:cssObj[i]} );
 			}
 			props = props.concat( orderedReserved );
 			return props;
 		}
 
-		public function get css() : String
+		public function get css():String
 		{
 			return _css;
 		}
 
-		public function get ready() : Boolean
+		public function get ready():Boolean
 		{
 			return ( _libraryReady && _fontReady );
 		}
 
-		private function libraryEnterFrameCheck( event:Event ) : void
+		private function libraryEnterFrameCheck( event:Event ):void
 		{
 			if ( _libraryLoader && _libraryLoader.content )
 				_libraryReady = true;
