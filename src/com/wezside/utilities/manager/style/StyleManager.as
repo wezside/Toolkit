@@ -55,6 +55,7 @@ package com.wezside.utilities.manager.style
 		{
 			_libraryReady = ( _libraryLoader == null );
 			_fontReady = ( _fontLoader == null );
+			_sheet = new StyleSheet();
 			addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 		}
 
@@ -62,7 +63,6 @@ package com.wezside.utilities.manager.style
 		{
 			var ba:ByteArray = new clazz() as ByteArray;
 			_css = ba.readUTFBytes( ba.length );
-			_sheet = new StyleSheet();
 			_sheet.parseCSS( _css );
 		}
 
