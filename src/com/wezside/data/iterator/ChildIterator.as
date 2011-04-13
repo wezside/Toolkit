@@ -52,6 +52,8 @@ package com.wezside.data.iterator
 		
 		public function purge():void
 		{
+			for ( var i:int = 0; i < _collection.length; ++i ) 
+				_collection[i] = null;
 			_collection = null;
 		}		
 	}
