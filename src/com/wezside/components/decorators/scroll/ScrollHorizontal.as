@@ -106,6 +106,7 @@ package com.wezside.components.decorators.scroll
 
 		override public function resetTrack():void
 		{
+			if ( !track ) return;
 			if ( track.background )
 			{
 				track.background.width = scrollWidth;
@@ -121,6 +122,7 @@ package com.wezside.components.decorators.scroll
 
 		override public function resetThumb():void
 		{
+			if ( !thumb ) return;
 			if ( thumb.background )
 			{
 				if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = int( scrollWidth / UIElement( decorated ).bareWidth * scrollWidth );

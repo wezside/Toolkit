@@ -24,6 +24,7 @@ package com.wezside.components.decorators.scroll
 
 		override public function draw():void
 		{
+			trace( int( UIElement( decorated ).bareHeight ) - 4, scrollHeight );
 			// Don't draw if height is less than scrollheight
 			if ( int( UIElement( decorated ).bareHeight ) - 4 > scrollHeight )
 			{
@@ -108,6 +109,7 @@ package com.wezside.components.decorators.scroll
 
 		override public function resetTrack():void
 		{
+			if ( !track ) return;
 			if ( track.background )
 			{
 				track.background.width = trackWidth;
@@ -123,6 +125,7 @@ package com.wezside.components.decorators.scroll
 
 		override public function resetThumb():void
 		{
+			if ( !thumb ) return;
 			if ( thumb.background )
 			{
 				if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = trackWidth - thumbXOffset * 2;
