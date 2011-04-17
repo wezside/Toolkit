@@ -19,6 +19,8 @@
  */
 package com.wezside.utilities.manager.style
 {
+	import flash.display.BitmapData;
+	import flash.display.Bitmap;
 	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -53,6 +55,7 @@ package com.wezside.utilities.manager.style
 		{
 			_libraryReady = ( _libraryLoader == null );
 			_fontReady = ( _fontLoader == null );
+			_sheet = new StyleSheet();
 			addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 		}
 
@@ -60,7 +63,6 @@ package com.wezside.utilities.manager.style
 		{
 			var ba:ByteArray = new clazz() as ByteArray;
 			_css = ba.readUTFBytes( ba.length );
-			_sheet = new StyleSheet();
 			_sheet.parseCSS( _css );
 		}
 
@@ -129,7 +131,16 @@ package com.wezside.utilities.manager.style
 			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
 			{
 				var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
-				return new SymbolClass() as DisplayObject;
+				try
+				{ 
+					return new SymbolClass() as DisplayObject;;
+				}
+				catch ( error:Error )
+				{
+					var bmp:Bitmap = new Bitmap( new SymbolClass( 0, 0 ) as BitmapData );
+					bmp.smoothing = true;
+					return bmp;
+				}
 			}
 			throw new Error( "Unable to find library asset " + linkageClassName );
 		}
