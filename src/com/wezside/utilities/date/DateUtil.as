@@ -142,7 +142,6 @@ package com.wezside.utilities.date
 		{
 			_serverTime = value;
 		}
-		
 
 		public function get currentDate():Date
 		{
@@ -150,6 +149,33 @@ package com.wezside.utilities.date
 			return new Date( currentTime );
 		}		
 		
+		public function daysFromMilliseconds( milliseconds:Number ):Number
+		{
+			var days:Number = milliseconds / 86400000;			
+			days %= 365;			
+			return int( days ); 	
+		}
+		
+		public function hoursFromMilliseconds( milliseconds:Number ):Number
+		{
+			var hours:Number = milliseconds / 3600000;
+			hours %= 24;
+			return int( hours ); 	
+		}
+
+		public function minutesFromMilliseconds( milliseconds:Number ):Number
+		{
+			var minutes:Number = milliseconds / 60000;
+			minutes %= 60;						
+			return int( minutes ); 	
+		}
+
+		public function secondsFromMilliseconds( milliseconds:Number ):Number
+		{ 
+			var seconds:Number = milliseconds / 1000;
+			seconds %= 60;						
+			return int( seconds );
+		}			
 		
 		public function toString() : String 
 		{
