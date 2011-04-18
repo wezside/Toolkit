@@ -131,12 +131,10 @@ package com.wezside.utilities.date
 			_debug = value;
 		}
 
-
 		public function get serverTime():Date
 		{
 			return _serverTime;
-		}
-		
+		}		
 		
 		public function set serverTime( value:Date ):void
 		{
