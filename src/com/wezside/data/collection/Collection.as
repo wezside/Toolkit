@@ -111,7 +111,7 @@ package com.wezside.data.collection
 				
 		public function get length():int
 		{
-			return _collection.length;
+			return _collection ? _collection.length : 0;
 		}
 		
 		public function clone():ICollection
