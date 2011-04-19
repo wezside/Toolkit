@@ -29,15 +29,15 @@ package com.wezside.utilities.imaging
 	/**
 	 * @author Wesley.Swanepoel
 	 */
-	public class ImageResize 
+	public class Resizer 
 	{
 
 		
 		private var targetWidth:int;
 		private var targetHeight:int;
-		private var originalWidth:Number;
-		private var originalHeight:Number;
 		private var ratio:Number;
+		private var _originalWidth:int = 0;
+		private var _originalHeight:int = 0;
 		
 		public static const DISTRIBUTE_TO_WIDTH:String = "DISTRIBUTE_TO_WIDTH";
 		public static const DISTRIBUTE_TO_HEIGHT:String = "DISTRIBUTE_TO_HEIGHT";
@@ -45,8 +45,8 @@ package com.wezside.utilities.imaging
 		
 		public function resizeToHeight( displayObject:DisplayObject, h:int ):DisplayObject
 		{
-			originalWidth = displayObject.width;
-			originalHeight = displayObject.height;
+			if ( originalWidth == 0 ) originalWidth = displayObject.width;
+			if ( originalHeight == 0 ) originalHeight = displayObject.height;
 
 			targetWidth = originalWidth;
 			targetHeight = h;		
@@ -67,18 +67,17 @@ package com.wezside.utilities.imaging
 				targetWidth = targetHeight * ratio;
 				displayObject.width = targetWidth;
 				displayObject.height = targetHeight;
-			}
-			
+			}			
 			return displayObject;
 		}
 
 		public function resizeToWidth( displayObject:DisplayObject, w:int ):DisplayObject
 		{
-			originalWidth = displayObject.width;
-			originalHeight = displayObject.height;
-
+			if ( originalWidth == 0 ) originalWidth = displayObject.width;
+			if ( originalHeight == 0 ) originalHeight = displayObject.height;		
+			
 			targetWidth = w;
-			targetHeight = originalHeight;		
+			targetHeight = originalHeight;
 
 			// Determine Landscape or portrait
 			if ( targetWidth < targetHeight )
@@ -96,7 +95,7 @@ package com.wezside.utilities.imaging
 				targetHeight = targetWidth / ratio;
 				displayObject.width = targetWidth;
 				displayObject.height = targetHeight;
-			}			
+			}
 			return displayObject;
 		}
 
@@ -110,6 +109,26 @@ package com.wezside.utilities.imaging
 		public function toString():String 
 		{
 			return getQualifiedClassName( this );
+		}
+
+		public function get originalWidth():int
+		{
+			return _originalWidth;
+		}
+		
+		public function set originalWidth( value:int ):void
+		{
+			_originalWidth = value;
+		}
+		
+		public function get originalHeight():int
+		{
+			return _originalHeight;
+		}
+		
+		public function set originalHeight( value:int ):void
+		{
+			_originalHeight = value;
 		}
 
 		private function position( displayObject:DisplayObject, prop:String, value:Number ):void
