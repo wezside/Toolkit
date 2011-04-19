@@ -60,6 +60,7 @@ package com.wezside.components.decorators.layout
 		function get rows():int;
 		function set rows( value:int ):void;
 		
+		function chain():ILayout;
 		function reset():void;
 	}
 }

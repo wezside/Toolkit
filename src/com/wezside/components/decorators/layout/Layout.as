@@ -134,6 +134,14 @@ package com.wezside.components.decorators.layout
 			return decorated.iterator( UIElement.ITERATOR_CHILDREN );
 		}
 
+		/**
+		 * Returns the current decorator.
+		 */
+		public function chain():ILayout
+		{
+			return ( decorated is ILayout ) ? ILayout( decorated ) : null;
+		}
+
 		public function get top():int
 		{
 			return _top;
