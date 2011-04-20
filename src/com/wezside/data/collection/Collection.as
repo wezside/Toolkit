@@ -19,6 +19,7 @@
  */
 package com.wezside.data.collection 
 {
+	import com.wezside.data.iterator.NullIterator;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.IIterator;
 
@@ -42,7 +43,7 @@ package com.wezside.data.collection
 
 		public function iterator():IIterator
 		{
-			return new ArrayIterator( _collection );					
+			return _collection ? new ArrayIterator( _collection ) : new NullIterator();					
 		}
 		
 		public function find( prop:* = "", value:* = null ):*
