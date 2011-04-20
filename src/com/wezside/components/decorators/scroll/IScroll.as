@@ -63,6 +63,7 @@ package com.wezside.components.decorators.scroll
 		function get track():IUIElement
 		function set track( value:IUIElement ):void
 		
+		function to( value:Number ):void;
 		function reset():void;
 		function resetTrack():void;
 		function resetThumb():void;

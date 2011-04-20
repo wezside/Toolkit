@@ -297,5 +297,12 @@ package com.wezside.components.decorators.scroll
 			_trackMinX = value;
 		}
 
+		/**
+		 * Scroll to a percentage value.
+		 */
+		public function to( value:Number ):void
+		{
+		}
+
 	}
 }

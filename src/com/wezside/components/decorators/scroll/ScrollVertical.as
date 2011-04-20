@@ -24,7 +24,6 @@ package com.wezside.components.decorators.scroll
 
 		override public function draw():void
 		{
-			trace( int( UIElement( decorated ).bareHeight ) - 4, scrollHeight );
 			// Don't draw if height is less than scrollheight
 			if ( int( UIElement( decorated ).bareHeight ) - 4 > scrollHeight )
 			{
@@ -65,9 +64,10 @@ package com.wezside.components.decorators.scroll
 			}
 			else
 			{
-				reset();
+				width = 0;
 				if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
 				if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );				
+				reset();				
 				scrollBarVisible = false;
 			}
 
@@ -101,7 +101,6 @@ package com.wezside.components.decorators.scroll
 
 		override public function reset():void
 		{
-			width = 0;
 			resetTrack();
 			resetThumb();				
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 0, scrollHeight, "y" ));
@@ -145,6 +144,11 @@ package com.wezside.components.decorators.scroll
 			thumb.x = track.x + thumbXOffset;
 			thumb.y = track.y + trackMinY;
 			addChild( thumb as UIElement );			
+		}
+
+		override public function to( value:Number ):void
+		{
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, value, scrollHeight, "y" ));
 		}
 
 		private function thumbOut( event:MouseEvent ):void 

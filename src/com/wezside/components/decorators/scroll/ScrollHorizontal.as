@@ -63,6 +63,9 @@ package com.wezside.components.decorators.scroll
 			}
 			else
 			{
+				height = 0;
+				if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
+				if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );					
 				reset();
 				scrollBarVisible = false;
 			}
@@ -97,11 +100,9 @@ package com.wezside.components.decorators.scroll
 		
 		override public function reset():void
 		{
-			height = 0;
 			resetTrack();
 			resetThumb();	
-			if ( thumb && contains( thumb as UIElement )) removeChild( thumb as UIElement );
-			if ( track && contains( track as UIElement ) ) removeChild( track as UIElement );			
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, 0, scrollWidth, "x" ));
 		}
 
 		override public function resetTrack():void
@@ -134,12 +135,18 @@ package com.wezside.components.decorators.scroll
 				thumb.addEventListener( MouseEvent.MOUSE_DOWN, thumbDown );
 				
 			if ( !thumb.hasEventListener( MouseEvent.MOUSE_OUT ))
-				thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );				
+				thumb.addEventListener( MouseEvent.MOUSE_OUT, thumbOut );
+				
 			UIElement( thumb ).mouseChildren = false;
 			thumb.arrange();					
 			thumb.x = track.x + trackMinX;
 			thumb.y = track.y + thumbYOffset;
 			addChild( thumb as UIElement );			
+		}
+
+		override public function to( percent:Number ):void
+		{
+			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, percent, scrollWidth, "x" ));
 		}
 
 		private function thumbOut( event:MouseEvent ):void
