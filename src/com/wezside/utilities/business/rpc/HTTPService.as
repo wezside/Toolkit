@@ -44,7 +44,7 @@ package com.wezside.utilities.business.rpc
 		private var _method:String = POST_METHOD;
 		private var _contentType:String = CONTENT_TYPE_FORM;
 		private var _loaded:Boolean;
-		private var _debug:Boolean = true;
+		private var _debug:Boolean = false;
 		private var _asyncToken:Number;
 		private var _id:String;
 
