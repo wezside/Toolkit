@@ -30,14 +30,16 @@ package com.wezside.utilities.business.rpc
 		function set headers( value:Array ):void;
 		function get asyncToken():Number;
 		function set asyncToken( value:Number ):void;
+		
 
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 		function dispatchEvent( event:Event ):Boolean;
 		function removeEventListener(type : String, listener : Function, useCapture : Boolean = false) : void;
 		function hasEventListener(type : String) : Boolean;		
 
-		function loadWSDL( uri:String = null ):void;
+		function cancel():void;
 		function willTrigger( type:String ):Boolean;
+		function loadWSDL( uri:String = null ):void;
 		function purge():void;
 		function send( params:Object = null, operationID:String = "" ):Boolean;
 		function toString():String;

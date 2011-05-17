@@ -1,5 +1,6 @@
 package com.wezside.utilities.business.rpc 
 {
+	import mx.core.EventPriority;
 	import com.wezside.utilities.business.IResponder;
 	import com.wezside.utilities.business.ResponderEvent;
 	import com.wezside.utilities.logging.Tracer;
@@ -15,6 +16,7 @@ package com.wezside.utilities.business.rpc
 	 * @author Wesley.Swanepoel
 	 * @version .326
 	 */
+	[Event( name="cancel", type="flash.events.Event" )]
 	public class HTTPService extends EventDispatcher implements IService 
 	{
 		
@@ -33,7 +35,7 @@ package com.wezside.utilities.business.rpc
 	    public static const ERROR_ENCODING:String = "Client.CouldNotEncode";
 	    
 	    public static const GET_METHOD:String = "GET";
-	    public static const POST_METHOD:String = "POST";
+		public static const POST_METHOD:String = "POST";
 	    
 		private var _url:String;
 		private var _loader:URLLoader;
@@ -50,7 +52,7 @@ package com.wezside.utilities.business.rpc
 
 		public function HTTPService() 
 		{
-			_loaded = true;
+			_loaded = true;			
 		}
 
 		public function send( params:Object = null, operationID:String = "" ):Boolean
@@ -61,7 +63,8 @@ package com.wezside.utilities.business.rpc
 			_request.url = _url;
 			_request.data = params;
 			_request.requestHeaders = _requestHeaders;
-			_loader.addEventListener( Event.COMPLETE, result );
+			_loader.addEventListener( Event.CANCEL, cancelHandler, false, EventPriority.DEFAULT_HANDLER );
+			_loader.addEventListener( Event.COMPLETE, result, false, EventPriority.DEFAULT_HANDLER );
 			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault );
 			_loader.load( _request );
 			return true;
@@ -73,12 +76,19 @@ package com.wezside.utilities.business.rpc
 		{
 			if ( _loader )
 			{
+				_loader.dispatchEvent( new Event( Event.CANCEL, false, true )); 
 				_loader.removeEventListener( Event.COMPLETE, result );
 				_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault);
 			}
 			_responder = null;
 			_request = null;
 			_loader = null;								
+		}
+		
+		public function cancel():void
+		{
+			if ( _loader )
+				_loader.dispatchEvent( new Event( Event.CANCEL, false, true )); 			
 		}
 		
 		public function get id():String
@@ -195,9 +205,14 @@ package com.wezside.utilities.business.rpc
 			return getQualifiedClassName( this );
 		}		
 		
+		private function cancelHandler( event:Event ):void
+		{
+			event.preventDefault();
+		}
+		
 		private function fault( event:IOErrorEvent ):void
 		{
-			_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault);			
+			_loader.removeEventListener( IOErrorEvent.IO_ERROR, fault );			
 			Tracer.output( _debug, " HTTPService.FaultEvent(event) " + event.text, toString() );
 			if ( _responder != null )
 			{
@@ -206,22 +221,26 @@ package com.wezside.utilities.business.rpc
 			else
 			{
 				dispatchEvent( new ResponderEvent( ResponderEvent.FAULT, false, false, {id: id, content: event.text, token: _asyncToken }));
-			}				
+			}
 		}
-
 		
 		private function result( event:Event ):void
 		{
-			_loader.removeEventListener( Event.COMPLETE, result );
-			Tracer.output( _debug, " HTTPService.ResultEvent(event) " + _asyncToken, toString() );
-			if ( _responder != null )
+			if ( !event.isDefaultPrevented() )
 			{
-				_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, {id: id, content: _loader.data, token: _asyncToken }));
+				_loader.removeEventListener( Event.COMPLETE, result );
+				Tracer.output( _debug, " HTTPService.ResultEvent(event) " + _asyncToken, toString() );
+				if ( _responder != null )
+				{
+					_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, {id: id, content: _loader.data, token: _asyncToken }));
+				}
+				else
+				{
+					dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, { id: id, content: _loader.data, token: _asyncToken }));
+				}
 			}
-			else
-			{
-				dispatchEvent( new ResponderEvent( ResponderEvent.RESULT, false, false, { id: id, content: _loader.data, token: _asyncToken }));
-			}				
+			else 
+				Tracer.output( _debug, " Event was cancelled " + _asyncToken, toString() );
 		}
 	}
 }
