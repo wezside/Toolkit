@@ -16,7 +16,6 @@ package com.wezside.utilities.business.rpc
 	 * @author Wesley.Swanepoel
 	 * @version .326
 	 */
-	[Event( name="cancel", type="flash.events.Event" )]
 	public class HTTPService extends EventDispatcher implements IService 
 	{
 		
@@ -63,7 +62,7 @@ package com.wezside.utilities.business.rpc
 			_request.url = _url;
 			_request.data = params;
 			_request.requestHeaders = _requestHeaders;
-			_loader.addEventListener( Event.CANCEL, cancelHandler, false, EventPriority.DEFAULT_HANDLER );
+			_loader.addEventListener( Event.COMPLETE, cancelHandler );
 			_loader.addEventListener( Event.COMPLETE, result, false, EventPriority.DEFAULT_HANDLER );
 			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault );
 			_loader.load( _request );
@@ -88,7 +87,9 @@ package com.wezside.utilities.business.rpc
 		public function cancel():void
 		{
 			if ( _loader )
-				_loader.dispatchEvent( new Event( Event.CANCEL, false, true )); 			
+			{
+				_loader.dispatchEvent( new Event( Event.COMPLETE, false, true ));
+			} 			
 		}
 		
 		public function get id():String
@@ -206,8 +207,10 @@ package com.wezside.utilities.business.rpc
 		}		
 		
 		private function cancelHandler( event:Event ):void
-		{
+		{			
+			Tracer.output( _debug, " HTTPService.cancelHandler(event)", toString() );
 			event.preventDefault();
+			_loader.removeEventListener( Event.COMPLETE, cancelHandler );
 		}
 		
 		private function fault( event:IOErrorEvent ):void
@@ -226,10 +229,10 @@ package com.wezside.utilities.business.rpc
 		
 		private function result( event:Event ):void
 		{
+			Tracer.output( _debug, " HTTPService.ResultEvent(event) " + _asyncToken + " preventDefault " + event.isDefaultPrevented(), toString() );
 			if ( !event.isDefaultPrevented() )
 			{
 				_loader.removeEventListener( Event.COMPLETE, result );
-				Tracer.output( _debug, " HTTPService.ResultEvent(event) " + _asyncToken, toString() );
 				if ( _responder != null )
 				{
 					_responder.result( new ResponderEvent( ResponderEvent.RESULT, false, false, {id: id, content: _loader.data, token: _asyncToken }));
@@ -240,7 +243,10 @@ package com.wezside.utilities.business.rpc
 				}
 			}
 			else 
+			{
+				_loader.removeEventListener( Event.COMPLETE, result );
 				Tracer.output( _debug, " Event was cancelled " + _asyncToken, toString() );
+			}
 		}
 	}
 }

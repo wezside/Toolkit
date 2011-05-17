@@ -34,13 +34,14 @@ package test.com.wezside.utilities.business
 			service.id = "test";
 			service.method = HTTPService.POST_METHOD;
 			service.asyncToken = Math.random();
-			service.url = "http://www.wezside.co.za/";
+			service.debug = true;
+			service.url = "http://feeds.feedburner.com/Datavisualization";
 			service.addEventListener( ResponderEvent.RESULT, Async.asyncHandler( this, result, 5000, null, timeout ), false, 0, true );
 			service.addEventListener( ResponderEvent.FAULT, Async.asyncHandler( this, fault, 5000, null, timeout ), false, 0, true );
 			service.send();
 			service.cancel();
-		}		
-		
+		}
+
 		private function result( event:Event, object:Object ):void
 		{
 	    	Assert.fail( "This event handler should not have been invoked because we cancelled this service immediately after the first call." );			
