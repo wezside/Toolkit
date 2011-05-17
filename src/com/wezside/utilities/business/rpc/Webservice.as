@@ -24,7 +24,7 @@ package com.wezside.utilities.business.rpc
 
 		private var _asyncToken:Number;
 		private var _id:String;
-		private var debug:Boolean;
+		private var _debug:Boolean;
 
 		
 		public function Webservice( destination:String = null, rootURL:String = null, debug:Boolean = false )
@@ -186,6 +186,16 @@ package com.wezside.utilities.business.rpc
 
 		public function cancel():void
 		{
+		}
+
+		public function get debug():Boolean
+		{
+			return _debug;
+		}
+
+		public function set debug( value:Boolean ):void
+		{
+			_debug = value;
 		}
 
 	}

@@ -30,7 +30,8 @@ package com.wezside.utilities.business.rpc
 		function set headers( value:Array ):void;
 		function get asyncToken():Number;
 		function set asyncToken( value:Number ):void;
-		
+		function get debug():Boolean;
+		function set debug( value:Boolean ):void;
 
 		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
 		function dispatchEvent( event:Event ):Boolean;
