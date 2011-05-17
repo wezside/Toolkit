@@ -184,5 +184,9 @@ package com.wezside.utilities.business.rpc
 			}	
 		}
 
+		public function cancel():void
+		{
+		}
+
 	}
 }
