@@ -87,6 +87,18 @@ package com.wezside.data.mapping
 			it.purge();
 			it = null;
 		}
+			
+		public function purge():void
+		{
+			_data = null;
+			_collection.purge();
+			_collection = null;
+			_xmlCollection.purge();
+			_xmlCollection = null;
+			_xmlCollectionIterator.purge();
+			_namespaces.purge();
+			_namespaces = null;
+		}
 
 		public function get id():String
 		{

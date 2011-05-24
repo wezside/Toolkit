@@ -1,11 +1,9 @@
 package test.com.wezside.data.mapping 
 {
+	import org.flexunit.asserts.assertNull;
 	import sample.data.ContentData;
 	import sample.data.Data;
 	import sample.data.ItemData;
-
-	import test.com.wezside.data.Nested;
-	import test.com.wezside.data.Node;
 
 	import com.wezside.data.mapping.XMLDataMapper;
 
@@ -94,6 +92,18 @@ package test.com.wezside.data.mapping
 
 			assertNotNull( Data( mapper.data ));
 			assertEquals( "This is a single leaf node.", ContentData( Data( mapper.data ).content.find( "id", "entries" )).leaf );						
+		}
+		
+		[Test]
+		public function testPurge():void
+		{
+			mapper.addDataMap( Data );
+			mapper.addDataMap( ContentData, "content", "content" );
+			mapper.addDataMap( ItemData, "item", "items" );
+			mapper.debug = false;
+			mapper.deserialize( xml );	
+			mapper.purge();
+			assertNull( mapper.data );			
 		}
 	}
 }

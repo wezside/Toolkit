@@ -11,7 +11,6 @@ package com.wezside.data.collection
 	public class DictionaryCollection implements IDictionaryCollection
 	{
 				
-		private var _length:int;
 		private var _collection:Dictionary;
 		private var _keys:Array;
 		
@@ -31,7 +30,6 @@ package com.wezside.data.collection
 		{
 			_collection[ key ] = {index: _keys.length, value: value};
 			_keys.push( key );
-			_length++;
 		}		
 		
 		public function getElement( key:* ):*
@@ -73,7 +71,7 @@ package com.wezside.data.collection
 		
 		public function get length():int
 		{
-			return _length;
+			return _keys.length;
 		}
 
 	}
