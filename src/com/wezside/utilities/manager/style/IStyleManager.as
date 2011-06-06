@@ -42,8 +42,6 @@ package com.wezside.utilities.manager.style
 
 		function get css():String;
 
-		function get ready():Boolean;
-
 		function dispatchEvent(event:Event):Boolean;
 
 		function hasEventListener(type:String):Boolean;

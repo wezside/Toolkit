@@ -16,13 +16,15 @@ See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 
 Change log since tag 0.1.0250
 =======
+
+* StyleManager ready() method removed. Only listening for Event.COMPLETE is accepted to check if StyleManager is ready.  
+* XMLDataMapper purge added
 * StyleManager now supports multiple CSS files. Simply just call parseCSSByteArray with the difference CSS file. Any duplicate properties will be overwritten, i.e. the last CSS class will be the active one.
 * ImageResize refactored to Resizer. Added support to resize to width.
 
 Change log since build .0200
 =======
 
-* XMLDataMapper purge added
 * This repo now only have the core toolkit. For Toolkit Components please go to the [Toolkit-Components](https://github.com/wezside/Toolkit-Components) repo. 
 * GalleryComponent: If a data object is set in the individual item then the component will use this data object and pass it to the IGalleryItem. However, if the individual data object for a IGalleryItem is not set, the GalleryClassItem's data object will be used. 
 * Collection now supports constructor injection for array provider. Easily convert any array into a Collection.

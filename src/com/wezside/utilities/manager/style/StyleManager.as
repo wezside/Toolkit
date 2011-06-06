@@ -17,8 +17,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.manager.style
-{
+package com.wezside.utilities.manager.style {
+	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.string.StringUtil;
 
 	import flash.display.Bitmap;
@@ -33,6 +33,7 @@ package com.wezside.utilities.manager.style
 	import flash.system.SecurityDomain;
 	import flash.text.StyleSheet;
 	import flash.utils.ByteArray;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -42,23 +43,15 @@ package com.wezside.utilities.manager.style
 	public class StyleManager extends Sprite implements IStyleManager
 	{
 		private var _css:String;
-		private var _libraryReady:Boolean;
+		private var _fontReady:Boolean = true;
+		private var _libraryReady:Boolean = true;
 		private var _libraryLoader:Loader;
-		private var _fontReady:Boolean;
 		private var _fontLoader:Loader;
 		private var _reserved:Array = [ "upSkin", "overSkin", "downSkin", "selectedSkin", "invalidSkin", "disabledSkin" ];
 		private var _sheet:StyleSheet;
 
-		public function StyleManager()
-		{
-			_libraryReady = ( _libraryLoader == null );
-			_fontReady = ( _fontLoader == null );
-			if ( !_sheet ) _sheet = new StyleSheet();
-			addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
-		}
-
 		public function parseCSSByteArray( clazz:Class ):void
-		{
+		{			
 			var ba:ByteArray = new clazz() as ByteArray;
 			_css = ba.readUTFBytes( ba.length );
 			if ( !_sheet ) _sheet = new StyleSheet();
@@ -67,6 +60,9 @@ package com.wezside.utilities.manager.style
 
 		public function parseLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ):void
 		{
+			_libraryReady = false;
+			if ( !hasEventListener( Event.ENTER_FRAME ))		
+				addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );			
 			var context:LoaderContext = new LoaderContext();
 			context.applicationDomain = appDomain;
 			context.securityDomain = securityDomain ? securityDomain : null;
@@ -78,6 +74,9 @@ package com.wezside.utilities.manager.style
 
 		public function parseFontLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ):void
 		{
+			_fontReady = false;
+			if ( !hasEventListener( Event.ENTER_FRAME ))
+				addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );			
 			var context:LoaderContext = new LoaderContext();
 			context.applicationDomain = appDomain;
 			context.securityDomain = securityDomain ? securityDomain : null;
@@ -87,22 +86,33 @@ package com.wezside.utilities.manager.style
 			_fontLoader.loadBytes( library, context );
 		}
 
-		public function purge():void
+		private function onLibraryLoadComplete( event:Event ):void
 		{
+			_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
+			_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+			Tracer.output( false, "onLibraryLoadComplete", getQualifiedClassName( this ), Tracer.INFO );
+		}
+
+		private function onFontLoadComplete( event:Event ):void
+		{
+			_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
+			_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+			Tracer.output( false, "onFontLoadComplete", getQualifiedClassName( this ), Tracer.INFO );
+		}
+
+		private function onSecurityError( event:SecurityErrorEvent ):void
+		{
+			if ( _libraryLoader )
+			{
+				_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
+				_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+			}
 			if ( _fontLoader )
 			{
 				_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
 				_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
 			}
-			if ( _libraryLoader )
-			{
-				_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
-				_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );			
-			}
-			if ( _sheet ) _sheet = null;
-			removeEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
-			
-			_reserved = null;			
+			Tracer.output( false, "onSecurityError: " + event.text, getQualifiedClassName( this ), Tracer.ERROR );
 		}
 
 		public function hasAssetByName( linkageClassName:String ):Boolean
@@ -130,11 +140,11 @@ package com.wezside.utilities.manager.style
 					return bmp;
 				}
 			}
-			else if ( hasOwnProperty( linkageClassName ) ) 
-			{
-				if ( this[ linkageClassName ] is Class ) 
+			if ( hasOwnProperty( linkageClassName ) ) {
+				if ( this[ linkageClassName ] is Class ) {
 					return new this[ linkageClassName ]();
-			}			
+				}
+			}
 			throw new Error( "Unable to find library asset " + linkageClassName );
 		}
 
@@ -150,23 +160,26 @@ package com.wezside.utilities.manager.style
 
 		public function getPropertyStyles( styleName:String ):Array
 		{
-			var strUtil:StringUtil = new StringUtil();
-			var cssObj:Object = _sheet.getStyle( strUtil.isFirstLetterLowerCase( styleName ) ? "." + styleName : styleName );
 			var props:Array = [];
-			var orderedReserved:Array = [];
-			for ( var k:int = 0; k < _reserved.length; ++k )
-				if ( cssObj.hasOwnProperty( _reserved[k] ))
-					orderedReserved.push( {prop:_reserved[k], value:cssObj[ _reserved[ k ]]} );
-			for ( var i:String in cssObj )
-			{
-				var result:Boolean;
-				for ( var j:int = 0; j < _reserved.length; ++j )
-					if ( i != _reserved[j])
-						result = true;
-				if ( result )
-					props.push( {prop:i, value:cssObj[i]} );
+			if ( _sheet ) {
+				var strUtil:StringUtil = new StringUtil();
+				var cssObj:Object = _sheet.getStyle( strUtil.isFirstLetterLowerCase( styleName ) ? "." + styleName : styleName );
+				strUtil = null;
+				var orderedReserved:Array = [];
+				for ( var k:int = 0; k < _reserved.length; ++k )
+					if ( cssObj.hasOwnProperty( _reserved[k] ))
+						orderedReserved.push( {prop:_reserved[k], value:cssObj[ _reserved[ k ]]} );
+				for ( var i:String in cssObj )
+				{
+					var result:Boolean;
+					for ( var j:int = 0; j < _reserved.length; ++j )
+						if ( i != _reserved[j])
+							result = true;
+					if ( result )
+						props.push( {prop:i, value:cssObj[i]} );
+				}
+				props = props.concat( orderedReserved );
 			}
-			props = props.concat( orderedReserved );
 			return props;
 		}
 
@@ -175,50 +188,45 @@ package com.wezside.utilities.manager.style
 			return _css;
 		}
 
-		public function get ready():Boolean
+		public function purge():void
 		{
-			return ( _libraryReady && _fontReady );
-		}
-
-		private function onLibraryLoadComplete( event:Event ):void
-		{
-			_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
-			_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
-		}
-
-		private function onFontLoadComplete( event:Event ):void
-		{
-			_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
-			_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
-		}
-
-		private function onSecurityError( event:SecurityErrorEvent ):void
-		{
-			if ( _libraryLoader )
-			{
-				_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
-				_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+			removeEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
+			if ( _libraryLoader ) {
+				if ( _libraryLoader.contentLoaderInfo ) {
+					_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
+					_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+				}
+				try { _libraryLoader.close(); }
+				catch ( error : Error ) { }
+				_libraryLoader = null;
 			}
-			if ( _fontLoader )
-			{
-				_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
-				_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+			
+			if ( _fontLoader ) {
+				if ( _fontLoader.contentLoaderInfo ) {
+					_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
+					_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
+				}
+				try { _fontLoader.close(); }
+				catch ( error : Error ) { }
+				_fontLoader = null;
 			}
-			trace( "StyleManager.onSecurityError: " + event.text );
+			
+			if ( _sheet ) {
+				_sheet.clear();
+				_sheet = null;
+			}
+			
+			_reserved = null;
 		}
-
-		private function libraryEnterFrameCheck( event:Event ):void
-		{
-			if ( _libraryLoader && _libraryLoader.content )
-				_libraryReady = true;
-			if ( _fontLoader && _fontLoader.content )
-				_fontReady = true;
-			if ( _libraryReady && _fontReady )
-			{
+		
+		private function libraryEnterFrameCheck( event : Event ) : void {
+			trace( _libraryReady, _fontReady );
+			if ( _libraryLoader && _libraryLoader.content ) _libraryReady = true;
+			if ( _fontLoader && _fontLoader.content ) _fontReady = true;
+			if ( _libraryReady && _fontReady ) {
 				removeEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 				dispatchEvent( new Event( Event.COMPLETE ) );
 			}
 		}
-
 	}
 }
