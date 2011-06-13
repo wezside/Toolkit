@@ -121,6 +121,11 @@ package com.wezside.components
 		{
 			return _childrenContainer.getChildByName( name );
 		}
+	
+		override public function getChildIndex( child:DisplayObject ):int
+		{
+			return _childrenContainer.getChildIndex( child );
+		}
 
 		override public function removeChild( child:DisplayObject ):DisplayObject
 		{
