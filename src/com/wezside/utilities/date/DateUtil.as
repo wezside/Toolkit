@@ -53,28 +53,28 @@ package com.wezside.utilities.date
 			monthsTable = new DictionaryCollection();
 			monthsTable.addElement( 0, { label: "Janurary" , tableIndex: 0, leapIndex: 6 });
 			monthsTable.addElement( 1, { label: "February" , tableIndex: 3, leapIndex: 2 });
-			monthsTable.addElement( 2, { label: "March"	   , tableIndex: 3 });
-			monthsTable.addElement( 3, { label: "April"	   , tableIndex: 6 });
-			monthsTable.addElement( 4, { label: "May"	   , tableIndex: 1 });
-			monthsTable.addElement( 5, { label: "June"	   , tableIndex: 4 });
-			monthsTable.addElement( 6, { label: "July"	   , tableIndex: 6 });
-			monthsTable.addElement( 7, { label: "August"   , tableIndex: 2 });
-			monthsTable.addElement( 8, { label: "September", tableIndex: 5 });
-			monthsTable.addElement( 9, { label: "October"  , tableIndex: 0 });
-			monthsTable.addElement( 10,{ label: "November" , tableIndex: 3 });
-			monthsTable.addElement( 11,{ label: "December" , tableIndex: 5 });
+			monthsTable.addElement( 2, { label: "March"	   , tableIndex: 3, leapIndex: 3  });
+			monthsTable.addElement( 3, { label: "April"	   , tableIndex: 6, leapIndex: 6  });
+			monthsTable.addElement( 4, { label: "May"	   , tableIndex: 1, leapIndex: 1  });
+			monthsTable.addElement( 5, { label: "June"	   , tableIndex: 4, leapIndex: 4  });
+			monthsTable.addElement( 6, { label: "July"	   , tableIndex: 6, leapIndex: 6  });
+			monthsTable.addElement( 7, { label: "August"   , tableIndex: 2, leapIndex: 2  });
+			monthsTable.addElement( 8, { label: "September", tableIndex: 5, leapIndex: 5  });
+			monthsTable.addElement( 9, { label: "October"  , tableIndex: 0, leapIndex: 0  });
+			monthsTable.addElement( 10,{ label: "November" , tableIndex: 3, leapIndex: 3  });
+			monthsTable.addElement( 11,{ label: "December" , tableIndex: 5, leapIndex: 5  });
 			
 			centuriesTable = new DictionaryCollection();
-			centuriesTable.addElement( 0, { label: "1700–1799", tableIndex: 4 });
-			centuriesTable.addElement( 1, { label: "1800–1899", tableIndex: 2 });
-			centuriesTable.addElement( 2, { label: "1900–1999", tableIndex: 0 });
-			centuriesTable.addElement( 3, { label: "2000–2099", tableIndex: 6 });
-			centuriesTable.addElement( 4, { label: "2100–2199", tableIndex: 4 });
-			centuriesTable.addElement( 5, { label: "2200–2299", tableIndex: 2 });
-			centuriesTable.addElement( 6, { label: "2300–2399", tableIndex: 0 });
-			centuriesTable.addElement( 7, { label: "2400–2499", tableIndex: 6 });
-			centuriesTable.addElement( 8, { label: "2500–2599", tableIndex: 4 });
-			centuriesTable.addElement( 9, { label: "2600–2699", tableIndex: 2 });
+			centuriesTable.addElement( 0, { label: "1700-1799", tableIndex: 4 });
+			centuriesTable.addElement( 1, { label: "1800-1899", tableIndex: 2 });
+			centuriesTable.addElement( 2, { label: "1900-1999", tableIndex: 0 });
+			centuriesTable.addElement( 3, { label: "2000-2099", tableIndex: 6 });
+			centuriesTable.addElement( 4, { label: "2100-2199", tableIndex: 4 });
+			centuriesTable.addElement( 5, { label: "2200-2299", tableIndex: 2 });
+			centuriesTable.addElement( 6, { label: "2300-2399", tableIndex: 0 });
+			centuriesTable.addElement( 7, { label: "2400-2499", tableIndex: 6 });
+			centuriesTable.addElement( 8, { label: "2500-2599", tableIndex: 4 });
+			centuriesTable.addElement( 9, { label: "2600-2699", tableIndex: 2 });
 		}
 
 
@@ -240,13 +240,13 @@ package com.wezside.utilities.date
 			return index;
 		}
 		
-		public function calculateStartDayOfTheWeek( date:Date ):int
+		public function calculateStartDayOfTheWeek( date:Date ):Number
 		{
 			var centuriesTableIndex:int = centuriesTable.getElement( centuryIndex( date.getFullYear())).tableIndex;
 			var centuryDigits:int = date.getFullYear() % 100;
 			var fraction:int = int( centuryDigits / 4 );
 			var monthIndex:int = isLeap( date ) ? monthsTable.getElement( date.getMonth() ).leapIndex : monthsTable.getElement( date.getMonth() ).tableIndex;
-			var result:int = centuriesTableIndex + centuryDigits + fraction + monthIndex + date.getDate();
+			var result:Number = centuriesTableIndex + centuryDigits + fraction + monthIndex + date.getDate();
 			return result % 7;
 		}
 		
