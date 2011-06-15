@@ -1,17 +1,17 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.UIElement;
-	import com.wezside.components.decorators.layout.FillLayout;
-	import com.wezside.components.decorators.layout.HorizontalLayout;
-	import com.wezside.components.decorators.layout.PaddedLayout;
-	import com.wezside.components.decorators.layout.VerticalLayout;
-	import com.wezside.components.decorators.scroll.ScrollVertical;
-	import com.wezside.components.decorators.shape.ShapeRectangle;
+	import com.wezside.component.UIElement;
+	import com.wezside.component.decorators.layout.FillLayout;
+	import com.wezside.component.decorators.layout.HorizontalLayout;
+	import com.wezside.component.decorators.layout.PaddedLayout;
+	import com.wezside.component.decorators.layout.VerticalLayout;
+	import com.wezside.component.decorators.scroll.ScrollVertical;
+	import com.wezside.component.decorators.shape.ShapeRectangle;
 	import com.wezside.data.iterator.IIterator;
-
 	import org.flexunit.asserts.assertEquals;
 	import org.flexunit.asserts.assertNotNull;
 	import org.flexunit.asserts.assertNull;
+
 
 	/**
 	 * @author Wesley.Swanepoel

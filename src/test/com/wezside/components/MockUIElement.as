@@ -1,9 +1,9 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.IUIElement;
-	import com.wezside.components.UIElement;
-
+	import com.wezside.component.IUIElement;
+	import com.wezside.component.UIElement;
 	import flash.display.DisplayObject;
+
 
 	/**
 	 * @author Wesley.Swanepoel
