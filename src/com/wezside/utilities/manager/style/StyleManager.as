@@ -17,7 +17,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wezside.utilities.manager.style {
+package com.wezside.utilities.manager.style
+{
 	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -49,9 +50,10 @@ package com.wezside.utilities.manager.style {
 		private var _fontLoader:Loader;
 		private var _reserved:Array = [ "upSkin", "overSkin", "downSkin", "selectedSkin", "invalidSkin", "disabledSkin" ];
 		private var _sheet:StyleSheet;
+		private var _allowCodeImport:Boolean = true;
 
 		public function parseCSSByteArray( clazz:Class ):void
-		{			
+		{
 			var ba:ByteArray = new clazz() as ByteArray;
 			_css = ba.readUTFBytes( ba.length );
 			if ( !_sheet ) _sheet = new StyleSheet();
@@ -61,11 +63,14 @@ package com.wezside.utilities.manager.style {
 		public function parseLibrary( library:ByteArray, appDomain:ApplicationDomain, securityDomain:SecurityDomain = null ):void
 		{
 			_libraryReady = false;
-			if ( !hasEventListener( Event.ENTER_FRAME ))		
-				addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );			
+			if ( !hasEventListener( Event.ENTER_FRAME ))
+				addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 			var context:LoaderContext = new LoaderContext();
 			context.applicationDomain = appDomain;
 			context.securityDomain = securityDomain ? securityDomain : null;
+			/*FDT_IGNORE*/
+//			context.allowCodeImport = _allowCodeImport;
+			/*FDT_IGNORE*/
 			_libraryLoader = new Loader();
 			_libraryLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, onLibraryLoadComplete );
 			_libraryLoader.contentLoaderInfo.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
@@ -76,7 +81,7 @@ package com.wezside.utilities.manager.style {
 		{
 			_fontReady = false;
 			if ( !hasEventListener( Event.ENTER_FRAME ))
-				addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );			
+				addEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 			var context:LoaderContext = new LoaderContext();
 			context.applicationDomain = appDomain;
 			context.securityDomain = securityDomain ? securityDomain : null;
@@ -130,8 +135,9 @@ package com.wezside.utilities.manager.style {
 			{
 				var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
 				try
-				{ 
-					return new SymbolClass() as DisplayObject;;
+				{
+					return new SymbolClass() as DisplayObject;
+					;
 				}
 				catch ( error:Error )
 				{
@@ -140,8 +146,10 @@ package com.wezside.utilities.manager.style {
 					return bmp;
 				}
 			}
-			if ( hasOwnProperty( linkageClassName ) ) {
-				if ( this[ linkageClassName ] is Class ) {
+			if ( hasOwnProperty( linkageClassName ) )
+			{
+				if ( this[ linkageClassName ] is Class )
+				{
 					return new this[ linkageClassName ]();
 				}
 			}
@@ -161,14 +169,15 @@ package com.wezside.utilities.manager.style {
 		public function getPropertyStyles( styleName:String ):Array
 		{
 			var props:Array = [];
-			if ( _sheet ) {
+			if ( _sheet )
+			{
 				var strUtil:StringUtil = new StringUtil();
 				var cssObj:Object = _sheet.getStyle( strUtil.isFirstLetterLowerCase( styleName ) ? "." + styleName : styleName );
 				strUtil = null;
 				var orderedReserved:Array = [];
 				for ( var k:int = 0; k < _reserved.length; ++k )
 					if ( cssObj.hasOwnProperty( _reserved[k] ))
-						orderedReserved.push( {prop:_reserved[k], value:cssObj[ _reserved[ k ]]} );
+						orderedReserved.push( { prop:_reserved[k], value:cssObj[ _reserved[ k ]] } );
 				for ( var i:String in cssObj )
 				{
 					var result:Boolean;
@@ -176,7 +185,7 @@ package com.wezside.utilities.manager.style {
 						if ( i != _reserved[j])
 							result = true;
 					if ( result )
-						props.push( {prop:i, value:cssObj[i]} );
+						props.push( { prop:i, value:cssObj[i] } );
 				}
 				props = props.concat( orderedReserved );
 			}
@@ -188,42 +197,68 @@ package com.wezside.utilities.manager.style {
 			return _css;
 		}
 
+		public function get allowCodeImport():Boolean
+		{
+			return _allowCodeImport;
+		}
+
+		public function set allowCodeImport( value:Boolean ):void
+		{
+			_allowCodeImport = value;
+		}
+
 		public function purge():void
 		{
 			removeEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
-			if ( _libraryLoader ) {
-				if ( _libraryLoader.contentLoaderInfo ) {
+			if ( _libraryLoader )
+			{
+				if ( _libraryLoader.contentLoaderInfo )
+				{
 					_libraryLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onLibraryLoadComplete );
 					_libraryLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
 				}
-				try { _libraryLoader.close(); }
-				catch ( error : Error ) { }
+				try
+				{
+					_libraryLoader.close();
+				}
+				catch ( error:Error )
+				{
+				}
 				_libraryLoader = null;
 			}
-			
-			if ( _fontLoader ) {
-				if ( _fontLoader.contentLoaderInfo ) {
+
+			if ( _fontLoader )
+			{
+				if ( _fontLoader.contentLoaderInfo )
+				{
 					_fontLoader.contentLoaderInfo.removeEventListener( Event.COMPLETE, onFontLoadComplete );
 					_fontLoader.contentLoaderInfo.removeEventListener( SecurityErrorEvent.SECURITY_ERROR, onSecurityError );
 				}
-				try { _fontLoader.close(); }
-				catch ( error : Error ) { }
+				try
+				{
+					_fontLoader.close();
+				}
+				catch ( error:Error )
+				{
+				}
 				_fontLoader = null;
 			}
-			
-			if ( _sheet ) {
+
+			if ( _sheet )
+			{
 				_sheet.clear();
 				_sheet = null;
 			}
-			
+
 			_reserved = null;
 		}
-		
-		private function libraryEnterFrameCheck( event : Event ) : void {
-			trace( _libraryReady, _fontReady );
+
+		private function libraryEnterFrameCheck( event:Event ):void
+		{
 			if ( _libraryLoader && _libraryLoader.content ) _libraryReady = true;
 			if ( _fontLoader && _fontLoader.content ) _fontReady = true;
-			if ( _libraryReady && _fontReady ) {
+			if ( _libraryReady && _fontReady )
+			{
 				removeEventListener( Event.ENTER_FRAME, libraryEnterFrameCheck );
 				dispatchEvent( new Event( Event.COMPLETE ) );
 			}
