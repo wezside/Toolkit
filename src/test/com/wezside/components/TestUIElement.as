@@ -1,10 +1,10 @@
 package test.com.wezside.components 
 {
-	import com.wezside.components.IUIElement;
-	import com.wezside.components.UIElementState;
-	import com.wezside.components.decorators.layout.HorizontalLayout;
-	import com.wezside.components.decorators.layout.PaddedLayout;
-	import com.wezside.components.decorators.layout.VerticalLayout;
+	import com.wezside.component.IUIElement;
+	import com.wezside.component.UIElementState;
+	import com.wezside.component.decorators.layout.HorizontalLayout;
+	import com.wezside.component.decorators.layout.PaddedLayout;
+	import com.wezside.component.decorators.layout.VerticalLayout;
 	import flash.events.Event;
 	import flexunit.framework.Assert;
 	import org.flexunit.asserts.assertEquals;
