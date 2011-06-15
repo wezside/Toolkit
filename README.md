@@ -14,6 +14,11 @@ Documentation
 
 See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 
+Change log since tag 0.1.0260
+=======
+
+* DateUtils extended to calculate daysFromMilliseconds(), hoursFromMilliseconds(), minutesFromMilliseconds(), secondsFromMilliseconds(), calculateStartDayOfTheWeek()
+
 Change log since tag 0.1.0250
 =======
 
