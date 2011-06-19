@@ -17,8 +17,6 @@ See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 Change log since tag 0.1.0270
 =======
 
-* Removed STATE_VISUAL_UP set in Interactive decorator's activate method. The state needs to be manually set as it may cause a circular reference in some usecases.
-
 
 Change log since tag 0.1.0260
 =======

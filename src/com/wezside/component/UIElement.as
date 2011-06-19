@@ -23,15 +23,15 @@ THE SOFTWARE.
  */
 package com.wezside.component
 {
-	import com.wezside.component.decorators.interactive.IInteractive;
-	import com.wezside.component.decorators.interactive.Interactive;
-	import com.wezside.component.decorators.layout.ILayout;
-	import com.wezside.component.decorators.layout.Layout;
-	import com.wezside.component.decorators.scroll.IScroll;
-	import com.wezside.component.decorators.scroll.ScrollEvent;
-	import com.wezside.component.decorators.scroll.ScrollHorizontal;
-	import com.wezside.component.decorators.scroll.ScrollVertical;
-	import com.wezside.component.decorators.shape.IShape;
+	import com.wezside.component.decorator.interactive.IInteractive;
+	import com.wezside.component.decorator.interactive.Interactive;
+	import com.wezside.component.decorator.layout.ILayout;
+	import com.wezside.component.decorator.layout.Layout;
+	import com.wezside.component.decorator.scroll.IScroll;
+	import com.wezside.component.decorator.scroll.ScrollEvent;
+	import com.wezside.component.decorator.scroll.ScrollHorizontal;
+	import com.wezside.component.decorator.scroll.ScrollVertical;
+	import com.wezside.component.decorator.shape.IShape;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;

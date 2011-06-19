@@ -1,16 +1,7 @@
 package test
 {
-	import test.com.wezside.components.TestUIDecorators;
-	import test.com.wezside.components.TestUIElement;
-	import test.com.wezside.data.collection.TestCollection;
-	import test.com.wezside.data.collection.TestLinkedListCollection;
-	import test.com.wezside.data.mapping.TestXMLDataMapper;
-	import test.com.wezside.utilities.business.TestHTTPService;
-	import test.com.wezside.utilities.command.TestCommandMapper;
-	import test.com.wezside.utilities.date.TestDateUtil;
-	import test.com.wezside.utilities.manager.state.TestStateManager;
-	import test.com.wezside.utilities.manager.timeline.TestTimelineManager;
-	import test.com.wezside.utilities.string.TestURLUtil;
+	import test.com.wezside.component.TestUIElement;
+	import test.com.wezside.component.decorator.TestInteractiveDecorator;
 	/**
 	 * Project type: Flex 4
 	 *  -target-player={playerVersion}
@@ -23,8 +14,9 @@ package test
 	public class TestSuite
 	{
 //		public var testCommandMapper:TestCommandMapper;
-//		public var testUIElement:TestUIElement;
-		public var testDateUtil:TestDateUtil;
+		public var testUIElement:TestUIElement;
+		public var testInteractiveDecorator:TestInteractiveDecorator;
+//		public var testDateUtil:TestDateUtil;
 //		public var testStateManager:TestStateManager;
 //		public var testURLUtil:TestURLUtil;
 //		public var testUIDecorators:TestUIDecorators;

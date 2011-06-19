@@ -23,10 +23,12 @@
  */
 package com.wezside.component 
 {
-	import com.wezside.component.decorators.layout.ILayout;
-	import com.wezside.component.decorators.scroll.IScroll;
-	import com.wezside.component.decorators.shape.IShape;
+	import com.wezside.component.decorator.layout.ILayout;
+	import com.wezside.component.decorator.scroll.IScroll;
+	import com.wezside.component.decorator.shape.IShape;
 	import com.wezside.utilities.manager.style.IStyleManager;
+
+	import flash.display.DisplayObject;
 	import flash.text.StyleSheet;
 
 
@@ -57,7 +59,25 @@ package com.wezside.component
 		 function get state():String;
 		 function set state( value:String ):void;
 		 function hasOwnProperty( V:* = undefined ):Boolean;
-		 
+ 
+		 function contains( child:DisplayObject ):Boolean;
+		 function containsUI( child:DisplayObject ):Boolean;
+		 function addChild( child:DisplayObject ):DisplayObject;		
+		 function addChildAt( child:DisplayObject, index:int ):DisplayObject;
+		 function addUIChild( child:DisplayObject ):DisplayObject;
+		 function removeChild( child:DisplayObject ):DisplayObject;
+		 function removeChildAt( index:int ):DisplayObject;
+		 function getChildAt( index:int ):DisplayObject;		
+		 function getChildByName( name:String ):DisplayObject;
+		 function getChildIndex( child:DisplayObject ):int;		
+		 function addUIChildAt( child:DisplayObject, index:int ):DisplayObject;		
+		 function getUIChildAt( index:int ):DisplayObject;
+		 function getUIChildByName( name:String ):DisplayObject;
+		 function removeUIChild( child:DisplayObject ):DisplayObject;
+		 function removeUIChildAt( index:int ):DisplayObject;		
+		 function get numChildren():int;		
+		 function get numUIChildren():int;
+
 		 function build():void;
 		 function setStyle():void;		 
 		 function purge():void;

@@ -1,9 +1,8 @@
 package com.wezside.component 
 {
-	import flash.events.IEventDispatcher;
 	import com.wezside.data.iterator.IIterator;
 
-	import flash.events.Event;
+	import flash.events.IEventDispatcher;
 
 	/**
 	 * @author Wesley.Swanepoel
