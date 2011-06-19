@@ -23,6 +23,7 @@ package com.wezside.component.decorators.interactive
 
 		public function activate():void
 		{
+			decorated.state = UIElementState.STATE_VISUAL_UP;
 			decorated.buttonMode = true;
 			decorated.mouseChildren = false;
 			decorated.addEventListener( MouseEvent.ROLL_OVER, rollOver );
