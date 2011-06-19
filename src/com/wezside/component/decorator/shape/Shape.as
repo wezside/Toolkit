@@ -267,5 +267,23 @@ package com.wezside.component.decorator.shape
 		{
 			_autoDetectHeight = value;
 		}
+
+		public function get state():String
+		{
+			return "";
+		}
+
+		public function set state( value:String ):void
+		{
+		}
+
+		public function get stateManager():StateManager
+		{
+			return null;
+		}
+
+		public function set stateManager( value:StateManager ):void
+		{
+		}
 	}
 }

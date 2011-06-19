@@ -38,49 +38,47 @@ package com.wezside.component
 	public interface IUIElement extends IUIDecorator
 	{
 		
-		 function get styleManager():IStyleManager;
-		 function set styleManager( value:IStyleManager ):void;
-		 function get styleName():String;
-		 function set styleName( value:String ):void;
-		 function get styleSheet():StyleSheet;
-		 function set styleSheet( value:StyleSheet ):void;
-		 function get skin():IUIElementSkin;
-		 function set skin( value:IUIElementSkin ):void;
-		 function get x():Number;
-		 function set x( value:Number ):void;
-		 function get y():Number;
-		 function set y( value:Number ):void;
-		 function get background():IShape;
-		 function set background( value:IShape ):void;
-		 function get layout():ILayout;
-		 function set layout( value:ILayout ):void;
-		 function get scroll():IScroll;
-		 function set scroll( value:IScroll ):void;
-		 function get state():String;
-		 function set state( value:String ):void;
-		 function hasOwnProperty( V:* = undefined ):Boolean;
- 
-		 function contains( child:DisplayObject ):Boolean;
-		 function containsUI( child:DisplayObject ):Boolean;
-		 function addChild( child:DisplayObject ):DisplayObject;		
-		 function addChildAt( child:DisplayObject, index:int ):DisplayObject;
-		 function addUIChild( child:DisplayObject ):DisplayObject;
-		 function removeChild( child:DisplayObject ):DisplayObject;
-		 function removeChildAt( index:int ):DisplayObject;
-		 function getChildAt( index:int ):DisplayObject;		
-		 function getChildByName( name:String ):DisplayObject;
-		 function getChildIndex( child:DisplayObject ):int;		
-		 function addUIChildAt( child:DisplayObject, index:int ):DisplayObject;		
-		 function getUIChildAt( index:int ):DisplayObject;
-		 function getUIChildByName( name:String ):DisplayObject;
-		 function removeUIChild( child:DisplayObject ):DisplayObject;
-		 function removeUIChildAt( index:int ):DisplayObject;		
-		 function get numChildren():int;		
-		 function get numUIChildren():int;
-
-		 function build():void;
-		 function setStyle():void;		 
-		 function purge():void;
+			function get styleManager():IStyleManager;
+			function set styleManager( value:IStyleManager ):void;
+			function get styleName():String;
+			function set styleName( value:String ):void;
+			function get styleSheet():StyleSheet;
+			function set styleSheet( value:StyleSheet ):void;
+			function get skin():IUIElementSkin;
+			function set skin( value:IUIElementSkin ):void;
+			function get x():Number;
+			function set x( value:Number ):void;
+			function get y():Number;
+			function set y( value:Number ):void;
+			function get background():IShape;
+			function set background( value:IShape ):void;
+			function get layout():ILayout;
+			function set layout( value:ILayout ):void;
+			function get scroll():IScroll;
+			function set scroll( value:IScroll ):void;
+			function hasOwnProperty( V:* = undefined ):Boolean;
+	 
+			function contains( child:DisplayObject ):Boolean;
+			function containsUI( child:DisplayObject ):Boolean;
+			function addChild( child:DisplayObject ):DisplayObject;		
+			function addChildAt( child:DisplayObject, index:int ):DisplayObject;
+			function addUIChild( child:DisplayObject ):DisplayObject;
+			function removeChild( child:DisplayObject ):DisplayObject;
+			function removeChildAt( index:int ):DisplayObject;
+			function getChildAt( index:int ):DisplayObject;		
+			function getChildByName( name:String ):DisplayObject;
+			function getChildIndex( child:DisplayObject ):int;		
+			function addUIChildAt( child:DisplayObject, index:int ):DisplayObject;		
+			function getUIChildAt( index:int ):DisplayObject;
+			function getUIChildByName( name:String ):DisplayObject;
+			function removeUIChild( child:DisplayObject ):DisplayObject;
+			function removeUIChildAt( index:int ):DisplayObject;		
+			function get numChildren():int;		
+			function get numUIChildren():int;
+	
+			 function build():void;
+			 function setStyle():void;		 
+			 function purge():void;
 	
 	}
 }

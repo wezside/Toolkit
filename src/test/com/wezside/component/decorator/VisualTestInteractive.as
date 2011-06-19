@@ -1,7 +1,8 @@
 package test.com.wezside.component.decorator 
 {
 	import com.wezside.component.UIElement;
-	import com.wezside.component.decorator.shape.ShapeRectangle;
+
+	import flash.events.MouseEvent;
 
 
 	/**
@@ -13,19 +14,18 @@ package test.com.wezside.component.decorator
 		public function VisualTestInteractive()
 		{
 			super( );
-			
-			background = new ShapeRectangle( this );
-			background.width = 200;
-			background.height = 200;
-			background.colours = [ 0, 0 ];
-			background.alphas = [ 1, 1 ];
-
-
 
 			build();
 			setStyle();
 			arrange();
 			activate();
+			
+			addEventListener( MouseEvent.CLICK, click );
+		}
+
+		private function click( event:MouseEvent ):void
+		{
+			trace( this );
 		}
 	
 	}

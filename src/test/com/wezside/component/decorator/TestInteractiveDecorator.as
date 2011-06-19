@@ -1,17 +1,18 @@
 package test.com.wezside.component.decorator
 {
-	import com.wezside.component.UIElementState;
-	import flash.events.MouseEvent;
 	import mockolate.mock;
 	import mockolate.prepare;
 	import mockolate.strict;
 
-	import com.wezside.component.decorator.interactive.IInteractive;
+	import com.wezside.component.IUIElement;
+	import com.wezside.component.UIElementEvent;
+	import com.wezside.component.UIElementState;
 	import com.wezside.component.decorator.interactive.Interactive;
 
 	import org.flexunit.async.Async;
 
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	/**
 	 * @author Wesley.Swanepoel
 	 */
@@ -22,7 +23,7 @@ package test.com.wezside.component.decorator
 		[Before(async, timeout=5000)]
 		public function setUp():void
 		{
-			Async.proceedOnEvent( this, prepare( IInteractive ), Event.COMPLETE );	
+			Async.proceedOnEvent( this, prepare( IUIElement ), Event.COMPLETE );	
 		}
 		
 		[After]
@@ -35,7 +36,7 @@ package test.com.wezside.component.decorator
 		{
 			
 			// Collaborators
-			var decorator:IInteractive = strict( IInteractive );
+			var decorator:IUIElement = strict( IUIElement );
 		
 			// Expectations
 			mock( decorator ).setter( "buttonMode" ).arg( true );
@@ -46,17 +47,14 @@ package test.com.wezside.component.decorator
 			mock( decorator ).method( "addEventListener" ).args( "mouseDown", Function );
 			mock( decorator ).method( "addEventListener" ).args( "mouseUp", Function );
 			mock( decorator ).method( "addEventListener" ).args( "click", Function );
+			mock( decorator ).method( "addEventListener" ).args( UIElementEvent.STATE_CHANGE, Function );
+
 						
 			interactive = new Interactive( decorator );
 			interactive.activate();
-			interactive.addEventListener( MouseEvent.CLICK, Async.asyncHandler( this, clickHandler, 3000 ));
-			mock( decorator ).dispatches( new MouseEvent( MouseEvent.CLICK ));
-		}
-
-		private function clickHandler():void
-		{
+//			interactive.click( new MouseEvent( MouseEvent.CLICK ));
+//			mock( decorator ).asEventDispatcher().eventDispatcher.dispatchEvent( new MouseEvent( MouseEvent.CLICK ));
 			
 		}
-		
 	}
 }

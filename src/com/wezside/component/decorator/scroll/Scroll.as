@@ -1,5 +1,6 @@
 package com.wezside.component.decorator.scroll
 {
+	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.component.IUIDecorator;
 	import com.wezside.component.IUIElement;
 	import com.wezside.data.iterator.IIterator;
@@ -301,6 +302,24 @@ package com.wezside.component.decorator.scroll
 		 * Scroll to a percentage value.
 		 */
 		public function to( value:Number ):void
+		{
+		}
+
+		public function get state():String
+		{
+			return "";
+		}
+
+		public function set state( value:String ):void
+		{
+		}
+
+		public function get stateManager():StateManager
+		{
+			return null;
+		}
+
+		public function set stateManager( value:StateManager ):void
 		{
 		}
 

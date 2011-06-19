@@ -271,5 +271,41 @@ package com.wezside.component.decorator.layout
 		{
 			_rows = value;
 		}
+
+		public function get state():String
+		{
+			return "";
+		}
+
+		public function set state( value:String ):void
+		{
+		}
+
+		public function get buttonMode():Boolean
+		{
+			return false;
+		}
+
+		public function set buttonMode( value:Boolean ):void
+		{
+		}
+
+		public function get mouseChildren():Boolean
+		{
+			return false;
+		}
+
+		public function set mouseChildren( value:Boolean ):void
+		{
+		}
+
+		public function get stateManager():StateManager
+		{
+			return null;
+		}
+
+		public function set stateManager( value:StateManager ):void
+		{
+		}
 	}
 }

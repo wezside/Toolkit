@@ -54,7 +54,7 @@ package com.wezside.component
 	[Event( name="STYLEMANAGER_READY", type="com.wezside.component.UIElementEvent" )]
 	[Event( name="ARRANGE_COMPLETE", type="com.wezside.component.UIElementEvent" )]
 	[Event( name="STATE_CHANGE", type="com.wezside.component.UIElementEvent" )]
-	public class UIElement extends Sprite implements IUIElement, IInteractive
+	public class UIElement extends Sprite implements IUIElement
 	{
 		
 		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";

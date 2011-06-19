@@ -1,18 +1,20 @@
 package test.com.wezside.component
 {
-	import com.wezside.component.decorator.interactive.IInteractive;
-	import com.wezside.component.UIElement;
-	import mx.core.IUIComponent;
+	import com.wezside.component.UIElementState;
+	import org.flexunit.asserts.assertEquals;
 	import mockolate.mock;
 	import mockolate.prepare;
 	import mockolate.strict;
 	import mockolate.verify;
 
 	import com.wezside.component.IUIElement;
+	import com.wezside.component.UIElement;
+	import com.wezside.component.decorator.interactive.IInteractive;
 
 	import org.flexunit.async.Async;
 
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	/**
 	 * @author Wesley.Swanepoel
 	 */
@@ -54,8 +56,7 @@ package test.com.wezside.component
 		
 		[Test]
 		public function testActivate():void
-		{
-			
+		{			
 			// Collaborators
 			var decorator:IInteractive = strict( IInteractive );
 			
@@ -66,8 +67,12 @@ package test.com.wezside.component
 			mock( decorator ).method( "addEventListener" ).args( "rollOver", Function );
 			mock( decorator ).method( "addEventListener" ).args( "rollOut", Function );
 			mock( decorator ).method( "addEventListener" ).args( "mouseDown", Function );
-			mock( decorator ).method( "addEventListener" ).args( "mouseUp", Function );
-			mock( decorator ).method( "addEventListener" ).args( "click", function():void { trace( "clicked" );});			
+			mock( decorator ).method( "addEventListener" ).args( "mouseUp", Function );			
+			mock( decorator ).method( "addEventListener" ).args( "click", Function );
+		
+			mock( decorator ).method( "click" ).args( new MouseEvent( MouseEvent.CLICK ));	
+			mock( decorator ).dispatches( new MouseEvent( MouseEvent.CLICK ));
+			mock( decorator ).asEventDispatcher().eventDispatcher.dispatchEvent( new MouseEvent( MouseEvent.CLICK ));
 			
 			// Actual
 			var ui:UIElement = new UIElement();
@@ -77,7 +82,7 @@ package test.com.wezside.component
 			ui.arrange();
 			ui.activate();
 			
-			
+			assertEquals( ui.state, UIElementState.STATE_VISUAL_UP );
 		}
 	}
 }

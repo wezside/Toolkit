@@ -1,9 +1,11 @@
 package com.wezside.component.decorator.interactive 
 {
+	import com.wezside.component.IUIElement;
 	import com.wezside.component.UIElement;
 	import com.wezside.component.UIElementState;
 	import com.wezside.data.iterator.IIterator;
 	import com.wezside.utilities.manager.state.StateManager;
+
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
 
@@ -14,14 +16,14 @@ package com.wezside.component.decorator.interactive
 	public class Interactive extends EventDispatcher implements IInteractive
 	{
 		
-		protected var decorated:IInteractive;
+		protected var decorated:IUIElement;
 
-		public function Interactive( decorated:IInteractive  )
+		public function Interactive( decorated:IUIElement  )
 		{
 			this.decorated = decorated;
 		}
 
-		public function activate():void
+		public function activate():void 
 		{
 			decorated.state = UIElementState.STATE_VISUAL_UP;
 			decorated.buttonMode = true;
@@ -62,10 +64,12 @@ package com.wezside.component.decorator.interactive
 			decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
-		private function click( event:MouseEvent ):void 
+		public function click( event:MouseEvent ):void 
 		{
+			trace( this );
+			decorated.dispatchEvent( event );
 //			event.stopImmediatePropagation();
-			decorated.state = UIElementState.STATE_VISUAL_CLICK;
+			decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		private function down( event:MouseEvent ):void 

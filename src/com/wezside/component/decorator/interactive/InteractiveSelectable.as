@@ -65,7 +65,7 @@ package com.wezside.component.decorator.interactive
 				decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
-		private function click( event:MouseEvent ):void 
+		public function click( event:MouseEvent ):void 
 		{
 			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_OVER;
