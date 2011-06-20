@@ -38,6 +38,12 @@ package com.wezside.component
 	public interface IUIElement extends IUIDecorator
 	{
 		
+			function get buttonMode():Boolean
+			function set buttonMode( value:Boolean ):void
+			function get mouseChildren():Boolean
+			function set mouseChildren( value:Boolean ):void		
+			function get state():String;
+			function set state( value:String ):void;
 			function get styleManager():IStyleManager;
 			function set styleManager( value:IStyleManager ):void;
 			function get styleName():String;

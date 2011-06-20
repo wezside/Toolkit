@@ -4,7 +4,6 @@ package com.wezside.component.decorator.interactive
 	import com.wezside.component.UIElement;
 	import com.wezside.component.UIElementState;
 	import com.wezside.data.iterator.IIterator;
-	import com.wezside.utilities.manager.state.StateManager;
 
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
@@ -25,7 +24,6 @@ package com.wezside.component.decorator.interactive
 
 		public function activate():void 
 		{
-			trace( decorated );
 			decorated.state = UIElementState.STATE_VISUAL_UP;
 			decorated.buttonMode = true;
 			decorated.addEventListener( MouseEvent.ROLL_OVER, rollOver );
@@ -69,16 +67,6 @@ package com.wezside.component.decorator.interactive
 		{
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
 		}
-
-		public function get state():String
-		{
-			return decorated.state;
-		}
-		
-		public function set state( value:String ):void
-		{
-			stateManager.stateKey = value;
-		}
 		
 		public function iterator( type:String = null ):IIterator
 		{
@@ -105,36 +93,6 @@ package com.wezside.component.decorator.interactive
 		
 		public function set height(value:Number):void
 		{
-		}
-		
-		public function get buttonMode():Boolean
-		{
-			return decorated.buttonMode;
-		}
-		
-		public function set buttonMode(value:Boolean):void
-		{
-			decorated.buttonMode = value;
-		}
-
-		public function get stateManager():StateManager
-		{
-			return decorated.stateManager;
-		}
-		
-		public function set stateManager(value:StateManager):void
-		{
-			decorated.stateManager = value;
-		}
-		
-		public function get mouseChildren():Boolean
-		{
-			return decorated.mouseChildren;
-		}
-		
-		public function set mouseChildren(value:Boolean):void
-		{
-			decorated.mouseChildren = value;
 		}
 	}
 }
