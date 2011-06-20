@@ -106,6 +106,7 @@ package com.wezside.utilities.manager.state
 			}
 			else
 			{
+				trace( "State not found ", key );
 				_state.key = "";
 				_state.value = 0;
 			}

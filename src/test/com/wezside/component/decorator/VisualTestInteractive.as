@@ -15,7 +15,7 @@ package test.com.wezside.component.decorator
 	public class VisualTestInteractive extends UIElement
 	{
 		private static const MY_NEW_STATE:String = "MY_NEW_STATE";
-
+		
 		public function VisualTestInteractive()
 		{
 			super( );
@@ -27,54 +27,42 @@ package test.com.wezside.component.decorator
 			background.colours = [ 1 ];
 			background.width = 200;
 			background.height = 50;
-
-			// Custom states
-//			stateManager.addState( MY_NEW_STATE );
-
-			// Custom state handler
-			observeState( MY_NEW_STATE, myNewStateChange );
 			
+			stateManager.addState( MY_NEW_STATE );
+				
 			// Internal state specific handler
+			observeState( MY_NEW_STATE, myNewStateChange );
+			observeState( UIElementState.STATE_VISUAL_UP, upStateChange );
 			observeState( UIElementState.STATE_VISUAL_SELECTED, selectedStateChange );
 
 			build();
 			setStyle();
 			arrange();
 			activate();
-			addEventListener( MouseEvent.CLICK, click );			
-		}
-
-		private function myNewStateChange( detail:IObserverDetail ):void
-		{
-//			trace( "MY NEW STATE CHANGE" );	
+			addEventListener( MouseEvent.CLICK, click );
 		}
 
 		private function click( event:MouseEvent ):void
 		{
+			trace( "click" );
+			state = MY_NEW_STATE;
+		}
 
+		private function myNewStateChange( detail:IObserverDetail ):void
+		{
+			trace( "myNewStateChange ");
 		}
 
 		private function selectedStateChange( detail:IObserverDetail ):void
 		{
-			if ( detail.data == UIElementState.STATE_VISUAL_SELECTED )
-			{
-				background.colours = [ 0xFF0000 ];
-				background.arrange();
-			}
-			else
-			{
-				background.colours = [ 0 ];
-				background.arrange();				
-			}
-			
+			background.colours = [ 0xFF0000 ];
+			background.arrange();
 		}
 		
-		override public function notify( detail:IObserverDetail ):void
+		public function upStateChange( detail:IObserverDetail ):void
 		{
-			if ( detail.data == UIElementState.STATE_VISUAL_DOWN )
-			{
-//				state = MY_NEW_STATE;
-			}
+			background.colours = [ 0 ];
+			background.arrange();			
 		}
 	}
 }

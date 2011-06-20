@@ -100,8 +100,8 @@ package com.wezside.component
 			_observeStates = new DictionaryCollection();
 			
 			_stateManager = new StateManager();
-			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID );
-			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED );
+			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
+			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
 			_stateManager.addState( UIElementState.STATE_VISUAL_UP );
 			_stateManager.addState( UIElementState.STATE_VISUAL_OVER );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DOWN );
@@ -513,11 +513,11 @@ package com.wezside.component
 			while ( it.hasNext() ) 
 			{
 				var observer:IObserver = it.next() as IObserver;
-				var object:Object = observer.observeState( stateManager.stateKey );
-				// Only notify if the observer registered for this state			
+				var object:Object = observer.observeState( stateManager.state.key );
+				// Only notify if the observer registered for this state		
 				if ( object && stateManager.compare( object.id ))
 				{
-					if ( object.callback ) object.callback( new ObserverDetail( this, stateManager.state, data ));
+					if ( object.callback ) object.callback( new ObserverDetail( this, stateManager.state,  data ));
 					else observer.notify( new ObserverDetail( this, stateManager.state, data ));
 				}
 			}

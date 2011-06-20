@@ -47,6 +47,7 @@ package com.wezside.component.decorator.interactive
 			
 		private function mouseUp( event:MouseEvent ):void 
 		{			
+			decorated.state = UIElementState.STATE_VISUAL_UP;
 		}			
 
 		private function rollOver( event:MouseEvent ):void 
@@ -56,29 +57,16 @@ package com.wezside.component.decorator.interactive
 
 		private function rollOut( event:MouseEvent ):void 
 		{
-			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
-			else 
-				decorated.state = UIElementState.STATE_VISUAL_UP;
+			decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		public function click( event:MouseEvent ):void 
 		{
-			trace( "click" );
-			trace( "compare", decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ), decorated.state );
-			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{
-				decorated.state = UIElementState.STATE_VISUAL_UP;
-			}
-			else
-			{
-				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
-			}
+			decorated.state = UIElementState.STATE_VISUAL_SELECTED;
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
-			trace( "down" );
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
 		}
 
