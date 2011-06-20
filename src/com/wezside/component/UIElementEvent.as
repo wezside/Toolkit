@@ -37,7 +37,6 @@ package com.wezside.component
 		public static const CREATION_COMPLETE:String = "CREATION_COMPLETE";			
 		public static const STYLEMANAGER_READY:String = "STYLEMANAGER_READY";			
 		public static const ARRANGE_COMPLETE:String = "ARRANGE_COMPLETE";
-		public static const STATE_CHANGE:String = "STATE_CHANGE";
 		
 		private var _state:IState;
 

@@ -366,7 +366,7 @@ package com.wezside.utilities.factory
 				observer = it.next( ) as IObserver;
 
 				// Only notify if the observer registered for this state
-				if ( states.stateKey && observer.observeState( states.stateKey ))
+				if ( states.stateKey && observer.getObserveState( states.stateKey ))
 					observer.notify( new ObserverDetail( this, states.state, data ) );
 			}
 			it.purge( );

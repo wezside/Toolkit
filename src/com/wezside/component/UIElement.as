@@ -513,7 +513,7 @@ package com.wezside.component
 			while ( it.hasNext() ) 
 			{
 				var observer:IObserver = it.next() as IObserver;
-				var object:Object = observer.observeState( stateManager.state.key );
+				var object:Object = observer.getObserveState( stateManager.state.key );
 				// Only notify if the observer registered for this state		
 				if ( object && stateManager.compare( object.id ))
 				{
@@ -525,12 +525,15 @@ package com.wezside.component
 			it = null;
 		}
 		
-		public function observeState( id:String, callback:Function = null ):Object
+		public function setObserveState( id:String, callback:Function = null ):void
 		{
-			if ( !_observeStates.hasElement( id ))
-				_observeStates.addElement( id, { id: id, callback: callback });				
-			return _observeStates.getElement( id );
+			_observeStates.addElement( id, { id: id, callback: callback });				
 		}				
+		
+		public function getObserveState( id:String ):Object
+		{
+			return _observeStates.getElement( id );
+		}
 		
 		public function notify( detail:IObserverDetail ):void
 		{

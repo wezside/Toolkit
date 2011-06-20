@@ -50,7 +50,6 @@ package test.com.wezside.component.decorator
 			mock( decorator ).method( "addEventListener" ).args( "mouseDown", Function );
 			mock( decorator ).method( "addEventListener" ).args( "mouseUp", Function );
 			mock( decorator ).method( "addEventListener" ).args( "click", Function );
-			mock( decorator ).method( "addEventListener" ).args( UIElementEvent.STATE_CHANGE, Function );
 			mock( decorator ).dispatches( new MouseEvent( MouseEvent.CLICK ));
 			
 			interactive = new Interactive( decorator );

@@ -148,7 +148,7 @@ package com.wezside.data.parser
 			while ( it.hasNext( ) )
 			{
 				var observer:IObserver = it.next( ) as IObserver;
-				var observeState:Object = observer.observeState( _states.stateKey );
+				var observeState:Object = observer.getObserveState( _states.stateKey );
 				
 				// Only notify if the observer registered for this state				
 				if ( _states.stateKey && observeState )

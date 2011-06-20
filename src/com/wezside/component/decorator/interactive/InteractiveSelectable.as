@@ -56,7 +56,8 @@ package com.wezside.component.decorator.interactive
 
 		private function rollOut( event:MouseEvent ):void 
 		{
-			decorated.state = UIElementState.STATE_VISUAL_UP;
+			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+				decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		public function click( event:MouseEvent ):void 

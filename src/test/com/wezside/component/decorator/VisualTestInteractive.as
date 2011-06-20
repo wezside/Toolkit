@@ -31,9 +31,9 @@ package test.com.wezside.component.decorator
 			stateManager.addState( MY_NEW_STATE );
 				
 			// Internal state specific handler
-			observeState( MY_NEW_STATE, myNewStateChange );
-			observeState( UIElementState.STATE_VISUAL_UP, upStateChange );
-			observeState( UIElementState.STATE_VISUAL_SELECTED, selectedStateChange );
+			setObserveState( MY_NEW_STATE, myNewStateChange );
+			setObserveState( UIElementState.STATE_VISUAL_UP, upStateChange );
+			setObserveState( UIElementState.STATE_VISUAL_SELECTED, selectedStateChange );
 
 			build();
 			setStyle();
@@ -63,6 +63,11 @@ package test.com.wezside.component.decorator
 		{
 			background.colours = [ 0 ];
 			background.arrange();			
+		}
+			
+		override public function notify( detail:IObserverDetail ):void
+		{
+			trace( detail.state.key );
 		}
 	}
 }

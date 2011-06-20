@@ -20,10 +20,13 @@ package com.wezside.utilities.observer
 			throw new Error( "Abstract class" );
 		}
 
-		public function observeState( id:String, callback:Function = null ):Object
+		public function setObserveState( id:String, callback:Function = null ):void
 		{
-			if ( !_observeStates.hasElement( id ))
-				_observeStates.addElement( id, { callback: callback });				
+			_observeStates.addElement( id, { callback: callback });				
+		}
+
+		public function getObserveState( id:String ):Object
+		{
 			return _observeStates.getElement( id );
 		}
 	}

@@ -26,6 +26,7 @@ package com.wezside.component
 	import com.wezside.component.decorator.layout.ILayout;
 	import com.wezside.component.decorator.scroll.IScroll;
 	import com.wezside.component.decorator.shape.IShape;
+	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.manager.style.IStyleManager;
 
 	import flash.display.DisplayObject;
@@ -38,6 +39,8 @@ package com.wezside.component
 	public interface IUIElement extends IUIDecorator
 	{
 		
+			function get stateManager():StateManager
+			function set stateManager( value:StateManager ):void
 			function get buttonMode():Boolean
 			function set buttonMode( value:Boolean ):void
 			function get mouseChildren():Boolean
