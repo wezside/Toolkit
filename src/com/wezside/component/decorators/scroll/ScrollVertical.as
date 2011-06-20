@@ -148,6 +148,9 @@ package com.wezside.component.decorators.scroll
 
 		override public function to( value:Number ):void
 		{
+			thumb.y = int( track.height * value ) + yMax;
+			if ( thumb.y < yMin ) thumb.y = yMin;
+			if ( thumb.y > yMax ) thumb.y = yMax;						
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, value, scrollHeight, "y" ));
 		}
 
