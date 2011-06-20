@@ -12,7 +12,6 @@ package test.com.wezside.component.decorator
 	import org.flexunit.async.Async;
 
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	/**
 	 * @author Wesley.Swanepoel
 	 */
