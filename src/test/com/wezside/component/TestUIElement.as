@@ -1,16 +1,16 @@
 package test.com.wezside.component
 {
-	import com.wezside.component.UIElementState;
-	import org.flexunit.asserts.assertEquals;
 	import mockolate.mock;
 	import mockolate.prepare;
 	import mockolate.strict;
+	import mockolate.stub;
 	import mockolate.verify;
-
 	import com.wezside.component.IUIElement;
 	import com.wezside.component.UIElement;
+	import com.wezside.component.UIElementState;
 	import com.wezside.component.decorator.interactive.IInteractive;
 
+	import org.flexunit.assertThat;
 	import org.flexunit.async.Async;
 
 	import flash.events.Event;
@@ -71,8 +71,7 @@ package test.com.wezside.component
 			mock( decorator ).method( "addEventListener" ).args( "click", Function );
 		
 			mock( decorator ).method( "click" ).args( new MouseEvent( MouseEvent.CLICK ));	
-			mock( decorator ).dispatches( new MouseEvent( MouseEvent.CLICK ));
-			mock( decorator ).asEventDispatcher().eventDispatcher.dispatchEvent( new MouseEvent( MouseEvent.CLICK ));
+			stub( decorator ).dispatches( new MouseEvent( MouseEvent.CLICK ));
 			
 			// Actual
 			var ui:UIElement = new UIElement();
@@ -82,7 +81,7 @@ package test.com.wezside.component
 			ui.arrange();
 			ui.activate();
 			
-			assertEquals( ui.state, UIElementState.STATE_VISUAL_UP );
+			assertThat( ui.state, UIElementState.STATE_VISUAL_UP );
 		}
 	}
 }

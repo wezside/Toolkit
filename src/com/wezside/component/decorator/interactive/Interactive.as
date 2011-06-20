@@ -25,9 +25,9 @@ package com.wezside.component.decorator.interactive
 
 		public function activate():void 
 		{
+			trace( decorated );
 			decorated.state = UIElementState.STATE_VISUAL_UP;
 			decorated.buttonMode = true;
-			decorated.mouseChildren = false;
 			decorated.addEventListener( MouseEvent.ROLL_OVER, rollOver );
 			decorated.addEventListener( MouseEvent.ROLL_OUT, rollOut );
 			decorated.addEventListener( MouseEvent.MOUSE_DOWN, down );
@@ -39,7 +39,6 @@ package com.wezside.component.decorator.interactive
 		{
 			decorated.state = UIElementState.STATE_VISUAL_DISABLED;
 			decorated.buttonMode = false;
-			decorated.mouseChildren = true;
 			decorated.removeEventListener( MouseEvent.ROLL_OVER, rollOver );
 			decorated.removeEventListener( MouseEvent.ROLL_OUT, rollOut );
 			decorated.removeEventListener( MouseEvent.MOUSE_DOWN, down );
@@ -49,32 +48,25 @@ package com.wezside.component.decorator.interactive
 			
 		private function mouseUp( event:MouseEvent ):void 
 		{			
-//			event.stopImmediatePropagation();
 		}			
 
 		private function rollOver( event:MouseEvent ):void 
 		{
-//			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_OVER;
 		}
 
 		private function rollOut( event:MouseEvent ):void 
 		{
-//			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
-		public function click( event:MouseEvent ):void 
+		private function click( event:MouseEvent ):void 
 		{
-			trace( this );
-			decorated.dispatchEvent( event );
-//			event.stopImmediatePropagation();
-			decorated.state = UIElementState.STATE_VISUAL_UP;
+			decorated.state = UIElementState.STATE_VISUAL_CLICK;
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
-//			event.stopImmediatePropagation();
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
 		}
 

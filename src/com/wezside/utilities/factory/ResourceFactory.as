@@ -280,7 +280,7 @@ package com.wezside.utilities.factory
 			while ( it.hasNext() )
 			{
 				observer = it.next() as IObserver;
-				observeState = observer.observeStates.find( "id", states.stateKey );
+				observeState = observer.observeState( states.stateKey );
 				
 				// Only notify if the observer registered for this state				
 				if ( states.stateKey && observeState )

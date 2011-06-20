@@ -255,7 +255,7 @@ package com.wezside.utilities.factory
 			while ( it.hasNext() )
 			{
 				var observer:IObserver = it.next() as IObserver;
-				var observeState:Object = observer.observeStates.find( "id", states.stateKey );
+				var observeState:Object = observer.observeState( states.stateKey );
 				// Only notify if the observer registered for this state				
 				if ( states.stateKey && observeState )
 				{

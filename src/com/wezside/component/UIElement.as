@@ -23,6 +23,10 @@ THE SOFTWARE.
  */
 package com.wezside.component
 {
+	import com.wezside.data.collection.DictionaryCollection;
+	import com.wezside.data.collection.IDictionaryCollection;
+	import com.wezside.utilities.observer.IObserverDetail;
+	import com.wezside.utilities.observer.ObserverDetail;
 	import com.wezside.component.decorator.interactive.IInteractive;
 	import com.wezside.component.decorator.interactive.Interactive;
 	import com.wezside.component.decorator.layout.ILayout;
@@ -32,6 +36,8 @@ package com.wezside.component
 	import com.wezside.component.decorator.scroll.ScrollHorizontal;
 	import com.wezside.component.decorator.scroll.ScrollVertical;
 	import com.wezside.component.decorator.shape.IShape;
+	import com.wezside.data.collection.Collection;
+	import com.wezside.data.collection.ICollection;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.ChildIterator;
 	import com.wezside.data.iterator.IIterator;
@@ -39,7 +45,10 @@ package com.wezside.component
 	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.manager.state.StateManager;
 	import com.wezside.utilities.manager.style.IStyleManager;
+	import com.wezside.utilities.observer.INotifier;
+	import com.wezside.utilities.observer.IObserver;
 	import com.wezside.utilities.string.StringUtil;
+
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.text.StyleSheet;
@@ -54,7 +63,7 @@ package com.wezside.component
 	[Event( name="STYLEMANAGER_READY", type="com.wezside.component.UIElementEvent" )]
 	[Event( name="ARRANGE_COMPLETE", type="com.wezside.component.UIElementEvent" )]
 	[Event( name="STATE_CHANGE", type="com.wezside.component.UIElementEvent" )]
-	public class UIElement extends Sprite implements IUIElement
+	public class UIElement extends Sprite implements IUIElement, INotifier, IObserver
 	{
 		
 		public static const ITERATOR_PROPS:String = "ITERATOR_PROPS";
@@ -72,6 +81,8 @@ package com.wezside.component
 		private var _background:IShape;
 		private var _interactive:IInteractive;
 		private var _debug:Boolean;
+		private var _observers:ICollection;
+		private var _observeStates:IDictionaryCollection;
 		private var scrollMask:Sprite;
 
 		public function UIElement()
@@ -85,16 +96,20 @@ package com.wezside.component
 			_layout = new Layout( this );
 			_interactive = new Interactive( this );
 			_childrenContainer = new Sprite();
-
+			_observers = new Collection();
+			_observeStates = new DictionaryCollection();
+			
 			_stateManager = new StateManager();
-			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID, true );
-			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED, true );
+			_stateManager.addState( UIElementState.STATE_VISUAL_INVALID );
+			_stateManager.addState( UIElementState.STATE_VISUAL_SELECTED );
 			_stateManager.addState( UIElementState.STATE_VISUAL_UP );
 			_stateManager.addState( UIElementState.STATE_VISUAL_OVER );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DOWN );
 			_stateManager.addState( UIElementState.STATE_VISUAL_DISABLED );
 			_stateManager.addState( UIElementState.STATE_VISUAL_CLICK );
 			_stateManager.stateKey = UIElementState.STATE_VISUAL_UP;
+			
+			registerObserver( this );
 		}
 
 		override public function contains( child:DisplayObject ):Boolean
@@ -350,6 +365,9 @@ package com.wezside.component
 			if ( _skin && containsUI( DisplayObject( _skin ) )) removeUIChild( DisplayObject( _skin ) );
 			if ( _background && containsUI( DisplayObject( _background ) )) removeUIChild( DisplayObject( _background ) );
 
+			_observeStates.purge();
+			_observeStates = null;
+
 			it.purge();
 			it = null;
 
@@ -374,7 +392,7 @@ package com.wezside.component
 		{
 			_stateManager.stateKey = value;
 			_skin.setSkin( _stateManager.stateKeys );
-			dispatchEvent( new UIElementEvent( UIElementEvent.STATE_CHANGE, false, false, _stateManager.state ) );
+			if ( _observers.length > 0 ) notifyObservers( _stateManager.stateKey );
 		}
 
 		public function get stateManager():StateManager
@@ -477,5 +495,46 @@ package com.wezside.component
 			iter = null;
 			strUtil = null;
 		}
+
+		public function registerObserver( observer:IObserver ):void
+		{
+			_observers.addElement( observer );
+		}
+		
+		public function unregisterObserver( observer:IObserver ):void
+		{
+			_observers.removeElement( observer );
+		}
+		
+		public function notifyObservers( data:* = null ):void
+		{
+			// Notify all observers
+			var it:IIterator = _observers.iterator();
+			while ( it.hasNext() ) 
+			{
+				var observer:IObserver = it.next() as IObserver;
+				var object:Object = observer.observeState( stateManager.stateKey );
+				// Only notify if the observer registered for this state			
+				if ( object && stateManager.compare( object.id ))
+				{
+					if ( object.callback ) object.callback( new ObserverDetail( this, stateManager.state, data ));
+					else observer.notify( new ObserverDetail( this, stateManager.state, data ));
+				}
+			}
+			it.purge();
+			it = null;
+		}
+		
+		public function observeState( id:String, callback:Function = null ):Object
+		{
+			if ( !_observeStates.hasElement( id ))
+				_observeStates.addElement( id, { id: id, callback: callback });				
+			return _observeStates.getElement( id );
+		}				
+		
+		public function notify( detail:IObserverDetail ):void
+		{
+		}
+		
 	}
 }

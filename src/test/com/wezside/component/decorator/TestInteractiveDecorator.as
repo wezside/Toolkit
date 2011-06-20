@@ -2,6 +2,7 @@ package test.com.wezside.component.decorator
 {
 	import mockolate.mock;
 	import mockolate.prepare;
+	import mockolate.received;
 	import mockolate.strict;
 
 	import com.wezside.component.IUIElement;
@@ -9,9 +10,11 @@ package test.com.wezside.component.decorator
 	import com.wezside.component.UIElementState;
 	import com.wezside.component.decorator.interactive.Interactive;
 
+	import org.flexunit.assertThat;
 	import org.flexunit.async.Async;
 
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	/**
 	 * @author Wesley.Swanepoel
 	 */
@@ -38,6 +41,7 @@ package test.com.wezside.component.decorator
 			var decorator:IUIElement = strict( IUIElement );
 		
 			// Expectations
+			mock( decorator ).method( "activate" );
 			mock( decorator ).setter( "buttonMode" ).arg( true );
 			mock( decorator ).setter( "mouseChildren" ).arg( false );
 			mock( decorator ).setter( "state" ).arg( UIElementState.STATE_VISUAL_UP );
@@ -47,12 +51,12 @@ package test.com.wezside.component.decorator
 			mock( decorator ).method( "addEventListener" ).args( "mouseUp", Function );
 			mock( decorator ).method( "addEventListener" ).args( "click", Function );
 			mock( decorator ).method( "addEventListener" ).args( UIElementEvent.STATE_CHANGE, Function );
-
-						
+			mock( decorator ).dispatches( new MouseEvent( MouseEvent.CLICK ));
+			
 			interactive = new Interactive( decorator );
 			interactive.activate();
-//			interactive.click( new MouseEvent( MouseEvent.CLICK ));
-//			mock( decorator ).asEventDispatcher().eventDispatcher.dispatchEvent( new MouseEvent( MouseEvent.CLICK ));
+			
+			assertThat( decorator, received().setter( "state" ).arg( UIElementState.STATE_VISUAL_UP ));
 			
 		}
 	}

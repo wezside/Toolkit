@@ -1,6 +1,7 @@
 package com.wezside.component.decorator.layout
 {
 	import com.wezside.component.IUIDecorator;
+	import com.wezside.component.IUIElement;
 	import com.wezside.component.UIElement;
 	import com.wezside.data.iterator.IIterator;
 

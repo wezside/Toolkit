@@ -1,9 +1,6 @@
 package com.wezside.component.decorator.interactive 
 {
 	import com.wezside.component.IUIDecorator;
-	import com.wezside.utilities.manager.state.StateManager;
-
-	import flash.events.MouseEvent;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -12,7 +9,6 @@ package com.wezside.component.decorator.interactive
 	{
 		function activate():void;
 		function deactivate():void;
-		function click( event:MouseEvent ):void;		
 	}
 }
 

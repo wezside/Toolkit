@@ -1,5 +1,6 @@
 package com.wezside.component.decorator.interactive 
 {
+	import com.wezside.component.IUIElement;
 	import com.wezside.component.UIElement;
 	import com.wezside.component.UIElementState;
 	import com.wezside.data.iterator.IIterator;
@@ -15,10 +16,9 @@ package com.wezside.component.decorator.interactive
 	public class InteractiveSelectable extends EventDispatcher implements IInteractive
 	{
 		
-		protected var decorated:IInteractive;
-		private var forcedDeselect:Boolean;
+		protected var decorated:IUIElement;
 
-		public function InteractiveSelectable( decorated:IInteractive )
+		public function InteractiveSelectable( decorated:IUIElement )
 		{
 			this.decorated = decorated;
 		}
@@ -27,7 +27,6 @@ package com.wezside.component.decorator.interactive
 		{
 			decorated.state = UIElementState.STATE_VISUAL_UP;
 			decorated.buttonMode = true;
-			decorated.mouseChildren = false;
 			decorated.addEventListener( MouseEvent.ROLL_OVER, rollOver );
 			decorated.addEventListener( MouseEvent.ROLL_OUT, rollOut );
 			decorated.addEventListener( MouseEvent.MOUSE_DOWN, down );
@@ -37,8 +36,8 @@ package com.wezside.component.decorator.interactive
 		
 		public function deactivate():void
 		{
+			decorated.state = UIElementState.STATE_VISUAL_DISABLED;
 			decorated.buttonMode = false;
-			decorated.mouseChildren = true;
 			decorated.removeEventListener( MouseEvent.ROLL_OVER, rollOver );
 			decorated.removeEventListener( MouseEvent.ROLL_OUT, rollOut );
 			decorated.removeEventListener( MouseEvent.MOUSE_DOWN, down );
@@ -48,46 +47,39 @@ package com.wezside.component.decorator.interactive
 			
 		private function mouseUp( event:MouseEvent ):void 
 		{			
-			event.stopImmediatePropagation();
 		}			
 
 		private function rollOver( event:MouseEvent ):void 
 		{
-			event.stopImmediatePropagation();
-			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))			
-				decorated.state = UIElementState.STATE_VISUAL_OVER;
+			decorated.state = UIElementState.STATE_VISUAL_OVER;
 		}
 
 		private function rollOut( event:MouseEvent ):void 
 		{
-			event.stopImmediatePropagation();
-			if ( !decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))			
+			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
+				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+			else 
 				decorated.state = UIElementState.STATE_VISUAL_UP;
 		}
 
 		public function click( event:MouseEvent ):void 
 		{
-			event.stopImmediatePropagation();
-			decorated.state = UIElementState.STATE_VISUAL_OVER;
-			if ( !forcedDeselect )
+			trace( "click" );
+			trace( "compare", decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ), decorated.state );
+			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
 			{
-				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
+				decorated.state = UIElementState.STATE_VISUAL_UP;
 			}
 			else
 			{
-				forcedDeselect = false;
+				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
 			}
 		}
 
 		private function down( event:MouseEvent ):void 
 		{
-			event.stopImmediatePropagation();
+			trace( "down" );
 			decorated.state = UIElementState.STATE_VISUAL_DOWN;
-			if ( decorated.stateManager.compare( UIElementState.STATE_VISUAL_SELECTED ))
-			{			
-				forcedDeselect = true;
-				decorated.state = UIElementState.STATE_VISUAL_SELECTED;
-			}			
 		}
 
 		public function get state():String
