@@ -52,9 +52,7 @@ package test.com.wezside.utilities.date
 			index = dateUtil.calculateStartDayOfTheWeek( new Date( 2000, 5, 15, 17, 26, 13 ));		// June 15, 2000 ( Leap year ) = 4 (Thursday)
 			assertEquals( 4, index );
 			index = dateUtil.calculateStartDayOfTheWeek( new Date( 2003, 11, 17, 17, 26, 13 ));		// December 17, 2003 1 (Monday)
-			assertEquals( 1, index );
-			index = dateUtil.calculateStartDayOfTheWeek( new Date());								// Today
-			assertEquals( 3, index );
+			assertEquals( 1, index );	
 		}
 		
 		[Test]

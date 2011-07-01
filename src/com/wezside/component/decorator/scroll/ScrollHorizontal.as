@@ -144,10 +144,21 @@ package com.wezside.component.decorator.scroll
 			addChild( thumb as UIElement );			
 		}
 
-		override public function to( percent:Number ):void
+		override public function to( value:Number ):void
 		{
+			if ( value < 0 ) return;
+			if ( value > 1 ) return;
+			_percent = value;
+			thumb.x = track.width * value - thumb.width * 0.5;
+			if ( thumb.x < xMin ) thumb.x = xMin;
+			if ( thumb.x > xMax ) thumb.x = xMax;
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, percent, scrollWidth, "x" ));
 		}
+
+		public function get percent():Number 
+		{
+			return _percent;
+		}			
 
 		private function thumbOut( event:MouseEvent ):void
 		{

@@ -48,24 +48,24 @@ package test.com.wezside.component.decorator
 			state = MY_NEW_STATE;
 		}
 
-		private function myNewStateChange( detail:IObserverDetail ):void
+		private function myNewStateChange( detail:IObserverDetail = null ):void
 		{
 			trace( "myNewStateChange ");
 		}
 
-		private function selectedStateChange( detail:IObserverDetail ):void
+		private function selectedStateChange( detail:IObserverDetail = null ):void
 		{
 			background.colours = [ 0xFF0000 ];
 			background.arrange();
 		}
 		
-		public function upStateChange( detail:IObserverDetail ):void
+		public function upStateChange( detail:IObserverDetail = null ):void
 		{
 			background.colours = [ 0 ];
 			background.arrange();			
 		}
 			
-		override public function notify( detail:IObserverDetail ):void
+		override public function notify( detail:IObserverDetail = null ):void
 		{
 			trace( detail.state.key );
 		}

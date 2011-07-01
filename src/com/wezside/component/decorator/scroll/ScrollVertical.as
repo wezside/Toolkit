@@ -148,11 +148,19 @@ package com.wezside.component.decorator.scroll
 
 		override public function to( value:Number ):void
 		{
-			thumb.y = int( track.height * value ) + yMax;
+			if ( value < 0 ) return;
+			if ( value > 1 ) return;
+			_percent = value;
+			thumb.y = track.height * value - thumb.height * 0.5;
 			if ( thumb.y < yMin ) thumb.y = yMin;
-			if ( thumb.y > yMax ) thumb.y = yMax;						
+			if ( thumb.y > yMax ) thumb.y = yMax;
 			dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, value, scrollHeight, "y" ));
 		}
+		
+		public function get percent():Number 
+		{
+			return _percent;
+		}			
 
 		private function thumbOut( event:MouseEvent ):void 
 		{
@@ -185,5 +193,6 @@ package com.wezside.component.decorator.scroll
 			
 			if ( !event.buttonDown ) thumbUp( null );
 		}
+		
 	}
 }
