@@ -15,7 +15,7 @@ package com.wezside.utilities.observer
 			_observeStates = new DictionaryCollection();	
 		}
 
-		public function notify( detail:IObserverDetail ):void
+		public function notify( detail:IObserverDetail = null ):void
 		{
 			throw new Error( "Abstract class" );
 		}

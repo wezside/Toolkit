@@ -517,7 +517,7 @@ package com.wezside.component
 				// Only notify if the observer registered for this state		
 				if ( object && stateManager.compare( object.id ))
 				{
-					if ( object.callback ) object.callback( new ObserverDetail( this, stateManager.state,  data ));
+					if ( object.callback ) object.callback( new ObserverDetail( this, stateManager.state, data ));
 					else observer.notify( new ObserverDetail( this, stateManager.state, data ));
 				}
 			}
@@ -535,7 +535,7 @@ package com.wezside.component
 			return _observeStates.getElement( id );
 		}
 		
-		public function notify( detail:IObserverDetail ):void
+		public function notify( detail:IObserverDetail = null ):void
 		{
 		}
 		

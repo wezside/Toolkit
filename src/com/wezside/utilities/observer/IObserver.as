@@ -7,6 +7,6 @@ package com.wezside.utilities.observer
 	{
 		function setObserveState( id:String, callback:Function = null ):void;
 		function getObserveState( id:String ):Object;
-		function notify( detail:IObserverDetail ):void;
+		function notify( detail:IObserverDetail = null ):void;
 	}
 }
