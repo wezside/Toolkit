@@ -44,6 +44,11 @@ package com.wezside.data.collection
 			node = null;
 		}
 		
+		public function addElementAt( value:*, index:int ):void
+		{
+			throw new Error( "This feature is not implemented yet" );
+		}		
+		
 		public function getElementAt( index:int ):*
 		{
 			return _collection[ index.toString() ] as LinkedListNode;
@@ -163,5 +168,6 @@ package com.wezside.data.collection
 			throw new Error( "The cloneFromIndex() method is not yet supported for LinkedListCollection");
 			return null;
 		}
+
 	}
 }

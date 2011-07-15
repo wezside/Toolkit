@@ -44,6 +44,10 @@ package com.wezside.data.collection
 		{
 			_collection.push( value );	
 		}		
+
+		public function addElementAt( value:*, index:int ):void
+		{
+		}		
 		
 		public function getElementAt( index:int ):*
 		{
@@ -159,7 +163,5 @@ package com.wezside.data.collection
 			it = null;			
 			return str;
 		}
-
-
 	}
 }
