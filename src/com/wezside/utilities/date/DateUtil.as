@@ -193,5 +193,10 @@ package com.wezside.utilities.date
 		{
 			return ( date.getFullYear() % 100 ) % 4 == 0;
 		}		
+		
+		public function daysInMonth( y:int, m:int ):int
+		{
+			return 32 - new Date( y, m, 32 ).getDate();
+		}			
 	}
 }

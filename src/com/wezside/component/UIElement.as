@@ -352,13 +352,13 @@ package com.wezside.component
 				_childrenContainer.mask = null;
 				removeUIChild( _childrenContainer );
 			}
-			if ( _scroll && containsUI( DisplayObject( _scroll ) ))
+			if ( _scroll && containsUI( DisplayObject( _scroll )))
 			{
 				_childrenContainer.mask = null;
 				removeUIChild( scrollMask );
 				_scroll.removeEventListener( ScrollEvent.CHANGE, scrollChange );
 				_scroll.purge();
-				removeUIChild( DisplayObject( _scroll ) );
+				removeUIChild( DisplayObject( _scroll ));
 			}
 			if ( _layout ) _layout.removeEventListener( UIElementEvent.ARRANGE_COMPLETE, arrangeComplete );
 			if ( _stateManager ) _stateManager.purge();

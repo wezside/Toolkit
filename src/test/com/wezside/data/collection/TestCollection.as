@@ -66,5 +66,19 @@ package test.com.wezside.data.collection
 			assertEquals( 2, collection.length );
 			assertNull( collection.find( "three" ));
 		}
+		
+		[Test]
+		public function testAddElementAt():void
+		{
+			assertEquals( 0, collection.length );
+			collection.addElement( "one" );
+			collection.addElement( "three");			
+			collection.addElement( "four" );			
+			
+			collection.addElementAt( "two", 1 );
+			assertEquals( "one", collection.getElementAt( 0 ));
+			assertEquals( "two", collection.getElementAt( 1 ));
+			assertEquals( "three", collection.getElementAt( 2 ));
+		}
 	}
 }

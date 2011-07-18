@@ -82,6 +82,11 @@ package com.wezside.data.collection
 			_collection.push( value );
 		}
 		
+		public function addElementAt( value:*, index:int ):void
+		{
+			_collection.splice( index, 0, value );
+		}
+		
 		public function getElementAt( index:int ):*
 		{
 			return _collection[ index ];

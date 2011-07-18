@@ -54,6 +54,11 @@ package com.wezside.data.collection
 		{
 			_collection.appendChild( value );	
 		}
+		
+		public function addElementAt( value:*, index:int ):void
+		{
+			_collection.insertChildAfter( _collection[index], value );
+		}			
 
 		public function find( prop:* = "", value:* = null ):*
 		{

@@ -6,6 +6,7 @@ package com.wezside.data.collection
 	{
 		function get length():int;
 		function addElement( value:* ):void;
+		function addElementAt( value:*, index:int ):void;
 		function getElementAt( index:int ):*;
 		function clone():ICollection;		
 		function cloneFromIndex( index:int, end:int = -1 ):ICollection;
