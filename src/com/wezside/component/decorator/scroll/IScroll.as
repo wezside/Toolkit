@@ -35,6 +35,9 @@ package com.wezside.component.decorator.scroll
 		
 		function get thumbWidth():int
 		function set thumbWidth( value:int ):void
+		
+		function get thumbHeight():int
+		function set thumbHeight( value:int ):void
 	
 		function get thumbColors():Array
 		function set thumbColors( value:Array ):void

@@ -34,12 +34,13 @@ package test.com.wezside.component.decorator
 			setObserveState( MY_NEW_STATE, myNewStateChange );
 			setObserveState( UIElementState.STATE_VISUAL_UP, upStateChange );
 			setObserveState( UIElementState.STATE_VISUAL_SELECTED, selectedStateChange );
-
+						
 			build();
 			setStyle();
 			arrange();
 			activate();
 			addEventListener( MouseEvent.CLICK, click );
+
 		}
 
 		private function click( event:MouseEvent ):void

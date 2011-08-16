@@ -72,6 +72,7 @@ package com.wezside.component.decorator.scroll
 			}
 
 			// Update values if resize occurs
+			
 			if ( track && thumb )
 			{
 				if ( thumb.y != int( track.y + ( _percent * int( yMax - track.y ))))
@@ -79,7 +80,7 @@ package com.wezside.component.decorator.scroll
 					thumb.y = int( track.y + ( _percent * int( yMax - track.y )));
 					if ( thumb.y < yMin ) thumb.y = yMin;
 					if ( thumb.y > yMax ) thumb.y = yMax;
-					dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, _percent, scrollHeight, "y" ) );
+					dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, scrollBarVisible ? _percent : 0, scrollHeight, "y" ) );
 				}
 			}
 		}
@@ -129,8 +130,10 @@ package com.wezside.component.decorator.scroll
 			{
 				if ( thumbWidth == 0 ) thumb.background.width = thumbWidth = trackWidth - thumbXOffset * 2;
 				else thumb.background.width = thumbWidth;
-				if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = int( scrollHeight / UIElement( decorated ).bareHeight * scrollHeight );					
-				thumb.background.height = thumbHeight > 20 ? thumbHeight : 20;
+
+				var newThumbHeight:int = int( scrollHeight / UIElement( decorated ).bareHeight * scrollHeight );
+				if ( thumbHeight == 0 ) thumb.background.height = thumbHeight = newThumbHeight;		
+				thumb.background.height = thumbHeight > 20 ? newThumbHeight : 20;
 			}
 
 			if ( !thumb.hasEventListener( MouseEvent.MOUSE_DOWN ))

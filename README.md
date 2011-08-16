@@ -17,6 +17,7 @@ See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 Change log since tag 0.1.0280
 =======
 
+* IScroll updated with thumbHeight
 * ICollection addElementAt() method implemented for all collections but LinkedList 
 * DateUtil. Easier algorithm for determining the week day a month starts on. 
 

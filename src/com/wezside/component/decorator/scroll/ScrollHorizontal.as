@@ -78,7 +78,7 @@ package com.wezside.component.decorator.scroll
 					thumb.x = int( track.x + ( _percent * int( xMax - track.x )));
 					if ( thumb.x < xMin ) thumb.x = xMin;
 					if ( thumb.x > xMax ) thumb.x = xMax;
-					dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, _percent, scrollWidth, "x" ));
+					dispatchEvent( new ScrollEvent( ScrollEvent.CHANGE, false, false, scrollBarVisible ? _percent : 0, scrollWidth, "x" ));
 				}
 			}
 		}
