@@ -5,8 +5,6 @@ package com.wezside.utilities.command
 	import com.wezside.data.collection.LinkedListNode;
 	import com.wezside.data.iterator.IIterator;
 
-	import mx.core.EventPriority;
-
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
@@ -155,7 +153,7 @@ package com.wezside.utilities.command
 						while ( it.hasNext() )
 						{
 							var object:Object = it.next();
-							command.addEventListener( object.type, object.listener, false, EventPriority.DEFAULT_HANDLER );
+							command.addEventListener( object.type, object.listener, false, 0 );
 						}
 						it.purge();
 						it = null;

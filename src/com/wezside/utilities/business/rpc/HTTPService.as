@@ -1,6 +1,5 @@
 package com.wezside.utilities.business.rpc 
 {
-	import mx.core.EventPriority;
 	import com.wezside.utilities.business.IResponder;
 	import com.wezside.utilities.business.ResponderEvent;
 	import com.wezside.utilities.logging.Tracer;
@@ -63,7 +62,7 @@ package com.wezside.utilities.business.rpc
 			_request.data = params;
 			_request.requestHeaders = _requestHeaders;
 			_loader.addEventListener( Event.COMPLETE, cancelHandler );
-			_loader.addEventListener( Event.COMPLETE, result, false, EventPriority.DEFAULT_HANDLER );
+			_loader.addEventListener( Event.COMPLETE, result, false, 0 );
 			_loader.addEventListener( IOErrorEvent.IO_ERROR, fault );
 			_loader.load( _request );
 			return true;
