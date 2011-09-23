@@ -157,8 +157,6 @@ package com.wezside.component.decorator.shape
 		override public function set width(value:Number):void 
 		{
 			_width = value;
-			// Update the height property if arrange was called before
-//			if ( super.width > 0 ) super.width = value;
 		}
 		
 		override public function get width():Number 
@@ -169,8 +167,6 @@ package com.wezside.component.decorator.shape
 		override public function set height(value:Number):void 
 		{
 			_height = value;
-			// Update the height property if arrange was called before
-//			if ( super.height > 0 ) super.height = value;
 		}
 		
 		override public function get height():Number 
@@ -186,6 +182,7 @@ package com.wezside.component.decorator.shape
 		public function set topLeftRadius( value:int ):void
 		{
 			_topLeftRadius = value;
+			_cornerRadius = value;
 		}
 		
 		public function get topRightRadius():int
@@ -196,6 +193,7 @@ package com.wezside.component.decorator.shape
 		public function set topRightRadius( value:int ):void
 		{
 			_topRightRadius = value;
+			_cornerRadius = value;
 		}
 		
 		public function get bottomLeftRadius():int
@@ -206,6 +204,7 @@ package com.wezside.component.decorator.shape
 		public function set bottomLeftRadius( value:int ):void
 		{
 			_bottomLeftRadius = value;
+			_cornerRadius = value;
 		}
 		
 		public function get bottomRightRadius():int
@@ -216,6 +215,7 @@ package com.wezside.component.decorator.shape
 		public function set bottomRightRadius( value:int ):void
 		{
 			_bottomRightRadius = value;
+			_cornerRadius = value;
 		}
 
 		public function get xOffset():int
