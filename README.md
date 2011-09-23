@@ -6,7 +6,7 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below. For Toolkit Co
 
 [Latest release](https://github.com/wezside/Toolkit/wiki/Latest-Release) 
 =======
-* Build 0.1.0280
+* Build 0.1.0287
 * Compiled with Flex 4 SDK build 14159 
 
 Documentation
@@ -14,19 +14,19 @@ Documentation
 
 See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 
-Change log since tag 0.1.0280
+Change log since tag 0.1.0287
 =======
 
 * IScroll updated with thumbHeight
 * ICollection addElementAt() method implemented for all collections but LinkedList 
 * DateUtil. Easier algorithm for determining the week day a month starts on. 
 
-Change log since tag 0.1.0260
+Change log since tag 0.1.0287
 =======
 
 * DateUtils extended to calculate daysFromMilliseconds(), hoursFromMilliseconds(), minutesFromMilliseconds(), secondsFromMilliseconds(), calculateStartDayOfTheWeek()
 
-Change log since tag 0.1.0250
+Change log since tag 0.1.0287
 =======
 
 * StyleManager ready() method removed. Only listening for Event.COMPLETE is accepted to check if StyleManager is ready.  
