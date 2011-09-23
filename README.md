@@ -14,19 +14,19 @@ Documentation
 
 See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 
-Change log since tag 0.1.0287
+Change log since tag .0287
 =======
 
 * IScroll updated with thumbHeight
 * ICollection addElementAt() method implemented for all collections but LinkedList 
 * DateUtil. Easier algorithm for determining the week day a month starts on. 
 
-Change log since tag 0.1.0287
+Change log since tag .0287
 =======
 
 * DateUtils extended to calculate daysFromMilliseconds(), hoursFromMilliseconds(), minutesFromMilliseconds(), secondsFromMilliseconds(), calculateStartDayOfTheWeek()
 
-Change log since tag 0.1.0287
+Change log since tag .0287
 =======
 
 * StyleManager ready() method removed. Only listening for Event.COMPLETE is accepted to check if StyleManager is ready.  
