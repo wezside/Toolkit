@@ -141,6 +141,11 @@ package com.wezside.component
 		{
 			return _childrenContainer.getChildIndex( child );
 		}
+	
+		override public function removeChildren( beginIndex:int = 0, endIndex:int = 2147483647 ):void
+		{
+			_childrenContainer.removeChildren( beginIndex, endIndex );
+		}
 
 		override public function removeChild( child:DisplayObject ):DisplayObject
 		{
@@ -180,6 +185,17 @@ package com.wezside.component
 		public function getUIChildByName( name:String ):DisplayObject
 		{
 			return super.getChildByName( name );
+		}
+
+		public function removeAllChildren():void
+		{
+			removeChildren( 0, _childrenContainer.numChildren );
+			removeUIChildren( 0, numChildren );
+		}
+
+		public function removeUIChildren( beginIndex:int = 0, endIndex:int = 2147483647 ):void
+		{
+			super.removeChildren( beginIndex, endIndex );
 		}
 
 		public function removeUIChild( child:DisplayObject ):DisplayObject

@@ -6,27 +6,27 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below. For Toolkit Co
 
 [Latest release](https://github.com/wezside/Toolkit/wiki/Latest-Release) 
 =======
-* Build 0.1.0288
-* Compiled with Flex 4 SDK build 14159 
+* Build 0.1.0289
+* Compiled with Flex 0.1.0289 SDK build 21328
 
 Documentation
 =============
 
 See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 
-Change log since tag .0287
+Change log since tag 0270
 =======
 
 * IScroll updated with thumbHeight
 * ICollection addElementAt() method implemented for all collections but LinkedList 
 * DateUtil. Easier algorithm for determining the week day a month starts on. 
 
-Change log since tag .0287
+Change log since tag 0260
 =======
 
 * DateUtils extended to calculate daysFromMilliseconds(), hoursFromMilliseconds(), minutesFromMilliseconds(), secondsFromMilliseconds(), calculateStartDayOfTheWeek()
 
-Change log since tag .0287
+Change log since tag 0250
 =======
 
 * StyleManager ready() method removed. Only listening for Event.COMPLETE is accepted to check if StyleManager is ready.  
@@ -34,7 +34,7 @@ Change log since tag .0287
 * StyleManager now supports multiple CSS files. Simply just call parseCSSByteArray with the difference CSS file. Any duplicate properties will be overwritten, i.e. the last CSS class will be the active one.
 * ImageResize refactored to Resizer. Added support to resize to width.
 
-Change log since build .0200
+Change log since build 0200
 =======
 
 * This repo now only have the core toolkit. For Toolkit Components please go to the [Toolkit-Components](https://github.com/wezside/Toolkit-Components) repo. 
@@ -57,7 +57,7 @@ Change log since build .0200
 * XMLDataMapper Automatic leaf node mapping to parent variable typed String.
 * Fixed XMLDatamapper recursion breaking when leaf node mapping is encountered.
 
-Change log since build .0100
+Change log since build 0100
 =======
 
 * New Simple Combo component added com.wezside.components.combo.Combo

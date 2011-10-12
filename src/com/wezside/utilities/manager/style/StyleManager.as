@@ -19,6 +19,8 @@
  */
 package com.wezside.utilities.manager.style
 {
+	import flash.text.engine.FontDescription;
+	import flash.text.engine.ElementFormat;
 	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -191,6 +193,53 @@ package com.wezside.utilities.manager.style
 			}
 			return props;
 		}
+		
+		/** 
+         * Reads a set of style properties for a named style and then creates 
+         * a TextFormat object that uses the same properties. 
+         */ 
+        public function getElementFormat( styleName:String ):ElementFormat 
+        { 
+            var style:Object = _sheet.getStyle( styleName ); 
+            if ( style != null ) 
+            { 
+                var colorStr:String = style.color; 
+                if ( colorStr != null && colorStr.indexOf( "#" ) == 0 ) 
+                { 
+                    style.color = colorStr.substr( 1 ); 
+                } 
+                var fd:FontDescription = new FontDescription( 
+                                    style.fontFamily, 
+                                    style.fontWeight, 
+                                    style.fontPosture, 
+                                    style.fontLookup, 
+                                    style.renderingMode, 
+                                    style.cffHinting ); 
+                var format:ElementFormat = new ElementFormat(fd, 
+                                      style.fontSize, 
+                                      style.color, 
+                                      1, 
+                                      style.textRotation, 
+                                      style.dominantBaseline, 
+                                      style.alignmentBaseline, 
+                                      style.baselineShift, 
+                                      style.kerning, 
+                                      style.trackingRight, 
+                                      style.trackingLeft, 
+                                      style.locale, 
+                                      style.breakOpportunity, 
+                                      style.digitCase, 
+                                      style.digitWidth, 
+                                      style.ligatureLevel, 
+                                      style.typographicCase ); 
+                 
+                if ( style.hasOwnProperty( "letterSpacing" ))         
+                {                  
+                    format.trackingRight = style.letterSpacing; 
+                } 
+            } 
+            return format; 
+        } 				
 
 		public function get css():String
 		{
