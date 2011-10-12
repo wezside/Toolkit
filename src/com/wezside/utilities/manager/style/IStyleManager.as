@@ -19,10 +19,10 @@
  */
 package com.wezside.utilities.manager.style
 {
-	import flash.text.engine.TextElement;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.text.StyleSheet;
+	import flash.text.engine.ElementFormat;
 
 	/**
 	 * @author Wesley.Swanepoel
@@ -34,6 +34,8 @@ package com.wezside.utilities.manager.style
 		function hasAssetByName( linkageClassName:String ):Boolean;
 
 		function getAssetByName( linkageClassName:String ):DisplayObject;
+		
+		function getClassByName( linkageClassName:String ):Class;
 
 		function getStyleSheet( styleName:String ):StyleSheet;
 
@@ -41,7 +43,7 @@ package com.wezside.utilities.manager.style
 
 		function getPropertyStyles( styleName:String ):Array;
 		
-		function getElementFormat( styleName:String ):TextElement;
+		function getElementFormat( styleName:String ):ElementFormat;
 
 		function get css():String;
 

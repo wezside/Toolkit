@@ -126,10 +126,31 @@ package com.wezside.utilities.manager.style
 		{
 			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
 			{
-				return _libraryLoader.contentLoaderInfo.applicationDomain.hasDefinition( linkageClassName );
+				var inSWF:Boolean = _libraryLoader.contentLoaderInfo.applicationDomain.hasDefinition( linkageClassName );
+				if ( !inSWF ) return hasOwnProperty( linkageClassName );
+				return true;
 			}
-			return hasOwnProperty( linkageClassName );
+			return false;
 		}
+		
+		public function getClassByName( linkageClassName:String ):Class
+		{
+			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
+			{
+				if ( _libraryLoader.contentLoaderInfo.applicationDomain.hasDefinition( linkageClassName ) ) {
+					var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
+					return SymbolClass;
+				}
+			}
+			if ( hasOwnProperty( linkageClassName ) )
+			{
+				if ( this[ linkageClassName ] is Class )
+				{
+					return this[ linkageClassName ];
+				}
+			}
+			throw new Error( "Unable to find library class " + linkageClassName );
+		}		
 
 		public function getAssetByName( linkageClassName:String ):DisplayObject
 		{
@@ -138,8 +159,7 @@ package com.wezside.utilities.manager.style
 				var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
 				try
 				{
-					return new SymbolClass() as DisplayObject;
-					;
+					return DisplayObject( new SymbolClass() );
 				}
 				catch ( error:Error )
 				{
