@@ -14,6 +14,16 @@ Documentation
 
 See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
 
+Change log since tag 0280
+=======
+
+* UIElement gets 
+** removeAllChildren() (Will call the below 2 methods in succession)
+** removeAllChildren( start:int, end:int )
+** removeAllUIChildren( start:int, end:int )
+* StyleManager updated with getClass() to retrieve a library item's class instance
+* StyleManager updated with getElementFormat() to retrieve the Flash Text Engine Format instance from CSS
+
 Change log since tag 0270
 =======
 
