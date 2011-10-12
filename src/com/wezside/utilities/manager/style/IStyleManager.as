@@ -19,6 +19,7 @@
  */
 package com.wezside.utilities.manager.style
 {
+	import flash.text.engine.TextElement;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.text.StyleSheet;
@@ -28,27 +29,29 @@ package com.wezside.utilities.manager.style
 	 */
 	public interface IStyleManager
 	{
-		function parseCSSByteArray(clazz:Class):void;
+		function parseCSSByteArray( clazz:Class ):void;
 
-		function hasAssetByName(linkageClassName:String):Boolean;
+		function hasAssetByName( linkageClassName:String ):Boolean;
 
-		function getAssetByName(linkageClassName:String):DisplayObject;
+		function getAssetByName( linkageClassName:String ):DisplayObject;
 
-		function getStyleSheet(styleName:String):StyleSheet;
+		function getStyleSheet( styleName:String ):StyleSheet;
 
-		function getLibraryItems(styleName:String):Object;
+		function getLibraryItems( styleName:String ):Object;
 
-		function getPropertyStyles(styleName:String):Array;
+		function getPropertyStyles( styleName:String ):Array;
+		
+		function getElementFormat( styleName:String ):TextElement;
 
 		function get css():String;
 
-		function dispatchEvent(event:Event):Boolean;
+		function dispatchEvent( event:Event ):Boolean;
 
-		function hasEventListener(type:String):Boolean;
+		function hasEventListener( type:String) :Boolean;
 
-		function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void;
+		function removeEventListener( type:String, listener:Function, useCapture:Boolean = false ):void;
 
-		function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void;
+		function addEventListener( type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false ):void;
 		
 		function purge():void;
 	}
