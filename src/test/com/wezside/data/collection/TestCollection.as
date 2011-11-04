@@ -85,7 +85,7 @@ package test.com.wezside.data.collection
 		public function sortDescending():void
 		{
 			assertEquals( 0, collection.length );
-			for ( var i:int = 0; i < 100; ++i ) 
+			for ( var i:int = 0; i < 500; ++i ) 
 			{
 				collection.addElement( int( Math.random() * 1000 ));
 				
@@ -100,7 +100,7 @@ package test.com.wezside.data.collection
 		public function sortAscending():void
 		{
 			assertEquals( 0, collection.length );
-			for ( var i:int = 0; i < 100; ++i ) 
+			for ( var i:int = 0; i < 500; ++i ) 
 			{
 				collection.addElement( int( Math.random() * 1000 ));				
 			}
@@ -114,7 +114,7 @@ package test.com.wezside.data.collection
 		public function sortObjectsAscending():void
 		{
 			assertEquals( 0, collection.length );
-			for ( var i:int = 0; i < 10; ++i ) 
+			for ( var i:int = 0; i < 500; ++i ) 
 			{
 				collection.addElement({ index: int( Math.random() * 1000 ), value: "Value" });				
 			}			
@@ -130,7 +130,7 @@ package test.com.wezside.data.collection
 		public function sortObjectsDescending():void
 		{
 			assertEquals( 0, collection.length );
-			for ( var i:int = 0; i < 10; ++i ) 
+			for ( var i:int = 0; i < 500; ++i ) 
 			{
 				collection.addElement({ test: int( Math.random() * 1000 ), value: "Value" });				
 			}
