@@ -14,6 +14,13 @@ package com.wezside.data.collection
 		function removeElementAt( index:int ):void;
 		function find( prop:* = "", value:* = null ):*;
 		
+		function ascending():ICollection;
+		function descending():ICollection;
+		function sortOn( property:String ):ICollection;		
+		function elapsedSortTime():Number;
+		function sortMethod( type:int = 0 ):ICollection;
+		function sort():ICollection;
+
 		function iterator():IIterator;
 		function purge():void;
 		function toString():String;

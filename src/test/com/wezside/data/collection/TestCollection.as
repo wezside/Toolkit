@@ -1,5 +1,6 @@
 package test.com.wezside.data.collection 
 {
+	import org.flexunit.asserts.assertTrue;
 	import com.wezside.data.collection.Collection;
 	import com.wezside.data.collection.ICollection;
 
@@ -74,11 +75,70 @@ package test.com.wezside.data.collection
 			collection.addElement( "one" );
 			collection.addElement( "three");			
 			collection.addElement( "four" );			
-			
 			collection.addElementAt( "two", 1 );
 			assertEquals( "one", collection.getElementAt( 0 ));
 			assertEquals( "two", collection.getElementAt( 1 ));
 			assertEquals( "three", collection.getElementAt( 2 ));
+		}
+		
+		[Test]
+		public function sortDescending():void
+		{
+			assertEquals( 0, collection.length );
+			for ( var i:int = 0; i < 100; ++i ) 
+			{
+				collection.addElement( int( Math.random() * 1000 ));
+				
+			}
+			collection.descending().sort();
+			trace( collection );
+			trace( "Sorting took: " + collection.elapsedSortTime() + "ms");
+			assertTrue( collection.getElementAt( 0 ) > collection.getElementAt( collection.length - 1 ));
+		}
+		
+		[Test]
+		public function sortAscending():void
+		{
+			assertEquals( 0, collection.length );
+			for ( var i:int = 0; i < 100; ++i ) 
+			{
+				collection.addElement( int( Math.random() * 1000 ));				
+			}
+			collection.sort();
+			trace( collection );
+			trace( "Sorting took: " + collection.elapsedSortTime() + "ms");
+			assertTrue( collection.getElementAt( 0 ) < collection.getElementAt( collection.length - 1 ));
+		}
+		
+		[Test]
+		public function sortObjectsAscending():void
+		{
+			assertEquals( 0, collection.length );
+			for ( var i:int = 0; i < 10; ++i ) 
+			{
+				collection.addElement({ index: int( Math.random() * 1000 ), value: "Value" });				
+			}			
+
+//			collection.sort().ascending().on( "index" );			
+			collection.sortOn( "index" ).ascending().sort();
+			trace( collection );
+			trace( "Sorting took: " + collection.elapsedSortTime() + "ms");
+			assertTrue( collection.getElementAt( 0 ).index < collection.getElementAt( collection.length - 1 ).index);
+		}
+		
+		[Test]
+		public function sortObjectsDescending():void
+		{
+			assertEquals( 0, collection.length );
+			for ( var i:int = 0; i < 10; ++i ) 
+			{
+				collection.addElement({ test: int( Math.random() * 1000 ), value: "Value" });				
+			}
+			
+			collection.sortOn( "test" ).descending().sort();
+			trace( collection );
+			trace( "Sorting took: " + collection.elapsedSortTime() + "ms");
+			assertTrue( collection.getElementAt( 0 ).test > collection.getElementAt( collection.length - 1 ).test );
 		}
 	}
 }

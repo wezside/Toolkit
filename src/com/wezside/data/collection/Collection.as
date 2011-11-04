@@ -19,21 +19,25 @@
  */
 package com.wezside.data.collection 
 {
-	import com.wezside.data.iterator.NullIterator;
+	import com.wezside.data.sort.SortType;
 	import com.wezside.data.iterator.ArrayIterator;
 	import com.wezside.data.iterator.IIterator;
+	import com.wezside.data.iterator.NullIterator;
+	import com.wezside.data.sort.BubbleSort;
+	import com.wezside.data.sort.ISort;
 
 	/**
 	 * @author Wesley.Swanepoel
 	 */
 	public class Collection implements ICollection
 	{
-
+		
 		private var _collection:Array;
+		private var sortImpl:ISort;
 
 		public function Collection( arr:Array = null ) 
 		{
-			_collection = arr ? arr: [];	
+			_collection = arr ? arr: [];
 		}
 			
 		public function reverse():void
@@ -151,6 +155,65 @@ package com.wezside.data.collection
 			return copy;			
 		}
 		
+		public function ascending():ICollection
+		{
+			if ( sortImpl ) sortImpl.type = SortType.ASCENDING;
+			else
+			{
+				sortMethod( 0 );
+				sortImpl.type = SortType.ASCENDING;
+			}
+			return this;
+		}
+
+		public function descending():ICollection
+		{
+			if ( sortImpl ) sortImpl.type = SortType.DESCENDING;
+			else
+			{
+				sortMethod( 0 );
+				sortImpl.type = SortType.DESCENDING;
+			}
+			return this;
+		}
+
+		public function sortOn( property:String ):ICollection
+		{
+		 	if ( sortImpl ) sortImpl.property = property;					
+			else
+			{
+				sortMethod( 0 );
+				sortImpl.property = property;
+			}
+			return this;
+		}
+
+		public function sortMethod( type:int = 0 ):ICollection
+		{
+			switch ( type )
+			{
+				case SortMethod.BUBBLE_SORT: sortImpl = new BubbleSort( _collection );
+											 break;	
+			}
+			return this;
+		}
+		
+		public function sort():ICollection
+		{
+			if ( sortImpl ) _collection = sortImpl.run();
+			else
+			{
+				sortMethod( 0 );
+				_collection = sortImpl.run();
+			}
+			return this;
+		}
+		
+		public function elapsedSortTime():Number
+		{
+			return sortImpl ? sortImpl.elapsed() : -1;
+		}	
+		
 		public function purge():void
 		{
 			_collection = null;
@@ -164,6 +227,7 @@ package com.wezside.data.collection
 			{
 				var item:* = it.next();	
 				str += item.toString();
+				if ( it.hasNext() ) str += ", ";
 			}
 			it.purge();
 			it = null;

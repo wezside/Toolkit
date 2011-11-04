@@ -163,5 +163,35 @@ package com.wezside.data.collection
 			it = null;			
 			return str;
 		}
+
+		public function ascending():ICollection
+		{
+			return null;
+		}
+
+		public function descending():ICollection
+		{
+			return null;
+		}
+
+		public function sortOn( property:String ):ICollection
+		{
+			return null;
+		}
+
+		public function elapsedSortTime():Number
+		{
+			return 0;
+		}
+
+		public function sortMethod( type:int = 0 ):ICollection
+		{
+			return null;
+		}
+
+		public function sort():ICollection
+		{
+			return null;
+		}
 	}
 }

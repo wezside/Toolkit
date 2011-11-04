@@ -6,13 +6,19 @@ UIElement. Read more on <a href="#uielement">UIElement</a> below. For Toolkit Co
 
 [Latest release](https://github.com/wezside/Toolkit/wiki/Latest-Release) 
 =======
-* Build 0.1.0291
-* Compiled with Flex 0.1.0291 SDK build 21328
+* Build 0.1.0292
+* Compiled with Flex 0.1.0292 SDK build 21328
 
 Documentation
 =============
 
 See the [Wiki](https://github.com/wezside/Toolkit/wiki) for all documentation.
+
+Change log since tag 0290
+=======
+
+* Sorting implemented for Collection 
+* Bubble sort implemented
 
 Change log since tag 0280
 =======
