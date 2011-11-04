@@ -21,6 +21,7 @@ package com.wezside.utilities.manager.style
 {
 	import flash.text.engine.FontDescription;
 	import flash.text.engine.ElementFormat;
+
 	import com.wezside.utilities.logging.Tracer;
 	import com.wezside.utilities.string.StringUtil;
 
@@ -132,12 +133,13 @@ package com.wezside.utilities.manager.style
 			}
 			return false;
 		}
-		
+
 		public function getClassByName( linkageClassName:String ):Class
 		{
 			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
 			{
-				if ( _libraryLoader.contentLoaderInfo.applicationDomain.hasDefinition( linkageClassName ) ) {
+				if ( _libraryLoader.contentLoaderInfo.applicationDomain.hasDefinition( linkageClassName ) )
+				{
 					var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
 					return SymbolClass;
 				}
@@ -150,22 +152,25 @@ package com.wezside.utilities.manager.style
 				}
 			}
 			throw new Error( "Unable to find library class " + linkageClassName );
-		}		
+		}
 
 		public function getAssetByName( linkageClassName:String ):DisplayObject
 		{
 			if ( _libraryLoader && _libraryLoader.contentLoaderInfo && _libraryLoader.contentLoaderInfo.applicationDomain )
 			{
-				var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
-				try
+				if ( hasAssetByName( linkageClassName ) )
 				{
-					return DisplayObject( new SymbolClass() );
-				}
-				catch ( error:Error )
-				{
-					var bmp:Bitmap = new Bitmap( new SymbolClass( 0, 0 ) as BitmapData );
-					bmp.smoothing = true;
-					return bmp;
+					var SymbolClass:Class = _libraryLoader.contentLoaderInfo.applicationDomain.getDefinition( linkageClassName ) as Class;
+					try
+					{
+						return DisplayObject( new SymbolClass() );
+					}
+					catch ( error:Error )
+					{
+						var bmp:Bitmap = new Bitmap( new SymbolClass( 0, 0 ) as BitmapData );
+						bmp.smoothing = true;
+						return bmp;
+					}
 				}
 			}
 			if ( hasOwnProperty( linkageClassName ) )
@@ -213,53 +218,31 @@ package com.wezside.utilities.manager.style
 			}
 			return props;
 		}
-		
+
 		/** 
-         * Reads a set of style properties for a named style and then creates 
-         * a TextFormat object that uses the same properties. 
-         */ 
-        public function getElementFormat( styleName:String ):ElementFormat 
-        { 
-            var style:Object = _sheet.getStyle( styleName ); 
-            if ( style != null ) 
-            { 
-                var colorStr:String = style.color; 
-                if ( colorStr != null && colorStr.indexOf( "#" ) == 0 ) 
-                { 
-                    style.color = colorStr.substr( 1 ); 
-                } 
-                var fd:FontDescription = new FontDescription( 
-                                    style.fontFamily, 
-                                    style.fontWeight, 
-                                    style.fontPosture, 
-                                    style.fontLookup, 
-                                    style.renderingMode, 
-                                    style.cffHinting ); 
-                var format:ElementFormat = new ElementFormat(fd, 
-                                      style.fontSize, 
-                                      style.color, 
-                                      1, 
-                                      style.textRotation, 
-                                      style.dominantBaseline, 
-                                      style.alignmentBaseline, 
-                                      style.baselineShift, 
-                                      style.kerning, 
-                                      style.trackingRight, 
-                                      style.trackingLeft, 
-                                      style.locale, 
-                                      style.breakOpportunity, 
-                                      style.digitCase, 
-                                      style.digitWidth, 
-                                      style.ligatureLevel, 
-                                      style.typographicCase ); 
-                 
-                if ( style.hasOwnProperty( "letterSpacing" ))         
-                {                  
-                    format.trackingRight = style.letterSpacing; 
-                } 
-            } 
-            return format; 
-        } 				
+		 * Reads a set of style properties for a named style and then creates 
+		 * a TextFormat object that uses the same properties. 
+		 */
+		public function getElementFormat( styleName:String ):ElementFormat
+		{
+			var style:Object = _sheet.getStyle( styleName );
+			if ( style != null )
+			{
+				var colorStr:String = style.color;
+				if ( colorStr != null && colorStr.indexOf( "#" ) == 0 )
+				{
+					style.color = colorStr.substr( 1 );
+				}
+				var fd:FontDescription = new FontDescription( style.fontFamily, style.fontWeight, style.fontPosture, style.fontLookup, style.renderingMode, style.cffHinting );
+				var format:ElementFormat = new ElementFormat( fd, style.fontSize, style.color, 1, style.textRotation, style.dominantBaseline, style.alignmentBaseline, style.baselineShift, style.kerning, style.trackingRight, style.trackingLeft, style.locale, style.breakOpportunity, style.digitCase, style.digitWidth, style.ligatureLevel, style.typographicCase );
+
+				if ( style.hasOwnProperty( "letterSpacing" ))
+				{
+					format.trackingRight = style.letterSpacing;
+				}
+			}
+			return format;
+		}
 
 		public function get css():String
 		{
