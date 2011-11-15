@@ -173,15 +173,16 @@ package com.wezside.component.decorator.scroll
 
 		private function thumbUp( event:MouseEvent ):void
 		{
-			if ( stage )
-				stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
+			if ( stage ) stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );	
 		}
 
 		private function thumbDown( event:MouseEvent ):void
 		{
-			if ( !stage.hasEventListener( MouseEvent.MOUSE_MOVE ))
+			if ( stage )
+			{
+				stage.removeEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
 				stage.addEventListener( MouseEvent.MOUSE_MOVE, thumbMove );
-
+			}
 			yOffset = int( mouseY - thumb.y );
 		}
 
