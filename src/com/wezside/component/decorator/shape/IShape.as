@@ -71,6 +71,9 @@ package com.wezside.component.decorator.shape
 					
 		function get autoDetectHeight():Boolean;
 		function set autoDetectHeight( value:Boolean ):void;
+		
+		function get gradientAngle():Number;
+		function set gradientAngle( value:Number ):void;
 					
 		function draw():void
 		function clear():void

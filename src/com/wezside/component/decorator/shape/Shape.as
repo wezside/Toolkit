@@ -55,13 +55,14 @@ package com.wezside.component.decorator.shape
 		private var _xOffset:int = 0;
 		private var _yOffset:int = 0;
 		private var _ratios:Array = [ 0, 255 ];
+		private var _autoDetectHeight:Boolean;
+		private var _autoDetectWidth:Boolean;
+		private var _gradientAngle:Number = 90 / 180 * Math.PI;
 
 		protected var states:StateManager;
 		protected var decorated:IUIDecorator;
 		
 		public var graphicsEx:GraphicsEx;
-		private var _autoDetectHeight:Boolean;
-		private var _autoDetectWidth:Boolean;
 
 		/**
 		 * Determine what properties the decorated has and update the state
@@ -266,6 +267,16 @@ package com.wezside.component.decorator.shape
 		public function set autoDetectHeight( value:Boolean ):void
 		{
 			_autoDetectHeight = value;
+		}
+		
+		public function get gradientAngle():Number
+		{
+			return _gradientAngle;
+		}
+		
+		public function set gradientAngle( value:Number ):void
+		{
+			_gradientAngle = value;
 		}
 
 		public function get state():String

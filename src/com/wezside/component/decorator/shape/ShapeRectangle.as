@@ -120,7 +120,7 @@ package com.wezside.component.decorator.shape
 			}
 				
 			var matrix:Matrix = new Matrix();
-			matrix.createGradientBox( width, height, 90 / 180 * Math.PI );
+			matrix.createGradientBox( width, height, gradientAngle );
 
 			if ( borderThickness > 0 )
 				graphicsEx.lineStyle( borderThickness, borderColor, borderAlpha, true );
